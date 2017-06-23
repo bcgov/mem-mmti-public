@@ -1,0 +1,9 @@
+<div *ngIf="results" class="list-group table-of-contents">
+	<div *ngFor="let p of results">
+		<!-- <div class="col-md-12">{{p._id}}</div> -->
+		<!-- <div class="list-group-item">{{p.name}}</div> -->
+		<div class="list-group-item"><a href="https://projects.eao.gov.bc.ca/p/{{p.code}}/detail">{{p.name}}</a></div>
+		<!-- <div class="col-md-12">{{p.code}}</div> -->
+		<!-- <div class="col-md-12">{{p.description}}</div> -->
+	</div>
+</div>

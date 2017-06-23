@@ -1,0 +1,62 @@
+<div id="wrap">
+	<header>
+		<div class="container">
+			<a href="http://www2.gov.bc.ca/" tabindex="-1">
+				<img class="header-logo"
+				tabindex="-1" alt="B.C. Government Logo"
+				class="app-brand-img" src="https://projects.eao.gov.bc.ca/modules/core/client/img/brand/eao-banner-img-lg.png">
+			</a>
+			<!-- <span class="title" role="banner">Environmental Assessment Office</span> -->
+		</div>
+	</header>
+	
+	<main class="container">
+		<div class="page-header" id="banner">
+			<div class="row">
+				<div class="col-lg-8 col-md-7 col-sm-6">
+					<!-- <h1>Environmental Assessment Office</h1> -->
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<div id="pad">
+		<nav>
+			<ul>
+				<li><a href="/" [routerLink]="['/']">Home</a></li>
+				<li><a href="/project" [routerLink]="['/project']">Project</a></li>
+				<li><a href="/news" [routerLink]="['/news']">News</a></li>
+			</ul>
+		</nav>
+
+
+		<div class="container">
+			<router-outlet>
+				<div *ngIf="recentNews">
+					<h1>Recent News</h1>
+					<div class="list-group table-of-contents">
+						<div *ngFor="let p of recentNews" class="list-group-item">
+							<!-- <div class="list-group-item">{{p.id}}</div> -->
+							<div class="">{{p.headline}}</div>
+						</div>
+					</div>
+				</div>
+			</router-outlet>
+		</div>
+	</div>
+
+</div>
+
+<footer class="bottom-nav-fixed">
+	<nav class="navbar navbar-default navbar-footer navbar-static-bottom">
+		<div class="container">
+			<ul class="nav navbar-nav">
+				<li><a href="http://www2.gov.bc.ca/com/disclaimer.html" target="_blank">Disclaimer</a></li>
+				<li><a href="http://www2.gov.bc.ca/com/privacy.html" target="_blank">Privacy</a></li>
+				<li><a href="http://www2.gov.bc.ca/com/accessibility.html" target="_blank">Accessibility</a></li>
+				<li><a href="http://www2.gov.bc.ca/com/copyright.html" target="_blank">Copyright</a></li>
+				<li><a href="http://www.eao.gov.bc.ca/contact_us.html" target="_blank">Contact Us</a></li>
+				</ul>
+			</div>
+		</nav>
+	</footer>
