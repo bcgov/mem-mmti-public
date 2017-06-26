@@ -38,12 +38,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let p of results">
+                <tr *ngFor="let item of results | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td colspan="2">
-                        <h3>{{p.headline}}</h3>
-                        <p>{{p.desc}}</p>
+                        <h3>{{item.headline}}</h3>
+                        <p>{{item.desc}}</p>
                     </td>
                 </tr>
+                <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+                <pagination-controls
+                    (pageChange)="p = $event"
+                    maxSize="9"
+                    directionLinks="true"
+                    autoHide="true"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page"
+                    >
+                </pagination-controls>
             </tbody>
         </table>
 	</div>

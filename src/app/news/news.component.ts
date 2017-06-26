@@ -9,11 +9,16 @@ import {NewsService} from '../services/news.service';
 })
 export class NewsComponent implements OnInit {
 	results: Array<News>;
+  loading: boolean;
   constructor(private newsService: NewsService) { }
 
   ngOnInit() {
+    this.loading = true;
   	this.newsService.getAll().subscribe(
-      data => { this.results = data; },
+      data => {
+        this.results = data;
+        this.loading = false;
+      },
       error => console.log(error)
     );
   }
