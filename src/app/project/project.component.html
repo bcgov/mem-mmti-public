@@ -16,7 +16,7 @@
 		<div class="filter-bar mb-4">
 			<div class="filter-input-row filters-basic">
 				<div class="form-group">
-					<input class="form-control" placeholder="Type a Project Name" type="text">
+					<input class="form-control" placeholder="Type a Project Name" [(ngModel)]="filter" type="text">
 				</div>
 				<button class="toggle-filter-btn btn btn-default btn-sm" (click)="toggleProjectListFilters()">
 					<span ng-if="showProjectListFilters == false"><span class="btn-txt">Show Filters</span><i class="material-icons">keyboard_arrow_down</i></span>
@@ -25,9 +25,6 @@
 					-->
 				</button>
 			</div>
-
-			<!-- TODO: PUT FILTERS HERE -->
-
 		</div>
 
 		<table class="table">
@@ -39,7 +36,7 @@
 				</tr>
 			</thead>
 			<tbody>
-                  <tr *ngFor="let item of results | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <tr *ngFor="let item of results | objectFilter: filter | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td><a href="https://projects.eao.gov.bc.ca/p/{{item.code}}/detail">{{item.name}}</a></td>
                     <td>{{item.type}}</td>
                     <td>{{item.status}}</td>

@@ -10,6 +10,7 @@ import {ProjectService} from '../services/project.service';
 export class ProjectComponent implements OnInit {
 	results: Array<Project>;
   loading: boolean;
+  public filter: object = null;
   constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
