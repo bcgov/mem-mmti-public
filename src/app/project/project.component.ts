@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Project} from '../models/project';
 import {ProjectService} from '../services/project.service';
 import {PaginationInstance} from 'ngx-pagination';
@@ -11,15 +11,15 @@ import {PaginationInstance} from 'ngx-pagination';
 })
 export class ProjectComponent implements OnInit {
 	results: Array<Project>;
-  loading: boolean;
-  public filter: object = null;
+  public loading: boolean;
+  public filter: string = '';
   public config: PaginationInstance = {
       id: 'custom',
       itemsPerPage: 10,
       currentPage: 1
   };
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private _changeDetectionRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loading = true;
@@ -27,6 +27,8 @@ export class ProjectComponent implements OnInit {
       data => {
         this.results = data;
         this.loading = false;
+        // Needed in development mode - not required in prod.
+        this._changeDetectionRef.detectChanges();
       },
       error => console.log(error)
     );

@@ -1,3 +1,7 @@
+<div class="spinner-container" *ngIf="loading">
+    <div class="spinner-new rotating"></div>
+</div>
+
 <div class="hero-banner hb-sm">
 	<div class="container">
 		<div class="container-inner">
@@ -19,14 +23,8 @@
 				</div>
 				<button class="toggle-filter-btn btn btn-default btn-sm" (click)="toggleProjectListFilters()">
 					<span ng-if="showProjectListFilters == false"><span class="btn-txt">Show Filters</span><i class="material-icons">keyboard_arrow_down</i></span>
-					<!--
-					<span ng-if="showProjectListFilters == true"><span class="btn-txt">Hide Filters</span><i class="material-icons">keyboard_arrow_up</i></span>
-					-->
 				</button>
 			</div>
-
-			<!-- TODO: PUT FILTERS HERE -->
-
 		</div>
 
 		<table class="table">
@@ -45,8 +43,8 @@
                 </tr>
 
 				<pagination-template #p="paginationApi"
-                    (pageChange)="config.currentPage = $event"
-					[id]="config.id">
+                    [id]="config.id"
+                    (pageChange)="config.currentPage = $event">
 
 					<div class="custom-pagination">
 						<div class="pagination-previous" [class.disabled]="p.isFirstPage()">
@@ -68,13 +66,7 @@
 					</div>
 
 				</pagination-template>
-				
-				<!--
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-				-->
-
 			</tbody>
 		</table>
-
 	</div>
 </section>
