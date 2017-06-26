@@ -14,7 +14,7 @@
 		<div class="collapse navbar-collapse" id="mainNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="/" [routerLink]="['/']"><span>Home</span></a>
+					<a class="nav-link" href="/home" [routerLink]="['/home']"><span>Home</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/project" [routerLink]="['/project']"><span>Find EA Projects</span></a>
@@ -62,7 +62,7 @@
 <router-outlet>
 	
 	<!--
-	<div *ngIf="!recentNews">
+	<div *ngIf="!home">
 		<h1>Recent News</h1>
 		<div class="list-group table-of-contents">
 			<div *ngFor="let p of recentNews" class="list-group-item">

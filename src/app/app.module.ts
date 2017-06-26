@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 import { ProjectComponent } from './project/project.component';
 import { NewsComponent } from './news/news.component';
 import { ObjectFilterPipe } from './object-filter.pipe';
@@ -14,6 +15,7 @@ import { ObjectFilterPipe } from './object-filter.pipe';
 @NgModule({
 	declarations: [
 	AppComponent,
+	HomeComponent,
 	ProjectComponent,
 	NewsComponent,
 	ObjectFilterPipe

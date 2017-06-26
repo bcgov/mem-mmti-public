@@ -1,0 +1,24 @@
+
+$pgn-btn-bg: #eee;
+$pgn-btn-active-bg: #5091cd;
+$pgn-btn-active-color: #fff;
+$pgn-btn-border: 1px solid #ccc;
+$pgn-btn-color: #000;
+
+pagination-template {
+    display: block;
+}
+
+.ngx-pagination {
+    li {
+        a {
+            padding: 1rem;
+        }
+    }
+
+    .current {
+        div {
+            padding: 1rem;
+        }
+    }
+}

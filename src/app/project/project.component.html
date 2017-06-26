@@ -1,4 +1,8 @@
 
+<div class="spinner-container" *ngIf="!results">
+	<div class="spinner-new rotating"></div>
+</div>
+
 <div class="hero-banner hb-sm">
 	<div class="container">
 		<div class="container-inner">
@@ -16,7 +20,7 @@
 		<div class="filter-bar mb-4">
 			<div class="filter-input-row filters-basic">
 				<div class="form-group">
-					<input class="form-control" placeholder="Type a Project Name" [(ngModel)]="filter" type="text">
+					<input class="form-control" placeholder="Type a Project Name" type="text" [(ngModel)]="filter">
 				</div>
 				<button class="toggle-filter-btn btn btn-default btn-sm" (click)="toggleProjectListFilters()">
 					<span ng-if="showProjectListFilters == false"><span class="btn-txt">Show Filters</span><i class="material-icons">keyboard_arrow_down</i></span>
@@ -25,6 +29,9 @@
 					-->
 				</button>
 			</div>
+
+			<!-- TODO: PUT FILTERS HERE -->
+
 		</div>
 
 		<table class="table">
@@ -36,24 +43,41 @@
 				</tr>
 			</thead>
 			<tbody>
-                  <tr *ngFor="let item of results | objectFilter: filter | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <tr *ngFor="let item of results | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td><a href="https://projects.eao.gov.bc.ca/p/{{item.code}}/detail">{{item.name}}</a></td>
                     <td>{{item.type}}</td>
                     <td>{{item.status}}</td>
                 </tr>
-                <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
-                <pagination-controls
-                    (pageChange)="p = $event"
-                    maxSize="9"
-                    directionLinks="true"
-                    autoHide="true"
-                    previousLabel="Previous"
-                    nextLabel="Next"
-                    screenReaderPaginationLabel="Pagination"
-                    screenReaderPageLabel="page"
-                    screenReaderCurrentLabel="You're on page"
-                    >
-                </pagination-controls>
+
+				<pagination-template #p="paginationApi"
+                    (pageChange)="p.currentPage = $event"
+					[id]="p.id">
+
+					<div class="custom-pagination">
+						<div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+							<a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
+						</div>
+
+						<div *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+							<a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+								<span>{{ page.label }}</span>
+							</a>
+							<div *ngIf="p.getCurrent() === page.value">
+								<span>{{ page.label }}</span>
+							</div>
+						</div>
+
+						<div class="pagination-next" [class.disabled]="p.isLastPage()">
+							<a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
+						</div>
+					</div>
+
+				</pagination-template>
+				
+				<!--
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+				-->
+
 			</tbody>
 		</table>
 
