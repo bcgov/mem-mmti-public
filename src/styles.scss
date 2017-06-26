@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~mygovbc-bootstrap-theme/dist/mygovbc-bootstrap-theme.min.css";
+//@import "~mygovbc-bootstrap-theme/dist/mygovbc-bootstrap-theme.min.css";
+
+// Helpers
+@import "assets/styles/helpers/mixins.scss";
+@import "assets/styles/helpers/typekit.scss";
+
+// Theme
+@import "assets/styles/themes/default.scss";
+@import "assets/styles/themes/typography.scss";
+
+// Layout
+@import "assets/styles/header.scss";
+@import "assets/styles/footer.scss";
+@import "assets/styles/layout.scss";
+
+// Components
+@import "assets/styles/components/buttons.scss";
+@import "assets/styles/components/filter-bar.scss";
+@import "assets/styles/components/form-elements.scss";
+@import "assets/styles/components/hero-banner.scss";
+@import "assets/styles/components/material-icons.scss";
+@import "assets/styles/components/table.scss";

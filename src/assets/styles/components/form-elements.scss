@@ -1,0 +1,51 @@
+
+// Default State
+$form-control-height: 2.75rem;
+$form-control-border-color: #ddd;
+$form-control-bg: #fff;
+$form-control-inner-shadow: 0.1rem 0.1rem 0.1rem #EEE;
+$form-control-placeholder-color: #ccc;
+
+// Focus State
+$form-control-focus-border-color: #5091cd;
+
+.form-control {
+	border-color: $form-control-border-color;
+    background: $form-control-bg;
+    font-size: 0.9375rem;
+
+	&:focus {
+		border-color: $form-control-focus-border-color;
+	}
+}
+
+input[type="text"] {
+	@include placeholder {
+		color: $form-control-placeholder-color
+	}
+	height: $form-control-height;
+	padding: 0.75rem;
+	box-shadow: $form-control-inner-shadow inset;
+}
+
+input[type="email"] {
+	@include placeholder {
+		color: $form-control-placeholder-color;
+	}
+	height: $form-control-height;
+	padding: 0.75rem;
+}
+
+select.form-control:not([size]):not([multiple]) {
+	height: $form-control-height;
+	padding: 0 0.5rem;
+}
+
+textarea {
+	@include placeholder {
+		color: $form-control-placeholder-color;
+	}
+	font-size: 0.9375rem;
+	resize: vertical;
+	box-shadow: $form-control-inner-shadow inset;
+}
