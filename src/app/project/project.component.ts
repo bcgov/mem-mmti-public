@@ -13,7 +13,7 @@ export class ProjectComponent implements OnInit {
 	results: Array<Project>;
   loading: boolean;
   public filter: object = null;
-  public p: PaginationInstance = {
+  public config: PaginationInstance = {
       id: 'custom',
       itemsPerPage: 10,
       currentPage: 1

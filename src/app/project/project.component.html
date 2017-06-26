@@ -1,8 +1,3 @@
-
-<div class="spinner-container" *ngIf="!results">
-	<div class="spinner-new rotating"></div>
-</div>
-
 <div class="hero-banner hb-sm">
 	<div class="container">
 		<div class="container-inner">
@@ -43,15 +38,15 @@
 				</tr>
 			</thead>
 			<tbody>
-                  <tr *ngFor="let item of results | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <tr *ngFor="let item of results | objectFilter: filter | paginate: config">
                     <td><a href="https://projects.eao.gov.bc.ca/p/{{item.code}}/detail">{{item.name}}</a></td>
                     <td>{{item.type}}</td>
                     <td>{{item.status}}</td>
                 </tr>
 
 				<pagination-template #p="paginationApi"
-                    (pageChange)="p.currentPage = $event"
-					[id]="p.id">
+                    (pageChange)="config.currentPage = $event"
+					[id]="config.id">
 
 					<div class="custom-pagination">
 						<div class="pagination-previous" [class.disabled]="p.isFirstPage()">
