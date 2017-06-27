@@ -11,6 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { ProjectComponent } from './project/project.component';
 import { NewsComponent } from './news/news.component';
 import { ObjectFilterPipe } from './object-filter.pipe';
+import { LegislationComponent } from './legislation/legislation.component';
+import { ProcessComponent } from './process/process.component';
+import { ComplianceOversightComponent } from './compliance-oversight/compliance-oversight.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
 	declarations: [
@@ -18,7 +22,11 @@ import { ObjectFilterPipe } from './object-filter.pipe';
 	HomeComponent,
 	ProjectComponent,
 	NewsComponent,
-	ObjectFilterPipe
+	ObjectFilterPipe,
+	LegislationComponent,
+	ProcessComponent,
+	ComplianceOversightComponent,
+	ContactComponent
 	],
 	imports: [
 	BrowserModule,

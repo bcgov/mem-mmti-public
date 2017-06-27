@@ -53,7 +53,6 @@
 				<li class="page-item" *ngIf="!p.isFirstPage()">
 					<a class="page-link" (click)="p.previous()"> < </a>
 				</li>
-
 				<li class="page-item" *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
 					<a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
 						<span>{{ page.label }}</span>
@@ -62,9 +61,8 @@
 						<span class="page-link">{{ page.label }}</span>
 					</div>
 				</li>
-
 				<li class="page-item" *ngIf="!p.isLastPage()">
-					<a class="page-link" (click)="p.next()" href="#pageTop"> > </a>
+					<a class="page-link" (click)="p.next()"> > </a>
 				</li>
 			</ul>
 		</pagination-template>
