@@ -10,11 +10,6 @@ import { NewsComponent } from 'app/news/news.component';
 
 const routes: Routes = [
   {
-    path: '', 
-    redirectTo: '/home', 
-    pathMatch: 'full'
-  },
-  {
     path: 'compliance-oversight',
     component: ComplianceOversightComponent
   },
@@ -23,7 +18,7 @@ const routes: Routes = [
     component: ContactComponent
   },
   {
-    path: 'home',
+    path: '',
     component: HomeComponent
   },
   {

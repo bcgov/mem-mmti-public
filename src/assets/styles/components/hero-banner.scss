@@ -1,7 +1,7 @@
 
 // Banner
 .hero-banner {
-    background-image: url("/modules/core/client/images/eao-temp-banner-V3.jpg");
+    background-image: url("assets/images/hero-banner-placeholder.jpg");
     background-repeat: no-repeat;
 
     //&.banner-sample-1 {
@@ -77,16 +77,16 @@
 
 @media (min-width: 1020px) {
     .hero-banner {
-        background-position: center -1rem;
+        background-position: center;
         background-size: 130%;
     }
 }
 
 @media (min-width: 1200px) {
     .hero-banner {
-        background-position: center -2rem;
+        background-position: center;
         background-repeat: no-repeat;
-        background-size: 150%;
+        background-size: 125%;
 
         .container {
             padding-left: 0;
