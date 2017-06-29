@@ -41,8 +41,7 @@
             "name": "${NAME}:latest"
           }
         },
-        "resources": {},
-        "postCommit": {}
+        "resources": {}
       },
       "status": {
         "lastVersion": 0
