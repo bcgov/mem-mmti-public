@@ -4,7 +4,27 @@ pipeline {
         nodejs 'NodeJS-V8.x'
     }
     stages {
-        stage('build nginx container'){
+        stage('build eao-public-builder'){
+            steps {
+                openshiftBuild(bldCfg: 'eao-public-builder', showBuildLogs: 'true')
+            }
+        }
+        stage('tag eao-public-builder'){
+            steps {
+                openshiftTag(srcStream: 'eao-public-builder', srcTag: 'latest', destStream: 'eao-public-builder', destTag: 'dev')
+            }
+        }
+        stage('build eao-public-nginx'){
+            steps {
+                openshiftBuild(bldCfg: 'eao-public-nginx', showBuildLogs: 'true')
+            }
+        }
+        stage('tag eao-public-nginx'){
+            steps {
+                openshiftTag(srcStream: 'eao-public-nginx', srcTag: 'latest', destStream: 'eao-public-nginx', destTag: 'dev')
+            }
+        }
+       stage('build and package angular+nginx'){
             steps {
                 openshiftBuild(bldCfg: 'eao-public-angular-on-nginx-build-build', showBuildLogs: 'true')
             }
