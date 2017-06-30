@@ -92,7 +92,7 @@ Generate a module called admin and add routing feature to it.
 1. `ng test` by default to watch file changes
 
 ### End-to-end tests
-    Set up with Protractor
+Set up with Protractor
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
 
