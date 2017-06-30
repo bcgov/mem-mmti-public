@@ -142,4 +142,5 @@ Jenkins out-of-the-box needs some additional setup.
 1. Navigate to jenkins web site by looking in your Routes in made for Jenkins
 1. Upgrade all the plugins in Jenkins
 1. Add the `GitHub` plugin
-
+1. Add the `NodeJS` plugin
+1. After installing the plugin, go to the global jenkins configuration panel (JENKINS_URL/configure or JENKINS_URL/configureTools if using jenkins 2), and add new NodeJS installations.  See (https://wiki.jenkins.io/display/JENKINS/NodeJS+Plugin) for more information on what exactly to do.  Your Name of installed node must match the name in the Jenkins file where it declares the tools section.  EG: 'NodeJS-V8.x'
