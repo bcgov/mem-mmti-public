@@ -4,14 +4,14 @@ pipeline {
         nodejs 'NodeJS-V8.x'
     }
     stages {
-        stage('buildOnOpenShift'){
+        stage('build nginx container'){
             steps {
                 openshiftBuild(bldCfg: 'eao-public-angular-on-nginx-build-build', showBuildLogs: 'true')
             }
         }
-        stage('deploy') {
+        stage('tag and deploy to dev') {
             steps {
-                openshiftDeploy(depCfg: 'eao-public-angular-on-nginx-build', namespace: 'esm-dev')
+                openshiftTag(srcStream: 'eao-public-angular-on-nginx-build', srcTag: 'latest', destStream: 'eao-public-angular-on-nginx-build', destTag: 'dev')
             }
         }
     }
