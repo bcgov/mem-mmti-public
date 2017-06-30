@@ -6,12 +6,12 @@ pipeline {
     stages {
         stage('buildOnOpenShift'){
             steps {
-                openshiftBuild(bldCfg: '${NAME}', showBuildLogs: 'true')
+                openshiftBuild(bldCfg: 'eao-public-angular-on-nginx-build-build', showBuildLogs: 'true')
             }
         }
         stage('deploy') {
             steps {
-                openshiftDeploy(depCfg: '${NAME}')
+                openshiftDeploy(depCfg: 'eao-public-angular-on-nginx-build', namespace: 'esm-dev')
             }
         }
     }
