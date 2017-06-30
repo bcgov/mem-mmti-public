@@ -4,20 +4,14 @@ pipeline {
         nodejs 'NodeJS-V8.x'
     }
     stages {
-        stage("Checkout") {
+        stage('buildOnOpenShift'){
             steps {
-                checkout scm
+                openshiftBuild(bldCfg: '${NAME}', showBuildLogs: 'true')
             }
         }
-        stage('Install') {
+        stage('deploy') {
             steps {
-
-                sh 'npm install'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'npm run build'
+                openshiftDeploy(depCfg: '${NAME}')
             }
         }
     }
