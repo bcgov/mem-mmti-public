@@ -26,6 +26,7 @@ export class AppComponent {
 		} else {
 			this.recentNews = null;
 		}
+		document.body.scrollTop = 0;
 	});
   	
   }

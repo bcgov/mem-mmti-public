@@ -73,14 +73,13 @@
 			</ul>
 		</nav>
 
-
 		<div class="container">
 			<router-outlet>
 				<div *ngIf="recentNews">
 					<h1>Recent News</h1>
 					<div class="list-group table-of-contents">
 						<div *ngFor="let p of recentNews" class="list-group-item">
-							 <div class="list-group-item">{{p.id}}</div>
+							<div class="list-group-item">{{p.id}}</div>
 							<div class="">{{p.headline}}</div>
 						</div>
 					</div>
@@ -89,7 +88,6 @@
 		</div>
 	</div>
 	-->
-
 
 <footer>
 	<div class="container">
