@@ -4,34 +4,34 @@ pipeline {
         nodejs 'NodeJS-V8.x'
     }
     stages {
-        stage('build eao-public-builder'){
+        stage('build angular-builder'){
             steps {
-                openshiftBuild(bldCfg: 'eao-public-builder', showBuildLogs: 'true')
+                openshiftBuild(bldCfg: 'angular-builder', showBuildLogs: 'true')
             }
         }
-        stage('tag eao-public-builder'){
+        stage('tag angular-builder'){
             steps {
-                openshiftTag(srcStream: 'eao-public-builder', srcTag: 'latest', destStream: 'eao-public-builder', destTag: 'dev')
+                openshiftTag(srcStream: 'angular-builder', srcTag: 'latest', destStream: 'angular-builder', destTag: 'dev')
             }
         }
-        stage('build eao-public-nginx'){
+        stage('build nginx-runtime'){
             steps {
-                openshiftBuild(bldCfg: 'eao-public-nginx', showBuildLogs: 'true')
+                openshiftBuild(bldCfg: 'nginx-runtime', showBuildLogs: 'true')
             }
         }
-        stage('tag eao-public-nginx'){
+        stage('tag nginx-runtime'){
             steps {
-                openshiftTag(srcStream: 'eao-public-nginx', srcTag: 'latest', destStream: 'eao-public-nginx', destTag: 'dev')
+                openshiftTag(srcStream: 'nginx-runtime', srcTag: 'latest', destStream: 'nginx-runtime', destTag: 'dev')
             }
         }
-       stage('build and package angular+nginx'){
+       stage('build and package angular-on-nginx-build-build'){
             steps {
-                openshiftBuild(bldCfg: 'eao-public-angular-on-nginx-build-build', showBuildLogs: 'true')
+                openshiftBuild(bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true')
             }
         }
         stage('tag and deploy to dev') {
             steps {
-                openshiftTag(srcStream: 'eao-public-angular-on-nginx-build', srcTag: 'latest', destStream: 'eao-public-angular-on-nginx-build', destTag: 'dev')
+                openshiftTag(srcStream: 'angular-on-nginx-build-build', srcTag: 'latest', destStream: 'angular-on-nginx-build-build', destTag: 'dev')
             }
         }
     }
