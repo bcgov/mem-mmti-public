@@ -26,7 +26,7 @@ pipeline {
         }
        stage('build and package angular-on-nginx-build'){
             steps {
-                openshiftBuild(bldCfg: 'angular-on-nginx-build', showBuildLogs: 'true')
+                openshiftBuild(bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true')
             }
         }
         stage('tag and deploy to dev') {
