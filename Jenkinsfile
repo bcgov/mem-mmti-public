@@ -24,14 +24,14 @@ pipeline {
                 openshiftTag(srcStream: 'nginx-runtime', srcTag: 'latest', destStream: 'nginx-runtime', destTag: 'dev')
             }
         }
-       stage('build and package angular-on-nginx-build-build'){
+       stage('build and package angular-on-nginx-build'){
             steps {
-                openshiftBuild(bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true')
+                openshiftBuild(bldCfg: 'angular-on-nginx-build', showBuildLogs: 'true')
             }
         }
         stage('tag and deploy to dev') {
             steps {
-                openshiftTag(srcStream: 'angular-on-nginx-build-build', srcTag: 'latest', destStream: 'angular-on-nginx-build-build', destTag: 'dev')
+                openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'latest', destStream: 'angular-on-nginx-build', destTag: 'dev')
             }
         }
     }
