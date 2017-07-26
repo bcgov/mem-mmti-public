@@ -43,13 +43,13 @@
 						aria-expanded="false"><span>Our Processes & Procedures</span><span class="caret"></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="processAndProcedures">
-						<a class="dropdown-item" href="">
+						<a class="dropdown-item" href="/legislation" [routerLink]="['/legislation']">
 							<strong>Legislation</strong>
 							<span class="dd-item-desc">Learn about the key statutes and regulations that apply to mining activities in British Columbia.</span></a>
-						<a class="dropdown-item" href="">
+						<a class="dropdown-item" href="/authorizations" [routerLink]="['/authorizations']">
 							<strong>Authorizations</strong>
 							<span class="dd-item-desc">Environmental assessment certificates and permits issued under the Mines Act and Environmental Management Act.</span></a>
-						<a class="dropdown-item" href="">
+						<a class="dropdown-item" href="/compliance-oversight" [routerLink]="['/compliance-oversight']">
 							<strong>Compliance Oversight</strong>
 							<span class="dd-item-desc">Several provincial agencies work together to provide integrated oversight of British Columbia’s mines.</span></a>
 					</div>
@@ -91,13 +91,13 @@
 					<h5>Our Processes &amp; Procedures</h5>
 					<ul class="mb-0">
 						<li>
-							<a href="">Legislation</a>
+							<a href="/legislation" [routerLink]="['/legislation']">Legislation</a>
 						</li>
 						<li>
-							<a href="">Authorizations</a>
+							<a href="/authorizations" [routerLink]="['/authorizations']">Authorizations</a>
 						</li>
 						<li>
-							<a href="">Compliance Oversight</a>
+							<a href="/compliance-oversight" [routerLink]="['/compliance-oversight']">Compliance Oversight</a>
 						</li>
 					</ul>
 				</section>
@@ -145,3 +145,5 @@
 		</div>
 	</div>
 </footer>
+
+<button class="btn scroll-top-btn" (click)="scrollToTop()"><i class="material-icons">arrow_upward</i></button>

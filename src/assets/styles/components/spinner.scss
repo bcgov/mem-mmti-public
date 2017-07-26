@@ -13,7 +13,7 @@ $spinner-invert-bg: rgba(0,0,0,0.8);
 	height: 50px;
 	margin-top: calc(-#{$spinner-width} / 1.5);
 	margin-left: calc(-#{$spinner-width} / 2);
-	background-image: url("assets/images/spinner.png")
+	background-image: url("~assets/images/spinner.png")
 }
 
 .spinner-container {
@@ -32,7 +32,7 @@ $spinner-invert-bg: rgba(0,0,0,0.8);
 		background: $spinner-invert-bg;
 
 		.spinner-new {
-			background-image: url("assets/images/spinner-inverted.png")		
+			background-image: url("~assets/images/spinner-inverted.png")		
 		}
 	}
 

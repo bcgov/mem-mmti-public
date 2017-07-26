@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthorizationsComponent } from 'app/authorizations/authorizations.component';
 import { ComplianceOversightComponent } from 'app/compliance-oversight/compliance-oversight.component';
 import { ContactComponent } from 'app/contact/contact.component';
 import { HomeComponent } from 'app/home/home.component';
@@ -9,6 +10,10 @@ import { ProjectComponent } from 'app/project/project.component';
 import { NewsComponent } from 'app/news/news.component';
 
 const routes: Routes = [
+  {
+    path: 'authorizations',
+    component: AuthorizationsComponent
+  },
   {
     path: 'compliance-oversight',
     component: ComplianceOversightComponent
