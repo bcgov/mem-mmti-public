@@ -16,158 +16,132 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/" [routerLink]="['/']" tabindex="1"><span>Home</span></a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/project" [routerLink]="['/project']" tabindex="2"><span>Find EA Projects</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/news" [routerLink]="['/news']" tabindex="3"><span>Activities & Updates</span></a>
-				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="aboutMMTI" tabindex="4"
+					<a class="nav-link dropdown-toggle" id="miningInBC" tabindex="4"
 						data-toggle="dropdown" 
 						aria-haspopup="true" 
-						aria-expanded="false"><span>The EA Process</span><span class="caret"></span>
+						aria-expanded="false"><span>Mining in British Columbia</span><span class="caret"></span>
 					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="aboutMMTI">
-						<a class="dropdown-item" href="/legislation" [routerLink]="['/legislation']" tabindex="5">
-							<strong>Legislation</strong>
-							<span class="dd-item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="miningInBC">
+						<a class="dropdown-item" href="" tabindex="0">
+							<strong>The Mining Lifecycle</strong>
+							<span class="dd-item-desc">It can take decades to develop a deposit into a mine, which in turn can operate for decades.</span>
 						</a>
-						<a class="dropdown-item" href="/process" [routerLink]="['/process']" tabindex="6">
-							<strong>Process & Procedures</strong>
-							<span class="dd-item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+						<a class="dropdown-item" href="">
+							<strong>Topics of Interest</strong>
+							<span class="dd-item-desc">Tailings Management, Water Quality, Reclamation</span>
 						</a>
-						<a class="dropdown-item" href="/compliance-oversight" [routerLink]="['/compliance-oversight']" tabindex="7">
-							<strong>Compliance Oversight</strong>
-							<span class="dd-item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-						</a>
+						<a class="dropdown-item" href="">
+							<strong>Find Mines in BC</strong>
+							<span class="dd-item-desc">The BC Mine Information website’s interactive map currently includes 15 mine sites.</span></a>
 					</div>
 				</li>
-				<!--
-				<li class="nav-item">
-					<a class="nav-link" ui-sref="guidance"><span>Support</span></a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="processAndProcedures" tabindex="4"
+						data-toggle="dropdown" 
+						aria-haspopup="true" 
+						aria-expanded="false"><span>Our Processes & Procedures</span><span class="caret"></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="processAndProcedures">
+						<a class="dropdown-item" href="">
+							<strong>Legislation</strong>
+							<span class="dd-item-desc">Learn about the key statutes and regulations that apply to mining activities in British Columbia.</span></a>
+						<a class="dropdown-item" href="">
+							<strong>Authorizations</strong>
+							<span class="dd-item-desc">Environmental assessment certificates and permits issued under the Mines Act and Environmental Management Act.</span></a>
+						<a class="dropdown-item" href="">
+							<strong>Compliance Oversight</strong>
+							<span class="dd-item-desc">Several provincial agencies work together to provide integrated oversight of British Columbia’s mines.</span></a>
+					</div>
 				</li>
-				-->
 				<li class="nav-item">
-					<a class="nav-link" href="/contact" [routerLink]="['/contact']"><span>Contact</span></a>
-				</li>
-				<li class="nav-item user-menu">
-					<a class="nav-link" href="https://projects.eao.gov.bc.ca/authentication/local/signin" target="_blank"><span>Sign in</span></a>
+					<a class="nav-link" href="#"><span>Connect With Us</span></a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 </header>
 	
-<router-outlet>
-	
-</router-outlet>
-
-	<!--
-	<div id="pad">
-		<nav>
-			<ul>
-				<li><a href="/" [routerLink]="['/']">Home</a></li>
-				<li><a href="/project" [routerLink]="['/project']">Project</a></li>
-				<li><a href="/news" [routerLink]="['/news']">News</a></li>
-			</ul>
-		</nav>
-
-		<div class="container">
-			<router-outlet>
-				<div *ngIf="recentNews">
-					<h1>Recent News</h1>
-					<div class="list-group table-of-contents">
-						<div *ngFor="let p of recentNews" class="list-group-item">
-							<div class="list-group-item">{{p.id}}</div>
-							<div class="">{{p.headline}}</div>
-						</div>
-					</div>
-				</div>
-			</router-outlet>
-		</div>
-	</div>
-	-->
+<router-outlet></router-outlet>
 
 <footer>
 	<div class="container">
 		<div class="row">
-
 			<div class="col-md-4">
 				<section>
 					<h4>About this website...</h4>
-					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p class="mb-0">The Ministry of Energy and Mines (MEM), Ministry of Environment (MOE), and Environmental Assessment Office (EAO) have collaborated to make information on the Province’s oversight of major mines in British Columbia accessible.</p>
 				</section>
 			</div>
-
 			<div class="col-md-4">
 				<section>
 					<h4>Navigate</h4>
-					<h5>Find EA Projects</h5>
+					<h5>About Mining in British Columbia</h5>
 					<ul>
 						<li>
-							<a ui-sref="projects">Find EA Projects by List</a>
+							<a href="">The Mining Lifecycle</a>
 						</li>
 						<li>
-							<a ui-sref="projects">Find EA Projects by Map</a>
+							<a href="">Topics of Interest</a>
+						</li>
+						<li>
+							<a href="">Find Mines in British Columbia</a>
 						</li>
 					</ul>
-					<h5>The EA Process</h5>
-					<ul>
+					<h5>Our Processes &amp; Procedures</h5>
+					<ul class="mb-0">
 						<li>
-							<a href="/legislation" [routerLink]="['/legislation']">Legislation</a>
+							<a href="">Legislation</a>
 						</li>
 						<li>
-							<a href="/process" [routerLink]="['/process']">Process & Procedures</a>
+							<a href="">Authorizations</a>
 						</li>
 						<li>
-							<a href="/compliance-oversight" [routerLink]="['/compliance-oversight']">Compliance Oversight</a>
+							<a href="">Compliance Oversight</a>
 						</li>
 					</ul>
 				</section>
 			</div>
-
 			<div class="col-md-4">
 				<section class="last">
 					<h4>Connect With Us</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-					<a class="btn slide-r-btn inverted" href="/contact" [routerLink]="['/contact']"><span>Submit Feedback</span><i class="material-icons">arrow_forward</i></a>
+					<p>BC Mine Information is continuously evolving. More information and features will be added to the site on an ongoing basis and we welcome feedback to help us decide what would be most valuable.</p>
+					<a class="btn slide-r-btn inverted" href=""><span>Submit Feedback</span><i class="material-icons">arrow_forward</i></a>
 				</section>
 			</div>
 		</div>
-
 		<div class="footer-admin clearfix">
 			<ul class="gov-links">
-				<li><a ui-sref="home">Home</a></li>
+				<li><a href="#">Home</a></li>
 				<li><a href="http://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a></li>
 				<li><a href="http://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a></li>
 				<li><a href="http://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a></li>
 				<li><a href="http://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a></li>
-				<li><a href="https://projects.eao.gov.bc.ca/authentication/local/signin" target="_blank">Sign In</a></li>
 			</ul>
-			<!--
 			<ul class="connect-links">
 				<li>
-					<div class="fb-share-button" data-href="https://mines.nrs.gov.bc.ca" data-layout="button" data-size="large" data-mobile-iframe="true">
+					<div class="fb-share-button" 
+						data-href="https://mines.nrs.gov.bc.ca" 
+						data-layout="button" 
+						data-size="large" 
+						data-mobile-iframe="true">
 						<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fmines.nrs.gov.bc.ca%2F&amp;src=sdkpreparse">
-							<img src="/modules/core/client/images/facebook_circle.svg"/>
+							<img src="assets/images/facebook_circle.svg"/>
 						</a>
 					</div>
 				</li>
 				<li>
 					<a class="twitter-share-button" href="https://twitter.com/share" data-show-count="false" target="_blank">
-						<img src="/modules/core/client/images/twitter_circle.svg"/>
+						<img src="assets/images/twitter_circle.svg"/>
 					</a>
 					<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 				</li>
 				<li>
-					<a href="https://plus.google.com/share?url=mines.nrs.gov.bc.ca" onclick="window.open(this.href,
-					'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
-					src="/modules/core/client/images/google_circle.svg" alt="Share on Google+"/></a>
+					<a href="https://plus.google.com/share?url=mines.nrs.gov.bc.ca" 
+						onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
+						src="assets/images/google_circle.svg" alt="Share on Google+"/></a>
 				</li>
-			<ul>
-			-->
+			</ul>
 		</div>
-		
 	</div>
 </footer>

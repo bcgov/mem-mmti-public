@@ -1,7 +1,7 @@
 
 // Banner
 .hero-banner {
-    background-image: url("assets/images/hero-banner-placeholder.jpg");
+    background-image: url("~assets/images/hero-banner-1.jpg");
     background-repeat: no-repeat;
 
     //&.banner-sample-1 {
@@ -77,14 +77,14 @@
 
 @media (min-width: 1020px) {
     .hero-banner {
-        background-position: center;
+        background-position: center -1rem;
         background-size: 130%;
     }
 }
 
 @media (min-width: 1200px) {
     .hero-banner {
-        background-position: center;
+        background-position: center -2rem;
         background-repeat: no-repeat;
         background-size: 125%;
 
