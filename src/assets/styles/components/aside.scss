@@ -1,0 +1,103 @@
+$aside-section-head-color: #fff;
+$aside-section-head-bg: #38598a;
+
+aside {
+    section {
+        margin-bottom: 1.5rem;
+
+        h4 {
+            margin: 0;
+            padding: 0.65rem 1rem;
+            color: $aside-section-head-color;
+            background: $aside-section-head-bg;
+            text-transform: uppercase;
+            font-size: 0.9375rem;
+            font-weight: bold;
+        }
+
+        .aside-section-body {
+            padding: 1rem;
+            background: #f7f8fa;
+
+            p {
+                line-height: 1.45rem;
+                font-size: 0.9375rem;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .side-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            @include clearfix();
+            margin-top: 1px;
+            padding: 0.65rem 0.75rem;
+            font-size: 0.9375rem;
+            line-height: 1.3rem;
+            background: #f7f8fa;
+        }
+
+        &.nv-pair {
+            span {
+                &.name,
+                &.value {
+                    float: left;
+                    display: block;
+                    width: 50%;
+                }
+
+                &.name {
+                    margin-bottom: 0.25rem;
+                }
+            }
+        }
+        &.nd-pair {
+            span {
+                &.name,
+                &.date {
+                    display: block;
+                    width: 50%;
+                }
+
+                &.name {
+                    float: left;
+                }
+                &.date {
+                    float: right;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 760px) {
+    aside {
+        .side-list {
+            &.nv-pair {
+                li {
+                    @include clearfix();
+                }
+
+                span {
+                    &.name {
+                        float: left;
+                        width: 30%;
+                    }
+
+                    &.value {
+                        float: left;
+                        width: 70%;
+                    }
+                }
+            }
+        }
+    }
+}

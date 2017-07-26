@@ -1,10 +1,5 @@
-// Helpers
-@import "~assets/styles/helpers/mixins.scss";
-@import "~assets/styles/helpers/typekit.scss";
-
-// Theme
-@import "~assets/styles/themes/default.scss";
-@import "~assets/styles/themes/typography.scss";
+// Base
+@import "~assets/styles/base.scss";
 
 // Components
 @import "~assets/styles/components/hero-banner.scss";
