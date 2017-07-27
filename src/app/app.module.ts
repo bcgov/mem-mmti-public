@@ -16,6 +16,8 @@ import { ProcessComponent } from './process/process.component';
 import { ComplianceOversightComponent } from './compliance-oversight/compliance-oversight.component';
 import { ContactComponent } from './contact/contact.component';
 import { AuthorizationsComponent } from './authorizations/authorizations.component';
+import { LifecycleComponent } from './lifecycle/lifecycle.component';
+import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-interest.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AuthorizationsComponent } from './authorizations/authorizations.compone
     ProcessComponent,
     ComplianceOversightComponent,
     ContactComponent,
-    AuthorizationsComponent
+    AuthorizationsComponent,
+    LifecycleComponent,
+    TopicsOfInterestComponent
   ],
   imports: [
     BrowserModule,
