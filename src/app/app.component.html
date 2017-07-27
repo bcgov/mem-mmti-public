@@ -62,7 +62,7 @@
 	</nav>
 </header>
 	
-<router-outlet></router-outlet>
+<router-outlet id="scrollTop"></router-outlet>
 
 <footer>
 	<div class="container">
@@ -146,4 +146,9 @@
 	</div>
 </footer>
 
-<button class="btn scroll-top-btn" (click)="scrollToTop()"><i class="material-icons">arrow_upward</i></button>
+<a href="#scrollTop" class="btn scroll-top-btn" 
+	pageScroll 
+	[pageScrollOffset]="0" 
+	[pageScrollDuration]="800">
+	<i class="material-icons">arrow_upward</i>
+</a>

@@ -6,14 +6,23 @@
                 <h1>Topics of Interest</h1>
                 <p>Learn more about how water, tailings and reclamation activities are managed at major mine sites in British Columbia.</p>
                 <div class="hb-btns">
-					<a class="btn hero-btn inverted" href="#waterQuality" 
-                        du-smooth-scroll offset="100"><span>Water Quality</span>
+                    <a class="btn hero-btn inverted" href="#waterQuality"
+                        pageScroll 
+                        [pageScrollOffset]="100" 
+                        [pageScrollDuration]="800">
+                        <span>Water Quality</span>
                     </a>&nbsp;
-					<a class="btn hero-btn inverted" href="#tailingsManagement" 
-                        du-smooth-scroll offset="100"><span>Tailings Management</span>
+                    <a class="btn hero-btn inverted" href="#tailingsManagement"
+                        pageScroll 
+                        [pageScrollOffset]="100" 
+                        [pageScrollDuration]="800">
+                        <span>Tailings Management</span>
                     </a>&nbsp;
                     <a class="btn hero-btn inverted" href="#reclamation" 
-                        du-smooth-scroll offset="100"><span>Reclamation</span>
+                        pageScroll 
+                        [pageScrollOffset]="100" 
+                        [pageScrollDuration]="800">
+                        <span>Reclamation</span>
                     </a>
 				</div>
             </div>
