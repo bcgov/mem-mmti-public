@@ -1,0 +1,29 @@
+// Helpers
+@import "~assets/styles/helpers/mixins.scss";
+
+.nv-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+        @include clearfix();
+        margin-top: 1px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9375rem;
+        background: #f7f8fa;
+    }
+
+    span {
+        &.name,
+        &.value {
+            float: left;
+            display: block;
+            width: 50%;
+        }
+
+        &.name {
+            margin-bottom: 0.25rem;
+        }
+    }
+}
