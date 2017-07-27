@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +41,8 @@ import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-intere
     HttpModule,
     AppRoutingModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng2PageScrollModule.forRoot()
   ],
   providers: [NewsComponent],
   bootstrap: [AppComponent]
