@@ -1,14 +1,16 @@
 
 header {
-    @include clearfix;
-    padding: 0.5rem;
-    border-bottom: 4px solid $gold;
-    background: $header-bg;
-    color: $header-font-color;
+    &.app-header {
+        @include clearfix;
+        padding: 0.5rem;
+        border-bottom: 4px solid $gold;
+        background: $header-bg;
+        color: $header-font-color;
+    }
 }
 
 .brand-container {
-    @include clearfix;  
+    @include clearfix;
 }
 
 .brand {
@@ -132,22 +134,24 @@ header {
 
 @media (min-width: 1024px) {
     header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        padding: 0;
-        border-bottom-style: solid;
-        border-bottom-width: 0;
-        border-bottom-color: rgba(#5475a7, 0.25);
-        background-color: rgba($header-bg, 0);
-        transition: all linear 0.2s;
+        &.app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0;
+            border-bottom-style: solid;
+            border-bottom-width: 0;
+            border-bottom-color: rgba(#5475a7, 0.25);
+            background-color: rgba($header-bg, 0);
+            transition: all linear 0.2s;
 
-        &.dark {
-            border-bottom-width: 4px;
-            border-bottom-color: $gold;
-            background-color: $header-bg;
+            &.dark {
+                border-bottom-width: 4px;
+                border-bottom-color: $gold;
+                background-color: $header-bg;
+            }
         }
     }
 
@@ -206,7 +210,7 @@ header {
                     }
 
                     &:hover {
-                        > a, 
+                        > a,
                         > a:hover,
                         > a:focus {
                             background-color: #002663;

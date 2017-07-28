@@ -1,0 +1,41 @@
+// map popup styling
+.map {
+    .esri-popup {
+        background: $bg-dark;
+        color: $bg-dark-color;
+
+        .esri-popup__main-container {
+            background: $bg-dark;
+            color: $bg-dark-color;
+        }
+
+        .esri-popup__pointer-direction {
+            background: $bg-dark;
+        }
+
+        .esri-popup__button {
+            color: $bg-dark-color;
+        }
+
+        .popup-detail-container {
+            @include flex(1 1 auto);
+
+            p {
+                margin-bottom: 0;
+                line-height: 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: underline;
+            }
+        }
+
+        .popup-btn-container {
+            @include flex(0 0 auto);
+
+            margin-top: 1.25rem;
+        }
+    }
+}

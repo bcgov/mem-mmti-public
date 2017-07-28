@@ -19,6 +19,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AuthorizationsComponent } from './authorizations/authorizations.component';
 import { LifecycleComponent } from './lifecycle/lifecycle.component';
 import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-interest.component';
+import { MapModule } from './map/map.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-intere
     AppRoutingModule,
     NgbModule,
     NgxPaginationModule,
-    Ng2PageScrollModule.forRoot()
+    Ng2PageScrollModule.forRoot(),
+    MapModule
   ],
   providers: [NewsComponent],
   bootstrap: [AppComponent]

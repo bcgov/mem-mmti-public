@@ -1,0 +1,66 @@
+// Base
+@import "~assets/styles/base";
+
+:host {
+    @include flex-box;
+    @include flex-direction(column);
+    @include fill-parent(fixed);
+    z-index: 2000;
+}
+
+header {
+    &.app-header {
+        @include flex(0 0 auto);
+        @include clearfix;
+
+        // header positioning fix
+        position: relative;
+        border-bottom: 4px solid $gold;
+        background: $header-bg;
+        color: $header-font-color;
+
+        .map-header-btns {
+            margin-top: 4px;
+            margin-right: 3px;
+
+            .btn {
+                margin-left: 0.5rem;
+                padding: 0;
+                width: 2rem;
+                height: 2rem;
+                line-height: 1rem;
+                color: $header-font-color;
+            }
+
+            a {
+                &.btn {
+                    i {
+                        margin-top: 3px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.map-container {
+    @include flex(1 1 auto);
+
+    position: relative;
+
+    esri-map {
+        @include fill-parent(absolute);
+    }
+}
+
+@media (min-width: 900px) {
+    header {
+        &.app-header {
+            .map-header-btns {
+                .close-btn {
+                    margin: 1rem;
+                }
+            }
+        }
+    }
+}
