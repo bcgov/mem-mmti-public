@@ -22,6 +22,7 @@ import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-intere
 import { WaterQualityComponent } from './water-quality/water-quality.component';
 import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
+import { MapModule } from './map/map.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ReclamationComponent } from './reclamation/reclamation.component';
     AppRoutingModule,
     NgbModule,
     NgxPaginationModule,
-    Ng2PageScrollModule.forRoot()
+    Ng2PageScrollModule.forRoot(),
+    MapModule
   ],
   providers: [NewsComponent],
   bootstrap: [AppComponent]

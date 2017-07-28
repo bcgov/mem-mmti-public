@@ -1,0 +1,12 @@
+<header class="app-header">
+  <div class="brand-container float-left">
+    <a class="brand" href="/" [routerLink]="['/']" tabindex="0"></a>
+  </div>
+  <div class="map-header-btns float-right">
+    <a class="btn" href="/project" [routerLink]="['/project']"><i class="material-icons">list</i></a>
+    <a class="btn close-btn" href="/" [routerLink]="['/']"><i class="material-icons">close</i></a>
+  </div>
+</header>
+<div class="map-container">
+  <esri-map [webMapProperties]="webMapProperties" [mapViewProperties]="mapViewProperties" [suppressPopupActions]="true" (mapInit)="onMapInit($event)"></esri-map>
+</div>

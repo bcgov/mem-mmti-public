@@ -13,6 +13,7 @@ import { ReclamationComponent } from 'app/reclamation/reclamation.component';
 import { TailingsManagementComponent } from 'app/tailings-management/tailings-management.component';
 import { TopicsOfInterestComponent } from 'app/topics-of-interest/topics-of-interest.component';
 import { WaterQualityComponent } from 'app/water-quality/water-quality.component';
+import { MainMapComponent } from 'app/map/main-map/main-map.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: 'water-quality',
     component: WaterQualityComponent
+  },
+  {
+    path: 'map',
+    component: MainMapComponent
   }
 ];
 
