@@ -19,6 +19,9 @@ import { ContactComponent } from './contact/contact.component';
 import { AuthorizationsComponent } from './authorizations/authorizations.component';
 import { LifecycleComponent } from './lifecycle/lifecycle.component';
 import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-interest.component';
+import { WaterQualityComponent } from './water-quality/water-quality.component';
+import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
 import { MapModule } from './map/map.module';
 
 @NgModule({
@@ -34,7 +37,10 @@ import { MapModule } from './map/map.module';
     ContactComponent,
     AuthorizationsComponent,
     LifecycleComponent,
-    TopicsOfInterestComponent
+    TopicsOfInterestComponent,
+    WaterQualityComponent,
+    TailingsManagementComponent,
+    ReclamationComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,10 @@ import { LifecycleComponent } from 'app/lifecycle/lifecycle.component';
 import { ProcessComponent } from 'app/process/process.component';
 import { ProjectComponent } from 'app/project/project.component';
 import { NewsComponent } from 'app/news/news.component';
+import { ReclamationComponent } from 'app/reclamation/reclamation.component';
+import { TailingsManagementComponent } from 'app/tailings-management/tailings-management.component';
 import { TopicsOfInterestComponent } from 'app/topics-of-interest/topics-of-interest.component';
+import { WaterQualityComponent } from 'app/water-quality/water-quality.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
 
 const routes: Routes = [
@@ -50,8 +53,20 @@ const routes: Routes = [
     component: NewsComponent
   },
   {
+    path: 'reclamation',
+    component: ReclamationComponent
+  },
+    {
+    path: 'tailings-management',
+    component: TailingsManagementComponent
+  },
+  {
     path: 'topics-of-interest',
     component: TopicsOfInterestComponent
+  },
+  {
+    path: 'water-quality',
+    component: WaterQualityComponent
   },
   {
     path: 'map',
