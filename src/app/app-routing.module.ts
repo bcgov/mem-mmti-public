@@ -10,6 +10,7 @@ import { ProcessComponent } from 'app/process/process.component';
 import { ProjectComponent } from 'app/project/project.component';
 import { NewsComponent } from 'app/news/news.component';
 import { TopicsOfInterestComponent } from 'app/topics-of-interest/topics-of-interest.component';
+import { MainMapComponent } from 'app/map/main-map/main-map.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'topics-of-interest',
     component: TopicsOfInterestComponent
+  },
+  {
+    path: 'map',
+    component: MainMapComponent
   }
 ];
 

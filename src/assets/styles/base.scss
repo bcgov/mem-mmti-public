@@ -1,14 +1,6 @@
 
 // Helpers
-@import "~assets/styles/helpers/mixins.scss";
-@import "~assets/styles/helpers/typekit.scss";
+@import "helpers/mixins";
 
 // Theme
-@import "~assets/styles/themes/default.scss";
-@import "~assets/styles/themes/typography.scss";
-
-// Page Content
-@import "~assets/styles/components/buttons.scss";
-@import "~assets/styles/components/pg-content.scss";
-@import "~assets/styles/components/material-icons.scss";
-@import "~assets/styles/components/spinner.scss";
+@import "./variables";
