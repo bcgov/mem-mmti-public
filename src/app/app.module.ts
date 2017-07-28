@@ -19,6 +19,9 @@ import { ContactComponent } from './contact/contact.component';
 import { AuthorizationsComponent } from './authorizations/authorizations.component';
 import { LifecycleComponent } from './lifecycle/lifecycle.component';
 import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-interest.component';
+import { WaterQualityComponent } from './water-quality/water-quality.component';
+import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-intere
     ContactComponent,
     AuthorizationsComponent,
     LifecycleComponent,
-    TopicsOfInterestComponent
+    TopicsOfInterestComponent,
+    WaterQualityComponent,
+    TailingsManagementComponent,
+    ReclamationComponent
   ],
   imports: [
     BrowserModule,
