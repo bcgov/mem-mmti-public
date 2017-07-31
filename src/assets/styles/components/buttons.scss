@@ -1,3 +1,4 @@
+@import "~assets/styles/base.scss";
 
 .btn {
     border-radius: 0.25rem;
@@ -7,10 +8,9 @@
     transition: all linear 0.2s;
 
     &.inverted {
+        color: #fff;
         border: 2px solid #fff;
         background: transparent;
-        //text-shadow: 1px 1px 1px #fdd165;
-        color: #fff;
 
         &:active,
         &:focus,
@@ -59,7 +59,7 @@ main {
     transition: all ease-out 0.2s;
 
     i, span {
-        transition: all ease-out 0.2s; 
+        transition: all ease-out 0.2s;
     }
 
     i {
@@ -154,7 +154,7 @@ main {
     }
 }
 
-// Scroll Top Button 
+// Scroll Top Button
 .scroll-top-btn {
     position: fixed;
     bottom: 1rem;

@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {News} from '../models/news';
-import {NewsService} from '../services/news.service';
-import {PaginationInstance} from 'ngx-pagination';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { News } from '../models/news';
+import { NewsService } from '../services/news.service';
+import { PaginationInstance } from 'ngx-pagination';
 
 @Component({
   selector: 'app-news',
@@ -12,11 +12,11 @@ import {PaginationInstance} from 'ngx-pagination';
 export class NewsComponent implements OnInit {
   results: Array<News>;
   public loading: boolean;
-  public filter: string;
+  public filter = '';
   public config: PaginationInstance = {
-      id: 'custom',
-      itemsPerPage: 10,
-      currentPage: 1
+    id: 'custom',
+    itemsPerPage: 10,
+    currentPage: 1
   };
 
   constructor(private newsService: NewsService, private _changeDetectionRef: ChangeDetectorRef) { }

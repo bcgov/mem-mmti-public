@@ -1,9 +1,4 @@
-
-$pgn-btn-bg: #eee;
-$pgn-btn-active-bg: #5091cd;
-$pgn-btn-active-color: #fff;
-$pgn-btn-border: 1px solid #ccc;
-$pgn-btn-color: #000;
+@import "~assets/styles/base.scss";
 
 pagination-template {
     @include flex-box();
@@ -51,7 +46,7 @@ pagination-template {
                 }
             }
         }
-        
+
         &:first-child {
             a {
                 border-top-left-radius: 0.25rem;

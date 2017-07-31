@@ -1,5 +1,4 @@
-$card-header-color: #fff;
-$card-header-bg: #38598a;
+@import "~assets/styles/base.scss";
 
 .card {
     border: none;
@@ -17,4 +16,4 @@ $card-header-bg: #38598a;
 .card-body {
     border: none;
     padding: 1rem;
-} 
+}
