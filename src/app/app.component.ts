@@ -40,10 +40,6 @@ export class AppComponent implements OnInit {
     };
   }
 
-  scrollToTop() {
-    window.scrollTo(0, 0);
-  }
-
   ngOnInit() {
     this._router.events.subscribe((url: any) => {
       if (url.url === '/') {
