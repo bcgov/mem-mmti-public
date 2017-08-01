@@ -1,3 +1,4 @@
+@import "~assets/styles/base.scss";
 
 .filter-bar {
     label {
@@ -12,7 +13,7 @@
 
     .form-control {
         &:focus {
-            border-color: #5091cd;
+            border-color: $fc-focus-border-color;
             z-index: 2;
         }
     }
@@ -47,7 +48,7 @@
             padding: 0.5rem;
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
-            border: 1px solid #ccc;
+            border: 1px solid $fc-border-color;
 
             i {
                 margin: 0;

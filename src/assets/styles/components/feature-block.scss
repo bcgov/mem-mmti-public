@@ -1,17 +1,18 @@
+@import "~assets/styles/base.scss";
 
 .feature-block {
     margin-bottom: 1rem;
     padding: 1.75rem 1rem;
     //background-image: url("assets/images/hero-banner-placeholder.jpg");
     background-size: 200%;
-    background-color: #244278;
-    color: #FFF;
+    background-color: $feature-block-bg;
+    color: $feature-block-color;
     text-align: center;
 
     h3 {
         margin-top: 0;
         margin-bottom: 1rem;
-        color: #FFF;
+        color: inherit;
         font-size: 1.25rem;
         font-weight: 300;
     }

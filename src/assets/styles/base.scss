@@ -1,6 +1,2 @@
-
-// Helpers
-@import "helpers/mixins";
-
-// Theme
-@import "./variables";
+@import "~assets/styles/helpers/mixins.scss";
+@import "~assets/styles/themes/default.scss";

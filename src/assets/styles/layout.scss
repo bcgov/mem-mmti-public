@@ -1,3 +1,4 @@
+@import "~assets/styles/base.scss";
 
 // Container
 .container {
@@ -47,7 +48,7 @@ main {
 
     p {
         font-size: 1rem;
-        line-height: 1.5rem;
+        line-height: 1.8rem;
     }
 
     section {
@@ -116,7 +117,7 @@ main {
                 display: block;
             }
         }
-        
+
         h3 {
             font-size: 1.75rem;
         }

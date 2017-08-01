@@ -1,9 +1,4 @@
-$table-header-bg: #fff;
-$table-header-hover-bg: #ddd;
-$table-header-sort-active: #5091cd;
-$table-row-bg: #f7f8fa;
-$table-row-border: 3px solid #FFF;
-$table-alt-row-bg: #f4f4f4;
+@import "~assets/styles/base.scss";
 
 .table {
     width: 100%;
@@ -11,7 +6,7 @@ $table-alt-row-bg: #f4f4f4;
     font-size: 0.875rem;
 
     tr {
-        border-top: $table-row-border;  
+        border-top: $table-row-border;
     }
 
     td, th {
