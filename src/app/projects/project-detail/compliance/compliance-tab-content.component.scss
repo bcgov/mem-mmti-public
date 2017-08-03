@@ -1,0 +1,15 @@
+@import "~assets/styles/base.scss";
+
+.ce-list {
+    .sh-col,
+    .ah-col {
+        &.date {
+            width: 7rem;
+            text-align: right;
+        }
+    }
+
+    .date {
+        font-size: 0.875rem;
+    }
+}

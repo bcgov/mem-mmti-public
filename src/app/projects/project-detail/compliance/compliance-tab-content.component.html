@@ -1,0 +1,74 @@
+<!-- Compliance Oversight -->
+<div class="compliance tab-pane" id="compliance" role="tabpanel">
+    <p class="tab-intro">Compliance and enforcement (C&amp;E) activities begin after a claim is staked and continue through exploration and the
+        life of a mine. The Ministry of Energy, Mines and Petroleum Resources (EMPR), Ministry of Environment and Climate
+        Change Strategy (ENV) and Environmental Assessment Office (EAO) work together to provide integrated oversight of
+        British Columbia’s mining sector. Records of inspections conducted during the 2016 calendar year can be found below.
+        <span>To learn more about compliance oversight of major mines in general, <a [routerLink]="['/compliance-oversight']">click here</a>.</span>
+    </p>
+
+    <!-- TODO: PUT INSPECTIONS HERE -->
+
+    <section class="ce-section">
+        <h3>Inspections <span>January 1 - December 31, 2016</span></h3>
+        <div class="ce-list">
+            <div class="sort-header">
+                <div class="sh-row">
+                    <div class="sh-col name sortable">
+                        <span>Name</span>
+                        <span class="sort-icon" [hidden]="true"></span>
+                    </div>
+                    <div class="sh-col date sortable">
+                        <span>Date</span>
+                        <span class="sort-icon" [hidden]="false"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="accord" id="complianceList" role="tablist" aria-multiselectable="false">
+                <div class="accord-item">
+                    <div class="accord-header" role="tab" id="heading-{{'0001'}}">
+                        <div>
+                            <a class="toggle collapsed" data-toggle="collapse" href="#collapse-{{'0001'}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="material-icons open-icon">add</i>
+                                    <i class="material-icons close-icon">remove</i>
+                                </a>
+                            <span class="ah-col name">[inspection-name]</span>
+                            <span class="ah-col date">[date]</span>
+                        </div>
+                    </div>
+                    <div class="collapse" role="tabpanel" id="collapse-{{'0001'}}" aria-labelledby="heading-'0001'">
+                        <div class="accord-body">
+                            <div class="card" *ngIf="true">
+                                <div class="card-header">Related Documents</div>
+                                <ul class="nv-list">
+                                    <li><a href="#" target="_blank">[document-name]</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- <tmpl-project-compliance project="project"></tmpl-project-compliance> -->
+
+    <div class="main-footer" *ngIf="project?.name != 'Mount Polley' && project?.name != 'Tulsequah Chief'">
+        <h3>Can't find what you are looking for?</h3>
+        <p>Ministry of Energy, Mines and Petroleum Resources inspection reports for {{project?.name}} from 2013 through to 2015
+            can be accessed at <a href="https://mines.empr.gov.bc.ca" target="_blank">mines.empr.gov.bc.ca</a>. These records
+            will be moved to the new BC Mine Information website in the coming months.
+        </p>
+        <a class="btn inverted slide-r-btn" href="https://mines.empr.gov.bc.ca" target="_blank"><span>Visit mines.empr.gov.bc.ca</span><i class="material-icons">open_in_new</i></a>
+    </div>
+
+    <div class="main-footer" *ngIf="project?.name === 'Mount Polley'">
+        <h3>Can't find what you are looking for?</h3>
+        <p class="mb-0">Ministry of Energy, Mines and Petroleum Resources inspection reports for Mount Polley from 2013 onwards can be accessed
+            <a href="https://mines.empr.gov.bc.ca/p/mount-polley/docs?folder=2" target="_blank">here</a>.
+        </p>
+    </div>
+</div>
+<!-- / Compliance Oversight -->

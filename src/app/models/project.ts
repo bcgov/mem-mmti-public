@@ -1,14 +1,128 @@
+import { uniqueBy } from '../shared/utilities';
+
 export class Project {
-  _id: number;
+  _id: string;
   code: string;
-  commodity: string;
   name: string;
   description: string;
+  overviewIntroText: string;
+  operator: string;
+  tailingsImpoundments: number;
+  commodities: string[];
+  commodityType: string;
+  longitude: number;
+  latitude: number;
+
+  content: {
+    html: string;
+    text: string;
+    title: string;
+    page: string;
+    type: string;
+  }[];
+
+  private _activities: {
+    order: number;  // display order, not any business rules order
+    status: string;  // one of: 'Active', 'Inactive', 'Pending', 'Complete', 'Suspended', 'N/A', ''
+    name: string;
+    cssClass?: string;
+  }[];
+  get activities() {
+    return this._activities;
+  }
+  set activities(newValue) {
+    this._activities = newValue;
+
+    // sort by display order, make sure the original array is left unmodified
+    if (newValue) {
+      this.sortedActivities = newValue.slice().sort((a, b) => a.order - b.order);
+    } else {
+      this.sortedActivities = [];
+    }
+  }
+
+  // same as `activities` but sorted by display order
+  sortedActivities: {
+    order: number;
+    status: string;
+    name: string;
+    cssClass?: string;
+  }[];
+
+  private _externalLinks: {
+    link: string;
+    title: string;
+    page: string;
+    type: string;
+  }[];
+  get externalLinks() {
+    return this._externalLinks;
+  }
+  set externalLinks(newValue) {
+    this._externalLinks = newValue;
+
+    // filter out duplicate links
+    if (newValue) {
+      const external = newValue.filter(link => link.type === 'EXTERNAL_LINK');
+      this.uniqueLinks = uniqueBy(external, 'link');
+    } else {
+      this.uniqueLinks = [];
+    }
+  }
+
+  // same as `externalLinks` but withouth duplicate links
+  uniqueLinks: {
+    link: string;
+    title: string;
+    page: string;
+    type: string;
+  }[];
+
+  ownership: string[];
+
   constructor(obj?: any) {
     this._id = obj && obj._id || null;
     this.code = obj && obj.code || null;
-    this.commodity = obj && obj.commodity || null;
+    this.commodities = obj && obj.commodities || [];
+    this.commodityType = obj && obj.commodityType || null;
     this.name = obj && obj.name || null;
     this.description = obj && obj.description || null;
+    this.overviewIntroText = obj && obj.overviewIntroText || null;
+    this.operator = obj && obj.operator || null;
+    this.tailingsImpoundments = obj && obj.tailingsImpoundments || 0;
+    this.longitude = obj && obj.longitude || 0;
+    this.latitude = obj && obj.latitude || 0;
+    this.content = obj && obj.content || [];
+    this.externalLinks = obj && obj.externalLinks || [];
+
+    // parse ownership string into an array of owners
+    this.ownership = obj && obj.ownership ? (<string>obj.ownership).split(';') : [];
+
+    // process incoming activity objects
+    this.activities = obj && obj.activities ? obj.activities.map(x => this.parseActivity(x)) : [];
+  }
+
+  getContent(type: string, page: string): string {
+    try {
+      const entry = this.content.find(x => x.type === type && x.page === page);
+      return entry.html || entry.text;
+    } catch (e) {
+      return '';
+    }
+  }
+
+  // add display fields; e.g. cssClass
+  private parseActivity(activity): any {
+    activity.cssClass = this.cssClass(activity);
+    return activity;
+  }
+
+  private cssClass(activity): string {
+    try {
+      const value = (<string>activity.status || 'N/A').replace('N/A', 'NA').toLowerCase();
+      return value;
+    } catch (e) {
+      return '';
+    }
   }
 }

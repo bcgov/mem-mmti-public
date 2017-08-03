@@ -1,10 +1,6 @@
 // Base
 @import "~assets/styles/base.scss";
 
-// Components
-@import "~assets/styles/components/hero-banner.scss";
-@import "~assets/styles/components/feature-block.scss";
-
 
 $ff-metric-bg-1: #002663;
 $ff-metric-bg-2: #f7f7f7;
@@ -39,7 +35,7 @@ $ff-metric-color-2: #494949;
             &:nth-child(4) {
                 margin-bottom: 0;
             }
-        }  
+        }
     }
 }
 

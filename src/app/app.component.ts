@@ -3,17 +3,15 @@ import { Router } from '@angular/router';
 import { PageScrollConfig } from 'ng2-page-scroll';
 
 import { HomeComponent } from './home/home.component';
-import { ProjectService } from './services/project.service';
 import { NewsService } from './services/news.service';
 
 import { News } from './models/news';
-import { ProjectComponent } from './project/project.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [ProjectService, NewsService]
+  providers: [NewsService]
 })
 export class AppComponent implements OnInit {
   recentNews: Array<News>;

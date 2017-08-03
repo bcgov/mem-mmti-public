@@ -1,21 +1,22 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Project } from '../models/project';
-import { ProjectService } from '../services/project.service';
 import { PaginationInstance } from 'ngx-pagination';
 
+import { Project } from '../../models/project';
+import { ProjectService } from '../../services/project.service';
+
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss'],
+  selector: 'app-project-list',
+  templateUrl: './project-list.component.html',
+  styleUrls: ['./project-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectComponent implements OnInit {
+export class ProjectListComponent implements OnInit {
   results: Array<Project>;
   public loading: boolean;
   public filter: string;
   public config: PaginationInstance = {
     id: 'custom',
-    itemsPerPage: 10,
+    itemsPerPage: 15,
     currentPage: 1
   };
 
@@ -33,5 +34,4 @@ export class ProjectComponent implements OnInit {
       error => console.log(error)
     );
   }
-
 }

@@ -65,11 +65,23 @@ $pgn-btn-border:                1px solid #ccc;
 $pgn-btn-color:                 #000;
 
 // Spinner
-$spinner-width: 50px;
-$spinner-color: #5091cd;
-$spinner-bg: rgba(255,255,255,0.8);
-$spinner-invert-color: #FFF;
-$spinner-invert-bg: rgba(0,0,0,0.8);
+$spinner-width:                 50px;
+$spinner-color:                 #5091cd;
+$spinner-bg:                    rgba(255,255,255,0.8);
+$spinner-invert-color:          #FFF;
+$spinner-invert-bg:             rgba(0,0,0,0.8);
+
+// Tab Navigation
+$pill-sm-active-color:          #fff;
+$pill-sm-bg:                    #eee;
+$pill-sm-active-bg:             #38598a;
+$pill-lg-color:                 #999;
+$pill-lg-active-color:          #38598a;
+$pill-lg-border-color:          #f1f1f1;
+$pill-lg-hover-border-color:    #ccc;
+$pill-lg-active-border-color:   #38598a;
+$pill-lg-bg:                    transparent;
+$pill-lg-active-bg:             transparent;
 
 // Tables
 $table-header-bg:               #fff;
