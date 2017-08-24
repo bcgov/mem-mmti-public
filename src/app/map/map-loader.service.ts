@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, ElementRef } from '@angular/core';
 import { EsriLoaderService } from 'angular-esri-loader';
 
-interface MapLoaderOptions {
+export interface MapLoaderOptions {
   mapProperties?: __esri.MapProperties;
   webMapProperties?: __esri.WebMapProperties;
   mapViewProperties?: __esri.MapViewProperties;

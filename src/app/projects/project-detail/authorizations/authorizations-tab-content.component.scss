@@ -1,0 +1,44 @@
+@import "~assets/styles/base.scss";
+
+.auth-list {
+    .sh-col,
+    .ah-col {
+        &.date {
+            text-align: right;
+        }
+    }
+
+    .ah-col {
+        &.name {
+            padding-left: 0;
+            font-weight: 400;
+        }
+
+        &.date {
+            span {
+                display: block;
+            }
+        }
+    }
+}
+
+@media (min-width: 760px) {
+    .auth-list {
+        .ah-col {
+            &.date {
+                span {
+                    display: inline-block;
+                }
+
+                span:first-child {
+                    &:after {
+                        display: inline-block;
+                        margin-left: 0.25rem;
+                        margin-right: 0.25rem;
+                        content: '-';
+                    }
+                }
+            }
+        }
+    }
+}

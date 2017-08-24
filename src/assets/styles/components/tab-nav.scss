@@ -1,0 +1,68 @@
+@import "~assets/styles/base.scss";
+
+.nav-pills {
+    @include clearfix();
+    display: block;
+    margin: -0.5rem;
+    margin-bottom: 2.5rem;
+
+    .nav-item {
+        float: left;
+        width: 50%;
+        text-align: center;
+    }
+
+    .nav-link {
+        margin: 0.25rem;
+        padding: 0.75rem;
+        border-radius: 0;
+        background-color: $pill-sm-bg;
+        text-decoration: none;
+        font-size: 0.85rem;
+
+        &.active {
+            background-color: $pill-sm-active-bg;
+            color: $pill-sm-active-color;
+        }
+    }
+}
+
+@media (min-width: 760px) {
+    .nav-pills {
+        margin: 0;
+        margin-top: -0.5rem;
+        margin-bottom: 2.5rem;
+        background-color: $pill-lg-bg;
+        border-bottom: 3px solid $pill-lg-border-color;
+        border-radius: 0;
+
+        .nav-item {
+            display: inline-block;
+            margin-bottom: -4px;
+            width: auto;
+        }
+
+        .nav-link {
+            position: relative;
+            margin: 0;
+            padding: 0.5rem 1rem;
+            border-bottom: 4px solid $pill-lg-border-color;
+            background-color: transparent;
+            color: $pill-lg-color;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all ease-in 0.2s;
+
+            &:hover {
+                border-color: $pill-lg-hover-border-color;
+            }
+
+            &.active {
+                border-color: $pill-lg-active-border-color;
+                background-color: transparent;
+                color: $pill-lg-active-color;
+            }
+        }
+    }
+}

@@ -7,7 +7,6 @@ import { HomeComponent } from 'app/home/home.component';
 import { LegislationComponent } from 'app/legislation/legislation.component';
 import { LifecycleComponent } from 'app/lifecycle/lifecycle.component';
 import { ProcessComponent } from 'app/process/process.component';
-import { ProjectComponent } from 'app/project/project.component';
 import { NewsComponent } from 'app/news/news.component';
 import { ReclamationComponent } from 'app/reclamation/reclamation.component';
 import { TailingsManagementComponent } from 'app/tailings-management/tailings-management.component';
@@ -45,10 +44,6 @@ const routes: Routes = [
     component: ProcessComponent
   },
   {
-    path: 'project',
-    component: ProjectComponent
-  },
-  {
     path: 'news',
     component: NewsComponent
   },
@@ -56,7 +51,7 @@ const routes: Routes = [
     path: 'reclamation',
     component: ReclamationComponent
   },
-    {
+  {
     path: 'tailings-management',
     component: TailingsManagementComponent
   },

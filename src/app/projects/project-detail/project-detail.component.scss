@@ -1,0 +1,32 @@
+@import "~assets/styles/base.scss";
+
+.map-section {
+    margin-bottom: 0;
+    display: table;
+    width: 100%;
+    overflow: hidden;
+
+    a {
+        display: block;
+        padding: 0.2rem;
+        height: 180px;
+        background: #EEE;
+        background-position: center -25px;
+        background-size: 140%;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.map-thumb {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    transform: scale(1.4);
+}
+
+.clickable {
+    cursor: pointer;
+}
