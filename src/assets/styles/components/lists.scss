@@ -26,3 +26,19 @@
         }
     }
 }
+
+.list-group-item {
+    border: none;
+    
+    + .list-group-item {
+        margin-top: 0.25rem;
+    }
+    
+    &:nth-child(odd) {
+        background: $list-row-bg;
+    }
+
+    &:nth-child(even) {
+        background: $list-row-alt-bg;
+    }
+}

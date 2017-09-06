@@ -1,0 +1,92 @@
+// Base
+@import "~assets/styles/base.scss";
+
+.search-banner {
+    .hb-txt {
+        width: 100%;
+    }
+
+    .search-btn {
+        color: #fff;
+        border: 2px solid #fff;
+        background: transparent;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        font-weight: 700;
+
+        &:active,
+        &:focus,
+        &:hover {
+            border-color: $gold;
+            background: $gold;
+            color: #002663;
+        }
+    }
+
+    .toggle-search-btn {
+        color: $gold;
+        border: none;
+        font-size: 0.85rem;
+    }
+}
+
+
+// TODO - Self-contained component
+.srch-results-header {
+    padding: 1rem 0;
+
+    .srch-count {
+        font-weight: 600;
+    }
+}
+
+.srch-results-footer {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.srch-results {
+    li {
+        position: relative;
+        padding: 1.5rem;
+        flex-flow: column wrap;
+        align-items: left;
+    }
+
+    .srch-title {
+        font-size: 1.5rem;
+    }
+
+    .srch-proj {
+        font-size: 1.25rem;
+    }
+
+    .srch-date {
+        margin-top: 0.2rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .srch-results {
+        .srch-date {
+            position: absolute;
+            top: 1.75rem;
+            right: 1.5rem;
+            margin-top: 0;
+        }
+    }
+}
+
+.srch-actions {
+    a {
+        + a {
+            &:before {
+                content: '|';
+                display: inline-block;
+                width: 1rem;
+                text-align: center;
+            }
+        }
+    }
+}

@@ -12,6 +12,7 @@
     background-color: rgba($header-bg, 1);
     background-size: 280%;
     background-position: -8rem 0;
+    box-shadow: 0 0 4rem #00264d inset;
 
     .container {
         display: table;
@@ -217,5 +218,15 @@
                 margin: 0 0.5rem;
             }
         }
+    }
+}
+
+
+.hb-auto {
+    height: auto;
+    min-height: 24rem;
+    
+    .hb-txt {
+        padding: 5rem 2rem 5rem 2rem;
     }
 }

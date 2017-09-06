@@ -4,6 +4,7 @@ import { PageScrollConfig } from 'ng2-page-scroll';
 
 import { HomeComponent } from './home/home.component';
 import { NewsService } from './services/news.service';
+import { SearchComponent } from './search/search.component';
 
 import { News } from './models/news';
 

@@ -5,30 +5,25 @@
 }
 
 .form-control {
+    height: $fc-height;
     border-color: $fc-border-color;
     background: $fc-bg;
-    font-size: 0.9375rem;
 
     &:focus {
         border-color: $fc-focus-border-color;
     }
 }
 
-input[type="text"] {
-    @include placeholder {
-        color: $fc-placeholder-color;
+input {
+    &[type="text"],
+    &[type="email"] {
+        @include placeholder {
+            color: $fc-placeholder-color;
+        }
+        height: $fc-height;
+        padding: 0.75rem;
+        box-shadow: $fc-inner-shadow inset;
     }
-    height: $fc-height;
-    padding: 0.75rem;
-    box-shadow: $fc-inner-shadow inset;
-}
-
-input[type="email"] {
-    @include placeholder {
-        color: $fc-placeholder-color;
-    }
-    height: $fc-height;
-    padding: 0.75rem;
 }
 
 select.form-control:not([size]):not([multiple]) {
