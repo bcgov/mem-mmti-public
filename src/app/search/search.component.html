@@ -1,4 +1,4 @@
-<div class="spinner-container inverted full-screen" *ngIf="protoSearchActive" (click)="performSearch()">
+<div class="spinner-container inverted full-screen" *ngIf="protoSearchActive" (click)="this.protoSearchActive = !this.protoSearchActive">
     <div class="spinner-new rotating"></div>
 </div>
 
@@ -8,57 +8,56 @@
             <div class="hb-txt">
                 <h1>Search BC Mine Information</h1>
 
-                <form class="search-form">
+                <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit(f.value)">
 
                     <div class="basic-search">
                         <div class="form-group">
-                            <input class="form-control" placeholder="Enter Keywords..." 
-                                [disabled]="protoSearchActive" />
+                            <input class="form-control" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
+                                [disabled]="protoSearchActive" ngModel/>
                         </div>
                     </div>
 
                     <div class="advanced-search" id="advancedSearchFields" [hidden]="!showAdvancedFields">
                         <div class="form-group">
                             <label for="projects">Project</label>
-                            <input class="form-control" placeholder="Enter a Project Name..." id="projects" 
-                                [disabled]="protoSearchActive" />
+                            <input class="form-control" placeholder="Enter a Project Name..." name="projectInput" id="projects" 
+                                [disabled]="protoSearchActive" ngModel/>
                         </div>
                         <div class="form-group">
                             <label for="ownerOperator">Owner/Operator</label>
-                            <input class="form-control" placeholder="Enter an owner or operator name..." id="ownerOperator"
-                                [disabled]="protoSearchActive" />
+                            <input class="form-control" placeholder="Enter an owner or operator name..." name="ownerOperatorInput" id="ownerOperator"
+                                [disabled]="protoSearchActive" ngModel/>
                         </div>
                         <div class="form-group">
                             <label>Date Range</label>
                             <div class="form-inline">
                                 <label class="sr-only" for="dateRangeStart">Start Date</label>
-                                <input class="form-control" placeholder="Start Date" id="dateRangeStart" 
+                                <input class="form-control" placeholder="Start Date" name="dateRangeStartInput" id="dateRangeStart"
                                     #dateRangeStart="ngbDatepicker"
                                     ngbDatepicker 
                                     readonly
                                     [disabled]="protoSearchActive"
-                                    (click)="dateRangeStart.toggle()">
+                                    (click)="dateRangeStart.toggle()" ngModel/>
                                 <span> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
                                 <label class="sr-only" for="dateRangeEnd">End Date</label>
-                                <input class="form-control" placeholder="End Date" id="dateRangeEnd" 
+                                <input class="form-control" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
                                     #dateRangeEnd="ngbDatepicker"
                                     ngbDatepicker 
                                     readonly 
                                     [disabled]="protoSearchActive"
-                                    (click)="dateRangeEnd.toggle()">
+                                    (click)="dateRangeEnd.toggle()" ngModel/>
                             </div>
                         </div>
                     </div>
 
                     <button class="search-btn btn btn-default slide-l-btn inverted" 
                         [hidden]="protoSearchActive"
-                        (click)="performSearch()">
+                        type="submit">
                         <i class="material-icons">search</i><span>Search</span>
                     </button>
 
                     <button class="search-btn btn btn-default slide-l-btn inverted" 
-                        [hidden]="!protoSearchActive"
-                        (click)="performSearch()">
+                        [hidden]="!protoSearchActive">
                         <i class="material-icons">search</i><span>Searching...</span>
                     </button>
 
@@ -130,7 +129,7 @@
                 </li>
             </ul>
             <div class="srch-results-footer mt-3">
-                <button class="btn content-btn-alt" (click)="performSearch()">Load More</button>
+                <button class="btn content-btn-alt" (click)="dostuff()">Load More</button>
             </div>
         </section>
 
@@ -146,9 +145,9 @@
             <h2>Example Searches</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <ul class="mb-0">
-                <li><span (click)="performSearch()">Environmental Assessment Act + Authorizations</span></li>
-                <li><span (click)="performSearch()">Environmental Management Act + Authorizations</span></li>
-                <li><span (click)="performSearch()">Mines Act + Authorizations</span></li>
+                <li><span (click)="dostuff()">Environmental Assessment Act + Authorizations</span></li>
+                <li><span (click)="dostuff()">Environmental Management Act + Authorizations</span></li>
+                <li><span (click)="dostuff()">Mines Act + Authorizations</span></li>
             </ul>
         </section>
     </main>

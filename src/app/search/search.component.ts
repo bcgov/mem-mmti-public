@@ -22,7 +22,33 @@ export class SearchComponent implements OnInit {
     this.showAdvancedFields = !this.showAdvancedFields;
   }
 
-  performSearch() {
-    this.protoSearchActive = !this.protoSearchActive;
+  onSubmit(form: any) {
+    console.log('submitted:', form);
+
+    // Get the keywords
+    const keywordsArr = form.keywordInput.split(' ');
+    console.log('keywords:', keywordsArr);
+
+    // Get the Project
+    if (form.projectInput) {
+      console.log(form.projectInput);
+    }
+
+    // Get the Owner/Operator
+    if (form.ownerOperatorInput) {
+      console.log(form.ownerOperatorInput);
+    }
+
+    // Date Range Start/End
+    if (form.dateRangeStartInput) {
+      console.log(form.dateRangeStartInput);
+    }
+    if (form.dateRangeEndInput) {
+      console.log(form.dateRangeEndInput);
+    }
+  }
+
+  dostuff() {
+    console.log('TODO');
   }
 }
