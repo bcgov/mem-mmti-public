@@ -1,9 +1,16 @@
 // Colors
 $primary:                       #003366;
+$primary-light-1:               #004080;
+$primary-light-2:               #004d99;
+$primary-light-3:               #0059b3;  
+$primary-dark-1:                #00264d;
+$primary-dark-2:                #001a33;
+$primary-dark-3:                #000d1a;       
+
 $gold:                          #fcba19;
 
 // Background Colors
-$bg-dark:                       #003366;
+$bg-dark:                       $primary;
 $bg-dark-color:                 #FFF;
 $bg-dark-link-color:            $gold;
 $bg-dark-border-color:          #5475a7;
@@ -51,11 +58,13 @@ $fc-height:                     2.75rem;
 $fc-border-color:               #ddd;
 $fc-bg:                         #fff;
 $fc-inner-shadow:               0.1rem 0.1rem 0.1rem #EEE;
-$fc-placeholder-color:          #ccc;
+$fc-placeholder-color:          #fff;
 $fc-focus-border-color:         #5091cd;
 
 // List Variants
 $nv-list-bg:                    #f7f8fa;
+$list-row-bg:                   #f7f8fa;
+$list-row-alt-bg:               #f4f4f4;
 
 // Pagination Control
 $pgn-btn-bg:                    #eee;
@@ -69,7 +78,7 @@ $spinner-width:                 50px;
 $spinner-color:                 #5091cd;
 $spinner-bg:                    rgba(255,255,255,0.8);
 $spinner-invert-color:          #FFF;
-$spinner-invert-bg:             rgba(0,0,0,0.8);
+$spinner-invert-bg:             rgba(#001a33,0.8);
 
 // Tab Navigation
 $pill-sm-active-color:          #fff;

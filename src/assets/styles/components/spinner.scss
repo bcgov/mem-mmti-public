@@ -27,7 +27,7 @@
         background: $spinner-invert-bg;
 
         .spinner-new {
-            background-image: url("~assets/images/spinner-inverted.png")
+            background-image: url("~assets/images/spinner.png")
         }
     }
 
@@ -39,7 +39,7 @@
         background: transparent;
     }
 
-    &.fixed {
+    &.full-screen {
         position: fixed;
         z-index: 1000;
     }

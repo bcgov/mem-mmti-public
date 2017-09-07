@@ -21,6 +21,7 @@ import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-intere
 import { WaterQualityComponent } from './water-quality/water-quality.component';
 import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
+import { SearchComponent } from './search/search.component';
 
 // feature modules
 import { MapModule } from './map/map.module';
@@ -41,7 +42,8 @@ import { ProjectsModule } from './projects/projects.module';
     TopicsOfInterestComponent,
     WaterQualityComponent,
     TailingsManagementComponent,
-    ReclamationComponent
+    ReclamationComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { ProjectsModule } from './projects/projects.module';
     HttpModule,
     ProjectsModule,  // <-- module import order matters - https://angular.io/guide/router#module-import-order-matters
     AppRoutingModule,
-    NgbModule,
+    NgbModule.forRoot(),
     NgxPaginationModule,
     Ng2PageScrollModule.forRoot(),
     MapModule

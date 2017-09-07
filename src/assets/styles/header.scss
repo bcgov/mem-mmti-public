@@ -145,7 +145,7 @@ header {
             border-bottom-style: solid;
             border-bottom-width: 0;
             border-bottom-color: rgba(#5475a7, 0.25);
-            background-color: rgba($header-bg, 0);
+            background-color: rgba($header-bg, 0.5);
             transition: all linear 0.2s;
 
             &.dark {
@@ -182,7 +182,7 @@ header {
 
                 span {
                     margin-top: 0.9rem;
-                    display: block;
+                    display: inline-block;
                 }
 
                 &:hover {
@@ -196,7 +196,6 @@ header {
                     padding: 0.5rem;
                     min-width: 16rem;
                     background-color: #002663;
-                    // box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.2);
                 }
 
                 &.dropdown {
@@ -223,10 +222,6 @@ header {
                         }
                     }
                 }
-            }
-
-            .dropdown-toggle:after {
-                display: none;
             }
         }
     }

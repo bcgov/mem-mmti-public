@@ -1,0 +1,154 @@
+<div class="spinner-container inverted full-screen" *ngIf="protoSearchActive" (click)="this.protoSearchActive = !this.protoSearchActive">
+    <div class="spinner-new rotating"></div>
+</div>
+
+<div class="hero-banner search-banner hb-auto">
+    <div class="container">
+        <div class="container-inner">
+            <div class="hb-txt">
+                <h1>Search BC Mine Information</h1>
+
+                <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit(f.value)">
+
+                    <div class="basic-search">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
+                                [disabled]="protoSearchActive" ngModel/>
+                        </div>
+                    </div>
+
+                    <div class="advanced-search" id="advancedSearchFields" [hidden]="!showAdvancedFields">
+                        <div class="form-group">
+                            <label for="projects">Project</label>
+                            <input class="form-control" placeholder="Enter a Project Name..." name="projectInput" id="projects" 
+                                [disabled]="protoSearchActive" ngModel/>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerOperator">Owner/Operator</label>
+                            <input class="form-control" placeholder="Enter an owner or operator name..." name="ownerOperatorInput" id="ownerOperator"
+                                [disabled]="protoSearchActive" ngModel/>
+                        </div>
+                        <div class="form-group">
+                            <label>Date Range</label>
+                            <div class="form-inline">
+                                <label class="sr-only" for="dateRangeStart">Start Date</label>
+                                <input class="form-control" placeholder="Start Date" name="dateRangeStartInput" id="dateRangeStart"
+                                    #dateRangeStart="ngbDatepicker"
+                                    ngbDatepicker 
+                                    readonly
+                                    [disabled]="protoSearchActive"
+                                    (click)="dateRangeStart.toggle()" ngModel/>
+                                <span> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
+                                <label class="sr-only" for="dateRangeEnd">End Date</label>
+                                <input class="form-control" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
+                                    #dateRangeEnd="ngbDatepicker"
+                                    ngbDatepicker 
+                                    readonly 
+                                    [disabled]="protoSearchActive"
+                                    (click)="dateRangeEnd.toggle()" ngModel/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="search-btn btn btn-default slide-l-btn inverted" 
+                        [hidden]="protoSearchActive"
+                        type="submit">
+                        <i class="material-icons">search</i><span>Search</span>
+                    </button>
+
+                    <button class="search-btn btn btn-default slide-l-btn inverted" 
+                        [hidden]="!protoSearchActive">
+                        <i class="material-icons">search</i><span>Searching...</span>
+                    </button>
+
+                    <button class="toggle-search-btn btn btn-link" (click)="toggleAdvancedSearch()">
+                        <span *ngIf="!showAdvancedFields">Show Advanced +</span>
+                        <span *ngIf="showAdvancedFields">Hide Advanced -</span>
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="anchor-point">
+    <main>
+
+        <!-- SEARCH RESULTS TEMPLATE -->
+        <section class="add-spacer">
+            <h2 class="mb-0">Search Results</h2>
+            <div class="srch-results-header">
+                <span class="srch-count">10 Results Found</span>
+            </div>
+            <ul class="srch-results list-group">
+                <li class="list-group-item">
+                    <h3 class="srch-title mb-0">Search Result Title</h3>
+                    <div class="srch-proj">Project Name</div>
+                    <div class="srch-date">YYYY-MM-DD</div>
+                    <div class="srch-desc mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div class="srch-actions mt-3">
+                        <a href="">View Result Details</a>
+                        <a href="">View Project Page</a>
+                        <a href="">Download?</a>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h3 class="srch-title mb-0">Search Result Title</h3>
+                    <div class="srch-proj">Project Name</div>
+                    <div class="srch-date">YYYY-MM-DD</div>
+                    <div class="srch-desc mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div class="srch-actions mt-3">
+                        <a href="">View Result Details</a>
+                        <a href="">View Project Page</a>
+                        <a href="">Download?</a>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h3 class="srch-title mb-0">Search Result Title</h3>
+                    <div class="srch-proj">Project Name</div>
+                    <div class="srch-date">YYYY-MM-DD</div>
+                    <div class="srch-desc mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div class="srch-actions mt-3">
+                        <a href="">View Result Details</a>
+                        <a href="">View Project Page</a>
+                        <a href="">Download?</a>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h3 class="srch-title mb-0">Search Result Title</h3>
+                    <div class="srch-proj">Project Name</div>
+                    <div class="srch-date">YYYY-MM-DD</div>
+                    <div class="srch-desc mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <div class="srch-actions mt-3">
+                        <a href="">View Result Details</a>
+                        <a href="">View Project Page</a>
+                        <a href="">Download?</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="srch-results-footer mt-3">
+                <button class="btn content-btn-alt" (click)="dostuff()">Load More</button>
+            </div>
+        </section>
+
+        <!-- NO RESULTS -->
+        <!--
+        <section class="add-spacer">
+            <h2>No Results Found</h2>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </section>
+        -->
+
+        <section>
+            <h2>Example Searches</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <ul class="mb-0">
+                <li><span (click)="dostuff()">Environmental Assessment Act + Authorizations</span></li>
+                <li><span (click)="dostuff()">Environmental Management Act + Authorizations</span></li>
+                <li><span (click)="dostuff()">Mines Act + Authorizations</span></li>
+            </ul>
+        </section>
+    </main>
+</div>

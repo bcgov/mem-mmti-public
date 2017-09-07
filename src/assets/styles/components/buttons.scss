@@ -41,6 +41,16 @@
             margin-right: 0.1rem;
         }
     }
+
+    &:disabled {
+        pointer-events: none;
+    }
+}
+
+.btn-inverted {
+    color: #fff;
+    border: 2px solid #fff;
+    background: transparent;
 }
 
 // Main Button

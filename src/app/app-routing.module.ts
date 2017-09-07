@@ -13,6 +13,7 @@ import { TailingsManagementComponent } from 'app/tailings-management/tailings-ma
 import { TopicsOfInterestComponent } from 'app/topics-of-interest/topics-of-interest.component';
 import { WaterQualityComponent } from 'app/water-quality/water-quality.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
+import { SearchComponent } from 'app/search/search.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: 'map',
     component: MainMapComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   }
 ];
 
