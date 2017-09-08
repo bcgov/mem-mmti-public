@@ -6,7 +6,7 @@
         width: 100%;
     }
 
-    .search-btn {
+    &__search-btn {
         color: #fff;
         border: 2px solid #fff;
         background: transparent;
@@ -30,62 +30,85 @@
     }
 }
 
-
-// TODO - Self-contained component
-.srch-results-header {
-    padding: 1rem 0;
-
-    .srch-count {
-        font-weight: 600;
+.search-results {
+    &__header {
+        padding: 1rem 0;
+        
+        .srch-count {
+            font-weight: 600;
+        }
     }
-}
+    &__footer {
+        padding: 1rem 0;
+        text-align: center;
+    }
 
-.srch-results-footer {
-    padding: 1rem 0;
-    text-align: center;
-}
-
-.srch-results {
-    li {
+    &-item {
         position: relative;
         padding: 1.5rem;
         flex-flow: column wrap;
         align-items: left;
-    }
-
-    .srch-title {
-        font-size: 1.5rem;
-    }
-
-    .srch-proj {
-        font-size: 1.25rem;
-    }
-
-    .srch-date {
-        margin-top: 0.2rem;
-        font-size: 0.85rem;
+    
+        &__actions {
+            a {
+                + a {
+                    &:before {
+                        content: '|';
+                        display: inline-block;
+                        width: 1rem;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    
+        &__description {
+            margin-top: 1rem;
+            overflow: hidden;
+            line-height: calc(0.9375rem * 1.5);
+            font-size: 0.9375rem;
+        }
+    
+        &__meta {
+            margin-top: 0.2rem;
+            font-size: 0.85rem;
+        }
+    
+        &__project-name {
+            margin-bottom: 0.25rem;
+            line-height: 1rem;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+    
+        &__title {
+            margin-bottom: 0.4rem;
+            text-overflow: ellipsis;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }    
     }
 }
 
 @media (min-width: 640px) {
-    .srch-results {
-        .srch-date {
-            position: absolute;
-            top: 1.75rem;
-            right: 1.5rem;
-            margin-top: 0;
-        }
-    }
-}
-
-.srch-actions {
-    a {
-        + a {
-            &:before {
-                content: '|';
-                display: inline-block;
-                width: 1rem;
-                text-align: center;
+    .search-results {
+        &-item { 
+            &__meta {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 1.5rem;
+            }
+        
+            &__project-name {
+                margin-bottom: 0.4rem;
+                line-height: 1.25rem;
+                font-size: 1.25rem;
+            }
+        
+            &__title {
+                margin-bottom: 1rem;
+                font-size: 1.75rem;
             }
         }
     }

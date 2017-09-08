@@ -52,14 +52,15 @@
                         </div>
                     </div>
 
-                    <button class="search-btn btn btn-default slide-l-btn inverted" 
+                    <button class="search-banner__search-btn btn btn-primary slide-l-btn" 
                         [hidden]="protoSearchActive"
                         type="submit">
                         <i class="material-icons">search</i><span>Search</span>
                     </button>
 
-                    <button class="search-btn btn btn-default slide-l-btn inverted" 
-                        [hidden]="!protoSearchActive">
+                    <button class="search-banner__search-btn btn btn-primary slide-l-btn" 
+                        [hidden]="!protoSearchActive"
+                        disabled>
                         <i class="material-icons">search</i><span>Searching...</span>
                     </button>
 
@@ -81,23 +82,24 @@
         <!-- SEARCH RESULTS TEMPLATE -->
         <section class="add-spacer">
             <h2 class="mb-0">Search Results</h2>
-            <div class="srch-results-header">
+
+            <div class="search-results__header">
                 <span class="srch-count">10 Results Found</span>
             </div>
-            <ul class="srch-results list-group" *ngFor="let item of results | paginate: config">
-                <li class="list-group-item">
-                    <h3 class="srch-title mb-0">{{item.displayName}}</h3>
-                    <div class="srch-proj">{{item.project}}</div>
-                    <div class="srch-date">{{item.datePosted | date}}</div>
-                    <div class="srch-desc mt-3">{{item.description}}</div>
-                    <div class="srch-actions mt-3">
+            <ul class="search-results list-group" *ngFor="let item of results | paginate: config">
+                <li class="list-group-item search-results-item">
+                    <h3 class="search-results-item__project-name">{{item.displayName}}</h3>
+                    <div class="search-results-item__title mb-0">{{item.project}}</div>
+                    <div class="search-results-item__meta">{{item.datePosted | date}}</div>
+                    <div class="search-results-item__description mt-3">{{item.description}}</div>
+                    <div class="search-results-item__actions mt-3">
                         <a href="">View Result Details</a>
                         <a href="">View Project Page</a>
                         <a href="">Download?</a>
                     </div>
                 </li>
             </ul>
-            <div class="srch-results-footer mt-3">
+            <div class="search-results__footer mt-3">
                 <button class="btn content-btn-alt" (click)="dostuff()">Load More</button>
             </div>
         </section>
