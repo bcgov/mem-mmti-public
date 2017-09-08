@@ -5,47 +5,18 @@
     @include flex-box;
     @include flex-direction(column);
     @include fill-parent(fixed);
-    z-index: 2000;
+    margin-top: 59px;
+    z-index: 999;
 }
 
-header {
-    &.app-header {
-        @include flex(0 0 auto);
-        @include clearfix;
-
-        // header positioning fix
-        position: relative;
-        border-bottom: 4px solid $gold;
-        background: $header-bg;
-        color: $header-font-color;
-
-        .map-header-btns {
-            margin-top: 4px;
-            margin-right: 3px;
-
-            .btn {
-                margin-left: 0.5rem;
-                padding: 0;
-                width: 2rem;
-                height: 2rem;
-                line-height: 1rem;
-                color: $header-font-color;
-            }
-
-            a {
-                &.btn {
-                    i {
-                        margin-top: 3px;
-                    }
-                }
-            }
-        }
+@media (min-width: 1024px) {
+    :host {
+        margin-top: 66px;
     }
 }
 
 .map-container {
     @include flex(1 1 auto);
-
     position: relative;
 
     esri-map {
@@ -53,14 +24,16 @@ header {
     }
 }
 
-@media (min-width: 900px) {
-    header {
-        &.app-header {
-            .map-header-btns {
-                .close-btn {
-                    margin: 1rem;
-                }
-            }
+@media (min-width: 1024px) {
+    .map-container {
+        &:before {
+            content: ' ';
+            position: absolute;
+            top: -66px;
+            left: 0;
+            width: 100%;
+            height: 66px;
+            background: $header-bg;
         }
     }
 }

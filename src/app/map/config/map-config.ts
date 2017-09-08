@@ -34,14 +34,19 @@ const detailsUrl = (code: string): string => {
 export const defaultPopupTemplate = {
   title: '{name}',
   content: `<div class="map-popup-content">
-    <span><strong>Type:</strong> {type}</span>
-    <div class="popup-detail-container">{description}</div>
-    <div class="popup-btn-container">
-      <a class="btn slide-r-btn inverted" href="${detailsUrl('{code}')}">
-        <span>Go to Mine Details</span><i class="material-icons">arrow_forward</i>
-      </a>
-    <div>
-  </div>`
+              <ul class="map-popup-meta">
+                <li>
+                  <span class="meta-name">Type:</span>
+                  <span class="meta-value">{type}</span>
+                </li>
+              </ul>
+              <div class="map-popup-desc">{description}</div>
+              <div class="map-popup-btns">
+                <a class="btn btn-sm slide-r-btn" href="${detailsUrl('{code}')}">
+                  <span>Go to Project Details</span><i class="material-icons">arrow_forward</i>
+                </a>
+              <div>
+            </div>`
 };
 
 // What if the dependency value isn't a class? Sometimes the thing you want to inject
