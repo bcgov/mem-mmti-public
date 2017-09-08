@@ -4,6 +4,7 @@ import { PageScrollConfig } from 'ng2-page-scroll';
 
 import { HomeComponent } from './home/home.component';
 import { NewsService } from './services/news.service';
+import { DocumentService } from './services/document.service';
 import { SearchComponent } from './search/search.component';
 
 import { News } from './models/news';
@@ -12,7 +13,7 @@ import { News } from './models/news';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [NewsService]
+  providers: [NewsService, DocumentService]
 })
 export class AppComponent implements OnInit {
   recentNews: Array<News>;

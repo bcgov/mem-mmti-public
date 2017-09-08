@@ -20,8 +20,10 @@
                     <div class="advanced-search" id="advancedSearchFields" [hidden]="!showAdvancedFields">
                         <div class="form-group">
                             <label for="projects">Project</label>
-                            <input class="form-control" placeholder="Enter a Project Name..." name="projectInput" id="projects" 
-                                [disabled]="protoSearchActive" ngModel/>
+                            <ul *ngFor="let project of projects | paginate: config">
+                                <h3 class="srch-title mb-0">{{project._id}}</h3>
+                                <h3 class="srch-title mb-0">{{project.name}}</h3>
+                            </ul>
                         </div>
                         <div class="form-group">
                             <label for="ownerOperator">Owner/Operator</label>
@@ -84,56 +86,12 @@
             <div class="search-results__header">
                 <span class="srch-count">10 Results Found</span>
             </div>
-            <ul class="search-results list-group">
+            <ul class="search-results list-group" *ngFor="let item of results | paginate: config">
                 <li class="list-group-item search-results-item">
-                    <div class="search-results-item__project-name">Project Name</div>
-                    <h3 class="search-results-item__title mb-0">Search Result Title</h3>
-                    <div class="search-results-item__meta">YYYY-MM-DD</div>
-                    <div class="search-results-item__description mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                    <div class="search-results-item__actions mt-3">
-                        <a href="">View Result Details</a>
-                        <a href="">View Project Page</a>
-                        <a href="">Download?</a>
-                    </div>
-                </li>
-                <li class="list-group-item search-results-item">
-                    <div class="search-results-item__project-name">Project Name</div>
-                    <h3 class="search-results-item__title mb-0">Search Result Title</h3>
-                    <div class="search-results-item__meta">YYYY-MM-DD</div>
-                    <div class="search-results-item__description mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                    <div class="search-results-item__actions mt-3">
-                        <a href="">View Result Details</a>
-                        <a href="">View Project Page</a>
-                        <a href="">Download?</a>
-                    </div>
-                </li>
-                <li class="list-group-item search-results-item">
-                    <div class="search-results-item__project-name">Project Name</div>
-                    <h3 class="search-results-item__title mb-0">Search Result Title</h3>
-                    <div class="search-results-item__meta">YYYY-MM-DD</div>
-                    <div class="search-results-item__description mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                    <div class="search-results-item__actions mt-3">
-                        <a href="">View Result Details</a>
-                        <a href="">View Project Page</a>
-                        <a href="">Download?</a>
-                    </div>
-                </li>
-                <li class="list-group-item search-results-item">
-                    <div class="search-results-item__project-name">Project Name</div>
-                    <h3 class="search-results-item__title mb-0">Search Result Title</h3>
-                    <div class="search-results-item__meta">YYYY-MM-DD</div>
-                    <div class="search-results-item__description mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                    <div class="search-results-item__actions mt-3">
-                        <a href="">View Result Details</a>
-                        <a href="">View Project Page</a>
-                        <a href="">Download?</a>
-                    </div>
-                </li>
-                <li class="list-group-item search-results-item">
-                    <div class="search-results-item__project-name">Project Name</div>
-                    <h3 class="search-results-item__title mb-0">Search Result Title</h3>
-                    <div class="search-results-item__meta">YYYY-MM-DD</div>
-                    <div class="search-results-item__description mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    <h3 class="search-results-item__project-name">{{item.displayName}}</h3>
+                    <div class="search-results-item__title mb-0">{{item.project}}</div>
+                    <div class="search-results-item__meta">{{item.datePosted | date}}</div>
+                    <div class="search-results-item__description mt-3">{{item.description}}</div>
                     <div class="search-results-item__actions mt-3">
                         <a href="">View Result Details</a>
                         <a href="">View Project Page</a>
