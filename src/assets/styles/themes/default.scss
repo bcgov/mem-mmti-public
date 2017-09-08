@@ -1,12 +1,5 @@
 // Colors
-$primary:                       #003366;
-$primary-light-1:               #004080;
-$primary-light-2:               #004d99;
-$primary-light-3:               #0059b3;  
-$primary-dark-1:                #00264d;
-$primary-dark-2:                #001a33;
-$primary-dark-3:                #000d1a;       
-
+$primary:                       #003366;   
 $gold:                          #fcba19;
 
 // Background Colors
@@ -102,3 +95,16 @@ $table-alt-row-bg:              #f4f4f4;
 
 // Modal
 $modal-bg:                      #FFF;
+
+// Map Components
+// Map Popup
+$map-popup-bg:                  #244278;
+$map-popup-footer-bg:           #003366;
+$map-popup-header-bg:           #003366;
+$map-popup-font-size:           0.9375rem;
+$map-popup-menu-active-bg:      #5091cd;
+
+// Search Widget
+$map-search-height:             3rem;
+$map-search-font-family:        "myriad-pro";
+$map-search-font-size:          1rem;

@@ -53,7 +53,8 @@ export class MainMapComponent implements OnInit {
       })
       // find the feature layer with `project` data
       .then(obj => {
-        const { map } = obj;  // es6 destructuring
+        const { map, mapView } = obj;  // es6 destructuring
+        mapView.ui.move('zoom', 'bottom-right');
         obj.featureLayer = this.findFeatureLayer(map);
         return obj;
       })

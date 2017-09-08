@@ -1,43 +1,198 @@
 @import "~assets/styles/base.scss";
 
-// map popup styling
+// Map Widget Overrides
 .map {
+
+    // Popup Widget
     .esri-popup {
-        background: $bg-dark;
         color: $bg-dark-color;
+        font-family: $map-search-font-family;
 
-        .esri-popup__main-container {
-            background: $bg-dark;
-            color: $bg-dark-color;
+        &__main-container {
+            max-height: 50rem !important;
         }
 
-        .esri-popup__pointer-direction {
-            background: $bg-dark;
+        &__main-container,
+        &__pointer-direction {
+            background: $map-popup-bg;
         }
 
-        .esri-popup__button {
-            color: $bg-dark-color;
+        &__content {
+            margin: 0 !important;
+            padding: 1rem;
+            font-size: $map-popup-font-size;
         }
 
-        .popup-detail-container {
-            @include flex(1 1 auto);
+        &__button {
+            color: $bg-dark-color; 
 
-            p {
-                margin-bottom: 0;
+            &:active,
+            &:focus,
+            &:hover {
+                color: $gold;
+            }
+        }
+
+        // Popup Header
+        &__header {
+            background: $map-popup-header-bg;
+
+            &-title {
+                margin: 0 !important;
+                padding: 1rem;
+            }
+
+            &-buttons {
+                .esri-popup__button {
+                    padding: 1rem 0.5rem;
+                }
+            }
+        }
+
+        // Feature Menu
+        &__feature-menu {
+            background: $map-popup-bg;
+            font-size: $map-popup-font-size;
+
+            &-header {
+                background: $map-popup-header-bg;
+            }
+
+            &-item {
+                border-color: $map-popup-bg;
+
+                [class*="esri-icon"] {
+                    font-size: $map-popup-font-size;
+                }
+
+                &:hover {
+                    background-color: rgba($map-popup-menu-active-bg, 0.8);
+                }
+
+                &:focus {
+                    background-color: rgba($map-popup-menu-active-bg, 0.8);
+                }
+            }
+
+            &-item--selected {
+                border-color: $map-popup-menu-active-bg;
+                background-color: $map-popup-menu-active-bg;
+
+                &:hover,
+                &:focus {
+                    background-color: $map-popup-menu-active-bg;
+                }
+            }
+        }
+
+        // Footer
+        &__footer {
+            background: $map-popup-footer-bg;
+        }
+    }
+
+    // Search Widget
+    .esri-ui-top-left {
+        right: 0;
+    }
+
+    .esri-search {
+        width: 100%;
+        font-family: $map-search-font-family;
+
+        &__suggestions-menu {
+            li {
+                font-size: $map-search-font-size;
+            }
+        }
+        
+        &__warning-body {
+            font-size: $map-search-font-size;
+
+            [class*="esri-icon"] {
+                font-size: 1.25rem;
                 line-height: 1.25rem;
-                font-size: 0.875rem;
-            }
-
-            a {
-                color: inherit;
-                text-decoration: underline;
             }
         }
 
-        .popup-btn-container {
-            @include flex(0 0 auto);
+        input {
+            padding-left: 1rem;
+            height: $map-search-height;
+            font-family: $map-search-font-family;
+            font-size: $map-search-font-size;
+            font-weight: 700;
+            box-shadow: none;
+        }
 
-            margin-top: 1.25rem;
+        .esri-widget-button {
+            width: $map-search-height;
+            height: 3rem;
+        }
+
+        .esri-search__submit-button {
+            border-left: none;
+        }
+    }
+}
+
+.map-popup-btns {
+    margin-top: 1.5rem;
+
+    .btn {
+        padding: 0.4rem 0.25rem;
+        color: #fff;
+        border: 1px solid #fff;
+        background: transparent;
+        font-size: 0.875rem;
+        font-weight: 600;
+
+        &:active,
+        &:focus,
+        &:hover {
+            color: #002663;
+            border-color: $gold;
+            background: $gold;
+        }
+    }
+}
+
+.map-popup-desc {
+    max-height: 20rem;
+    line-height: calc(#{$map-popup-font-size} * 1.5);
+}
+
+.map-popup-meta {
+    list-style-type: none;
+    padding-left: 0 !important;
+
+    li { 
+        @include flex-box();
+        font-size: $map-popup-font-size !important;
+
+        .meta-name {
+            @include flex(0 0 auto);
+            padding-right: 0.5rem;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            @include flex(1 1 auto);
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .map {
+        .esri-ui-top-left {
+            right: auto;
+        }
+
+        .esri-search {
+            width: auto; 
+
+            input {
+                width: 30rem;
+            }
         }
     }
 }
