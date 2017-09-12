@@ -76,18 +76,18 @@
     }
 }
 
-@media (min-width: 1020px) {
+@media (min-width: 1024px) {
     .hero-banner {
-        background-position: center -1rem;
+        background-position: center top;
         background-size: 130%;
     }
 }
 
 @media (min-width: 1200px) {
     .hero-banner {
-        background-position: center -2rem;
+        background-position: center top;
         background-repeat: no-repeat;
-        background-size: 125%;
+        background-size: 140%;
 
         .container {
             padding-left: 0;
@@ -175,8 +175,6 @@
 
 @media (min-width: 900px) {
     .hb-txt {
-        margin-top: 2.5rem;
-
         h1 {
             font-size: 2.65rem;
         }
@@ -221,12 +219,7 @@
     }
 }
 
-
 .hb-auto {
     height: auto;
-    min-height: 24rem;
-    
-    .hb-txt {
-        padding: 5rem 2rem 5rem 2rem;
-    }
+    min-height: auto;
 }
