@@ -3,7 +3,7 @@
     <div class="container-inner">
       <div class="hb-txt">
         <h1>Find Mines in British Columbia</h1>
-        <p class="mb-2">The BC Mine Information website currently profiles 15 major mines located across the province. <strong>More mines will be added to this site in the coming months.</strong></p>
+        <p class="mb-2">The BC Mine Information website currently profiles {{mineCount}} major mines located across the province. <strong>More mines will be added to this site in the coming months.</strong></p>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
           on individual mines across British Columbia.</p>
 
         <div class="mine-list">
-          <div class="accord-item" *ngFor="let item of results | paginate: config">
+          <div class="accord-item" *ngFor="let item of projects | paginate: config">
             <div class="accord-header" id="accordHead" role="tab">
               <div>
                 <a class="toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item.code}}">
@@ -29,12 +29,12 @@
                 </a>
                 <span class="ah-col name"><a [routerLink]="['/p', item.code]">{{item.name}}</a></span>
                 <span class="ah-col operator">{{item.operator}}</span>
-                <span class="ah-col commodity">{{item.commodity}}</span>
+                <span class="ah-col commodity">{{item.type}}</span>
               </div>
             </div>
             <div class="collapse" id="accordCollapse{{item.code}}" role="tabpanel">
               <div class="accord-body">
-                <div class="summary" [innerHTML]="item.overviewIntroText"></div>
+                <div class="summary" [innerHTML]="item.getContent('OVERVIEW_INTRO_TEXT', 'MINES')"></div>
                 <div class="card">
                   <div class="card-header">Details</div>
                   <div class="card-block p-0">
@@ -57,7 +57,7 @@
                       </li>
                       <li class="mine-list-btns">
                         <a class="btn content-btn slide-l-btn" [routerLink]="['/p', item.code]"><i class="material-icons">info_outline</i><span>Go to Mine Details</span></a>
-                        <a class="btn content-btn slide-l-btn" href="/map" [routerLink]="['/map']"><i class="material-icons">location_on</i><span>Show on Map</span></a>
+                        <a class="btn content-btn slide-l-btn" href="/map" [routerLink]="['/map', { project: item.code }]"><i class="material-icons">location_on</i><span>Show on Map</span></a>
                       </li>
                     </ul>
                   </div>
@@ -69,14 +69,14 @@
       </section>
     </main>
     <aside class="col-lg-4">
-        <section class="card">
-            <h4 class="card-header">External Links &amp; Resources</h4>
-            <ul class="nv-list">
-                <li><a href="http://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/energy-mines-and-petroleum-resources" target="_blank">Ministry of Energy, Mines and Petroleum Resources</a></li>
-                <li><a href="http://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/environment-climate-change" target="_blank">Ministry of Environment and Climate Change Strategy</a></li>
-                <li><a href="http://www.eao.gov.bc.ca/" target="_blank">Environmental Assessment Office</a></li>
-            </ul>
-        </section>
+      <section class="card">
+        <h4 class="card-header">External Links &amp; Resources</h4>
+        <ul class="nv-list">
+          <li><a href="http://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/energy-mines-and-petroleum-resources" target="_blank">Ministry of Energy, Mines and Petroleum Resources</a></li>
+          <li><a href="http://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/environment-climate-change" target="_blank">Ministry of Environment and Climate Change Strategy</a></li>
+          <li><a href="http://www.eao.gov.bc.ca/" target="_blank">Environmental Assessment Office</a></li>
+        </ul>
+      </section>
     </aside>
-</div>
+  </div>
 </div>

@@ -1,39 +1,36 @@
 <!-- Other Documents -->
 <div class="documents tab-pane" id="docs" role="tabpanel">
-    <p class="tab-intro">Below you’ll find recent annual reports (including annual reclamation reports, annual dam safety inspection reports and
-        related documents) as well as other select documents of interest. More documents will be added here on an ongoing
-        basis.
-    </p>
+  <p class="tab-intro">Below you’ll find recent annual reports (including annual reclamation reports, annual dam safety inspection reports and
+    related documents) as well as other select documents of interest. More documents will be added here on an ongoing
+    basis.
+  </p>
 
-    <!-- TODO: PUT DOCUMENT LIST HERE -->
-    <section class="doc-section">
-        <h3></h3>
-        <div class="accord doc-list" role="tablist" aria-multiselectable="false">
-            <div class="accord-item">
-                <div class="accord-header" role="tab" id="heading-{{'0001'}}">
-                    <div>
-                        <a class="toggle collapsed" data-toggle="collapse" href="#collapse-{{'0001'}}" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="material-icons open-icon">add</i>
-                            <i class="material-icons close-icon">remove</i>
-                        </a>
-                        <span class="ah-col name">[document-name]</span>
-                        <span class="ah-col date">[date]</span>
-                    </div>
-                </div>
-                <div class="collapse" role="tabpanel" id="collapse-{{'0001'}}" aria-labelledby="heading-'0001'">
-                    <div class="accord-body">
-                        <div class="card" *ngIf="true">
-                            <div class="card-header">Related Documents</div>
-                            <ul class="nv-list">
-                                <li><a href="#" target="_blank">[document-name]</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section class="doc-section">
+    <div class="accord doc-list" role="tablist" aria-multiselectable="false">
+      <div class="accord-item" *ngFor="let c of collections.items">
+        <div class="accord-header" role="tab" id="heading-{{c._id}}">
+          <div>
+            <a class="toggle collapsed" data-toggle="collapse" href="#collapse-{{c._id}}" aria-expanded="true" aria-controls="collapseOne">
+              <i class="material-icons open-icon">add</i>
+              <i class="material-icons close-icon">remove</i>
+            </a>
+            <span class="ah-col name">{{c.displayName}}</span>
+            <span class="ah-col date">{{c.date | date:'MMM dd, yyyy'}}</span>
+          </div>
         </div>
-    </section>
+        <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
+          <div class="accord-body">
+            <div class="card" *ngIf="c.documents.length > 0">
+              <div class="card-header">Related Documents</div>
+              <ul class="nv-list" *ngFor="let d of c.documents">
+                <li><a href="{{d.ref}}" target="_blank">{{d.name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- <other-documents-list project="vm.project" other-documents="vm.otherDocuments"></other-documents-list> -->
 </div>
 <!-- / Other Documents -->
