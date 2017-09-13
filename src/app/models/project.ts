@@ -1,17 +1,27 @@
 import { uniqueBy } from '../shared/utilities';
 
+import { CollectionsList } from './collection';
+
 export class Project {
   _id: string;
   code: string;
   name: string;
-  description: string;
-  overviewIntroText: string;
+  type: string;
   operator: string;
+  memPermitID: string;
   tailingsImpoundments: number;
   commodities: string[];
   commodityType: string;
+  commodity: string;
   longitude: number;
   latitude: number;
+  morePermitsLinkYear: number;
+  morePermitsLink: number;
+  moreInspectionsLink: number;
+  moreInspectionsLinkYear: number;
+  epicProjectCodes: string[];
+
+  collections: CollectionsList;
 
   content: {
     html: string;
@@ -81,22 +91,37 @@ export class Project {
   ownership: string[];
 
   constructor(obj?: any) {
-    this._id = obj && obj._id || null;
-    this.code = obj && obj.code || null;
-    this.commodities = obj && obj.commodities || [];
-    this.commodityType = obj && obj.commodityType || null;
-    this.name = obj && obj.name || null;
-    this.description = obj && obj.description || null;
-    this.overviewIntroText = obj && obj.overviewIntroText || null;
-    this.operator = obj && obj.operator || null;
-    this.tailingsImpoundments = obj && obj.tailingsImpoundments || 0;
-    this.longitude = obj && obj.longitude || 0;
-    this.latitude = obj && obj.latitude || 0;
-    this.content = obj && obj.content || [];
-    this.externalLinks = obj && obj.externalLinks || [];
+    this._id                     = obj && obj._id                     || null;
+    this.code                    = obj && obj.code                    || null;
+    this.commodityType           = obj && obj.commodityType           || null;
+    this.commodity               = obj && obj.commodity               || null;
+    this.memPermitID             = obj && obj.memPermitID             || null;
+    this.name                    = obj && obj.name                    || null;
+    this.type                    = obj && obj.type                    || null;
+    this.tailingsImpoundments    = obj && obj.tailingsImpoundments    || 0;
+    this.longitude               = obj && obj.lon                     || 0;
+    this.latitude                = obj && obj.lat                     || 0;
+    this.morePermitsLinkYear     = obj && obj.morePermitsLinkYear     || null;
+    this.morePermitsLink         = obj && obj.morePermitsLink         || null;
+    this.moreInspectionsLink     = obj && obj.moreInspectionsLink     || null;
+    this.moreInspectionsLinkYear = obj && obj.moreInspectionsLinkYear || null;
+    this.epicProjectCodes        = obj && obj.epicProjectCodes        || [];
+    this.content                 = obj && obj.content                 || [];
+    this.externalLinks           = obj && obj.externalLinks           || [];
+    this.collections             = obj && obj.collections             || null;
+
+    // Get the operator from the proponent
+    this.operator = obj && obj.proponent ? obj.proponent.name : '';
 
     // parse ownership string into an array of owners
     this.ownership = obj && obj.ownership ? (<string>obj.ownership).split(';') : [];
+
+    // Commodies come from commodity
+    this.commodities = obj && obj.commodity ? (<string>obj.commodity).split(',').map(x => {
+      const y = x.trim();
+      const commodity = y[0].toUpperCase() + y.substr(1).toLowerCase();
+      return commodity;
+    }) : [];
 
     // process incoming activity objects
     this.activities = obj && obj.activities ? obj.activities.map(x => this.parseActivity(x)) : [];

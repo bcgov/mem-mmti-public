@@ -12,12 +12,12 @@ const routes: Routes = [
     component: ProjectListComponent
   },
   {
-    path: 'p/:id',
+    path: 'p/:code',
     component: ProjectDetailComponent,
     resolve: {
-      project: ProjectDetailResolver  // <-- Retrieve project details from server before navigating to this route
+      project: ProjectDetailResolver
     },
-    children: TAB_NAV_ROUTES  // each tab within the page navigates to a separate route; e.g. /p/:id/(overview|compliance|docs)
+    children: TAB_NAV_ROUTES  // each tab within the page navigates to a separate route; e.g. /p/:code/(overview|compliance|docs)
   }
 ];
 

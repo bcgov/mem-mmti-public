@@ -10,8 +10,8 @@ export class ProjectDetailResolver implements Resolve<Project> {
   constructor(private projectService: ProjectService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Project | Observable<Project> | Promise<Project> {
-    const id = route.paramMap.get('id');
-    return this.projectService.getByCode(id)
+    const code = route.paramMap.get('code');
+    return this.projectService.getByCode(code)
       .catch(err => {
         return Observable.throw(err);
       });

@@ -1,108 +1,102 @@
 <!-- Authorizations -->
 <div class="authorizations tab-pane" id="authorizations" role="tabpanel">
-    <p class="tab-intro">Environmental assessment certificates and permits issued under the Mines Act and the Environmental Management Act (EMA) are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations associated with each of these three acts. <span>Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.</span></p>
+  <p class="tab-intro">Environmental assessment certificates and permits issued under the Mines Act and the Environmental Management Act (EMA) are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations associated with each of these three acts. <span>Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.</span></p>
 
-    <!-- TODO: PUT AUTHORIZATIONS HERE -->
-    <section class="auth-section">
-        <h3>Environmental Assessment Act <span>Environmental Assessment Office</span></h3>
-        <div class="accord auth-list" id="authorization-EAO" role="tablist" aria-multiselectable="false">
-            <div class="accord-item">
-                <div class="accord-header" role="tab" id="heading-{{'0001'}}">
-                    <div>
-                        <a class="toggle collapsed" data-toggle="collapse" href="#collapse-{{'0001'}}" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="material-icons open-icon">add</i>
-                            <i class="material-icons close-icon">remove</i>
-                        </a>
-                        <span class="ah-col name">[doc-id] - [doc-name]</span>
-                        <span class="ah-col date">
-                            <span>[doc-type] [doc-status]</span>
-                            <span>[date]</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="collapse" role="tabpanel" id="collapse-{{'0001'}}" aria-labelledby="heading-'0001'">
-                    <div class="accord-body">
-                        <div class="card" *ngIf="true">
-                            <div class="card-header">Related Documents</div>
-                            <ul class="nv-list">
-                                <li ><a href="#" target="_blank">[document-name]</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section class="auth-section" *ngIf="collections.eao.length > 0">
+    <h3>Environmental Assessment Act <span>Environmental Assessment Office</span></h3>
+    <div class="accord auth-list" id="authorization-EAO" role="tablist" aria-multiselectable="false">
+      <div class="accord-item" *ngFor="let c of collections.eao.items">
+        <div class="accord-header" role="tab" id="heading-{{c._id}}">
+          <div>
+            <a data-ng-if="c.documents" class="toggle collapsed" data-toggle="collapse" href="#collapse-{{c._id}}" aria-expanded="true" aria-controls="collapseOne">
+              <i class="material-icons open-icon">add</i>
+              <i class="material-icons close-icon">remove</i>
+            </a>
+            <span class="ah-col name">{{c.displayName}}</span>
+            <span class="ah-col date">
+              <span>Certificate {{c.status}}</span>
+              <span>{{c.date | date:'MMM dd, yyyy'}}</span>
+            </span>
+          </div>
         </div>
-    </section>
-
-    <section class="auth-section">
-        <h3>Environmental Management Act <span>Ministry of Environment and Climate Change Strategy</span></h3>
-        <div class="accord auth-list" id="authorization-ENV" role="tablist" aria-multiselectable="false">
-            <div class="accord-item">
-                <div class="accord-header" role="tab" id="heading-{{'0002'}}">
-                    <div>
-                        <a class="toggle collapsed" data-toggle="collapse" href="#collapse-{{'0002'}}" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="material-icons open-icon">add</i>
-                            <i class="material-icons close-icon">remove</i>
-                        </a>
-                        <span class="ah-col name">[auth-id] - [doc-name]</span>
-                        <span class="ah-col date">
-                            <span>[doc-type] [doc-status]</span>
-                            <span>[date]</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="collapse" role="tabpanel" id="collapse-{{'0002'}}" aria-labelledby="heading-'0002'">
-                    <div class="accord-body">
-                        <div class="card" *ngIf="true">
-                            <div class="card-header">Related Documents</div>
-                            <ul class="nv-list">
-                                <li><a href="#" target="_blank">[document-name]</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
+          <div class="accord-body">
+            <div class="card" *ngIf="c.documents.length > 0">
+              <div class="card-header">Related Documents</div>
+              <ul class="nv-list" *ngFor="let d of c.documents">
+                <li><a href="{{d.ref}}" target="_blank">{{d.name}}</a></li>
+              </ul>
             </div>
+          </div>
         </div>
-    </section>
-
-    <section class="auth-section">
-        <h3>Mines Act <span>Ministry of Energy, Mines and Petroleum Resources</span></h3>
-        <div class="accord auth-list" id="authorization-MEM" role="tablist" aria-multiselectable="false">
-            <div class="accord-item">
-                <div class="accord-header" role="tab" id="heading-{{'0003'}}">
-                    <div>
-                        <a class="toggle collapsed" data-toggle="collapse" href="#collapse-{{'0003'}}" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="material-icons open-icon">add</i>
-                            <i class="material-icons close-icon">remove</i>
-                        </a>
-                        <span class="ah-col name">[auth-id] - [doc-name]</span>
-                        <span class="ah-col date">
-                            <span>[doc-type] [doc-status]</span>
-                            <span>[date]</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="collapse" role="tabpanel" id="collapse-{{'0003'}}" aria-labelledby="heading-'0003'">
-                    <div class="accord-body">
-                        <div class="card" *ngIf="true">
-                            <div class="card-header">Related Documents</div>
-                            <ul class="nv-list">
-                                <li><a href="#" target="_blank">[document-name]</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- <tmpl-project-authorizations project="project" agency="EAO"></tmpl-project-authorizations>
-    <tmpl-project-authorizations project="project" agency="ENV"></tmpl-project-authorizations>
-    <tmpl-project-authorizations project="project" agency="MEM"></tmpl-project-authorizations> -->
-
-    <div class="main-footer">
-      <h3>Can't find what you are looking for?</h3>
-      <p>Mines Act permits issued for {{project.name}} prior to 2013 can be accessed at <a href="https://mines.empr.gov.bc.ca" target="_blank">mines.empr.gov.bc.ca</a>. These records will be moved to the new BC Mine Information website in the coming months.</p>
-      <a class="btn inverted slide-r-btn" href="https://mines.empr.gov.bc.ca" target="_blank"><span>Visit mines.empr.gov.bc.ca</span><i class="material-icons">open_in_new</i></a>
+      </div>
     </div>
+  </section>
+
+  <section class="auth-section" *ngIf="collections.env.length > 0">
+    <h3>Environmental Management Act <span>Ministry of Environment and Climate Change Strategy</span></h3>
+    <div class="accord auth-list" id="authorization-ENV" role="tablist" aria-multiselectable="false">
+      <div class="accord-item" *ngFor="let c of collections.env.items">
+        <div class="accord-header" role="tab" id="heading-{{c._id}}">
+          <div>
+            <a data-ng-if="c.documents" class="toggle collapsed" data-toggle="collapse" href="#collapse-{{c._id}}" aria-expanded="true" aria-controls="collapseOne">
+              <i class="material-icons open-icon">add</i>
+              <i class="material-icons close-icon">remove</i>
+            </a>
+            <span class="ah-col name">{{c.displayName}}</span>
+            <span class="ah-col date">
+              <span>Permit {{c.status}}</span>
+              <span>{{c.date | date:'MMM dd, yyyy'}}</span>
+            </span>
+          </div>
+        </div>
+        <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
+          <div class="accord-body">
+            <div class="card" *ngIf="c.documents.length > 0">
+              <div class="card-header">Related Documents</div>
+              <ul class="nv-list" *ngFor="let d of c.documents">
+                <li><a href="{{d.ref}}" target="_blank">{{d.name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="auth-section" *ngIf="collections.mem.length > 0">
+    <h3>Mines Act <span>Ministry of Energy, Mines and Petroleum Resources</span></h3>
+    <div class="accord auth-list" id="authorization-MEM" role="tablist" aria-multiselectable="false">
+      <div class="accord-item" *ngFor="let c of collections.mem.items">
+        <div class="accord-header" role="tab" id="heading-{{c._id}}">
+          <div>
+            <a data-ng-if="c.documents" class="toggle collapsed" data-toggle="collapse" href="#collapse-{{c._id}}" aria-expanded="true" aria-controls="collapseOne">
+              <i class="material-icons open-icon">add</i>
+              <i class="material-icons close-icon">remove</i>
+            </a>
+            <span class="ah-col name">{{c.displayName}}</span>
+            <span class="ah-col date">
+              <span>Permit {{c.status}}</span>
+              <span>{{c.date | date:'MMM dd, yyyy'}}</span>
+            </span>
+          </div>
+        </div>
+        <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
+          <div class="accord-body">
+            <div class="card" *ngIf="c.documents.length > 0">
+              <div class="card-header">Related Documents</div>
+              <ul class="nv-list" *ngFor="let d of c.documents">
+                <li><a href="{{d.ref}}" target="_blank">{{d.name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="main-footer" ng-if="project.morePermitsLink">
+    <h3>Can't find what you are looking for?</h3>
+    <p class="mb-0">Mines Act permits issued for {{project.name}} prior to {{project.morePermitsLinkYear}} can be accessed <a href="{{project.morePermitsLink}}" target="_blank">here</a>.</p>
+  </div>
 </div><!-- / Authorizations -->
