@@ -2,26 +2,86 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/catch';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Search, SearchArray } from '../models/search';
 
 @Injectable()
 export class DocumentService {
+  apiPathMEM: string;
+  apiPathEPIC: string;
+  searchResult: SearchArray;
 
-  constructor(private http: Http) { }
-  get(keywords: string, project: string) {
-    let query = 'http://localhost:3000/api/query/document?';
-    // if (keywords) {
-    //     query += 'keywords=' + keywords;
-    // }
+  constructor(private http: Http) {
+    const { hostname } = window.location;
+    if (hostname === 'localhost') {
+      // Local
+      this.apiPathMEM  = 'http://localhost:3000';
+      this.apiPathEPIC = 'http://localhost:4000';
+    } else if (hostname === 'mem-mmt-dev.pathfinder.gov.bc.ca') {
+      // Dev
+      this.apiPathMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
+      this.apiPathEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
+    } else if (hostname === 'mem-mmt-test.pathfinder.gov.bc.ca') {
+      // Test
+      this.apiPathMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
+      this.apiPathEPIC = 'https://esm-test.pathfinder.gov.bc.ca';
+    } else {
+      // Prod
+      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca';
+      this.apiPathEPIC = 'https://projects.eao.gov.bc.ca';
+    }
+  }
+  get(keywords: string,
+      project: string,
+      owneroperator: string,
+      datestart: NgbDateStruct,
+      dateend: NgbDateStruct) {
+    this.searchResult = new SearchArray();
+
+    let query = '/search?types=document';
+    if (keywords) {
+        query += '&search=' + keywords;
+    }
     if (project) {
         query += '&project=' + project;
     }
-    if (keywords) {
-        query += '&displayName=' + keywords;
+    if (owneroperator) {
+        query += '&owneroperator=' + owneroperator;
     }
-    return this.http.get(query)
-    .map((res: Response) => res.json())
-    .catch(this.handleError);
+    if (datestart) {
+        const d: Date = new Date(datestart.year, datestart.month - 1, datestart.day);
+        console.log('datestart', d.toString());
+        query += '&datestart=' + d.toString();
+    }
+    if (dateend) {
+        const d: Date = new Date(dateend.year, dateend.month - 1, dateend.day);
+        console.log('dateend', d.toString());
+        query += '&dateend=' + d.toString();
+    }
+
+    // Field selection
+    query += '&fields=_id project displayName description datePosted documentCategories collections keywords inspectionReport';
+
+    const mem = this.http.get(`${this.apiPathMEM}/api${query}`)
+    .map((res: Response) => {
+        const data = res.text() ? res.json() : [];
+        data.forEach(i => {
+            i.hostname = this.apiPathMEM;
+        });
+        return data;
+    });
+    const epic = this.http.get(`${this.apiPathEPIC}/api/v2${query}`)
+    .map((res: Response) => {
+        const data = res.text() ? res.json() : [];
+        data.forEach(i => {
+            i.hostname = this.apiPathEPIC;
+        });
+        return data;
+    });
+
+    return Observable.forkJoin([mem, epic]);
   }
 
   private handleError(error: any) {
