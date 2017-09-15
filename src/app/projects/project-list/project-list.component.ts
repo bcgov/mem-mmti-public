@@ -12,6 +12,9 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectListComponent implements OnInit {
   projects: Array<Project>;
+  public isDesc: boolean;
+  public column: string;
+  public direction: number;
   public loading: boolean;
   public mineCount: number;
   public config: PaginationInstance = {
@@ -35,4 +38,11 @@ export class ProjectListComponent implements OnInit {
       error => console.log(error)
     );
   }
+
+  sort (property) {
+    this.isDesc = !this.isDesc;
+    this.column = property;
+    this.direction = this.isDesc ? 1 : -1;
+  }
+
 }

@@ -14,6 +14,7 @@ import { AuthorizationsTabContentComponent } from './project-detail/authorizatio
 import { ComplianceTabContentComponent } from './project-detail/compliance/compliance-tab-content.component';
 import { DocumentsTabContentComponent } from './project-detail/documents/documents-tab-content.component';
 import { SiteActivitiesComponent } from './site-activities/site-activities.component';
+import { OrderByPipe } from '../filters/order-by.pipe';
 
 // services
 import { ProjectService } from '../services/project.service';
@@ -23,7 +24,7 @@ import { ProjectService } from '../services/project.service';
     CommonModule,
     NgxPaginationModule,
     ProjectsRoutingModule,
-    MapModule
+    MapModule,
   ],
   declarations: [
     ProjectListComponent,
@@ -32,7 +33,8 @@ import { ProjectService } from '../services/project.service';
     AuthorizationsTabContentComponent,
     ComplianceTabContentComponent,
     DocumentsTabContentComponent,
-    SiteActivitiesComponent
+    SiteActivitiesComponent,
+    OrderByPipe
   ],
   exports: [
     ProjectListComponent,
