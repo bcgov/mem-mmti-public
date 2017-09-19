@@ -8,16 +8,20 @@
     transition: all linear 0.2s;
 
     &.inverted {
+        min-width: 8rem;
         color: #fff;
         border: 2px solid #fff;
         background: transparent;
+        text-transform: uppercase;
+        font-weight: 700;
 
         &:active,
         &:focus,
         &:hover {
             border-color: $gold;
-            background: $gold;
-            color: #002663;
+            background: darken($gold, 8%);
+            text-transform: uppercase;
+            font-weight: 700;
         }
     }
 
@@ -48,9 +52,10 @@
 }
 
 .btn-inverted {
-    color: #fff;
-    border: 2px solid #fff;
-    background: transparent;
+    background: darken($gold, 5%);
+    text-transform: uppercase;
+    font-size: 0.9375rem;
+    font-weight: 700;
 }
 
 // Main Button

@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Project } from '../../../models/project';
+import { CollectionsArray } from '../../../models/collection';
 
 @Component({
   selector: 'app-documents-tab-content',
@@ -13,6 +14,7 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
   // public properties
   loading: boolean;
   project: Project;
+  collections: CollectionsArray;
 
   // private fields
   private sub: Subscription;
@@ -22,7 +24,13 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loading = true;
     this.sub = this.route.parent.data.subscribe(
-      (data: { project: Project }) => this.project = data.project,
+      (data: { project: Project }) => {
+        if (data.project && data.project.collections) {
+          this.project = data.project;
+          this.collections = data.project.collections.documents;
+          this.collections.sort();
+        }
+      },
       error => console.log(error),
       () => this.loading = false
     );

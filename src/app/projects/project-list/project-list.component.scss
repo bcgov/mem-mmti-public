@@ -1,45 +1,49 @@
 @import "~assets/styles/base.scss";
 
-.mine-list {
-    .summary {
-        font-size: 0.875rem;
-        font-style: italic;
-
-        p {
-            font-size: 0.875rem;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+@media (max-width: 760px) {
+    .project-table {
+        thead {
+            display: none;
         }
-    }
 
-    .mine-list-btns {
-        .btn {
-            margin-top: 0.5rem;
-            width: 100%;
-
-            &:first-child {
-                margin-top: 0;
-            }
+        tr, td {
+            display: block;
         }
-    }
 
-    @media (min-width: 760px) {
-        .mine-list-btns {
-            @include flex-box;
+        td {
+            padding: 1rem;
+            border-top: none;
 
-            .btn {
-                @include flex(1 1 auto);
+            &.name {
+                padding-bottom: 0;
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
 
-                margin-top: 0;
+            &.proj-col {
+                position: relative;
+                margin: 0 1rem;
+                padding: 0;
 
-                &:first-child {
-                    margin-right: 0.25rem;
+                &:before {
+                    display: table-cell;
+                    width: 8rem;
                 }
 
                 &:last-child {
-                    margin-left: 0.25rem;
+                    padding-bottom: 1rem;
+                }
+
+                span {
+                    display: table-cell;
+                }
+
+                &.operator:before {
+                    content: 'Operator:';
+                }
+
+                &.type:before {
+                    content: 'Type:';
                 }
             }
         }

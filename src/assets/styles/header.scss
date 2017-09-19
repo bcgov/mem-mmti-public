@@ -26,7 +26,6 @@ header {
 
 .navbar-toggler {
     margin-top: 0.65rem;
-    margin-right: 0.75rem;
     padding: 0.5rem 0.4rem;
     border: 2px solid $gold;
     color: $gold;
@@ -136,7 +135,7 @@ header {
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     header {
         &.app-header {
             position: fixed;
@@ -161,13 +160,10 @@ header {
 
     .brand-container {
         float: left;
-
-        .navbar-toggler {
-            display: none;
-        }
     }
 
     .brand {
+        width: 280px; // Using PX dimensions here to ensure exact match to image
         height: 4rem;
     }
 
@@ -239,7 +235,7 @@ header {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1366px) {
     .brand {
         width: 400px; // Using PX dimensions here to ensure exact match to image
         height: 4rem;

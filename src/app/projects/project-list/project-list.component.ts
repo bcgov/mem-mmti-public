@@ -11,12 +11,15 @@ import { ProjectService } from '../../services/project.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectListComponent implements OnInit {
-  results: Array<Project>;
+  projects: Array<Project>;
+  public isDesc: boolean;
+  public column: string;
+  public direction: number;
   public loading: boolean;
-  public filter: string;
+  public mineCount: number;
   public config: PaginationInstance = {
     id: 'custom',
-    itemsPerPage: 15,
+    itemsPerPage: 25,
     currentPage: 1
   };
 
@@ -26,7 +29,8 @@ export class ProjectListComponent implements OnInit {
     this.loading = true;
     this.projectService.getAll().subscribe(
       data => {
-        this.results = data;
+        this.projects = data;
+        this.mineCount = data ? data.length : 0;
         this.loading = false;
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
@@ -34,4 +38,11 @@ export class ProjectListComponent implements OnInit {
       error => console.log(error)
     );
   }
+
+  sort (property) {
+    this.isDesc = !this.isDesc;
+    this.column = property;
+    this.direction = this.isDesc ? 1 : -1;
+  }
+
 }

@@ -32,11 +32,18 @@
     flex-direction: $values;
 }
 
+@mixin flex-flow($values) {
+    -webkit-flex-flow: $values;
+    -ms-flex-flow: $values;
+    flex-flow: $values;
+}
+
 @mixin placeholder {
     &::-webkit-input-placeholder {@content;}
     &:-moz-placeholder {@content;}
     &::-moz-placeholder {@content;}
     &:-ms-input-placeholder{@content;}
+    &::placeholder{@content;}
 }
 
 // This mixin ensures an element spans to fill the nearest ancestor with defined positioning.

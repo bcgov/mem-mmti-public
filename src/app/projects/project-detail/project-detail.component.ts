@@ -13,6 +13,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   // public properties
   loading: boolean;
   project: Project;
+
   tabLinks = [
     { label: 'Mine Summary', link: 'overview' },
     { label: 'Authorizations', link: 'authorizations' },
@@ -35,7 +36,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         this.project = data.project;
 
         // project not found --> navigate back to project list
-        if (!this.project) {
+        if (!this.project || !this.project.code) {
           this.gotoProjectList();
         }
       },
