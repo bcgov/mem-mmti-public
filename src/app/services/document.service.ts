@@ -19,11 +19,11 @@ export class DocumentService {
       // Local
       this.apiPathMEM  = 'http://localhost:3000';
       this.apiPathEPIC = 'http://localhost:4000';
-    } else if (hostname === 'mem-mmt-dev.pathfinder.gov.bc.ca') {
+    } else if (hostname === 'www.mem-mmt-dev.pathfinder.gov.bc.ca') {
       // Dev
       this.apiPathMEM  = 'http://mem-mmt-dev.pathfinder.gov.bc.ca';
       this.apiPathEPIC = 'http://esm-master.pathfinder.gov.bc.ca';
-    } else if (hostname === 'mem-mmt-test.pathfinder.gov.bc.ca') {
+    } else if (hostname === 'www.mem-mmt-test.pathfinder.gov.bc.ca') {
       // Test
       this.apiPathMEM  = 'http://mem-mmt-test.pathfinder.gov.bc.ca';
       this.apiPathEPIC = 'http://esm-test.pathfinder.gov.bc.ca';
