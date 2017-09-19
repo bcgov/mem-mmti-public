@@ -18,18 +18,26 @@ export class ProjectService {
     const { hostname } = window.location;
     if (hostname === 'localhost') {
       // Local
-      this.apiPathMEM  = 'http://localhost:4000/api';
-      this.apiPathEPIC = 'http://localhost:3000/api';
+      this.apiPathMEM  = 'http://localhost:4000';
+      this.apiPathEPIC = 'http://localhost:3000';
+    } else if (hostname === 'www.mem-mmt-dev.pathfinder.gov.bc.ca') {
+      // Dev
+      this.apiPathMEM  = 'http://mem-mmt-dev.pathfinder.gov.bc.ca';
+      this.apiPathEPIC = 'http://esm-master.pathfinder.gov.bc.ca';
+    } else if (hostname === 'www.mem-mmt-test.pathfinder.gov.bc.ca') {
+      // Test
+      this.apiPathMEM  = 'http://mem-mmt-test.pathfinder.gov.bc.ca';
+      this.apiPathEPIC = 'http://esm-test.pathfinder.gov.bc.ca';
     } else {
-      // Use Prod
-      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca/api';
-      this.apiPathEPIC = 'https://projects.eao.gov.bc.ca/api';
+      // Prod
+      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca';
+      this.apiPathEPIC = 'https://projects.eao.gov.bc.ca';
     }
   }
 
   getAll() {
     // Get all projects
-    return this.http.get(`${this.apiPathMEM}/projects/major`)
+    return this.http.get(`${this.apiPathMEM}/api/projects/major`)
       .map((res: Response) => {
         const projects = res.text() ? res.json() : [];
 
@@ -46,7 +54,7 @@ export class ProjectService {
     this.project = null;
 
     // Grab the project data first
-    return this.http.get(`${this.apiPathMEM}/project/bycode/${code}`)
+    return this.http.get(`${this.apiPathMEM}/api/project/bycode/${code}`)
       .map((res: Response) => {
         return res.text() ? new Project(res.json()) : null;
       })
@@ -83,7 +91,7 @@ export class ProjectService {
   }
 
   private getCollectionsByProjectCode(apiPath: string, projectCode: string) {
-    return this.http.get(`${apiPath}/collections/project/${projectCode}`)
+    return this.http.get(`${apiPath}/api/collections/project/${projectCode}`)
       .map((res: Response) => {
         const collections = res.text() ? res.json() : [];
 

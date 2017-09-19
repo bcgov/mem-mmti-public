@@ -17,8 +17,8 @@ export class DocumentService {
     const { hostname } = window.location;
     if (hostname === 'localhost') {
       // Local
-      this.apiPathMEM  = 'http://localhost:3000';
-      this.apiPathEPIC = 'http://localhost:4000';
+      this.apiPathMEM  = 'http://localhost:4000';
+      this.apiPathEPIC = 'http://localhost:3000';
     } else if (hostname === 'www.mem-mmt-dev.pathfinder.gov.bc.ca') {
       // Dev
       this.apiPathMEM  = 'http://mem-mmt-dev.pathfinder.gov.bc.ca';
