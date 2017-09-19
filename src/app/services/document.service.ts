@@ -21,12 +21,12 @@ export class DocumentService {
       this.apiPathEPIC = 'http://localhost:4000';
     } else if (hostname === 'mem-mmt-dev.pathfinder.gov.bc.ca') {
       // Dev
-      this.apiPathMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
-      this.apiPathEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
+      this.apiPathMEM  = 'http://mem-mmt-dev.pathfinder.gov.bc.ca';
+      this.apiPathEPIC = 'http://esm-master.pathfinder.gov.bc.ca';
     } else if (hostname === 'mem-mmt-test.pathfinder.gov.bc.ca') {
       // Test
-      this.apiPathMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
-      this.apiPathEPIC = 'https://esm-test.pathfinder.gov.bc.ca';
+      this.apiPathMEM  = 'http://mem-mmt-test.pathfinder.gov.bc.ca';
+      this.apiPathEPIC = 'http://esm-test.pathfinder.gov.bc.ca';
     } else {
       // Prod
       this.apiPathMEM  = 'https://mines.empr.gov.bc.ca';
