@@ -1,8 +1,12 @@
 @import "~assets/styles/base.scss";
 
 aside {
+    margin-top: 2rem;
+
     section {
-        margin-bottom: 1.5rem;
+        + section {
+            margin-top: 1.5rem;
+        }
 
         h5 {
             color: $aside-title-color;
@@ -20,4 +24,8 @@ aside {
     .card-body {
         background: $aside-bg;
     }
+}
+
+@media (min-width: 992px) {
+    margin-top: 0;
 }

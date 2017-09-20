@@ -18,8 +18,8 @@ export class ProjectService {
     const { hostname } = window.location;
     if (hostname === 'localhost') {
       // Local
-      this.apiPathMEM  = 'http://localhost:4000/api';
-      this.apiPathEPIC = 'http://localhost:3000/api';
+      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca/api';
+      this.apiPathEPIC = 'https://projects.eao.gov.bc.ca/api';
     } else {
       // Use Prod
       this.apiPathMEM  = 'https://mines.empr.gov.bc.ca/api';

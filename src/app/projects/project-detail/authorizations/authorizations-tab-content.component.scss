@@ -1,43 +1,84 @@
 @import "~assets/styles/base.scss";
 
-.auth-list {
-    .sh-col,
-    .ah-col {
-        &.date {
-            text-align: right;
+.authorizations-list {
+    .accordion {
+        &__collapse-header {
+            &--column {
+                line-height: 1.15rem;
+                font-size: 0.875rem;
+            }
         }
     }
 
-    .ah-col {
-        &.name {
-            padding-left: 0;
-            font-weight: 400;
+    &__date-col {
+        text-align: right;
+    }
+
+    &__related-documents {
+        li {
+            line-height: 1.25rem;
+            font-size: 0.875rem;
+
+            + li {
+                border-top: 1px solid #fff;
+            }
+        }
+    }
+}
+
+@media (max-width: 760px) {
+    .authorizations-list {
+        .accordion {
+            &__collapse-header {
+                @include flex-box();
+                @include flex-direction(column);
+                position: relative;
+                display: block;
+                padding: 1rem;
+                padding-left: 3rem;
+
+                &--column {
+                    @include flex(1 1 auto);
+                    display: block;
+
+                    &.toggle {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
         }
 
-        &.date {
-            span {
-                display: block;
+        &__name-col,
+        &__date-col {
+            padding: 0;
+            text-align: left;
+        }
+
+        &__date-col {
+            margin-top: 0.5rem;
+        }
+
+        &__name-col {
+            font-weight: 600;
+        }
+
+        &__related-documents {
+            .card-header {
+                padding: 0.3rem 1rem;
+                font-size: 0.7rem;
             }
         }
     }
 }
 
 @media (min-width: 760px) {
-    .auth-list {
-        .ah-col {
-            &.date {
-                span {
-                    display: inline-block;
-                }
-
-                span:first-child {
-                    &:after {
-                        display: inline-block;
-                        margin-left: 0.25rem;
-                        margin-right: 0.25rem;
-                        content: '-';
-                    }
-                }
+    .authorizations-list {
+        &__related-documents {
+            .card-header {
+                padding: 0.3rem 1rem;
+                font-size: 0.875rem;
             }
         }
     }
