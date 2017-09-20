@@ -3,8 +3,7 @@
         <div class="container-inner">
             <div class="hb-txt">
                 <h1>Find Mines in British Columbia</h1>
-                <p class="mb-2">The BC Mine Information website currently profiles {{mineCount}} major mines located across the province.
-                    <strong>More mines will be added to this site in the coming months.</strong></p>
+                <p class="mb-2">The BC Mine Information website currently profiles {{mineCount}} major mines located across the province. <strong>More mines will be added to this site in the coming months.</strong></p>
             </div>
         </div>
     </div>
@@ -19,83 +18,67 @@
                 ownership, commodity/ies produced) about that mine. You can also use our <a href="/map" [routerLink]="['/map']">interactive map</a>                    to navigate to information on individual mines across British Columbia.</p>
 
             <table class="table project-table" id="tableTop">
-                <thead>
+                <thead class="project-table__sort-header">
                     <tr>
-                        <th class="sortable" (click)="sort('name')">Name
+                        <th class="project-table__name-col sortable" (click)="sort('name')">Name
                             <i class="sort" 
                                 [ngClass]="{'sort-asc': (column == 'name' && isDesc), 'sort-desc': (column == 'name' && !isDesc) }" 
                                 aria-hidden="true"></i>
                         </th>
-                        <th class="sortable" (click)="sort('operator')">Proponent
+                        <th class="project-table__operator-col sortable" (click)="sort('operator')">Operator
                             <i class="sort" 
                                 [ngClass]="{'sort-asc': (column == 'operator' && isDesc), 'sort-desc': (column == 'operator' && !isDesc) }"
                                 aria-hidden="true"></i>
                         </th>
-                        <th class="sortable" (click)="sort('type')">Type
+                        <th class="project-table__type-col sortable" (click)="sort('type')">Type
                             <i class="sort" 
                                 [ngClass]="{'sort-asc': (column == 'type' && isDesc), 'sort-desc': (column == 'type' && !isDesc) }" 
                                 aria-hidden="true"></i>
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="project-table__content">
                     <tr *ngFor="let item of projects | orderBy: {property: column, direction: direction} | paginate: config">
-                        <td class="name"><a [routerLink]="['/p', item.code]">{{item.name}}</a></td>
-                        <td class="proj-col operator"><span>{{item.operator}}</span></td>
-                        <td class="proj-col type"><span>{{item.type}}</span></td>
+                        <td class="accordion__collapse-item p-0" colspan="3">
+                            <div class="accordion__collapse-header" id="accordHead" role="tab">
+                                <a class="accordion__collapse-header--column toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item.code}}">
+                                    <i class="material-icons open-icon">add</i>
+                                    <i class="material-icons close-icon">remove</i>
+                                </a>
+                                <span class="accordion__collapse-header--column">
+                                    <a [routerLink]="['/p', item.code]">{{item.name}}</a></span>
+                                <span class="accordion__collapse-header--column project-table__operator-col">{{item.operator}}</span>
+                                <span class="accordion__collapse-header--column project-table__type-col" >{{item.type}}</span>
+                            </div>
+                            <div class="collapse" id="accordCollapse{{item.code}}" role="tabpanel">
+                                <div class="accordion__collapse-body">
+                                    <div class="project-table__project-details">
+                                        <div class="project-table__project-details--description pt-0" [innerHTML]="item.getContent('OVERVIEW_INTRO_TEXT', 'MINES')"></div>
+                                        <ul class="project-table__project-details--list list-group">
+                                            <li class="list-group-item p-0">
+                                                <span class="name">Ownership:</span>
+                                                <span class="value">{{item.ownership}}</span>
+                                            </li>
+                                            <li  class="list-group-item p-0">
+                                                <span class="name">Commodities:</span>
+                                                <span class="value">{{item.commodities ? item.commodities.join(', ') : ''}}</span>
+                                            </li>
+                                            <li  class="list-group-item p-0">
+                                                <span class="name">Number of Tailings Impoundments:</span>
+                                                <span class="value">{{item.tailingsImpoundments}}</span>
+                                            </li>
+                                        </ul>
+                                        <div class="project-table__project-details--links">
+                                            <a class="btn content-btn slide-l-btn btn-sm" [routerLink]="['/p', item.code]"><i class="material-icons">info_outline</i><span>Go to Mine Details</span></a>
+                                            <a class="btn content-btn slide-l-btn btn-sm" href="/map" [routerLink]="['/map', { project: item.code }]"><i class="material-icons">location_on</i><span>Show on Map</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-
-            <!--
-            <div class="mine-list">
-                <div class="accord-item" *ngFor="let item of projects | paginate: config">
-                    <div class="accord-header" id="accordHead" role="tab">
-                        <div>
-                            <a class="toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item.code}}">
-                <i class="material-icons open-icon">add</i>
-                <i class="material-icons close-icon">remove</i>
-                </a>
-                            <span class="ah-col name"><a [routerLink]="['/p', item.code]">{{item.name}}</a></span>
-                            <span class="ah-col operator">{{item.operator}}</span>
-                            <span class="ah-col commodity">{{item.type}}</span>
-                        </div>
-                    </div>
-                    <div class="collapse" id="accordCollapse{{item.code}}" role="tabpanel">
-                        <div class="accord-body">
-                            <div class="summary" [innerHTML]="item.getContent('OVERVIEW_INTRO_TEXT', 'MINES')"></div>
-                            <div class="card">
-                                <div class="card-header">Details</div>
-                                <div class="card-block p-0">
-                                    <ul class="nv-list">
-                                        <li>
-                                            <span class="name">Operator</span>
-                                            <span class="value">{{item.operator}}</span>
-                                        </li>
-                                        <li>
-                                            <span class="name">Ownership</span>
-                                            <span class="value">{{item.ownership}}</span>
-                                        </li>
-                                        <li>
-                                            <span class="name">Commodities</span>
-                                            <span class="value">{{item.commodities ? item.commodities.join(', ') : ''}}</span>
-                                        </li>
-                                        <li>
-                                            <span class="name">Number of Tailings Impoundments</span>
-                                            <span class="value">{{item.tailingsImpoundments}}</span>
-                                        </li>
-                                        <li class="mine-list-btns">
-                                            <a class="btn content-btn slide-l-btn" [routerLink]="['/p', item.code]"><i class="material-icons">info_outline</i><span>Go to Mine Details</span></a>
-                                            <a class="btn content-btn slide-l-btn" href="/map" [routerLink]="['/map', { project: item.code }]"><i class="material-icons">location_on</i><span>Show on Map</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
 
         </section>
     </main>

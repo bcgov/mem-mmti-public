@@ -54,3 +54,10 @@
     bottom: 0;
     left: 0;
 }
+
+@mixin align-items($values) {
+    -webkit-align-items: $values;
+    -webkit-box-align: $values;
+    -ms-flex-align: $values;
+    align-items: $values;
+}
