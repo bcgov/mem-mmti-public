@@ -20,7 +20,7 @@
                     <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
                         <div class="form-group mb-4">
                             <label for="projects">Project</label>
-                            <input class="form-control" placeholder="Enter a Project Name..." name="projectInput" id="projects" 
+                            <input class="form-control" type="text" placeholder="Enter a Project Name..." name="projectInput" id="projects" 
                             [disabled]="protoSearchActive" ngModel/>
                             <ul *ngFor="let project of projects | paginate: config">
                                 <h3 class="srch-title mb-0">{{project._id}}</h3>
@@ -61,13 +61,13 @@
                             <i class="material-icons">search</i><span>Search</span>
                         </button>
 
-                        <button class="search-form__search-btn btn btn-primary slide-l-btn" 
+                        <button class="search-form__search-btn btn btn-primary slide-l-btn"
                             [hidden]="!protoSearchActive"
                             disabled>
                             <i class="material-icons">search</i><span>Searching...</span>
                         </button>
 
-                        <button class="search-form__toggle-advanced-btn btn btn-link" (click)="toggleAdvancedSearch()">
+                        <button class="search-form__toggle-advanced-btn btn btn-link" type="button" (click)="toggleAdvancedSearch()">
                             <span *ngIf="!showAdvancedFields">
                                     <i class="material-icons">add_box</i> Show Advanced
                             </span>
@@ -94,28 +94,36 @@
             <div class="search-results__header" *ngIf="results && results.length > 0">
                 <span class="srch-count">{{results.length}} Results Found</span>
             </div>
+
             <section *ngIf="results && results.length < 1" >
                 <h2>No Results Found</h2>
                 <p class="mb-0">Sorry, we were unable to locate any results matching your search criteria.</p>
             </section>
-            <ul class="search-results list-group" *ngFor="let item of results">
-                <li *ngIf="item" class="list-group-item search-results-item">
-                    <h3 class="search-results-item__project-name">{{item.displayName}}</h3>
-                    <div class="search-results-item__title mb-0">{{item.project.name}}</div>
+
+            <ul class="search-results list-group">
+                <li *ngFor="let item of results" class="list-group-item search-results-item">
+                    <h3 class="search-results-item__project-name" 
+                        *ngIf="item.project.name">{{item.project.name}}
+                    </h3>
+                    <div class="search-results-item__title mb-0">{{item.displayName}}</div>
                     <div class="search-results-item__meta">{{item.datePosted | date}}</div>
-                    <div class="search-results-item__description mt-3">{{item.description}}</div>
-                    <div class="search-results-item__actions mt-3">
+                    <div class="search-results-item__description mt-3" 
+                        *ngIf="item.description">{{item.description}}
+                    </div>
+                    <div class="search-results-item__actions">
                         <a href="{{item.hostname}}/p/{{item.project.code}}/detail">View Project Page</a>
                         <a href="{{item.hostname}}/api/document/{{item._id}}/fetch">Download Document</a>
                     </div>
                 </li>
             </ul>
+
+            <!-- 
             <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0">
                 <button class="btn content-btn-alt" (click)="dostuff()">Load More</button>
             </div>
-        </section>
+            -->
 
-        <!-- NO RESULTS -->
+        </section>
 
         <section>
             <h2>Example Searches</h2>
