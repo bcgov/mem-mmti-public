@@ -88,12 +88,16 @@
     <main>
 
         <!-- SEARCH RESULTS TEMPLATE -->
-        <section class="add-spacer">
-            <h2 class="mb-0">Search Results</h2>
+        <section class="add-spacer" *ngIf="ranSearch">
+            <h2 class="mb-0" *ngIf="ranSearch && results && results.length > 0">Search Results</h2>
 
-            <div class="search-results__header">
-                <span *ngIf="results" class="srch-count">{{results.length}} Results Found</span>
+            <div class="search-results__header" *ngIf="results && results.length > 0">
+                <span class="srch-count">{{results.length}} Results Found</span>
             </div>
+            <section *ngIf="results && results.length < 1" >
+                <h2>No Results Found</h2>
+                <p class="mb-0">Sorry, we were unable to locate any results matching your search criteria.</p>
+            </section>
             <ul class="search-results list-group" *ngFor="let item of results">
                 <li *ngIf="item" class="list-group-item search-results-item">
                     <h3 class="search-results-item__project-name">{{item.displayName}}</h3>
@@ -106,18 +110,12 @@
                     </div>
                 </li>
             </ul>
-            <div class="search-results__footer mt-3">
+            <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0">
                 <button class="btn content-btn-alt" (click)="dostuff()">Load More</button>
             </div>
         </section>
 
         <!-- NO RESULTS -->
-        <!--
-        <section class="add-spacer">
-            <h2>No Results Found</h2>
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        </section>
-        -->
 
         <section>
             <h2>Example Searches</h2>
