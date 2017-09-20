@@ -18,7 +18,7 @@ export class ProjectService {
     const { hostname } = window.location;
     if (hostname === 'localhost') {
       // Local
-      this.apiPathMEM  = 'http://localhost:4000';
+      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca';
       this.apiPathEPIC = 'http://localhost:3000';
     } else if (hostname === 'www.mem-mmt-dev.pathfinder.gov.bc.ca') {
       // Dev
