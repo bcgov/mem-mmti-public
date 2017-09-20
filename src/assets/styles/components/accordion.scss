@@ -1,86 +1,88 @@
-.accord {
+.accordion {
     margin-top: 0.25rem;
-}
 
-// Accord Item
-.accord-item {
-    margin-bottom: 0.25rem;
+    &__collapse-item {
+        margin-bottom: 0.25rem;
 
-    &:nth-child(even) {
-        .accord-header {
-            background: #EEE;
-        }
-    }
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-}
-
-// Accord Header
-.accord-header {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-    background: #F7F8FA;
-
-    a {
-        text-decoration: none;
-    }
-
-    div {
-        display: table-row;
-        width: 100%;
-    }
-
-    .ah-col {
-        display: table-cell;
-        padding: 1.25rem 0.75rem;
-        line-height: 1rem;
-        font-size: 0.875rem;
-
-        &:first-child {
-            padding-left: 0;
+        .accordion__collapse-header {
+            background: #f7f8fa;
         }
 
+        &:nth-child(even) {
+            .accordion__collapse-header {
+                background: #f4f4f4;
+            }
+        }
+    
         &:last-child {
-            padding-right: 1rem;
+            margin-bottom: 0;
         }
     }
 
-    .toggle {
-        display: table-cell;
-        width: 3.5rem;
-        vertical-align: middle;
-        text-align: center;
+    &__collapse-header {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
 
-        &:active,
-        &:focus,
-        &:hover {
-            text-decoration: none;
-        }
+        &--column {
+            display: table-cell;
+            padding: 1rem 0.75rem;
+            font-size: 0.875rem;
+            vertical-align: top;
 
-        .close-icon {
-            display: block;
-        }
+            &.toggle {
+                display: table-cell;
+                width: 3rem;
+                text-align: center;
 
-        .open-icon {
-            display: none;
-        }
+                i {
+                    margin-top: -2px;
+                }
+        
+                &:active,
+                &:focus,
+                &:hover {
+                    text-decoration: none;
+                }
+        
+                .close-icon {
+                    display: block;
+                }
+        
+                .open-icon {
+                    display: none;
+                }
+        
+                &.collapsed {
+                    .close-icon {
+                        display: none;
+                    }
+                    
+                    .open-icon {
+                        display: block;
+                    }
+                }
 
-        &.collapsed {
-            .close-icon {
-                display: none;
+                + .accordion__collapse-header--column {
+                    padding-left: 0;
+                }
             }
-            
-            .open-icon {
-                display: block;
-            }
         }
+    }
+
+    &__collapse-body {
+        padding: 1rem;
     }
 }
 
-// Accord Body
-.accord-body {
-    padding: 1rem;
+@media (min-width: 1024px) {
+    .accordion {
+        &__collapse-header {
+            &--column {
+                &.toggle {
+                    width: 3.5rem;
+                }
+            }
+        }
+    }
 }

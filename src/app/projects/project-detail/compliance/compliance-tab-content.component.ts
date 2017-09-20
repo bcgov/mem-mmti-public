@@ -12,6 +12,9 @@ import { CollectionsArray } from '../../../models/collection';
 })
 export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   // public properties
+  isDesc: boolean;
+  column: string;
+  direction: number;
   loading: boolean;
   project: Project;
   collections: CollectionsArray;
@@ -34,6 +37,12 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
       error => console.log(error),
       () => this.loading = false
     );
+  }
+
+  sort (property) {
+    this.isDesc = !this.isDesc;
+    this.column = property;
+    this.direction = this.isDesc ? 1 : -1;
   }
 
   ngOnDestroy(): void {
