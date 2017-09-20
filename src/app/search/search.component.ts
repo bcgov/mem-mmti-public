@@ -2,6 +2,7 @@ import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from '../services/document.service';
 import { Project } from '../models/project';
+import { Search } from '../models/search';
 import { ProjectService } from '../services/project.service';
 import { PaginationInstance } from 'ngx-pagination';
 
@@ -13,7 +14,7 @@ import { PaginationInstance } from 'ngx-pagination';
 })
 
 export class SearchComponent implements OnInit {
-  results: Array<Document>;
+  results: Search[];
   projects: Array<Project>;
   public loading: boolean;
   protoSearchActive: boolean;
@@ -48,7 +49,7 @@ export class SearchComponent implements OnInit {
 
   onSubmit(form: any) {
     console.log('submitted:', form);
-
+    this.results = [];
     // Get the keywords
     let keywordsArr = null;
     if (form.keywordInput) {
@@ -74,9 +75,21 @@ export class SearchComponent implements OnInit {
     }
 
     this.loading = true;
-    this.documentService.get(keywordsArr, form.projectInput).subscribe(
+    this.documentService.get(keywordsArr,
+                            form.projectInput,
+                            form.ownerOperatorInput,
+                            form.dateRangeStartInput,
+                            form.dateRangeEndInput)
+    .subscribe(
       data => {
-        this.results = data;
+        // Push in 1st call
+        data[0].forEach(i => {
+          this.results.push(i);
+        });
+        // push in 2nd call
+        data[1].forEach(i => {
+          this.results.push(i);
+        });
         this.loading = false;
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();

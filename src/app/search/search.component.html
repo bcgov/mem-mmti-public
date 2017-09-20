@@ -92,18 +92,17 @@
             <h2 class="mb-0">Search Results</h2>
 
             <div class="search-results__header">
-                <span class="srch-count">10 Results Found</span>
+                <span *ngIf="results" class="srch-count">{{results.length}} Results Found</span>
             </div>
-            <ul class="search-results list-group" *ngFor="let item of results | paginate: config">
-                <li class="list-group-item search-results-item">
-                    <h3 class="search-results-item__project-name">{{item.project.name}}</h3>
-                    <div class="search-results-item__title mb-0">{{item.displayName}}</div>
+            <ul class="search-results list-group" *ngFor="let item of results">
+                <li *ngIf="item" class="list-group-item search-results-item">
+                    <h3 class="search-results-item__project-name">{{item.displayName}}</h3>
+                    <div class="search-results-item__title mb-0">{{item.project.name}}</div>
                     <div class="search-results-item__meta">{{item.datePosted | date}}</div>
                     <div class="search-results-item__description mt-3">{{item.description}}</div>
                     <div class="search-results-item__actions mt-3">
-                        <a href="">View Result Details</a>
-                        <a href="">View Project Page</a>
-                        <a href="">Download?</a>
+                        <a href="{{item.hostname}}/p/{{item.project.code}}/detail">View Project Page</a>
+                        <a href="{{item.hostname}}/api/document/{{item._id}}/fetch">Download Document</a>
                     </div>
                 </li>
             </ul>
