@@ -16,6 +16,9 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   project: Project;
   collections: CollectionsArray;
 
+  sortField: string;
+  sortAsc: boolean;
+
   // private fields
   private sub: Subscription;
 
@@ -28,7 +31,12 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
         if (data.project && data.project.collections) {
           this.project = data.project;
           this.collections = data.project.collections.compliance;
-          this.collections.sort();
+
+          // Default sort will be descending by date
+          this.sortField = 'date';
+          this.sortAsc = false;
+
+          this.collections.sort(this.sortField, this.sortAsc);
         }
       },
       error => console.log(error),
@@ -38,5 +46,17 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  sort(field: string) {
+    // Reverse order if this is already sort field
+    if (this.sortField === field) {
+      this.sortAsc = !this.sortAsc;
+    } else {
+      // Ascending sort of the new field
+      this.sortField = field;
+      this.sortAsc = true;
+    }
+    this.collections.sort(this.sortField, this.sortAsc);
   }
 }
