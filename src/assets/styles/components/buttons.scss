@@ -39,13 +39,6 @@
         color: #1a5a96;
     }
 
-    &.btn-sm {
-        i {
-            margin-top: -0.1rem;
-            margin-right: 0.1rem;
-        }
-    }
-
     &:disabled {
         pointer-events: none;
     }
@@ -142,7 +135,6 @@ main {
     padding: 0.5rem;
     background: #EEE;
     color: #1a5a96;
-    font-size: 0.9375rem;
     font-weight: 600;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
                 0 1px 5px 0 rgba(0,0,0,0.12),

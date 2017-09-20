@@ -44,15 +44,16 @@ main {
         font-size: 1.5rem;
 
         span {
+            margin-top: 0.5rem;
             display: block;
+            line-height: 1.25rem;
             font-size: 1rem;
-            letter-spacing: 0;
         }
     }
 
     p {
-        font-size: 1rem;
-        line-height: 1.8rem;
+        line-height: 1.4rem;
+        font-size: 0.9375rem;
     }
 
     section {
@@ -130,6 +131,11 @@ main {
 
         h3 {
             font-size: 1.75rem;
+        }
+
+        p {
+            line-height: 1.8rem;
+            font-size: 1rem;
         }
     }
 }
