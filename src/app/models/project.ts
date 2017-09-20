@@ -110,11 +110,15 @@ export class Project {
     this.externalLinks           = obj && obj.externalLinks           || [];
     this.collections             = obj && obj.collections             || null;
 
-    // Get the operator from the proponent
-    this.operator = obj && obj.proponent ? obj.proponent.name : '';
-
-    // parse ownership string into an array of owners
+    // Parse ownership string into an array of owners
     this.ownership = obj && obj.ownership ? (<string>obj.ownership).split(';') : [];
+
+    // Get the operator from the proponent.
+    this.operator = obj && obj.proponent ? obj.proponent.name : '';
+    if (!this.operator && obj) {
+      // Try to use ownership if there's no operator
+      this.operator = obj.ownership || '';
+    }
 
     // Commodies come from commodity
     this.commodities = obj && obj.commodity ? (<string>obj.commodity).split(',').map(x => {

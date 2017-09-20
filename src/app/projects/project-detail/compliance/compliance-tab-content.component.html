@@ -8,20 +8,25 @@
 
     <section class="ce-section">
         <h3>Inspections &amp; Orders</h3>
-        
+
         <div class="inspections-list" id="complianceList" role="tablist" aria-multiselectable="false">
 
             <table class="table mb-0">
                 <thead class="inspections-list__sort-header">
                     <tr>
+                        <th class="inspections-list__agency-col sortable" (click)="sort('agency')">Agency
+                            <i class="sort"
+                                [ngClass]="{'sort-asc': (sortField == 'agency' && !sortAsc), 'sort-desc': (sortField == 'agency' && sortAsc) }"
+                                aria-hidden="true"></i>
+                        </th>
                         <th class="inspections-list__name-col sortable" (click)="sort('displayName')">Name
-                            <i class="sort" 
-                                [ngClass]="{'sort-asc': (column == 'displayName' && isDesc), 'sort-desc': (column == 'displayName' && !isDesc) }" 
+                            <i class="sort"
+                                [ngClass]="{'sort-asc': (sortField == 'displayName' && !sortAsc), 'sort-desc': (sortField == 'displayName' && sortAsc) }"
                                 aria-hidden="true"></i>
                         </th>
                         <th class="inspections-list__date-col sortable" (click)="sort('date')">Date
-                            <i class="sort" 
-                                [ngClass]="{'sort-asc': (column == 'date' && isDesc), 'sort-desc': (column == 'date' && !isDesc) }" 
+                            <i class="sort"
+                                [ngClass]="{'sort-asc': (sortField == 'date' && !sortAsc), 'sort-desc': (sortField == 'date' && sortAsc) }"
                                 aria-hidden="true"></i>
                         </th>
                     </tr>
@@ -35,6 +40,7 @@
                             <i class="material-icons open-icon">add</i>
                             <i class="material-icons close-icon">remove</i>
                         </a>
+                        <span class="accordion__collapse-header--column inspections-list__agency-col">{{c.agency | uppercase}}</span>
                         <span class="accordion__collapse-header--column inspections-list__name-col">{{c.displayName}}</span>
                         <span class="accordion__collapse-header--column inspections-list__date-col">{{c.date | date:'MMM dd, yyyy'}}</span>
                     </div>
@@ -70,5 +76,5 @@
             <a href="https://mines.empr.gov.bc.ca/p/mount-polley/docs?folder=2" target="_blank">here</a>.
         </p>
     </section>
-    
+
 </div>

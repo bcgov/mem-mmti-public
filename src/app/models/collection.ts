@@ -109,12 +109,20 @@ export class CollectionsArray {
     this.items = obj && obj.items || [];
   }
 
-  sort() {
-    this.items.sort(function(a: Collection, b: Collection) {
+  sort(field?: string, ascending?: boolean) {
+    const compare = function(a: Collection, b: Collection) {
+      const aField = a && a[field] ? a[field] : '';
+      const bField = b && b[field] ? b[field] : '';
+      return ascending ? (aField < bField ? -1 : (aField > bField ? 1 : 0)) : (aField < bField ? 1 : (aField > bField ? -1 : 0));
+    };
+
+    const compareDate = function(a: Collection, b: Collection) {
       const aDate = a && a.date ? new Date(a.date).getTime() : 0;
       const bDate = b && b.date ? new Date(b.date).getTime() : 0;
-      return bDate - aDate;
-    });
+      return ascending ? aDate - bDate : bDate - aDate;
+    };
+
+    this.items.sort(field && field !== 'date' ? compare : compareDate);
   }
 
   get length() {

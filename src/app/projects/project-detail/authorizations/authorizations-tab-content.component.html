@@ -1,5 +1,5 @@
 <div class="authorizations tab-pane" id="authorizations" role="tabpanel">
-    
+
     <div class="spinner-container" *ngIf="authListloading">
         <div class="spinner-new rotating"></div>
     </div>
@@ -20,7 +20,7 @@
                     </a>
                     <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
                     <span class="accordion__collapse-header--column authorizations-list__date-col">
-                        <span>Certificate {{c.status}}</span> - 
+                        <span>Certificate {{c.status}}</span> -
                         <span>{{c.date | date:'MMM dd, yyyy'}}</span>
                     </span>
                 </div>
@@ -50,7 +50,7 @@
                     </a>
                     <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
                     <span class="accordion__collapse-header--column authorizations-list__date-col">
-                        <span>Permit {{c.status}}</span> - 
+                        <span>Permit {{c.status}}</span> -
                         <span>{{c.date | date:'MMM dd, yyyy'}}</span>
                     </span>
                 </div>
@@ -78,9 +78,9 @@
                         <i class="material-icons open-icon">add</i>
                         <i class="material-icons close-icon">remove</i>
                     </a>
-                    <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
+                    <span class="accordion__collapse-header--column authorizations-list__name-col">{{project.memPermitID}} - {{c.displayName}}</span>
                     <span class="accordion__collapse-header--column authorizations-list__date-col">
-                        <span>Permit {{c.status}}</span> - 
+                        <span>Permit {{c.status}}</span> -
                         <span>{{c.date | date:'MMM dd, yyyy'}}</span>
                     </span>
                 </div>
@@ -103,5 +103,5 @@
         <p class="mb-0">Mines Act permits issued for {{project.name}} prior to {{project.morePermitsLinkYear}} can be accessed <a href="{{project.morePermitsLink}}"
                 target="_blank">here</a>.</p>
     </section>
-    
+
 </div>
