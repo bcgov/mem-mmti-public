@@ -15,6 +15,7 @@ import { PaginationInstance } from 'ngx-pagination';
 
 export class SearchComponent implements OnInit {
   results: Search[];
+  ranSearch: boolean;
   projects: Array<Project>;
   public loading: boolean;
   protoSearchActive: boolean;
@@ -29,6 +30,7 @@ export class SearchComponent implements OnInit {
               private documentService: DocumentService,
               private projectService: ProjectService,
               private _changeDetectionRef: ChangeDetectorRef) {
+    this.ranSearch = false;
     projectService.getAll().subscribe(
       data => {
         this.projects = data;
@@ -48,6 +50,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit(form: any) {
+    this.ranSearch = true;
     console.log('submitted:', form);
     this.results = [];
     // Get the keywords
