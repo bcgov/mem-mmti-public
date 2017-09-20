@@ -1,41 +1,85 @@
 @import "~assets/styles/base.scss";
 
-.doc-list {
-    .sh-col,
-    .ah-col {
-        &.date {
-            width: 7rem;
-            text-align: right;
-        }
+.inspections-list {
+    &__date-col {
+        text-align: right;
     }
 
-    .ah-col {
-        &.name {
-            padding-left: 0;
-            font-weight: 400;
-        }
-    }
-
-    .mmti-list {
+    &__related-documents {
         li {
-            @include flex-box();
+            line-height: 1.25rem;
+            font-size: 0.875rem;
 
-            i {
-                margin-top: 0.25rem;
-                margin-right: 0.75rem;
-                color: $link-color;
-                //font-size: 1.3rem;
+            + li {
+                border-top: 1px solid #fff;
             }
+        }
+    }
 
-            .name {
-                @include flex(1 1 auto);
+    .accordion {
+        &__collapse-header {
+            &--column {
+                line-height: 1.15rem;
+                font-size: 0.875rem;
             }
+        }
+    }
+}
 
-            .date {
-                @include flex(0 0 auto);
-                width: 7rem;
-                text-align: right;
-                white-space: nowrap;
+@media (max-width: 760px) {
+    .inspections-list {
+        .accordion {
+            &__collapse-header {
+                @include flex-box();
+                @include flex-direction(column);
+                position: relative;
+                display: block;
+                padding: 1rem;
+                padding-left: 3rem;
+
+                &--column {
+                    @include flex(1 1 auto);
+                    display: block;
+
+                    &.toggle {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+        }
+
+        &__name-col,
+        &__date-col {
+            padding: 0;
+            text-align: left;
+        }
+
+        &__date-col {
+            margin-top: 0.5rem;
+        }
+
+        &__name-col {
+            font-size: 0.9375rem;
+            font-weight: 600;
+        }
+
+        &__related-documents {
+            .card-header {
+                padding: 0.3rem 1rem;
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 760px) {
+    .inspections-list {
+        &__related-documents {
+            .card-header {
+                padding: 0.3rem 1rem;
+                font-size: 0.875rem;
             }
         }
     }
