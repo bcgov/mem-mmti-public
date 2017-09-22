@@ -18,7 +18,6 @@ export class Collection {
     this.displayName = collection && collection.displayName || null;
     this.parentType  = collection && collection.parentType  || null;
     this.type        = collection && collection.type        || null;
-    this.date        = collection && collection.date        || null;
     this.status      = collection && collection.status      || null;
 
     if (collection) {
@@ -67,6 +66,9 @@ export class Collection {
         this.agency = 'eao';
       }
 
+      // Set date
+      this.date = collection.date ? new Date(collection.date) : null;
+
       // Set documents
       this.documents = [];
 
@@ -74,7 +76,7 @@ export class Collection {
         this.documents.push({
           name : collection.mainDocument.document.displayName,
           ref  : this.getURL(collection.mainDocument.document._id),
-          date : collection.mainDocument.document.documentDate
+          date : collection.mainDocument.document.documentDate ? new Date(collection.mainDocument.document.documentDate) : null
         });
       }
 
@@ -88,7 +90,7 @@ export class Collection {
             this.documents.push({
               name : otherDoc.document.displayName,
               ref  : this.getURL(otherDoc.document._id),
-              date : otherDoc.document.documentDate
+              date : otherDoc.document.documentDate ? new Date(otherDoc.document.documentDate) : null
             });
           }
         });
@@ -109,20 +111,13 @@ export class CollectionsArray {
     this.items = obj && obj.items || [];
   }
 
-  sort(field?: string, ascending?: boolean) {
-    const compare = function(a: Collection, b: Collection) {
-      const aField = a && a[field] ? a[field] : '';
-      const bField = b && b[field] ? b[field] : '';
-      return ascending ? (aField < bField ? -1 : (aField > bField ? 1 : 0)) : (aField < bField ? 1 : (aField > bField ? -1 : 0));
-    };
-
-    const compareDate = function(a: Collection, b: Collection) {
-      const aDate = a && a.date ? new Date(a.date).getTime() : 0;
-      const bDate = b && b.date ? new Date(b.date).getTime() : 0;
-      return ascending ? aDate - bDate : bDate - aDate;
-    };
-
-    this.items.sort(field && field !== 'date' ? compare : compareDate);
+  sort() {
+    // Sort collections by descending date, i.e. most recent.
+    this.items.sort(function(a: Collection, b: Collection) {
+      const aDate = a.date ? a.date.getTime() : 0;
+      const bDate = b.date ? b.date.getTime() : 0;
+      return bDate - aDate;
+    });
   }
 
   get length() {

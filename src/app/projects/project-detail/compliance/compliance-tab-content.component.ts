@@ -18,6 +18,7 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
 
   sortField: string;
   sortAsc: boolean;
+  sortDirection: number;
 
   // private fields
   private sub: Subscription;
@@ -35,8 +36,7 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
           // Default sort will be descending by date
           this.sortField = 'date';
           this.sortAsc = false;
-
-          this.collections.sort(this.sortField, this.sortAsc);
+          this.sortDirection = -1;
         }
       },
       error => console.log(error),
@@ -57,6 +57,6 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
       this.sortField = field;
       this.sortAsc = true;
     }
-    this.collections.sort(this.sortField, this.sortAsc);
+    this.sortDirection = this.sortAsc ? 1 : -1;
   }
 }
