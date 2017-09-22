@@ -5,6 +5,9 @@ import { Project } from '../models/project';
 import { Search } from '../models/search';
 import { ProjectService } from '../services/project.service';
 import { PaginationInstance } from 'ngx-pagination';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-search',

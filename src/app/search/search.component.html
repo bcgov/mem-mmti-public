@@ -20,12 +20,16 @@
                     <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
                         <div class="form-group mb-4">
                             <label for="projects">Project</label>
-                            <input class="form-control" type="text" placeholder="Enter a Project Name..." name="projectInput" id="projects" 
-                            [disabled]="protoSearchActive" ngModel/>
-                            <ul *ngFor="let project of projects | paginate: config">
-                                <h3 class="srch-title mb-0">{{project._id}}</h3>
-                                <h3 class="srch-title mb-0">{{project.name}}</h3>
-                            </ul>
+                            <tag-input name='projectInput'
+                                [identifyBy]="'_id'"
+                                [displayBy]="'name'"
+                                [ngModel]="projectInput">
+                                   <tag-input-dropdown
+                                        [identifyBy]="'_id'"
+                                        [displayBy]="'name'"
+                                        [autocompleteItems]="projects">
+                                   </tag-input-dropdown>
+                            </tag-input>
                         </div>
                         <div class="form-group mb-4">
                             <label for="ownerOperator">Owner/Operator</label>

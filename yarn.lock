@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@angular/animations@^4.4.3":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.4.3.tgz#396c4a5bfb22847f9e458245ba995f9c130c0cf3"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@^1.1.3":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.2.4.tgz#04f7c0d9a2ee2cfd7cc11a3c1a89b87f03e14f8e"
@@ -3226,6 +3232,10 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+ng2-material-dropdown@0.7.10:
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/ng2-material-dropdown/-/ng2-material-dropdown-0.7.10.tgz#093471f2a9cadd726cbcb120b0ad7818a54fa5ed"
+
 ng2-page-scroll@^4.0.0-beta.9:
   version "4.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/ng2-page-scroll/-/ng2-page-scroll-4.0.0-beta.9.tgz#39b20518356c7d33aa5822d1e558dba1f9da244a"
@@ -3235,6 +3245,12 @@ ngx-bootstrap@^1.7.1:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.8.0.tgz#7482365e9a2cb04dc93296592771a9e4591c9fad"
   dependencies:
     moment "2.18.1"
+
+ngx-chips@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/ngx-chips/-/ngx-chips-1.5.3.tgz#8b47cf02bad41c0107fbf072e8f65e40c92fee59"
+  dependencies:
+    ng2-material-dropdown "0.7.10"
 
 ngx-pagination@^3.0.1:
   version "3.0.1"
