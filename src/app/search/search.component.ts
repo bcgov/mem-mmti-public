@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit {
   results: Search[];
   ranSearch: boolean;
   projects: Array<Project>;
+  projectArray: Array<string>;
   public loading: boolean;
   protoSearchActive: boolean;
   showAdvancedFields: boolean;
@@ -34,6 +35,10 @@ export class SearchComponent implements OnInit {
     projectService.getAll().subscribe(
       data => {
         this.projects = data;
+        this.projectArray = [];
+        this.projects.forEach((project, index) => {
+          this.projectArray.push(project._id);
+        });
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
       },
@@ -80,6 +85,7 @@ export class SearchComponent implements OnInit {
     this.loading = true;
     this.documentService.get(keywordsArr,
                             form.projectInput,
+                            this.projectArray,
                             form.ownerOperatorInput,
                             form.dateRangeStartInput,
                             form.dateRangeEndInput)
