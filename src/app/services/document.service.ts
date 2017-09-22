@@ -35,6 +35,7 @@ export class DocumentService {
   }
   get(keywords: string,
       project: string,
+      allProjects: Array<string>,
       owneroperator: string,
       datestart: NgbDateStruct,
       dateend: NgbDateStruct) {
@@ -46,6 +47,9 @@ export class DocumentService {
     }
     if (project) {
         query += '&project=' + project;
+    } else {
+        // Make sure we query all the projects by default
+        query += '&project=' + allProjects;
     }
     if (owneroperator) {
         query += '&owneroperator=' + owneroperator;
