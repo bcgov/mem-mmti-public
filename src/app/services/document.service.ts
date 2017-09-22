@@ -47,7 +47,7 @@ export class DocumentService {
         query += '&search=' + keywords;
     }
     if (project) {
-        let projectQuery = [];
+        const projectQuery = [];
         project.forEach(p => {
           projectQuery.push(p._id);
         });
