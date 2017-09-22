@@ -71,6 +71,10 @@
             margin-right: 0.2rem;
         }
     }
+
+    .ng2-tag-input {
+        border-bottom: 10px solid red;
+    }
 }
 
 @media (min-width: 760px) {
@@ -172,6 +176,67 @@
             &__title {
                 line-height: 1.8rem;
                 font-size: 1.5rem;
+            }
+        }
+    }
+}
+
+tag-input {
+    &.form-control {
+        padding: 0;
+    }
+
+    ::ng-deep {
+        &.ng2-tag-input {
+            padding: 0;
+            border-bottom: none;
+
+            * {
+                font-family: "myriad-pro" !important;
+            }
+
+            &.ng2-tag-input--focused {
+                border-bottom: none;
+            }
+
+            &__text-input {
+                padding: 0.75rem 0.5rem;
+                height: auto;
+                font-size: 1rem;
+                font-weight: 600;
+                box-shadow: none;
+            }
+
+            .ng2-tags-container {
+                padding-left: 0.15rem;
+            }
+
+            tag {
+                padding: 0.2rem 0.6rem;
+                height: auto;
+                color: #fff;
+                border-radius: 0.2rem;
+                background: #5091cd;
+                letter-spacing: 0;
+                font-size: 1rem;
+                font-weight: 600;
+
+                &:hover {
+                    color: #fff !important;
+                    background: #5091cd !important; 
+                }
+
+                &__text {
+                    margin-right: 0.4rem;
+                }
+
+                delete-icon {
+                    margin-top: 1px;
+
+                    path {
+                        fill: #fff;
+                    }
+                }
             }
         }
     }
