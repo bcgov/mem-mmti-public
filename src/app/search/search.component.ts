@@ -3,7 +3,9 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from '../services/document.service';
 import { Project } from '../models/project';
 import { Search } from '../models/search';
+import { Proponent } from '../models/proponent';
 import { ProjectService } from '../services/project.service';
+import { ProponentService } from '../services/proponent.service';
 import { PaginationInstance } from 'ngx-pagination';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
@@ -20,6 +22,7 @@ export class SearchComponent implements OnInit {
   results: Search[];
   ranSearch: boolean;
   projects: Array<Project>;
+  proponents: Array<Proponent>;
   projectArray: Array<string>;
   public loading: boolean;
   protoSearchActive: boolean;
@@ -33,8 +36,17 @@ export class SearchComponent implements OnInit {
   constructor(calender: NgbCalendar,
               private documentService: DocumentService,
               private projectService: ProjectService,
+              private proponentService: ProponentService,
               private _changeDetectionRef: ChangeDetectorRef) {
     this.ranSearch = false;
+    proponentService.getAll().subscribe(
+      data => {
+        this.proponents = data;
+        // Needed in development mode - not required in prod.
+        this._changeDetectionRef.detectChanges();
+      },
+      error => console.log(error)
+    );
     projectService.getAll().subscribe(
       data => {
         this.projects = data;
@@ -72,9 +84,13 @@ export class SearchComponent implements OnInit {
       console.log(form.projectInput);
     }
 
-    // Get the Owner/Operator
-    if (form.ownerOperatorInput) {
-      console.log(form.ownerOperatorInput);
+    // Get the Operator
+    if (form.operatorInput) {
+      console.log(form.operatorInput);
+    }
+
+    if (form.ownerInput) {
+      console.log(form.ownerInput);
     }
 
     // Date Range Start/End
@@ -88,8 +104,9 @@ export class SearchComponent implements OnInit {
     this.loading = true;
     this.documentService.get(keywordsArr,
                             form.projectInput,
-                            this.projectArray,
-                            form.ownerOperatorInput,
+                            this.projects,
+                            form.operatorInput,
+                            form.ownerInput,
                             form.dateRangeStartInput,
                             form.dateRangeEndInput)
     .subscribe(

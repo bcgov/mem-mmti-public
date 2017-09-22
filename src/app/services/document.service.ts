@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Search, SearchArray } from '../models/search';
 import { Project } from '../models/project';
+import { Proponent } from '../models/proponent';
 
 @Injectable()
 export class DocumentService {
@@ -36,28 +37,60 @@ export class DocumentService {
   }
   get(keywords: string,
       project: Array<Project>,
-      allProjects: Array<string>,
-      owneroperator: string,
+      allProjects: Array<Project>,
+      proponent: Array<Proponent>,
+      ownership: Array<Proponent>,
       datestart: NgbDateStruct,
       dateend: NgbDateStruct) {
     this.searchResult = new SearchArray();
 
     let query = '/search?types=document';
+    let memProjectQuery = '';
+    let epicProjectQuery = '';
+
     if (keywords) {
         query += '&search=' + keywords;
     }
+    // We change the way we query epic because the only thing we're currently in
+    // for api/projects/major is the epicCode.  In future we'll be able to change
+    // this to reference project= in epic.
     if (project) {
         const projectQuery = [];
+        const epicQuery = [];
         project.forEach(p => {
           projectQuery.push(p._id);
+          p.epicProjectCodes.forEach(c => {
+            epicQuery.push(c);
+          });
         });
-        query += '&project=' + projectQuery;
+        memProjectQuery += '&project=' + projectQuery;
+        epicProjectQuery += '&projectcode=' + epicQuery;
     } else {
         // Make sure we query all the projects by default
-        query += '&project=' + allProjects;
+        const projectQuery = [];
+        const epicQuery = [];
+        allProjects.forEach(p => {
+          projectQuery.push(p._id);
+          p.epicProjectCodes.forEach(c => {
+            epicQuery.push(c);
+          });
+        });
+        memProjectQuery += '&project=' + projectQuery;
+        epicProjectQuery += '&projectcode=' + epicQuery;
     }
-    if (owneroperator) {
-        query += '&owneroperator=' + owneroperator;
+    if (proponent) {
+        const propQuery = [];
+        proponent.forEach(o => {
+          propQuery.push(o._id);
+        });
+        query += '&proponent=' + propQuery;
+    }
+    if (ownership) {
+        const ownerQuery = [];
+        ownership.forEach(o => {
+          ownerQuery.push(o.company);
+        });
+        query += '&ownership=' + ownerQuery;
     }
     if (datestart) {
         const d: Date = new Date(datestart.year, datestart.month - 1, datestart.day);
@@ -72,8 +105,7 @@ export class DocumentService {
 
     // Field selection
     query += '&fields=_id project displayName description datePosted documentCategories collections keywords inspectionReport';
-
-    const mem = this.http.get(`${this.apiPathMEM}/api${query}`)
+    const mem = this.http.get(`${this.apiPathMEM}/api${query}${memProjectQuery}`)
     .map((res: Response) => {
         const data = res.text() ? res.json() : [];
         data.forEach(i => {
@@ -81,7 +113,7 @@ export class DocumentService {
         });
         return data;
     });
-    const epic = this.http.get(`${this.apiPathEPIC}/api/v2${query}`)
+    const epic = this.http.get(`${this.apiPathEPIC}/api/v2${query}${epicProjectQuery}`)
     .map((res: Response) => {
         const data = res.text() ? res.json() : [];
         data.forEach(i => {

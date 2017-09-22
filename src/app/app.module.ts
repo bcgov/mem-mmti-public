@@ -22,6 +22,7 @@ import { WaterQualityComponent } from './water-quality/water-quality.component';
 import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { SearchComponent } from './search/search.component';
+import { ProponentService } from './services/proponent.service';
 
 // feature modules
 import { MapModule } from './map/map.module';
@@ -61,7 +62,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Ng2PageScrollModule.forRoot(),
     MapModule
   ],
-  providers: [NewsComponent],
+  providers: [NewsComponent, ProponentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

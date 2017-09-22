@@ -32,9 +32,30 @@
                             </tag-input>
                         </div>
                         <div class="form-group mb-4">
-                            <label for="ownerOperator">Owner/Operator</label>
-                            <input class="form-control" type="text" placeholder="Enter an owner or operator name..." name="ownerOperatorInput" id="ownerOperator"
-                                [disabled]="protoSearchActive" ngModel/>
+                            <label for="operatorInput">Operator</label>
+                            <tag-input name='operatorInput'
+                                [identifyBy]="'_id'"
+                                [displayBy]="'company'"
+                                ngModel>
+                                   <tag-input-dropdown
+                                        [identifyBy]="'_id'"
+                                        [displayBy]="'company'"
+                                        [autocompleteItems]="proponents">
+                                   </tag-input-dropdown>
+                            </tag-input>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="ownerInput">Owner</label>
+                            <tag-input name='ownerInput'
+                                [identifyBy]="'_id'"
+                                [displayBy]="'company'"
+                                ngModel>
+                                   <tag-input-dropdown
+                                        [identifyBy]="'_id'"
+                                        [displayBy]="'company'"
+                                        [autocompleteItems]="proponents">
+                                   </tag-input-dropdown>
+                            </tag-input>
                         </div>
                         <div class="form-group mb-0">
                             <label>Date Range</label>
