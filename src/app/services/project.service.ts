@@ -1,43 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+
+import { Api } from './api';
 
 import { Project } from '../models/project';
 import { Collection, CollectionsList } from '../models/collection';
 
 @Injectable()
 export class ProjectService {
-  apiPathMEM: string;
-  apiPathEPIC: string;
   project: Project;
 
-  constructor(private http: Http) {
-    const { hostname } = window.location;
-    if (hostname === 'localhost') {
-      // Local
-      this.apiPathMEM  = 'http://localhost:4000';
-      this.apiPathEPIC = 'http://localhost:3000';
-    } else if (hostname === 'www.mem-mmt-dev.pathfinder.gov.bc.ca') {
-      // Dev
-      this.apiPathMEM  = 'http://mem-mmt-dev.pathfinder.gov.bc.ca';
-      this.apiPathEPIC = 'http://esm-master.pathfinder.gov.bc.ca';
-    } else if (hostname === 'www.mem-mmt-test.pathfinder.gov.bc.ca') {
-      // Test
-      this.apiPathMEM  = 'http://mem-mmt-test.pathfinder.gov.bc.ca';
-      this.apiPathEPIC = 'http://esm-test.pathfinder.gov.bc.ca';
-    } else {
-      // Prod
-      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca';
-      this.apiPathEPIC = 'https://projects.eao.gov.bc.ca';
-    }
-  }
+  constructor(private api: Api) { }
 
   getAll() {
-    // Get all projects
-    return this.http.get(`${this.apiPathMEM}/api/projects/major`)
+    return this.api.getProjects()
       .map((res: Response) => {
         const projects = res.text() ? res.json() : [];
 
@@ -54,7 +34,7 @@ export class ProjectService {
     this.project = null;
 
     // Grab the project data first
-    return this.http.get(`${this.apiPathMEM}/api/project/bycode/${code}`)
+    return this.api.getProjectByCode(code)
       .map((res: Response) => {
         return res.text() ? new Project(res.json()) : null;
       })
@@ -65,7 +45,8 @@ export class ProjectService {
         this.project.collections = new CollectionsList();
 
         // Now grab the MEM collections
-        this.getCollectionsByProjectCode(this.apiPathMEM, this.project.code)
+        this.api.getProjectCollectionsMEM(this.project.code)
+          .map((res: Response) => this.processCollections(res))
           .subscribe(memCollections => {
             // Push them into the project
             memCollections.forEach(collection => {
@@ -76,7 +57,8 @@ export class ProjectService {
         // Get EPIC collections next.
         // Note: there may be multiple (or no) EPIC projects associated with this MEM project.
         this.project.epicProjectCodes.forEach(epicProjectCode => {
-          this.getCollectionsByProjectCode(this.apiPathEPIC, epicProjectCode)
+          this.api.getProjectCollectionsEPIC(epicProjectCode)
+            .map((res: Response) => this.processCollections(res))
             .subscribe(epicCollections => {
               // Push them into the project
               epicCollections.forEach(collection => {
@@ -90,17 +72,14 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  private getCollectionsByProjectCode(apiPath: string, projectCode: string) {
-    return this.http.get(`${apiPath}/api/collections/project/${projectCode}`)
-      .map((res: Response) => {
-        const collections = res.text() ? res.json() : [];
+  private processCollections(res: Response) {
+    const collections = res.text() ? res.json() : [];
 
-        collections.forEach((collection, index) => {
-          collections[index] = new Collection(collection);
-        });
+    collections.forEach((collection, index) => {
+      collections[index] = new Collection(collection);
+    });
 
-        return collections;
-      });
+    return collections;
   }
 
   private addCollection(collectionsList: CollectionsList, collection: Collection) {
