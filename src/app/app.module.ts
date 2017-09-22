@@ -27,6 +27,9 @@ import { SearchComponent } from './search/search.component';
 import { MapModule } from './map/map.module';
 import { ProjectsModule } from './projects/projects.module';
 
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +49,8 @@ import { ProjectsModule } from './projects/projects.module';
     SearchComponent
   ],
   imports: [
+    TagInputModule,
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,

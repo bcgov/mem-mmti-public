@@ -6,6 +6,7 @@ import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/catch';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Search, SearchArray } from '../models/search';
+import { Project } from '../models/project';
 
 @Injectable()
 export class DocumentService {
@@ -34,7 +35,7 @@ export class DocumentService {
     }
   }
   get(keywords: string,
-      project: string,
+      project: Array<Project>,
       allProjects: Array<string>,
       owneroperator: string,
       datestart: NgbDateStruct,
@@ -46,7 +47,11 @@ export class DocumentService {
         query += '&search=' + keywords;
     }
     if (project) {
-        query += '&project=' + project;
+        let projectQuery = [];
+        project.forEach(p => {
+          projectQuery.push(p._id);
+        });
+        query += '&project=' + projectQuery;
     } else {
         // Make sure we query all the projects by default
         query += '&project=' + allProjects;
