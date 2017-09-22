@@ -16,25 +16,25 @@
                     <tr>
                         <th class="inspections-list__agency-col sortable" (click)="sort('agency')">Agency
                             <i class="sort"
-                                [ngClass]="{'sort-asc': (sortField == 'agency' && !sortAsc), 'sort-desc': (sortField == 'agency' && sortAsc) }"
+                                [ngClass]="{'sort-asc': (sortField == 'agency' && sortAsc), 'sort-desc': (sortField == 'agency' && !sortAsc) }"
                                 aria-hidden="true"></i>
                         </th>
                         <th class="inspections-list__name-col sortable" (click)="sort('displayName')">Name
                             <i class="sort"
-                                [ngClass]="{'sort-asc': (sortField == 'displayName' && !sortAsc), 'sort-desc': (sortField == 'displayName' && sortAsc) }"
+                                [ngClass]="{'sort-asc': (sortField == 'displayName' && sortAsc), 'sort-desc': (sortField == 'displayName' && !sortAsc) }"
                                 aria-hidden="true"></i>
                         </th>
                         <th class="inspections-list__date-col sortable" (click)="sort('date')">Date
                             <i class="sort"
-                                [ngClass]="{'sort-asc': (sortField == 'date' && !sortAsc), 'sort-desc': (sortField == 'date' && sortAsc) }"
+                                [ngClass]="{'sort-asc': (sortField == 'date' && sortAsc), 'sort-desc': (sortField == 'date' && !sortAsc) }"
                                 aria-hidden="true"></i>
                         </th>
                     </tr>
                 </thead>
             </table>
 
-            <!-- <div class="accordion mt-0">
-                <div class="accordion__collapse-item" *ngFor="let c of collections.items | orderBy: {property: column, direction: direction}">
+            <div class="accordion mt-0">
+                <div class="accordion__collapse-item" *ngFor="let c of collections.items | orderBy: {property: sortField, direction: sortDirection}">
                     <div class="accordion__collapse-header" role="tab" id="heading-{{c._id}}">
                         <a class="accordion__collapse-header--column toggle collapsed" data-toggle="collapse" href="#collapse-{{c._id}}" aria-expanded="true" aria-controls="collapseOne">
                             <i class="material-icons open-icon">add</i>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
         </div>
 
@@ -69,12 +69,4 @@
         </p>
         <a class="btn inverted slide-r-btn" href="https://mines.empr.gov.bc.ca" target="_blank"><span>Visit mines.empr.gov.bc.ca</span><i class="material-icons">open_in_new</i></a>
     </section>
-
-    <section class="main-footer" *ngIf="project?.name === 'Mount Polley'">
-        <h3>Can't find what you are looking for?</h3>
-        <p class="mb-0">Ministry of Energy, Mines and Petroleum Resources inspection reports for Mount Polley from 2013 onwards can be accessed
-            <a href="https://mines.empr.gov.bc.ca/p/mount-polley/docs?folder=2" target="_blank">here</a>.
-        </p>
-    </section>
-
 </div>

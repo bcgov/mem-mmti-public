@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+import { Api } from './api';
 
 @Injectable()
 export class NewsService {
 
-  constructor(private http: Http) { }
+  constructor(private api: Api) { }
+
   getAll() {
-    return this.http.get('https://projects.eao.gov.bc.ca/api/recentactivity')
+    return this.api.getNews()
       .map((res: Response) => res.json());
   }
+
   getRecentNews() {
-    return this.http.get('https://projects.eao.gov.bc.ca/api/recentactivity')
+    return this.api.getNews()
       .map((res: Response) => res.json().slice(0, 4));
   }
 }

@@ -17,6 +17,7 @@ import { SiteActivitiesComponent } from './site-activities/site-activities.compo
 import { OrderByPipe } from '../filters/order-by.pipe';
 
 // services
+import { Api } from '../services/api';
 import { ProjectService } from '../services/project.service';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ProjectService } from '../services/project.service';
     ProjectDetailComponent
   ],
   providers: [
+    Api,
     ProjectService
   ]
 })
