@@ -32,9 +32,30 @@
                             </tag-input>
                         </div>
                         <div class="form-group mb-4">
-                            <label for="ownerOperator">Owner/Operator</label>
-                            <input class="form-control" type="text" placeholder="Enter an owner or operator name..." name="ownerOperatorInput" id="ownerOperator"
-                                [disabled]="protoSearchActive" ngModel/>
+                            <label for="operatorInput">Operator</label>
+                            <tag-input name='operatorInput'
+                                [identifyBy]="'_id'"
+                                [displayBy]="'company'"
+                                ngModel>
+                                   <tag-input-dropdown
+                                        [identifyBy]="'_id'"
+                                        [displayBy]="'company'"
+                                        [autocompleteItems]="proponents">
+                                   </tag-input-dropdown>
+                            </tag-input>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="ownerInput">Owner</label>
+                            <tag-input name='ownerInput'
+                                [identifyBy]="'_id'"
+                                [displayBy]="'company'"
+                                ngModel>
+                                   <tag-input-dropdown
+                                        [identifyBy]="'_id'"
+                                        [displayBy]="'company'"
+                                        [autocompleteItems]="proponents">
+                                   </tag-input-dropdown>
+                            </tag-input>
                         </div>
                         <div class="form-group mb-0">
                             <label>Date Range</label>
@@ -110,7 +131,7 @@
                         *ngIf="item.project.name">{{item.project.name}}
                     </h3>
                     <div class="search-results-item__title mb-0">{{item.displayName}}</div>
-                    <div class="search-results-item__meta">{{item.datePosted | date}}</div>
+                    <div class="search-results-item__meta">{{item.datePosted | date:'y/MM/dd'}}</div>
                     <div class="search-results-item__description mt-3" 
                         *ngIf="item.description">{{item.description}}
                     </div>
@@ -121,11 +142,13 @@
                 </li>
             </ul>
 
-            <!-- 
-            <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0">
-                <button class="btn content-btn-alt" (click)="dostuff()">Load More</button>
+
+            <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0 && !noMoreResults">
+                <button class="btn content-btn-alt" (click)="loadMore(f.form.value)">Load More</button>
             </div>
-            -->
+            <div class="search-results__footer mt-3" *ngIf="ranSearch && noMoreResults">
+                <button class="btn content-btn-alt">No More Results</button>
+            </div>
 
         </section>
 
@@ -133,9 +156,9 @@
             <h2>Example Searches</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <ul class="mb-0">
-                <li><span (click)="dostuff()">Environmental Assessment Act + Authorizations</span></li>
-                <li><span (click)="dostuff()">Environmental Management Act + Authorizations</span></li>
-                <li><span (click)="dostuff()">Mines Act + Authorizations</span></li>
+                <li><span>Environmental Assessment Act + Authorizations</span></li>
+                <li><span>Environmental Management Act + Authorizations</span></li>
+                <li><span>Mines Act + Authorizations</span></li>
             </ul>
         </section>
     </main>
