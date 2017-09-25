@@ -147,7 +147,7 @@ header {
             border-bottom-style: solid;
             border-bottom-width: 0;
             border-bottom-color: rgba(#5475a7, 0.25);
-            background-color: rgba($header-bg, 0.5);
+            background-color: transparent;
             transition: all linear 0.2s;
 
             &.dark {
@@ -235,7 +235,7 @@ header {
     }
 }
 
-@media (min-width: 1366px) {
+@media (min-width: 1400px) {
     .brand {
         width: 400px; // Using PX dimensions here to ensure exact match to image
         height: 4rem;

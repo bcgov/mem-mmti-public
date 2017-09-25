@@ -1,25 +1,21 @@
 // Base
 @import "~assets/styles/base.scss";
 
-.search-banner {
-    .hb-txt {
-        padding: 3rem 1.5rem;
+.hero-banner {
+    height: auto;
+
+    &__content {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
         width: 100%;
     }
 }
 
-@media (min-width: 900px) {
-    .search-banner {
-        .hb-txt {
-            padding: 5rem 1.5rem;
-        }
-    }
-}
-
-@media (min-width: 1200px) {
-    .search-banner {
-        .hb-txt {
-            margin-top: 4rem;
+@media (min-width: 992px) {
+    .hero-banner {
+        &__content {
+            padding-top: 8rem;
+            padding-bottom: 6rem;
         }
     }
 }
