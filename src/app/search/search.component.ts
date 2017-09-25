@@ -6,7 +6,6 @@ import { Search } from '../models/search';
 import { Proponent } from '../models/proponent';
 import { ProjectService } from '../services/project.service';
 import { ProponentService } from '../services/proponent.service';
-import { PaginationInstance } from 'ngx-pagination';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
@@ -20,6 +19,9 @@ import 'rxjs/add/operator/map';
 
 export class SearchComponent implements OnInit {
   results: Search[];
+  page: number;
+  limit: number;
+  noMoreResults: boolean;
   ranSearch: boolean;
   projects: Array<Project>;
   proponents: Array<Proponent>;
@@ -27,18 +29,17 @@ export class SearchComponent implements OnInit {
   public loading: boolean;
   protoSearchActive: boolean;
   showAdvancedFields: boolean;
-  public config: PaginationInstance = {
-    id: 'custom',
-    itemsPerPage: 15,
-    currentPage: 1
-  };
 
   constructor(calender: NgbCalendar,
               private documentService: DocumentService,
               private projectService: ProjectService,
               private proponentService: ProponentService,
               private _changeDetectionRef: ChangeDetectorRef) {
-    this.ranSearch = false;
+
+    this.limit         = 15;
+    this.noMoreResults = true;
+    this.ranSearch     = false;
+
     proponentService.getAll().subscribe(
       data => {
         this.proponents = data;
@@ -70,35 +71,14 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit(form: any) {
+    this.page = 0;
     this.ranSearch = true;
-    console.log('submitted:', form);
     this.results = [];
+
     // Get the keywords
     let keywordsArr = null;
     if (form.keywordInput) {
       keywordsArr = form.keywordInput.split(' ');
-      console.log('keywords:', keywordsArr);
-    }
-    // Get the Project
-    if (form.projectInput) {
-      console.log(form.projectInput);
-    }
-
-    // Get the Operator
-    if (form.operatorInput) {
-      console.log(form.operatorInput);
-    }
-
-    if (form.ownerInput) {
-      console.log(form.ownerInput);
-    }
-
-    // Date Range Start/End
-    if (form.dateRangeStartInput) {
-      console.log(form.dateRangeStartInput);
-    }
-    if (form.dateRangeEndInput) {
-      console.log(form.dateRangeEndInput);
     }
 
     this.loading = true;
@@ -108,7 +88,9 @@ export class SearchComponent implements OnInit {
                             form.operatorInput,
                             form.ownerInput,
                             form.dateRangeStartInput,
-                            form.dateRangeEndInput)
+                            form.dateRangeEndInput,
+                            this.page,
+                            this.limit)
     .subscribe(
       data => {
         // Push in 1st call
@@ -120,6 +102,7 @@ export class SearchComponent implements OnInit {
           this.results.push(i);
         });
         this.loading = false;
+        this.noMoreResults = (data[0].length === 0 && data[1].length === 0);
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
       },
@@ -127,7 +110,36 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  dostuff() {
-    console.log('TODO');
+  loadMore(form: any) {
+    this.page += 1;
+    let keywordsArr = null;
+    if (form.keywordInput) {
+      keywordsArr = form.keywordInput.split(' ');
+    }
+    this.loading = true;
+    this.documentService.get(keywordsArr,
+                            form.projectInput,
+                            this.projects,
+                            form.operatorInput,
+                            form.ownerInput,
+                            form.dateRangeStartInput,
+                            form.dateRangeEndInput,
+                            this.page,
+                            this.limit)
+    .subscribe(
+      data => {
+        data[0].forEach(i => {
+          this.results.push(i);
+        });
+        // push in 2nd call
+        data[1].forEach(i => {
+          this.results.push(i);
+        });
+        this.loading = false;
+        this.noMoreResults = (data[0].length === 0 && data[1].length === 0);
+        this._changeDetectionRef.detectChanges();
+      },
+      error => console.log(error)
+    );
   }
 }

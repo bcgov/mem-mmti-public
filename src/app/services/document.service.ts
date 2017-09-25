@@ -25,12 +25,17 @@ export class DocumentService {
       proponent: Array<Proponent>,
       ownership: Array<Proponent>,
       datestart: NgbDateStruct,
-      dateend: NgbDateStruct) {
+      dateend: NgbDateStruct,
+      page: number,
+      limit: number) {
     this.searchResult = new SearchArray();
 
     let query = 'search?types=document';
     let memProjectQuery = '';
     let epicProjectQuery = '';
+
+    // Paging
+    query += '&page=' + page + '&limit=' + limit;
 
     if (keywords) {
         query += '&search=' + keywords;
