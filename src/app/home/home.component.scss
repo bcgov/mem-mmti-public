@@ -7,6 +7,8 @@ $ff-metric-color-1: #FFF;
 $ff-metric-color-2: #494949;
 
 .fast-facts {
+    margin-top: 2rem;
+
     h4 {
         margin-bottom: 1.4rem;
         font-size: 1.4rem;
@@ -38,7 +40,7 @@ $ff-metric-color-2: #494949;
     }
 }
 
-@media (min-width: 760px) {
+@media (min-width: 768px) {
     .fast-facts {
         ul.row {
             li {
@@ -54,8 +56,10 @@ $ff-metric-color-2: #494949;
     }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
     .fast-facts {
+        margin-top: 0.25rem;
+
         h4 {
             font-size: 1.25rem;
             line-height: 1.65rem;
