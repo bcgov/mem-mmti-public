@@ -15,10 +15,10 @@ export class Project {
   commodity: string;
   longitude: number;
   latitude: number;
-  morePermitsLinkYear: number;
-  morePermitsLink: number;
-  moreInspectionsLink: number;
-  moreInspectionsLinkYear: number;
+  morePermitsLinkYear: string;
+  morePermitsLink: string;
+  moreInspectionsLink: string;
+  moreInspectionsLinkYear: string;
   epicProjectCodes: string[];
 
   collections: CollectionsList;
