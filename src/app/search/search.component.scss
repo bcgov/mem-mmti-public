@@ -30,9 +30,10 @@
 }
 
 .search-form {
-    input {
-        font-size: 1rem;
-        font-weight: 600;
+    button {
+        &[type="submit"] {
+            font-weight: 700;
+        }
     }
 
     &__btn-container {
@@ -49,7 +50,6 @@
         background: darken($gold, 5%);
         text-transform: uppercase;
         font-size: 0.9375rem;
-        font-weight: 700;
 
         &:active,
         &:focus,
@@ -210,10 +210,11 @@ tag-input {
             }
 
             &__text-input {
+                min-width: 200px;
                 padding: 0.75rem 0.5rem;
                 height: auto;
                 font-size: 1rem;
-                font-weight: 600;
+                font-weight: 400;
                 box-shadow: none;
             }
 
@@ -229,7 +230,7 @@ tag-input {
                 background: #5091cd;
                 letter-spacing: 0;
                 font-size: 1rem;
-                font-weight: 600;
+                font-weight: 400;
 
                 &:hover {
                     color: #fff !important;
