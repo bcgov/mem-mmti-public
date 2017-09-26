@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
         this.recentNews = null;
       }
       document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     });
   }
 }
