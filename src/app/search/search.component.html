@@ -120,11 +120,6 @@
                 <span class="srch-count">{{results.length}} Results Found</span>
             </div>
 
-            <section *ngIf="results && results.length < 1" >
-                <h2>No Results Found</h2>
-                <p class="mb-0">Sorry, we were unable to locate any results matching your search criteria.</p>
-            </section>
-
             <ul class="search-results list-group">
                 <li *ngFor="let item of results" class="list-group-item search-results-item">
                     <h3 class="search-results-item__project-name" 
@@ -142,12 +137,17 @@
                 </li>
             </ul>
 
+            <section class="search-results__no-results" *ngIf="results && results.length < 1" >
+                <h2>No Results Found</h2>
+                <p class="mb-0">Sorry, we were unable to locate any results matching your search criteria.</p>
+            </section>
+
+            <div class="search-results__footer mt-3" *ngIf="ranSearch && noMoreResults">
+                <button class="btn content-btn-alt">No More Results</button>
+            </div>
 
             <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0 && !noMoreResults">
                 <button class="btn content-btn-alt" (click)="loadMore(f.form.value)">Load More</button>
-            </div>
-            <div class="search-results__footer mt-3" *ngIf="ranSearch && noMoreResults">
-                <button class="btn content-btn-alt">No More Results</button>
             </div>
 
         </section>

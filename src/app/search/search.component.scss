@@ -14,6 +14,15 @@
 @media (min-width: 992px) {
     .hero-banner {
         &__content {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .hero-banner {
+        &__content {
             padding-top: 9rem;
             padding-bottom: 6rem;
         }
@@ -90,7 +99,6 @@
         }
     }
     &__footer {
-        padding: 1rem 0;
         text-align: center;
     }
 
@@ -143,12 +151,18 @@
             line-height: 1.4rem;
             text-overflow: ellipsis;
             font-size: 1.2rem;
-            font-weight: 600;
-        }    
+            font-weight: 400;
+        }
+    }
+
+    &__no-results {
+        + .search-results__footer {
+            display: none;
+        }
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
     .search-results {
         &-item {
             padding: 1.5rem;
