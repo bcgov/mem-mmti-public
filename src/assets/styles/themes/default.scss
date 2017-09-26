@@ -74,16 +74,14 @@ $spinner-invert-color:          #FFF;
 $spinner-invert-bg:             rgba(#001a33,0.8);
 
 // Tab Navigation
-$pill-sm-active-color:          #fff;
-$pill-sm-bg:                    #eee;
-$pill-sm-active-bg:             #38598a;
-$pill-lg-color:                 #999;
-$pill-lg-active-color:          #38598a;
-$pill-lg-border-color:          #f1f1f1;
-$pill-lg-hover-border-color:    #ccc;
-$pill-lg-active-border-color:   #38598a;
-$pill-lg-bg:                    transparent;
-$pill-lg-active-bg:             transparent;
+$tab-color:                     #38598a;
+$tab-nav-border-color:          #ddd;
+$tab-nav-bg:                    #fff;
+$tab-hover-bg:                  #eee;
+$tab-sm-active-color:           #fff;
+$tab-sm-bg:                     #eee;
+$tab-sm-active-bg:              #38598a;
+$tab-active-bg:                 #fff;
 
 // Tables
 $table-header-bg:               #fff;
