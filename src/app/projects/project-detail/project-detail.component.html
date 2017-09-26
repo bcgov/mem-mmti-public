@@ -1,7 +1,7 @@
-<div class="hero-banner hero-banner-project">
+<div class="hero-banner">
   <div class="container">
-    <div class="container-inner">
-      <div class="hb-txt">
+    <div class="container__inner-container">
+      <div class="hero-banner__content">
         <h1>{{project?.name}}</h1>
         <p class="mb-2" [innerHTML]="project?.getContent('OVERVIEW_INTRO_TEXT', 'MINES')"></p>
       </div>
@@ -28,7 +28,7 @@
       <section class="card">
         <h4 class="card-header">Project Details</h4>
         <div class="map-section">
-          <div class="map-thumb clickable" (click)="gotoMap()">
+          <div class="map-section__thumbnail" (click)="gotoMap()">
             <app-project-map [project]="project" [zoom]="4"></app-project-map>
           </div>
         </div>
