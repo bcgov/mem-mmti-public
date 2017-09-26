@@ -14,14 +14,14 @@
             <table class="table mb-0">
                 <thead class="inspections-list__sort-header">
                     <tr>
-                        <th class="inspections-list__agency-col sortable" (click)="sort('agency')">Agency
-                            <i class="sort"
-                                [ngClass]="{'sort-asc': (sortField == 'agency' && sortAsc), 'sort-desc': (sortField == 'agency' && !sortAsc) }"
-                                aria-hidden="true"></i>
-                        </th>
                         <th class="inspections-list__name-col sortable" (click)="sort('displayName')">Name
                             <i class="sort"
                                 [ngClass]="{'sort-asc': (sortField == 'displayName' && sortAsc), 'sort-desc': (sortField == 'displayName' && !sortAsc) }"
+                                aria-hidden="true"></i>
+                        </th>
+                        <th class="inspections-list__agency-col sortable" (click)="sort('agency')">Agency
+                            <i class="sort"
+                                [ngClass]="{'sort-asc': (sortField == 'agency' && sortAsc), 'sort-desc': (sortField == 'agency' && !sortAsc) }"
                                 aria-hidden="true"></i>
                         </th>
                         <th class="inspections-list__date-col sortable" (click)="sort('date')">Date
@@ -40,8 +40,8 @@
                             <i class="material-icons open-icon">add</i>
                             <i class="material-icons close-icon">remove</i>
                         </a>
-                        <span class="accordion__collapse-header--column inspections-list__agency-col">{{c.agency | uppercase}}</span>
                         <span class="accordion__collapse-header--column inspections-list__name-col">{{c.displayName}}</span>
+                        <span class="accordion__collapse-header--column inspections-list__agency-col">{{c.agency | uppercase}}</span>
                         <span class="accordion__collapse-header--column inspections-list__date-col">{{c.date | date:'MMM dd, yyyy'}}</span>
                     </div>
                     <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">

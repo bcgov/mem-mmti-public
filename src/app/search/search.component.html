@@ -6,7 +6,7 @@
     <div class="container">
         <div class="container-inner">
             <div class="hero-banner__content">
-                <h1>Search BC Mine Information...</h1>
+                <h1>Find Documents...</h1>
 
                 <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit(f.value)">
 
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group mb-4">
                             <label for="operatorInput">Operator</label>
-                            <tag-input name='operatorInput'
+                            <tag-input class="form-control" name='operatorInput'
                                 [identifyBy]="'_id'"
                                 [displayBy]="'company'"
                                 ngModel>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group mb-4">
                             <label for="ownerInput">Owner</label>
-                            <tag-input name='ownerInput'
+                            <tag-input class="form-control" name='ownerInput'
                                 [identifyBy]="'_id'"
                                 [displayBy]="'company'"
                                 ngModel>
