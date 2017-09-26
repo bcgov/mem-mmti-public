@@ -1,7 +1,6 @@
 <div class="authorizations tab-pane" id="authorizations" role="tabpanel">
     <p class="tab-intro">Environmental assessment certificates and permits issued under the Mines Act and the Environmental Management Act (EMA)
-        are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list
-        of authorizations associated with each of these three acts. <span>Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.</span></p>
+        are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations associated with each of these three acts (as applicable). <span>Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.</span></p>
 
     <section class="auth-section" *ngIf="collections.eao.length > 0">
         <h3>Environmental Assessment Act <span>Environmental Assessment Office</span></h3>
@@ -16,7 +15,7 @@
                     <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
                     <span class="accordion__collapse-header--column authorizations-list__date-col">
                         <span>Certificate {{c.status}}</span> -
-                        <span>{{c.date | date:'MMM dd, yyyy'}}</span>
+                        <span>{{c.date | date:'yyyy-MM-dd'}}</span>
                     </span>
                 </div>
                 <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
@@ -46,7 +45,7 @@
                     <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
                     <span class="accordion__collapse-header--column authorizations-list__date-col">
                         <span>Permit {{c.status}}</span> -
-                        <span>{{c.date | date:'MMM dd, yyyy'}}</span>
+                        <span>{{c.date | date:'yyyy-MM-dd'}}</span>
                     </span>
                 </div>
                 <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
@@ -76,7 +75,7 @@
                     <span class="accordion__collapse-header--column authorizations-list__name-col">{{project.memPermitID}} - {{c.displayName}}</span>
                     <span class="accordion__collapse-header--column authorizations-list__date-col">
                         <span>Permit {{c.status}}</span> -
-                        <span>{{c.date | date:'MMM dd, yyyy'}}</span>
+                        <span>{{c.date | date:'yyyy-MM-dd'}}</span>
                     </span>
                 </div>
                 <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
@@ -93,7 +92,7 @@
         </div>
     </section>
 
-    <section class="main-footer" ng-if="project.morePermitsLink">
+    <section class="main-footer" *ngIf="project.morePermitsLink">
         <h3>Can't find what you are looking for?</h3>
         <p class="mb-0">Mines Act permits issued for {{project.name}} prior to {{project.morePermitsLinkYear}} can be accessed <a href="{{project.morePermitsLink}}"
                 target="_blank">here</a>.</p>
