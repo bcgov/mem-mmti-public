@@ -3,7 +3,7 @@
 .hero-banner {
     position: relative;
     height: 24rem;
-    background-color: rgba($header-bg, 1);
+    background-color: rgba(#00245a, 1);
     background-image: url("~assets/images/hero-banner-1.jpg");
     background-repeat: no-repeat;
     box-shadow: 0 0 4rem #00264d inset;
@@ -111,7 +111,7 @@
 @media (min-width: 768px) {
     .hero-banner {
         height: 28rem;
-        background-position: center;
+        background-position: center -2rem;
         background-size: 140%;
 
         &__content {
@@ -134,7 +134,6 @@
 
 @media (min-width: 992px) {
     .hero-banner {
-        background-position: center;
         background-size: 120%;
 
         h1 {
