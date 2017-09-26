@@ -42,7 +42,7 @@
                         </a>
                         <span class="accordion__collapse-header--column inspections-list__name-col">{{c.displayName}}</span>
                         <span class="accordion__collapse-header--column inspections-list__agency-col">{{c.agency | uppercase}}</span>
-                        <span class="accordion__collapse-header--column inspections-list__date-col">{{c.date | date:'MMM dd, yyyy'}}</span>
+                        <span class="accordion__collapse-header--column inspections-list__date-col">{{c.date | date:'yyyy-MM-dd'}}</span>
                     </div>
                     <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
                         <div class="accordion__collapse-body">
@@ -61,12 +61,9 @@
 
     </section>
 
-    <section class="main-footer" *ngIf="project?.name != 'Mount Polley' && project?.name != 'Tulsequah Chief'">
+    <section class="main-footer" *ngIf="project.moreInspectionsLink">
         <h3>Can't find what you are looking for?</h3>
-        <p>Ministry of Energy, Mines and Petroleum Resources inspection reports for {{project?.name}} from 2013 through to 2015
-            can be accessed at <a href="https://mines.empr.gov.bc.ca" target="_blank">mines.empr.gov.bc.ca</a>. These records
-            will be moved to the new BC Mine Information website in the coming months.
-        </p>
-        <a class="btn inverted slide-r-btn" href="https://mines.empr.gov.bc.ca" target="_blank"><span>Visit mines.empr.gov.bc.ca</span><i class="material-icons">open_in_new</i></a>
-    </section>
+        <p class="mb-0">Ministry of Energy, Mines and Petroleum Resources inspection reports for {{project?.name}} from {{project?.moreInspectionsLinkYear}} onwards can be accessed <a href="{{project.moreInspectionsLink}}" target="_blank">here</a>.</p>
+   </section>
+
 </div>
