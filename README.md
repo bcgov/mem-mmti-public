@@ -1,4 +1,4 @@
-# eao-public
+# mem-mmti-public
 
 # Prerequisites
 
