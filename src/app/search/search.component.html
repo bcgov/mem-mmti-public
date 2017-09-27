@@ -1,4 +1,4 @@
-<div class="spinner-container inverted full-screen" *ngIf="loading == true">
+<div class="spinner-container full-screen" *ngIf="loading" [@visibility]>
     <div class="spinner-new rotating"></div>
 </div>
 
@@ -117,11 +117,13 @@
 
         <!-- SEARCH RESULTS TEMPLATE -->
         <section class="add-spacer" *ngIf="ranSearch">
-            <h2 class="mb-0" *ngIf="ranSearch && results && results.length > 0">Search Results</h2>
+            <h2 *ngIf="ranSearch && results && results.length > 0">{{results.length}} Documents Found</h2>
 
+            <!--
             <div class="search-results__header" *ngIf="results && results.length > 0">
                 <span class="srch-count">{{results.length}} Results Found</span>
             </div>
+            -->
 
             <ul class="search-results list-group">
                 <li *ngFor="let item of results" class="list-group-item search-results-item">
@@ -134,15 +136,17 @@
                         *ngIf="item.description">{{item.description}}
                     </div>
                     <div class="search-results-item__actions">
+                        <!--
                         <a href="{{item.hostname}}/p/{{item.project.code}}/detail">View Project Page</a>
-                        <a href="{{item.hostname}}/api/document/{{item._id}}/fetch">Download Document</a>
+                        -->
+                        <a href="{{item.hostname}}/api/document/{{item._id}}/fetch">View Document</a>
                     </div>
                 </li>
             </ul>
 
             <section class="search-results__no-results" *ngIf="results && results.length < 1" >
-                <h2>No Results Found</h2>
-                <p class="mb-0">Sorry, we were unable to locate any results matching your search criteria.</p>
+                <h2>No Documents Found</h2>
+                <p class="mb-0">Sorry, we were unable to locate any documents matching your search criteria.</p>
             </section>
 
             <div class="search-results__footer mt-3" *ngIf="ranSearch && noMoreResults">
