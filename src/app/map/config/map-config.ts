@@ -3,9 +3,9 @@ import { InjectionToken } from '@angular/core';
 import { MapConfig } from './map-config.interface';
 
 const webmaps = {
-  dev: 'f08adba6da4a458f99a73099ad218fb3',
-  test: 'f08adba6da4a458f99a73099ad218fb3',
-  prod: 'f08adba6da4a458f99a73099ad218fb3'
+  dev: 'b8ea19982bd74db3bd968d3c7f038e43',
+  test: 'b8ea19982bd74db3bd968d3c7f038e43',
+  prod: 'b8ea19982bd74db3bd968d3c7f038e43'
 };
 
 const webmapForEnv = (): string => {
@@ -61,7 +61,14 @@ export const DEFAULT_MAP_CONFIG: MapConfig = {
         id: webmapForEnv()
       }
     },
-    mapView: {},
+    mapView: {
+      constraints: {
+        minZoom: 4,  // MEM-514 prevent user from zooming too far out
+      },
+      ui: {
+        components: ['attribution']
+      }
+    },
     popup: defaultPopupTemplate
   }
 };
