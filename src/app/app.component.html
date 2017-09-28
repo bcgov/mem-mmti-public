@@ -74,9 +74,6 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/contact" [routerLink]="['/contact']"><span>Connect With Us</span></a>
 				</li>
-				<li *ngIf="loggedIn === 'true'" class="nav-item">
-					<a class="nav-link" href="{{hostname}}/activities/"><span>Dashboard</span></a>
-				</li>
 				<li *ngIf="loggedIn === 'true'" class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="system" tabindex="4"
 						data-toggle="dropdown"
