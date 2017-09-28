@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2PageScrollModule } from 'ng2-page-scroll';
-
+import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsComponent } from './news/news.component';
@@ -62,7 +62,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Ng2PageScrollModule.forRoot(),
     MapModule
   ],
-  providers: [NewsComponent, ProponentService],
+  providers: [NewsComponent, ProponentService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PageScrollConfig } from 'ng2-page-scroll';
+import { CookieService } from 'ngx-cookie-service';
 
 import { HomeComponent } from './home/home.component';
 import { NewsService } from './services/news.service';
@@ -8,6 +9,7 @@ import { DocumentService } from './services/document.service';
 import { SearchComponent } from './search/search.component';
 
 import { News } from './models/news';
+import { Api } from './services/api';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +19,11 @@ import { News } from './models/news';
 })
 export class AppComponent implements OnInit {
   recentNews: Array<News>;
+  loggedIn: String;
   hostname: String;
-  constructor(private newsService: NewsService, private _router: Router) {
+  constructor(private newsService: NewsService, private _router: Router, private cookieService: CookieService, private api: Api) {
     // Used for sharing links.
-    this.hostname = encodeURI(window.location.href.replace(/\/$/, ''));
+    this.hostname = api.hostnameMEM;
 
     PageScrollConfig.defaultScrollOffset = 50;
     PageScrollConfig.defaultEasingLogic = {
@@ -41,6 +44,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loggedIn = this.cookieService.get('loggedIn');
     this._router.events.subscribe((url: any) => {
       if (url.url === '/') {
         this.newsService.getRecentNews().subscribe(

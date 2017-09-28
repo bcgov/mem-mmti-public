@@ -3252,6 +3252,10 @@ ngx-chips@^1.5.3:
   dependencies:
     ng2-material-dropdown "0.7.10"
 
+ngx-cookie-service@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-1.0.9.tgz#b88ef198299c93d363608545036dd38ed767b0ec"
+
 ngx-pagination@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-3.0.1.tgz#5a8000e40c0424d9c41c9d6d592562e1547abf24"
