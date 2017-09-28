@@ -87,10 +87,19 @@
 						<a class="dropdown-item" href="{{hostname}}/admin/emailtemplate/list">
 							<strong>Email Templates</strong>
 						</a>
+						<a class="dropdown-item" href="{{hostname}}/admin/organization/list">
+							<strong>Organizations</strong>
+						</a>
+						<a class="dropdown-item" href="{{hostname}}/admin/template/list">
+							<strong>Templates</strong>
+						</a>
+						<a class="dropdown-item" href="{{hostname}}/admin/topic/list">
+							<strong>Valued Components</strong>
+						</a>
+						<a class="dropdown-item" href="{{hostname}}/admin/user/list">
+							<strong>Contacts</strong>
+						</a>
 					</div>
-					<!--
-						more items here except edit system roles/perms (those are modals)
-					-->
 				</li>
 				<li *ngIf="loggedIn === 'true'" class="nav-item">
 					<a class="nav-link" href="{{hostname}}/api/auth/signout"><span>Logout</span></a>
