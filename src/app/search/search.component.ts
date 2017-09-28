@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from '../services/document.service';
 import { Project } from '../models/project';
@@ -14,7 +15,17 @@ import 'rxjs/add/operator/map';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('visibility', [
+      transition(':enter', [   // :enter is alias to 'void => *'
+        animate('0.2s 0s', style({opacity: 1}))
+      ]),
+      transition(':leave', [   // :leave is alias to '* => void'
+        animate('0.2s 0.75s', style({opacity: 0}))
+      ])
+    ])
+  ]
 })
 
 export class SearchComponent implements OnInit {
@@ -26,9 +37,9 @@ export class SearchComponent implements OnInit {
   projects: Array<Project>;
   proponents: Array<Proponent>;
   projectArray: Array<string>;
-  public loading: boolean;
   protoSearchActive: boolean;
   showAdvancedFields: boolean;
+  public loading: boolean;
 
   constructor(calender: NgbCalendar,
               private documentService: DocumentService,
@@ -64,6 +75,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.showAdvancedFields = false;
+    this.loading = false;
   }
 
   toggleAdvancedSearch() {
@@ -74,6 +86,7 @@ export class SearchComponent implements OnInit {
     this.page = 0;
     this.ranSearch = true;
     this.results = [];
+    this.loading = true;
 
     // Get the keywords
     let keywordsArr = null;
@@ -81,7 +94,6 @@ export class SearchComponent implements OnInit {
       keywordsArr = form.keywordInput.split(' ');
     }
 
-    this.loading = true;
     this.documentService.get(keywordsArr,
                             form.projectInput,
                             this.projects,

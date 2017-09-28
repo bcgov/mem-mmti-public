@@ -1,6 +1,8 @@
 // Base
 @import "~assets/styles/base.scss";
 
+$search-input-font-size: 0.9375rem;
+
 .hero-banner {
     height: auto;
 
@@ -213,7 +215,7 @@ tag-input {
                 min-width: 200px;
                 padding: 0.75rem 0.5rem;
                 height: auto;
-                font-size: 1rem;
+                font-size: $search-input-font-size;
                 font-weight: 400;
                 box-shadow: none;
             }
@@ -229,7 +231,7 @@ tag-input {
                 border-radius: 0.2rem;
                 background: #5091cd;
                 letter-spacing: 0;
-                font-size: 1rem;
+                font-size: $search-input-font-size;
                 font-weight: 400;
 
                 &:hover {
