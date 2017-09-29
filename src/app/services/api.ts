@@ -19,14 +19,14 @@ export class Api {
 
       case 'www.mem-mmt-dev.pathfinder.gov.bc.ca':
         // Dev
-        this.hostnameMEM  = 'http://mem-mmt-dev.pathfinder.gov.bc.ca';
-        this.hostnameEPIC = 'http://esm-master.pathfinder.gov.bc.ca';
+        this.hostnameMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
+        this.hostnameEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
         break;
 
       case 'www.mem-mmt-test.pathfinder.gov.bc.ca':
         // Test
-        this.hostnameMEM  = 'http://mem-mmt-test.pathfinder.gov.bc.ca';
-        this.hostnameEPIC = 'http://esm-test.pathfinder.gov.bc.ca';
+        this.hostnameMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
+        this.hostnameEPIC = 'https://esm-test.pathfinder.gov.bc.ca';
         break;
 
       default:
