@@ -27,7 +27,7 @@
     "@angular/router": "^4.2.4",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
     "angular-esri-loader": "^1.1.0",
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "jquery": "^3.1.1",
     "mygovbc-bootstrap-theme": "^0.3.0",
