@@ -64,6 +64,7 @@ export const DEFAULT_MAP_CONFIG: MapConfig = {
     mapView: {
       constraints: {
         minZoom: 4,  // MEM-514 prevent user from zooming too far out
+        rotationEnabled: false  // MEM-534 disable map rotation
       },
       ui: {
         components: ['attribution']
