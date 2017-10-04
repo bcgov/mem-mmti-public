@@ -94,15 +94,18 @@ export class MainMapComponent implements OnInit {
       .then(obj => {
         this.route.paramMap.subscribe((params: ParamMap) => {
           const { featureLayer, mapView } = obj;  // es6 destructuring
+          let targetMine: __esri.Graphic;
+
+          // fetch the project Id from URL/route params (if any)
           this.selectedId = params.get('project');
-          let results: __esri.FeatureSet;
 
           if (this.selectedId) {
             this.queryMapLayer(featureLayer, this.selectedId)
-              .then(response => results = response)
-              .then(() => this.showSingleProject(featureLayer, this.selectedId))
-              .then(() => this.zoomToProject(mapView, results, this.animate))
-              .then(() => this.showMapPopup(mapView, results));
+              .then((response: __esri.FeatureSet) => {
+                targetMine = response && response.features && response.features.length ? response.features[0] : null;
+              })
+              .then(() => this.zoomToMine(mapView, targetMine, this.animate))
+              .then(() => this.showMapPopup(mapView, targetMine));
           }
         });
       });
@@ -142,22 +145,8 @@ export class MainMapComponent implements OnInit {
     });
   }
 
-  private showSingleProject(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
+  private zoomToMine(view: __esri.MapView, targetMine: __esri.Graphic, animate: boolean = false): Promise<void> {
     return new Promise((resolve, reject) => {
-      // set the definition expression directly on layer instance to only display a single project
-      return featureLayer.then(
-        (fl: __esri.FeatureLayer) => {
-          fl.definitionExpression = `code = '${projectId}'`;
-        })
-        .then(() => resolve())
-        .otherwise(reject);
-    });
-  }
-
-  private zoomToProject(view: __esri.MapView, featureSet: __esri.FeatureSet, animate: boolean = false): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const graphics = featureSet.features;
-      const result = graphics.length ? graphics[0] : null;
       const opts: __esri.MapViewGoToOptions = {
         animate: animate
       };
@@ -165,7 +154,7 @@ export class MainMapComponent implements OnInit {
       // the `goTo` function returns a promise which resolves as soon as the new view has been set to the target.
       return view.goTo(
         {
-          target: result,
+          target: targetMine,
           zoom: 9
         }, opts)
         .then(() => resolve())
@@ -173,11 +162,9 @@ export class MainMapComponent implements OnInit {
     });
   }
 
-  private showMapPopup(view: __esri.MapView, featureSet: __esri.FeatureSet): void {
-    const graphics = featureSet.features;
-    const result = graphics.length ? graphics[0] : null;
+  private showMapPopup(view: __esri.MapView, targetMine: __esri.Graphic): void {
     view.popup.open({
-      features: [result],
+      features: [targetMine],
       updateLocationEnabled: true  // updates the location of popup based on selected feature's geometry
     });
   }
