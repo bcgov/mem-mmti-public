@@ -13,6 +13,18 @@ $search-input-font-size: 0.9375rem;
     }
 }
 
+@media (max-width: 567px) {
+    .search-form {
+        .date-range {
+            &__spacer {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}
+
 @media (min-width: 992px) {
     .hero-banner {
         &__content {
@@ -84,7 +96,7 @@ $search-input-font-size: 0.9375rem;
     }
 }
 
-@media (min-width: 760px) {
+@media (min-width: 768px) {
     .search-form {
         &__search-btn {
             width: 8rem;

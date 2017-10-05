@@ -69,15 +69,17 @@
                                     ngbDatepicker 
                                     readonly
                                     [disabled]="protoSearchActive"
-                                    (click)="dateRangeStart.toggle()" ngModel/>
-                                <span> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
+                                    (click)="dateRangeStart.toggle();dateRangeEnd.close();"
+                                    ngModel/>
+                                <span class="date-range__spacer"> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
                                 <label class="sr-only" for="dateRangeEnd">End Date</label>
                                 <input class="form-control" type="text" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
                                     #dateRangeEnd="ngbDatepicker"
                                     ngbDatepicker 
                                     readonly 
                                     [disabled]="protoSearchActive"
-                                    (click)="dateRangeEnd.toggle()" ngModel/>
+                                    (click)="dateRangeEnd.toggle();dateRangeStart.close();"
+                                    ngModel/>
                             </div>
                         </div>
                     </div>
