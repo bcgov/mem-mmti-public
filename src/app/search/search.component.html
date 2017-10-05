@@ -6,7 +6,7 @@
     <div class="container">
         <div class="container-inner">
             <div class="hero-banner__content">
-                <h1>Find Documents...</h1>
+                <h1 id="pgTitle">Find Documents...</h1>
 
                 <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit(f.value)">
 
@@ -119,18 +119,12 @@
         <section class="add-spacer" *ngIf="ranSearch">
             <h2 *ngIf="ranSearch && results && results.length > 0">{{results.length}} Documents Found</h2>
 
-            <!--
-            <div class="search-results__header" *ngIf="results && results.length > 0">
-                <span class="srch-count">{{results.length}} Results Found</span>
-            </div>
-            -->
-
             <ul class="search-results list-group">
                 <li *ngFor="let item of results" class="list-group-item search-results-item">
                     <h3 class="search-results-item__project-name" 
                         *ngIf="item.project.name">{{item.project.name}}
                     </h3>
-                    <div class="search-results-item__title mb-0">{{item.displayName}}</div>
+                    <a class="search-results-item__title mb-0" href="{{item.hostname}}/api/document/{{item._id}}/fetch">{{item.displayName}}</a>
                     <div class="search-results-item__meta">{{item.datePosted | date:'yyyy-MM-dd'}}</div>
                     <div class="search-results-item__description mt-3" 
                         *ngIf="item.description">{{item.description}}
@@ -150,7 +144,7 @@
             </section>
 
             <div class="search-results__footer mt-3" *ngIf="ranSearch && noMoreResults">
-                <button class="btn content-btn-alt">No More Results</button>
+                <button class="btn content-btn-alt" disabled>No More Results</button>
             </div>
 
             <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0 && !noMoreResults">
