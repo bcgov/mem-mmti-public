@@ -7,6 +7,7 @@ export class Project {
   code: string;
   name: string;
   type: string;
+  status: string;
   operator: string;
   memPermitID: string;
   tailingsImpoundments: number;
@@ -98,6 +99,7 @@ export class Project {
     this.memPermitID             = obj && obj.memPermitID             || null;
     this.name                    = obj && obj.name                    || null;
     this.type                    = obj && obj.type                    || null;
+    this.status                  = obj && obj.currentPhaseName        || null;
     this.tailingsImpoundments    = obj && obj.tailingsImpoundments    || 0;
     this.longitude               = obj && obj.lon                     || 0;
     this.latitude                = obj && obj.lat                     || 0;
