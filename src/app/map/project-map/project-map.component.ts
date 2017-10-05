@@ -60,7 +60,8 @@ export class ProjectMapComponent implements OnInit {
   }
 
   private findFeatureLayer(map: __esri.Map): __esri.FeatureLayer {
-    return map.layers.find((lyr: __esri.Layer) => lyr.type === 'feature');
+    // need to cast the layer as FeatureLayer to make TypeScript happy
+    return map.layers.find(lyr => lyr.type === 'feature') as __esri.FeatureLayer;
   }
 
   private showSingleProject(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
