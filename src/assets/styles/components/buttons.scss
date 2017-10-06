@@ -144,6 +144,10 @@ main {
         border-color: $gold;
         background: $gold;
     }
+
+    &:not([href]):not([tabindex]) {
+        color: #1a5a96;
+    }
 }
 
 .content-btn-alt {
