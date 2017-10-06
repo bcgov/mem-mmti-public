@@ -2,6 +2,6 @@ export interface MapConfig {
   mainMap?: {
     webmap?: __esri.WebMapProperties,
     mapView?: __esri.MapViewProperties,
-    popup?: __esri.PopupProperties
+    popup?: __esri.PopupTemplateProperties
   };
 }

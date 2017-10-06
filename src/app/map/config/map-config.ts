@@ -31,7 +31,7 @@ const detailsUrl = (code: string): string => {
   return `${protocol}//${host}/p/${code}`;
 };
 
-export const defaultPopupTemplate = {
+export const defaultPopupTemplate: __esri.PopupTemplateProperties = {
   title: '{name}',
   content: `<div class="map-popup-content">
               <ul class="map-popup-meta">
