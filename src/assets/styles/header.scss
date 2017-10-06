@@ -164,7 +164,7 @@ header {
     }
 
     .brand {
-        width: 280px; // Using PX dimensions here to ensure exact match to image
+        width: 270px; // Using PX dimensions here to ensure exact match to image
         height: 4rem;
     }
 
@@ -177,7 +177,7 @@ header {
 
             .nav-link {
                 height: 4rem; //60px to match the branding height
-                padding: 0.5rem 1rem !important;
+                padding: 0.5rem 0.75rem !important;
                 border-top: none;
 
                 span {
@@ -199,7 +199,6 @@ header {
 
                     &.dm-sm {
                         min-width: 12rem;
-                        white-space: nowrap;
                     }
 
                     .dropdown-item {
