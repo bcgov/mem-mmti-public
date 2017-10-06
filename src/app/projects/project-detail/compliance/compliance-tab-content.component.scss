@@ -32,6 +32,14 @@
     }
 }
 
+@media (max-width: 567px) {
+    .inspections-list {
+        table {
+            display: none;
+        }
+    }
+}
+
 @media (max-width: 760px) {
     .inspections-list {
         .accordion {

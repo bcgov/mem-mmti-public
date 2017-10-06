@@ -1,3 +1,4 @@
+// Switch Header styling when scrolled to anchor
 function scroll_style() {
     var window_top = $(window).scrollTop();
     var div_top = $('#pgTitle');
@@ -19,13 +20,17 @@ function scroll_style() {
     }
 }
 
-
 $(function() {
     $(window).scroll(scroll_style);
     scroll_style();
 });
 
+// Collapse Menu when navigating to route
+$(document).on('click','.navbar-collapse.show',function(e) {
+    $(this).collapse('hide');
+});
 
+// Collapse main navigation drop menus on click
 $(function(){ 
     $('.dropdown-item').click(function() {
         $('#mainNav').collapse('hide');

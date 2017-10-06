@@ -110,9 +110,9 @@
 
 @media (min-width: 768px) {
     .hero-banner {
-        height: 28rem;
-        background-position: center -2rem;
-        background-size: 140%;
+        height: 22rem;
+        background-position: center top;
+        background-size: 115%;
 
         &__content {
             padding-right: 4rem;
@@ -134,11 +134,7 @@
 
 @media (min-width: 992px) {
     .hero-banner {
-        background-size: 120%;
-
-        h1 {
-            font-size: 2.65rem;
-        }
+        background-size: 100%;
     }
 }
 
@@ -153,6 +149,10 @@
             padding-top: 2rem;
             padding-right: 2rem;
             padding-left: 2rem;
+
+            h1 {
+                font-size: 2.65rem;
+            }
         }
     }
 }
