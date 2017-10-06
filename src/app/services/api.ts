@@ -46,7 +46,7 @@ export class Api {
   }
 
   getProjectByCode(projectCode: string) {
-    return this.getMEM(`project/bycode/${ projectCode }`);
+    return this.getMEM(`projects/major/${ projectCode }`);
   }
 
   getProjectCollectionsMEM(projectCode: string) {
