@@ -1,3 +1,4 @@
+import { Params } from '@angular/router';
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +8,7 @@ import { Search } from '../models/search';
 import { Proponent } from '../models/proponent';
 import { ProjectService } from '../services/project.service';
 import { ProponentService } from '../services/proponent.service';
+import { Api } from '../services/api';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
@@ -40,12 +42,14 @@ export class SearchComponent implements OnInit {
   protoSearchActive: boolean;
   showAdvancedFields: boolean;
   public loading: boolean;
+  params: Params;
 
   constructor(calender: NgbCalendar,
               private documentService: DocumentService,
               private projectService: ProjectService,
               private proponentService: ProponentService,
-              private _changeDetectionRef: ChangeDetectorRef) {
+              private _changeDetectionRef: ChangeDetectorRef,
+              private api: Api) {
 
     this.limit         = 15;
     this.noMoreResults = true;
@@ -76,6 +80,20 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.showAdvancedFields = false;
     this.loading = false;
+    this.params = this.api.getParams();
+    if (this.params.type
+      || this.params.keywords
+      || this.params.projects
+      || this.params.operator
+      || this.params.owner
+      || this.params.daterangestart
+      || this.params.datarangeend
+      || this.params.page
+      || this.params.limit) {
+      console.log('Incoming Query Params.');
+      // TBD: Parse and auto-send the query to the server to get results
+      // on this page load.
+    }
   }
 
   toggleAdvancedSearch() {
@@ -87,6 +105,7 @@ export class SearchComponent implements OnInit {
     this.ranSearch = true;
     this.results = [];
     this.loading = true;
+
 
     // Get the keywords
     let keywordsArr = null;

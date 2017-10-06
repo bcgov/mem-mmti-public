@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Params } from '@angular/router';
 
 @Injectable()
 export class Api {
@@ -7,6 +8,7 @@ export class Api {
   pathEPIC: string;
   hostnameMEM: string;
   hostnameEPIC: string;
+  params: Params;
 
   constructor(private http: Http) {
     const { hostname } = window.location;
@@ -79,6 +81,13 @@ export class Api {
 
   putEPIC(apiRoute: string, body?: Object, options?: Object) {
     return this.put(this.pathEPIC, apiRoute, body, options);
+  }
+
+  getParams() {
+    return this.params;
+  }
+  setParams(params: Params) {
+    this.params = params;
   }
 
   // Private
