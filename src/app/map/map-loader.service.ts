@@ -106,7 +106,7 @@ export class MapLoaderService {
   private loadArcgis(): Promise<Function> {
     return this.esriLoader.load({
       // use a specific version of the API instead of the latest
-      url: 'https://js.arcgis.com/4.4/'
+      url: 'https://js.arcgis.com/4.5/'
     });
   }
 }
