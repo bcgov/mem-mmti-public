@@ -2,7 +2,6 @@
 
 .hero-banner {
     position: relative;
-    height: 24rem;
     background-color: rgba(#00245a, 1);
     background-image: url("~assets/images/hero-banner-1.jpg");
     background-repeat: no-repeat;
@@ -45,29 +44,29 @@
             text-transform: uppercase;
             font-size: 0.875rem;
         }
-    }
 
-    &__content--cta-btns {
-        @include clearfix();
-
-        strong {
-            display: block;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .btn {
-            margin-top: 0.45rem;
-            padding: 0.5rem;
-            min-width: 7rem;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            font-weight: 700;
-
-            + span {
-                display: inline-block;
-                margin: 0.25rem;
+        &--cta-btns {
+            @include clearfix();
+    
+            strong {
+                display: block;
+                color: #fff;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+    
+            .btn {
+                margin-top: 0.4rem;
+                padding: 0.5rem;
+                min-width: 7rem;
+                text-transform: uppercase;
+                font-size: 0.7rem;
+                font-weight: 700;
+    
+                + span {
+                    display: inline-block;
+                    margin: 0.25rem;
+                }
             }
         }
     }
@@ -96,6 +95,7 @@
 
 @media (max-width: 574px) {
     .hero-banner {
+        height: 20rem;
         background-position: -12rem top;
         background-size: 290%;
     }
@@ -103,6 +103,7 @@
 
 @media (min-width: 575px) {
     .hero-banner {
+        height: 20rem;
         background-position: -10rem center;
         background-size: 160%;
     }
@@ -110,11 +111,12 @@
 
 @media (min-width: 768px) {
     .hero-banner {
-        height: 22rem;
+        height: 24rem;
         background-position: center top;
-        background-size: 115%;
+        background-size: 130%;
 
         &__content {
+            margin-bottom: 1rem;
             padding-right: 4rem;
             padding-left: 4rem;
 
@@ -124,9 +126,17 @@
             }
     
             p {
-                margin-bottom: 2rem;
-                line-height: 2rem;
+                margin-bottom: 1.5rem;
+                line-height: 1.8rem;
                 font-size: 1.2rem;
+            }
+
+            &--cta-btns {
+                @include clearfix();
+        
+                .btn {
+                    font-size: 0.85rem;
+                }
             }
         }
     }
@@ -134,7 +144,8 @@
 
 @media (min-width: 992px) {
     .hero-banner {
-        background-size: 100%;
+        background-position: center -2rem;
+        background-size: 120%;
     }
 }
 
@@ -146,12 +157,17 @@
         background-size: 120%;
 
         &__content {
+            margin: 0;
             padding-top: 2rem;
             padding-right: 2rem;
             padding-left: 2rem;
 
             h1 {
-                font-size: 2.65rem;
+                font-size: 2.8rem;
+            }
+
+            p {
+                margin-bottom: 1.75rem;
             }
         }
     }
@@ -161,13 +177,13 @@
     .hero-banner {
         height: 40rem;
         background-position: center -3rem;
-        background-size: 140%
+        background-size: 140%;
     }
 }
 
 @media (min-width: 1600px) and (min-height: 900px) {
     .hero-banner {
         background-position: center -4rem;
-        background-size: 120%
+        background-size: 120%;
     }
 }

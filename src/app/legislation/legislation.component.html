@@ -44,7 +44,9 @@
                     </ul>
                 </section>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" title="Learn More about the Environmental Assessment Act" ui-sref="authorizations({'#': 'eaProcess'})"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
+                    <a class="btn content-btn slide-r-btn" title="Learn More about the Environmental Assessment Act" 
+                        [routerLink]="['/authorizations']" fragment="eaProcess">
+                        <span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
             <section>
@@ -55,7 +57,8 @@
                     <li><a href="http://www2.gov.bc.ca/gov/content/industry/mineral-exploration-mining/health-safety/health-safety-and-reclamation-code-for-mines-in-british-columbia">Health, Safety and Reclamation Code for Mines in British Columbia</a></li>
                 </ul>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" title="Learn More authorizations issued to major mines under EMA" ui-sref="authorizations({'#': 'minesActPermits'})"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
+                    <a class="btn content-btn slide-r-btn" title="Learn More authorizations issued to major mines under EMA" 
+                        [routerLink]="['/authorizations']" fragment="minesActPermits"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
             <section>
@@ -81,7 +84,8 @@
                     </ul>
                 </section>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" ui-sref="authorizations({'#': 'emaPermit'})"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
+                    <a class="btn content-btn slide-r-btn" 
+                        [routerLink]="['/authorizations']"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
             <section>
