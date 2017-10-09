@@ -3,7 +3,6 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 
 import { Api } from './api';
 
@@ -27,7 +26,7 @@ export class ProjectService {
 
         return projects;
       })
-      .catch(this.handleError);
+      .catch(this.api.handleError);
   }
 
   getByCode(code: string): Observable<Project> {
@@ -69,7 +68,7 @@ export class ProjectService {
 
         return this.project;
       })
-      .catch(this.handleError);
+      .catch(this.api.handleError);
   }
 
   private processCollections(res: Response) {
@@ -94,10 +93,5 @@ export class ProjectService {
         collectionsList.documents.add(collection);
         break;
     }
-  }
-
-  private handleError(error: any) {
-    const reason = (error.message) ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
-    return Observable.throw(reason);
   }
 }

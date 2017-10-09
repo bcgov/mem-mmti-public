@@ -113,10 +113,4 @@ export class DocumentService {
 
     return Observable.forkJoin([mem, epic]);
   }
-
-  private handleError(error: any) {
-    const reason = (error.message) ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
-    console.log(reason);
-    return Observable.throw(reason);
-  }
 }
