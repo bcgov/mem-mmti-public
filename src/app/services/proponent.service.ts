@@ -1,41 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+import { Api } from './api';
 
 import { Proponent } from '../models/proponent';
 
 @Injectable()
 export class ProponentService {
-  apiPathMEM: string;
-  apiPathEPIC: string;
-
-  constructor(private http: Http) {
-    const { hostname } = window.location;
-    if (hostname === 'localhost') {
-      // Local
-      this.apiPathMEM  = 'http://localhost:4000';
-      this.apiPathEPIC = 'http://localhost:3000';
-    } else if (hostname === 'www.mem-mmt-dev.pathfinder.gov.bc.ca') {
-      // Dev
-      this.apiPathMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
-      this.apiPathEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
-    } else if (hostname === 'www.mem-mmt-test.pathfinder.gov.bc.ca') {
-      // Test
-      this.apiPathMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
-      this.apiPathEPIC = 'https://esm-test.pathfinder.gov.bc.ca';
-    } else {
-      // Prod
-      this.apiPathMEM  = 'https://mines.empr.gov.bc.ca';
-      this.apiPathEPIC = 'https://projects.eao.gov.bc.ca';
-    }
-  }
+  constructor(private api: Api) { }
 
   getAll() {
     // Get all organizations
-    return this.http.get(`${this.apiPathMEM}/api/organization`)
+    return this.api.getProponents()
       .map((res: Response) => {
         const organizations = res.text() ? res.json() : [];
 
@@ -45,11 +23,6 @@ export class ProponentService {
 
         return organizations;
       })
-      .catch(this.handleError);
-  }
-
-  private handleError(error: any) {
-    const reason = (error.message) ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
-    return Observable.throw(reason);
+      .catch(this.api.handleError);
   }
 }

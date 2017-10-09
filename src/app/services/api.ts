@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Params } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+
+
 @Injectable()
 export class Api {
   pathMEM: string;
@@ -59,6 +63,12 @@ export class Api {
     return this.getEPIC(`collections/project/${ projectCode }`);
   }
 
+  // Proponents
+
+  getProponents() {
+    return this.getMEM('organization');
+  }
+
   // News
 
   getNews() {
@@ -86,8 +96,15 @@ export class Api {
   getParams() {
     return this.params;
   }
+
   setParams(params: Params) {
     this.params = params;
+  }
+
+  handleError(error: any) {
+    const reason = error.message ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
+    console.log(reason);
+    return Observable.throw(reason);
   }
 
   // Private
