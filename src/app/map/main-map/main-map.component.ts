@@ -117,7 +117,7 @@ export class MainMapComponent implements OnInit {
   }
 
   private setPopupTemplateForLayer(featureLayer: __esri.FeatureLayer, popupTemplate: __esri.PopupTemplateProperties): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       // the `esri/layers/FeatureLayer` instance is promise-based...
       // call the .then() method to execute code once the layer is ready
       return featureLayer.then(
@@ -147,7 +147,7 @@ export class MainMapComponent implements OnInit {
   }
 
   private zoomToMine(view: __esri.MapView, targetMine: __esri.Graphic, animate: boolean = false): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const opts: __esri.MapViewGoToOptions = {
         animate: animate
       };
