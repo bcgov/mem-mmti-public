@@ -105,6 +105,12 @@ $search-input-font-size: 0.9375rem;
 }
 
 .search-results {
+    &__title {
+        span {
+            display: inline;
+        }
+    }
+
     &__header {
         padding: 1rem 0;
         
