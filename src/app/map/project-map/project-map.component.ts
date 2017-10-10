@@ -65,7 +65,7 @@ export class ProjectMapComponent implements OnInit {
   }
 
   private showSingleProject(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       // set the definition expression directly on layer instance to only display a single project
       return featureLayer.then(
         (fl: __esri.FeatureLayer) => {
