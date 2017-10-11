@@ -38,19 +38,21 @@ pipeline {
         }
         stage('tag and deploy to test') {
             steps {
-                try {
-                    timeout(time: 2, unit: 'MINUTES') {
-                      input "Deploy to test?"
-                      openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
-                      notifyBuild('DEPLOYED:TEST')
-                    }
-                } catch (e) {
-                    def user = err.getCauses()[0].getUser()
-                    if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-                        notifyBuild('DEPLOYMENT:TEST TIMEOUT')
-                    } else {
-                        echo "Aborted by: [${user}]"
-                        notifyBuild('DEPLOYMENT:TEST ABORTED')
+                script {
+                    try {
+                        timeout(time: 2, unit: 'MINUTES') {
+                          input "Deploy to test?"
+                          openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
+                          notifyBuild('DEPLOYED:TEST')
+                        }
+                    } catch (e) {
+                        def user = err.getCauses()[0].getUser()
+                        if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+                            notifyBuild('DEPLOYMENT:TEST TIMEOUT')
+                        } else {
+                            echo "Aborted by: [${user}]"
+                            notifyBuild('DEPLOYMENT:TEST ABORTED')
+                        }
                     }
                 }
             }
