@@ -4,6 +4,7 @@ pipeline {
         nodejs 'NodeJS-V8.x'
     }
     stages {
+        notifyBuild('STARTED')
         stage('build angular-builder'){
             steps {
                 openshiftBuild(bldCfg: 'angular-builder', showBuildLogs: 'true')
@@ -24,7 +25,7 @@ pipeline {
                 openshiftTag(srcStream: 'nginx-runtime', srcTag: 'latest', destStream: 'nginx-runtime', destTag: 'dev')
             }
         }
-       stage('build and package angular-on-nginx-build'){
+        stage('build and package angular-on-nginx-build'){
             steps {
                 openshiftBuild(bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true')
             }
@@ -32,7 +33,53 @@ pipeline {
         stage('tag and deploy to dev') {
             steps {
                 openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'latest', destStream: 'angular-on-nginx-build', destTag: 'dev')
+                notifyBuild('DEPLOYED:DEV')
             }
         }
+        stage('tag and deploy to test') {
+          try {
+            timeout(time: 2, unit: 'MINUTES') {
+              input "Deploy to test?"
+              openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
+              notifyBuild('DEPLOYED:TEST')
+            }
+          } catch (e) {
+            def user = err.getCauses()[0].getUser()
+            if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+                notifyBuild('DEPLOYMENT:TEST TIMEOUT')
+            } else {
+                echo "Aborted by: [${user}]"
+                notifyBuild('DEPLOYMENT:TEST ABORTED')
+            }
+          }
+        }
     }
+}
+
+def notifyBuild(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+  def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+    <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>"""
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED' || buildStatus.startsWith("DEPLOYMENT")) {
+    color = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL' || buildStatus.startsWith("DEPLOYED")) {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
 }
