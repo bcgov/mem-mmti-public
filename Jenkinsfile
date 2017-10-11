@@ -4,9 +4,9 @@ pipeline {
         nodejs 'NodeJS-V8.x'
     }
     stages {
-        notifyBuild('STARTED')
         stage('build angular-builder'){
             steps {
+                notifyBuild('STARTED')
                 openshiftBuild(bldCfg: 'angular-builder', showBuildLogs: 'true')
             }
         }
@@ -37,21 +37,23 @@ pipeline {
             }
         }
         stage('tag and deploy to test') {
-          try {
-            timeout(time: 2, unit: 'MINUTES') {
-              input "Deploy to test?"
-              openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
-              notifyBuild('DEPLOYED:TEST')
+            steps {
+                try {
+                    timeout(time: 2, unit: 'MINUTES') {
+                      input "Deploy to test?"
+                      openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
+                      notifyBuild('DEPLOYED:TEST')
+                    }
+                } catch (e) {
+                    def user = err.getCauses()[0].getUser()
+                    if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+                        notifyBuild('DEPLOYMENT:TEST TIMEOUT')
+                    } else {
+                        echo "Aborted by: [${user}]"
+                        notifyBuild('DEPLOYMENT:TEST ABORTED')
+                    }
+                }
             }
-          } catch (e) {
-            def user = err.getCauses()[0].getUser()
-            if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-                notifyBuild('DEPLOYMENT:TEST TIMEOUT')
-            } else {
-                echo "Aborted by: [${user}]"
-                notifyBuild('DEPLOYMENT:TEST ABORTED')
-            }
-          }
         }
     }
 }
