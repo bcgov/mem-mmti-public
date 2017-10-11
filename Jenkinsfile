@@ -46,13 +46,7 @@ pipeline {
                           notifyBuild('DEPLOYED:TEST')
                         }
                     } catch (err) {
-                        def user = err.getCauses()[0].getUser()
-                        if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-                            notifyBuild('DEPLOYMENT:TEST TIMEOUT')
-                        } else {
-                            echo "Aborted by: [${user}]"
-                            notifyBuild('DEPLOYMENT:TEST ABORTED')
-                        }
+                        notifyBuild('DEPLOYMENT:TEST ABORTED')
                     }
                 }
             }
@@ -67,13 +61,7 @@ pipeline {
                           notifyBuild('DEPLOYED:PROD')
                         }
                     } catch (err) {
-                        def user = err.getCauses()[0].getUser()
-                        if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-                            notifyBuild('DEPLOYMENT:PROD TIMEOUT')
-                        } else {
-                            echo "Aborted by: [${user}]"
-                            notifyBuild('DEPLOYMENT:PROD ABORTED')
-                        }
+                        notifyBuild('DEPLOYMENT:PROD ABORTED')
                     }
                 }
             }
