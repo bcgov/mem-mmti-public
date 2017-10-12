@@ -52,7 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loggedIn = this.cookieService.get('loggedIn');
     this.sub = this.route.queryParams.subscribe((params: Params) => {
-      console.log('params:', params);
       // set params
       this.api.setParams(params);
     });
