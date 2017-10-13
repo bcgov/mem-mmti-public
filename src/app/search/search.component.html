@@ -8,23 +8,23 @@
             <div class="hero-banner__content">
                 <h1 id="pgTitle">Find Documents...</h1>
 
-                <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit(f.value)">
+                <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit()">
 
                     <div class="search-form__basic-search-fields">
                         <div class="form-group mb-0">
                             <input class="form-control" type="text" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
-                                [disabled]="protoSearchActive" ngModel/>
+                                [disabled]="protoSearchActive" [(ngModel)]="terms.keywords"/>
                         </div>
                     </div>
 
                     <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
                         <div class="form-group mb-4">
                             <label for="projects">Project</label>
-                            <tag-input class="form-control" name='projectInput' 
+                            <tag-input class="form-control" name='projectInput'
                                 [secondaryPlaceholder]="'Enter a Project Name'"
                                 [identifyBy]="'_id'"
                                 [displayBy]="'name'"
-                                ngModel>
+                                [(ngModel)]="terms.projects">
                                    <tag-input-dropdown
                                         [identifyBy]="'_id'"
                                         [displayBy]="'name'"
@@ -38,7 +38,7 @@
                                 [secondaryPlaceholder]="'Enter an Operator Name'"
                                 [identifyBy]="'_id'"
                                 [displayBy]="'company'"
-                                ngModel>
+                                [(ngModel)]="terms.proponents">
                                    <tag-input-dropdown
                                         [identifyBy]="'_id'"
                                         [displayBy]="'company'"
@@ -52,7 +52,7 @@
                                 [secondaryPlaceholder]="'Enter an Owner Name'"
                                 [identifyBy]="'_id'"
                                 [displayBy]="'company'"
-                                ngModel>
+                                [(ngModel)]="terms.ownerships">
                                    <tag-input-dropdown
                                         [identifyBy]="'_id'"
                                         [displayBy]="'company'"
@@ -66,20 +66,20 @@
                                 <label class="sr-only" for="dateRangeStart">Start Date</label>
                                 <input class="form-control" type="text" placeholder="Start Date" name="dateRangeStartInput" id="dateRangeStart"
                                     #dateRangeStart="ngbDatepicker"
-                                    ngbDatepicker 
+                                    ngbDatepicker
                                     readonly
                                     [disabled]="protoSearchActive"
                                     (click)="dateRangeStart.toggle();dateRangeEnd.close();"
-                                    ngModel/>
+                                    [(ngModel)]="terms.dateStart"/>
                                 <span class="date-range__spacer"> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
                                 <label class="sr-only" for="dateRangeEnd">End Date</label>
                                 <input class="form-control" type="text" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
                                     #dateRangeEnd="ngbDatepicker"
-                                    ngbDatepicker 
-                                    readonly 
+                                    ngbDatepicker
+                                    readonly
                                     [disabled]="protoSearchActive"
                                     (click)="dateRangeEnd.toggle();dateRangeStart.close();"
-                                    ngModel/>
+                                    [(ngModel)]="terms.dateEnd"/>
                             </div>
                         </div>
                     </div>
@@ -122,12 +122,12 @@
             <h2 class="search-results__title" *ngIf="ranSearch && results && results.length > 0">Showing {{results.length}} Document<span *ngIf="results.length > 1">s</span></h2>
             <ul class="search-results list-group">
                 <li *ngFor="let item of results" class="list-group-item search-results-item">
-                    <h3 class="search-results-item__project-name" 
+                    <h3 class="search-results-item__project-name"
                         *ngIf="item.project.name">{{item.project.name}}
                     </h3>
                     <a class="search-results-item__title mb-0" href="{{item.hostname}}/api/document/{{item._id}}/fetch">{{item.displayName}}</a>
                     <div class="search-results-item__meta">{{item.datePosted | date:'yyyy-MM-dd'}}</div>
-                    <div class="search-results-item__description mt-3" 
+                    <div class="search-results-item__description mt-3"
                         *ngIf="item.description">{{item.description}}
                     </div>
                     <!--
@@ -149,7 +149,7 @@
             </div>
 
             <div class="search-results__footer mt-3" *ngIf="ranSearch && results && results.length > 0 && !noMoreResults">
-                <button class="btn content-btn-alt" (click)="loadMore(f.form.value)">Show More</button>
+                <button class="btn content-btn-alt" (click)="loadMore()">Show More</button>
             </div>
 
         </section>
