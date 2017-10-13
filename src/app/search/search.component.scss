@@ -168,6 +168,8 @@ $search-input-font-size: 0.9375rem;
     
         &__title {
             margin-bottom: 0.4rem;
+            width: 100%;
+            overflow: hidden;
             line-height: 1.4rem;
             text-overflow: ellipsis;
             font-size: 1.2rem;
