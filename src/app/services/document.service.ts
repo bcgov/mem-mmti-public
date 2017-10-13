@@ -83,12 +83,10 @@ export class DocumentService {
     }
     if (datestart) {
         const d: Date = new Date(datestart.year, datestart.month - 1, datestart.day);
-        console.log('datestart', d.toString());
         query += '&datestart=' + d.toString();
     }
     if (dateend) {
         const d: Date = new Date(dateend.year, dateend.month - 1, dateend.day);
-        console.log('dateend', d.toString());
         query += '&dateend=' + d.toString();
     }
 

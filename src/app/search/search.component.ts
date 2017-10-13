@@ -90,7 +90,6 @@ export class SearchComponent implements OnInit {
       || this.params.datarangeend
       || this.params.page
       || this.params.limit) {
-      console.log('Incoming Query Params.');
       // TBD: Parse and auto-send the query to the server to get results
       // on this page load.
     }
