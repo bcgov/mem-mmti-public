@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PageScrollConfig } from 'ng2-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs/Subscription';
@@ -18,13 +18,12 @@ import { Api } from './services/api';
   styleUrls: ['./app.component.scss'],
   providers: [NewsService, DocumentService]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   recentNews: Array<News>;
   loggedIn: String;
   hostname: String;
   private sub: Subscription;
   constructor(private newsService: NewsService,
-              private route: ActivatedRoute,
               private _router: Router,
               private cookieService: CookieService,
               private api: Api) {
@@ -51,10 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loggedIn = this.cookieService.get('loggedIn');
-    this.sub = this.route.queryParams.subscribe((params: Params) => {
-      // set params
-      this.api.setParams(params);
-    });
+
     this._router.events.subscribe((url: any) => {
       if (url.url === '/') {
         this.newsService.getRecentNews().subscribe(
@@ -67,10 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     });
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 }
 
