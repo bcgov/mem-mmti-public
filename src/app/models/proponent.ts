@@ -2,6 +2,7 @@ import { uniqueBy } from '../shared/utilities';
 
 export class Proponent {
   _id: string;
+  alsoKnownAs: string;
   company: string;
   website: string;
   companyLegal: number;
@@ -16,6 +17,7 @@ export class Proponent {
 
   constructor(obj?: any) {
     this._id = obj && obj._id || null;
+    this.alsoKnownAs = obj && obj.alsoKnownAs || null;
     this.company = obj && obj.company || null;
     this.website = obj && obj.website || null;
     this.companyLegal = obj && obj.companyLegal || null;
