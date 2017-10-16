@@ -161,8 +161,7 @@ export class SearchComponent implements OnInit {
 
   doSearch() {
     this.loading = true;
-
-    this.documentService.get(this.terms, this.projects, this.page, this.limit).subscribe(
+    this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
       data => {
         // Push in 1st call
         data[0].forEach(i => {

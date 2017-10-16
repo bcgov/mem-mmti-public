@@ -19,7 +19,7 @@ export class DocumentService {
 
   constructor(private api: Api) { }
 
-  get(terms: SearchTerms, projects: Array<Project>, page: number, limit: number) {
+  get(terms: SearchTerms, projects: Array<Project>, proponents: Array<Proponent>, page: number, limit: number) {
     this.searchResult = new SearchArray();
 
     let query = 'search?types=document';
@@ -63,10 +63,58 @@ export class DocumentService {
     }
 
     if (params['proponents']) {
-      query += '&proponent=' + params['proponents'];
+      // EPIC needs the string name for proponent, not the objectID
+      memProjectQuery += '&proponent=' + params['proponents'];
+
+      const proponentQ = [];
+
+      var props = params['proponents'].split(',');
+      props.forEach(prop => {
+        proponents.forEach(p => {
+          if (p._id === prop) {
+            // If the AKA field is set, use that - otherwise use the company name
+            if (p.alsoKnownAs && p.alsoKnownAs !== '') {
+              proponentQ.push(p.alsoKnownAs);
+            } else {
+              proponentQ.push(p.company);
+            }
+          }
+        });
+      });
+      if (proponentQ.length > 0) {
+        epicProjectQuery += '&proponentstring=' + proponentQ;
+      }
     }
     if (params['ownerships']) {
-      query += '&ownership=' + params['ownerships'];
+      // MEM/EPIC needs the string name for ownership, not the objectID
+
+      const ownershipQ = [];
+
+      var props = params['ownerships'].split(',');
+      props.forEach(prop => {
+        proponents.forEach(p => {
+          if (p._id === prop) {
+            // If the AKA field is set, use that - otherwise use the company name
+            if (p.alsoKnownAs && p.alsoKnownAs !== '') {
+              ownershipQ.push(p.alsoKnownAs);
+            } else {
+              ownershipQ.push(p.company);
+            }
+          }
+        });
+      });
+      if (ownershipQ.length > 0) {
+        // EPIC doesn't store ownership data right now, search as though we're setting 
+        // the owner/proponent field - remake the prop string to include the specific
+        // results for EPIC.
+        if (false === epicProjectQuery.includes('&proponentstring=')) {
+          epicProjectQuery += '&proponentstring=' + ownershipQ;
+        } else {
+          // Tack it on the end
+          epicProjectQuery += ',' + ownershipQ;
+        }
+        memProjectQuery += '&ownership=' + ownershipQ;
+      }
     }
     if (params['datestart']) {
       query += '&datestart=' + params['datestart'];
