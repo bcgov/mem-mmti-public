@@ -68,7 +68,7 @@ export class DocumentService {
 
       const proponentQ = [];
 
-      var props = params['proponents'].split(',');
+      const props = params['proponents'].split(',');
       props.forEach(prop => {
         proponents.forEach(p => {
           if (p._id === prop) {
@@ -90,8 +90,8 @@ export class DocumentService {
 
       const ownershipQ = [];
 
-      var props = params['ownerships'].split(',');
-      props.forEach(prop => {
+      const owns = params['ownerships'].split(',');
+      owns.forEach(prop => {
         proponents.forEach(p => {
           if (p._id === prop) {
             // If the AKA field is set, use that - otherwise use the company name
@@ -104,7 +104,7 @@ export class DocumentService {
         });
       });
       if (ownershipQ.length > 0) {
-        // EPIC doesn't store ownership data right now, search as though we're setting 
+        // EPIC doesn't store ownership data right now, search as though we're setting
         // the owner/proponent field - remake the prop string to include the specific
         // results for EPIC.
         if (false === epicProjectQuery.includes('&proponentstring=')) {
