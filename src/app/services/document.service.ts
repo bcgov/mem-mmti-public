@@ -113,7 +113,7 @@ export class DocumentService {
           // Tack it on the end
           epicProjectQuery += ',' + ownershipQ;
         }
-        memProjectQuery += '&ownership=' + ownershipQ;
+        memProjectQuery += '&ownership=' + params['ownerships'];
       }
     }
     if (params['datestart']) {
