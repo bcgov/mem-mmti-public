@@ -93,14 +93,6 @@ export class Api {
     return this.put(this.pathEPIC, apiRoute, body, options);
   }
 
-  getParams() {
-    return this.params;
-  }
-
-  setParams(params: Params) {
-    this.params = params;
-  }
-
   handleError(error: any) {
     const reason = error.message ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
     console.log(reason);
