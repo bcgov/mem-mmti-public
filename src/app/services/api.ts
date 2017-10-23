@@ -23,13 +23,13 @@ export class Api {
         this.hostnameEPIC = 'http://localhost:3000';
         break;
 
-      case 'www.mem-mmt-dev.pathfinder.gov.bc.ca':
+      case 'www-mem-mmt-dev.pathfinder.gov.bc.ca':
         // Dev
         this.hostnameMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
         this.hostnameEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
         break;
 
-      case 'www.mem-mmt-test.pathfinder.gov.bc.ca':
+      case 'www-mem-mmt-test.pathfinder.gov.bc.ca':
         // Test
         this.hostnameMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
         this.hostnameEPIC = 'https://esm-test.pathfinder.gov.bc.ca';
