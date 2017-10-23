@@ -8,6 +8,7 @@ export class Document {
   project: string;
   description: string;
   dateReceived: string;
+  documentDate: string;
   datePosted: string;
   dateUploaded: string;
   dateUpdated: string;
@@ -20,6 +21,7 @@ export class Document {
     this.directoryID = obj && obj.directoryID || null;
     this.project = obj && obj.project || null;
     this.dateReceived = obj && obj.dateReceived || null;
+    this.documentDate = obj && obj.documentDate || null;
     this.datePosted = obj && obj.datePosted || null;
     this.dateUploaded = obj && obj.dateUploaded || null;
     this.dateUpdated = obj && obj.dateUpdated || null;
