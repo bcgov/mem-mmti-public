@@ -126,7 +126,7 @@
                         *ngIf="item.project.name">{{item.project.name}}
                     </h3>
                     <a class="search-results-item__title mb-0" href="{{item.hostname}}/api/document/{{item._id}}/fetch">{{item.displayName}}</a>
-                    <div class="search-results-item__meta">{{item.datePosted | date:'yyyy-MM-dd'}}</div>
+                    <div class="search-results-item__meta">{{item.documentDate | date:'yyyy-MM-dd'}}</div>
                     <div class="search-results-item__description mt-3"
                         *ngIf="item.description">{{item.description}}
                     </div>
