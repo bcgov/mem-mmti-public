@@ -124,7 +124,7 @@ export class DocumentService {
     }
 
     // Field selection
-    query += '&fields=_id project displayName description datePosted documentCategories collections keywords inspectionReport';
+    query += '&fields=_id project displayName documentDate description datePosted documentCategories collections keywords inspectionReport';
     const mem = this.api.getMEM(query + memProjectQuery)
     .map((res: Response) => {
       const data = res.text() ? res.json() : [];
