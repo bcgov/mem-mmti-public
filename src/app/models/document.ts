@@ -1,5 +1,3 @@
-import { uniqueBy } from '../shared/utilities';
-
 export class Document {
   _id: string;
   keywords: string[];

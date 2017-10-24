@@ -1,5 +1,4 @@
-import { uniqueBy } from '../shared/utilities';
-
+import * as _ from 'lodash';
 import { CollectionsList } from './collection';
 
 export class Project {
@@ -68,8 +67,7 @@ export class Project {
   private _externalLinks: {
     link: string;
     title: string;
-    page: string;
-    type: string;
+    order: number;
   }[];
   get externalLinks() {
     return this._externalLinks;
@@ -79,19 +77,17 @@ export class Project {
 
     // filter out duplicate links
     if (newValue) {
-      const external = newValue.filter(link => link.type === 'EXTERNAL_LINK');
-      this.uniqueLinks = uniqueBy(external, 'link');
+      this.sortedLinks = _.uniqBy(newValue, 'link').sort((a, b) => a.order - b.order);
     } else {
-      this.uniqueLinks = [];
+      this.sortedLinks = [];
     }
   }
 
-  // same as `externalLinks` but withouth duplicate links
-  uniqueLinks: {
+  // same as `externalLinks` but without duplicate links and sorted by `order`
+  sortedLinks: {
     link: string;
     title: string;
-    page: string;
-    type: string;
+    order: number;
   }[];
 
   constructor(obj?: any) {
@@ -123,7 +119,7 @@ export class Project {
       this.operator = obj.ownership || '';
     }
 
-    // Commodies come from commodity
+    // Commodities come from commodity
     this.commodities = obj && obj.commodity ? (<string>obj.commodity).split(',').map(x => {
       const y = x.trim();
       const commodity = y[0].toUpperCase() + y.substr(1).toLowerCase();
