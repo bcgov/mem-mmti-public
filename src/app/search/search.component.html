@@ -125,17 +125,12 @@
                     <h3 class="search-results-item__project-name"
                         *ngIf="item.project.name">{{item.project.name}}
                     </h3>
-                    <a class="search-results-item__title mb-0" href="{{item.hostname}}/api/document/{{item._id}}/fetch">{{item.displayName}}</a>
+                    <a class="search-results-item__title mb-0" href="{{item.hostname}}/api/document/{{item._id}}/fetch" 
+                        target="_blank">{{item.displayName}}</a>
                     <div class="search-results-item__meta">{{item.documentDate | date:'yyyy-MM-dd'}}</div>
                     <div class="search-results-item__description mt-3"
                         *ngIf="item.description">{{item.description}}
                     </div>
-                    <!--
-                    <div class="search-results-item__actions">
-                        <a href="{{item.hostname}}/p/{{item.project.code}}/detail">View Project Page</a>
-                        <a href="{{item.hostname}}/api/document/{{item._id}}/fetch">View Document</a>
-                    </div>
-                    -->
                 </li>
             </ul>
 
