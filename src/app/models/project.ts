@@ -24,6 +24,11 @@ export class Project {
 
   collections: CollectionsList;
 
+  ownershipData: {
+    sharePercent: number;
+    organization: string;
+  };
+
   content: {
     html: string;
     text: string;
@@ -89,8 +94,6 @@ export class Project {
     type: string;
   }[];
 
-  ownership: string[];
-
   constructor(obj?: any) {
     this._id                     = obj && obj._id                     || null;
     this.code                    = obj && obj.code                    || null;
@@ -110,10 +113,8 @@ export class Project {
     this.epicProjectCodes        = obj && obj.epicProjectCodes        || [];
     this.content                 = obj && obj.content                 || [];
     this.externalLinks           = obj && obj.externalLinks           || [];
+    this.ownershipData           = obj && obj.ownershipData           || [];
     this.collections             = obj && obj.collections             || null;
-
-    // Parse ownership string into an array of owners
-    this.ownership = obj && obj.ownership ? (<string>obj.ownership).split(';') : [];
 
     // Get the operator from the proponent.
     this.operator = obj && obj.proponent ? obj.proponent.name : '';

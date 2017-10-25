@@ -41,7 +41,11 @@
           </li>
           <li>
             <span class="name">Ownership</span>
-            <span class="value" [innerHTML]="project.ownership ? project.ownership.join('<br>') : ''"></span>
+            <span class="value">
+              <span *ngFor="let org of project?.ownershipData | orderBy : {property: 'sharePercent', direction: -1}">
+                <label class="name">{{org.sharePercent}}% - {{org.organization.name}}</label>
+              </span>
+            </span>
           </li>
           <li>
             <span class="name">Commodities</span>
