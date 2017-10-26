@@ -68,7 +68,7 @@
       <section class="card">
         <h4 class="card-header">External Links &amp; Resources</h4>
         <ul class="nv-list">
-          <li *ngFor="let l of project?.uniqueLinks">
+          <li *ngFor="let l of project?.sortedLinks">
             <a target="_blank" href="{{l.link}}">{{l.title}}</a>
           </li>
         </ul>

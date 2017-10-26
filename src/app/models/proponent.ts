@@ -1,5 +1,3 @@
-import { uniqueBy } from '../shared/utilities';
-
 export class Proponent {
   _id: string;
   alsoKnownAs: string;
