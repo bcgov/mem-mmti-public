@@ -1,4 +1,5 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import * as _ from 'lodash';
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -139,12 +140,10 @@ export class SearchComponent implements OnInit {
               // Needed in development mode - not required in prod.
               this._changeDetectionRef.detectChanges();
 
-              // Run the search if keywords were provided
-              if (this.terms.keywords) {
-                this.page = 0;
-                this.results = [];
+              this.page = 0;
+              this.results = [];
+              if (!_.isEmpty(this.terms.getParams())) {
                 this.doSearch();
-                this.ranSearch = true;
               }
             },
             error => console.log(error)
@@ -160,6 +159,7 @@ export class SearchComponent implements OnInit {
   }
 
   doSearch() {
+    this.ranSearch = true;
     this.loading = true;
     this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
       data => {
@@ -182,9 +182,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.terms.keywords) {
-      this.router.navigate(['search', this.terms.getParams()]);
-    }
+    this.router.navigate(['search', this.terms.getParams()]);
   }
 
   loadMore() {
