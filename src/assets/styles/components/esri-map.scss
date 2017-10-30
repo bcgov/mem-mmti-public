@@ -12,10 +12,6 @@
             color: $map-popup-color;
         }
 
-        &__main-container {
-            max-height: 50rem !important;
-        }
-
         &__main-container,
         &__pointer-direction {
             background: $map-popup-bg;
@@ -98,6 +94,7 @@
     // Search Widget
     .esri-ui-top-left {
         right: 0;
+        z-index: 1000;
     }
 
     .esri-search {
@@ -135,6 +132,12 @@
 
         .esri-search__submit-button {
             border-left: none;
+        }
+    }
+
+    &.esri-view-height-less-than-medium {
+        .esri-popup__main-container {
+            max-height: 500px;
         }
     }
 }
@@ -190,7 +193,7 @@
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     .map {
         .esri-ui-top-left {
             right: auto;

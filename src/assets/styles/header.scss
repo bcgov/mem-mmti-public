@@ -3,9 +3,11 @@
 header {
     &.app-header {
         @include clearfix;
+        position: relative;
         border-bottom: 4px solid $gold;
         background: $header-bg;
         color: $header-font-color;
+        z-index: 1000;
     }
 }
 

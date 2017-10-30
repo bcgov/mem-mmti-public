@@ -5,11 +5,10 @@
     @include flex-box;
     @include flex-direction(column);
     @include fill-parent(fixed);
-    margin-top: 59px;
-    z-index: 999;
+    margin-top: 55px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     :host {
         margin-top: 66px;
     }
