@@ -21,18 +21,18 @@
                 <thead class="project-table__sort-header">
                     <tr>
                         <th class="project-table__name-col sortable" (click)="sort('name')">Name
-                            <i class="sort" 
-                                [ngClass]="{'sort-asc': (column == 'name' && isDesc), 'sort-desc': (column == 'name' && !isDesc) }" 
+                            <i class="sort"
+                                [ngClass]="{'sort-asc': (column == 'name' && isDesc), 'sort-desc': (column == 'name' && !isDesc) }"
                                 aria-hidden="true"></i>
                         </th>
                         <th class="project-table__operator-col sortable" (click)="sort('operator')">Operator
-                            <i class="sort" 
+                            <i class="sort"
                                 [ngClass]="{'sort-asc': (column == 'operator' && isDesc), 'sort-desc': (column == 'operator' && !isDesc) }"
                                 aria-hidden="true"></i>
                         </th>
                         <th class="project-table__type-col sortable" (click)="sort('type')">Type
-                            <i class="sort" 
-                                [ngClass]="{'sort-asc': (column == 'type' && isDesc), 'sort-desc': (column == 'type' && !isDesc) }" 
+                            <i class="sort"
+                                [ngClass]="{'sort-asc': (column == 'type' && isDesc), 'sort-desc': (column == 'type' && !isDesc) }"
                                 aria-hidden="true"></i>
                         </th>
                     </tr>
@@ -53,7 +53,7 @@
                             <div class="collapse" id="accordCollapse{{item.code}}" role="tabpanel">
                                 <div class="accordion__collapse-body">
                                     <div class="project-table__project-details">
-                                        <div class="project-table__project-details--description pt-0" [innerHTML]="item.getContent('OVERVIEW_INTRO_TEXT', 'MINES')"></div>
+                                        <div class="project-table__project-details--description pt-0" [innerHTML]="item.description"></div>
                                         <ul class="project-table__project-details--list list-group">
                                             <li class="list-group-item p-0">
                                                 <span class="name">Ownership:</span>
