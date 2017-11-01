@@ -3,7 +3,7 @@
     <div class="container__inner-container">
       <div class="hero-banner__content">
         <h1 id="pgTitle">{{project?.name}}</h1>
-        <p class="mb-2" [innerHTML]="project?.getContent('OVERVIEW_INTRO_TEXT', 'MINES')"></p>
+        <p class="mb-2" [innerHTML]="project?.description"></p>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
   <div class="row">
     <main class="col-lg-8">
       <section class="mb-0">
-        <h2 [innerHTML]="project.getContent('SUBTITLE', 'DETAILS')"></h2>
+        <h2 [innerHTML]="project.subtitle"></h2>
         <!-- TAB HEADERS -->
         <div role="navigation">
           <ul class="nav nav-tabs nav-fill" role="tablist">

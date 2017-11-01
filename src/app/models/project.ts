@@ -5,6 +5,8 @@ export class Project {
   _id: string;
   code: string;
   name: string;
+  description: string;
+  subtitle: string;
   type: string;
   status: string;
   operator: string;
@@ -29,11 +31,9 @@ export class Project {
   };
 
   content: {
-    html: string;
-    text: string;
-    title: string;
-    page: string;
     type: string;
+    page: string;
+    html: string;
   }[];
 
   private _activities: {
@@ -97,6 +97,8 @@ export class Project {
     this.commodity               = obj && obj.commodity               || null;
     this.memPermitID             = obj && obj.memPermitID             || null;
     this.name                    = obj && obj.name                    || null;
+    this.description             = obj && obj.description             || null;
+    this.subtitle                = obj && obj.subtitle                || null;
     this.type                    = obj && obj.type                    || null;
     this.status                  = obj && obj.currentPhaseName        || null;
     this.tailingsImpoundments    = obj && obj.tailingsImpoundments    || 0;
@@ -114,10 +116,6 @@ export class Project {
 
     // Get the operator from the proponent.
     this.operator = obj && obj.proponent ? obj.proponent.name : '';
-    if (!this.operator && obj) {
-      // Try to use ownership if there's no operator
-      this.operator = obj.ownership || '';
-    }
 
     // Commodities come from commodity
     this.commodities = obj && obj.commodity ? (<string>obj.commodity).split(',').map(x => {
@@ -130,10 +128,10 @@ export class Project {
     this.activities = obj && obj.activities ? obj.activities.map(x => this.parseActivity(x)) : [];
   }
 
-  getContent(type: string, page: string): string {
+  getContent(page: string, type: string): string {
     try {
       const entry = this.content.find(x => x.type === type && x.page === page);
-      return entry.html || entry.text;
+      return entry.html;
     } catch (e) {
       return '';
     }
