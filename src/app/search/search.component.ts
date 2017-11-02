@@ -35,6 +35,7 @@ export class SearchComponent implements OnInit {
   results: Search[];
   page: number;
   limit: number;
+  count: number;
   noMoreResults: boolean;
   ranSearch: boolean;
   projects: Array<Project>;
@@ -161,18 +162,22 @@ export class SearchComponent implements OnInit {
   doSearch() {
     this.ranSearch = true;
     this.loading = true;
+    this.count = 0;
     this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
       data => {
         // Push in 1st call
-        data[0].forEach(i => {
+        data[0].results.forEach(i => {
           this.results.push(i);
         });
         // push in 2nd call
-        data[1].forEach(i => {
+        data[1].results.forEach(i => {
           this.results.push(i);
         });
+
+        this.count = data[0].count + data[1].count;
+
         this.loading = false;
-        this.noMoreResults = (data[0].length === 0 && data[1].length === 0);
+        this.noMoreResults = (data[0].results.length === 0 && data[1].results.length === 0);
 
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
