@@ -41,7 +41,7 @@ pipeline {
                 script {
                     try {
                         timeout(time: 2, unit: 'MINUTES') {
-                          input "Deploy to test?"
+                          input "Deploy to TEST?"
                           openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
                           notifyBuild('DEPLOYED:TEST')
                         }
@@ -56,7 +56,7 @@ pipeline {
                 script {
                     try {
                         timeout(time: 2, unit: 'MINUTES') {
-                          input "Deploy to test?"
+                          input "Deploy to PROD?"
                           openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'test', destStream: 'angular-on-nginx-build', destTag: 'prod')
                           notifyBuild('DEPLOYED:PROD')
                         }
