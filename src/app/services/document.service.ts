@@ -125,20 +125,24 @@ export class DocumentService {
 
     // Field selection
     query += '&fields=_id project displayName documentDate description datePosted documentCategories collections keywords inspectionReport';
-    const mem = this.api.getMEM(query + memProjectQuery)
+    const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`)
     .map((res: Response) => {
-      const data = res.text() ? res.json() : [];
-      data.forEach(i => {
+      const data = res.text() ? res.json() : { count: 0, results: [] };
+      if (data.results) {
+        data.results.forEach(i => {
           i.hostname = this.api.hostnameMEM;
-      });
+        });
+      }
       return data;
     });
-    const epic = this.api.getEPIC(`v2/${query}${epicProjectQuery}`)
+    const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`)
     .map((res: Response) => {
-      const data = res.text() ? res.json() : [];
-      data.forEach(i => {
+      const data = res.text() ? res.json() : { count: 0, results: [] };
+      if (data && data.results) {
+        data.results.forEach(i => {
           i.hostname = this.api.hostnameEPIC;
-      });
+        });
+      }
       return data;
     });
 
