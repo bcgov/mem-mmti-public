@@ -138,7 +138,7 @@ export class DocumentService {
     const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`)
     .map((res: Response) => {
       const data = res.text() ? res.json() : { count: 0, results: [] };
-      if (data && data.results) {
+      if (data.results) {
         data.results.forEach(i => {
           i.hostname = this.api.hostnameEPIC;
         });
