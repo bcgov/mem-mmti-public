@@ -141,10 +141,8 @@ export class SearchComponent implements OnInit {
               // Needed in development mode - not required in prod.
               this._changeDetectionRef.detectChanges();
 
-              this.page = 0;
-              this.results = [];
               if (!_.isEmpty(this.terms.getParams())) {
-                this.doSearch();
+                this.doSearch(true);
               }
             },
             error => console.log(error)
@@ -159,25 +157,40 @@ export class SearchComponent implements OnInit {
     this.showAdvancedFields = !this.showAdvancedFields;
   }
 
-  doSearch() {
-    this.ranSearch = true;
+  doSearch(firstSearch: boolean) {
     this.loading = true;
-    this.count = 0;
+    this.ranSearch = true;
+
+    if (firstSearch) {
+      this.page = 0;
+      this.count = 0;
+      this.results = [];
+      this.noMoreResults = false;
+    } else {
+      this.page += 1;
+    }
+
     this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
       data => {
-        // Push in 1st call
-        data[0].results.forEach(i => {
-          this.results.push(i);
-        });
-        // push in 2nd call
-        data[1].results.forEach(i => {
-          this.results.push(i);
-        });
-
-        this.count = data[0].count + data[1].count;
-
         this.loading = false;
-        this.noMoreResults = (data[0].results.length === 0 && data[1].results.length === 0);
+
+        // Push in 1st call
+        if (data[0].results) {
+          data[0].results.forEach(i => {
+            this.results.push(i);
+          });
+        }
+
+        // Push in 2nd call
+        if (data[1].results) {
+          data[1].results.forEach(i => {
+            this.results.push(i);
+          });
+        }
+
+        this.count = (data[0].count || 0) + (data[1].count || 0);
+
+        this.noMoreResults = (this.results.length === this.count) || (data[0].results.length === 0 && data[1].results.length === 0);
 
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
@@ -191,7 +204,6 @@ export class SearchComponent implements OnInit {
   }
 
   loadMore() {
-    this.page += 1;
-    this.doSearch();
+    this.doSearch(false);
   }
 }
