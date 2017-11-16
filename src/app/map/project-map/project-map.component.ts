@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
-import { MAP_CONFIG_TOKEN, DEFAULT_MAP_CONFIG, MapConfig } from '../config';
+import { MapConfigService } from '../config/map-config.service';
 import { Project } from '../../models/project';
 
 @Component({
@@ -8,7 +8,7 @@ import { Project } from '../../models/project';
   templateUrl: './project-map.component.html',
   styleUrls: ['./project-map.component.scss'],
   providers: [
-    { provide: MAP_CONFIG_TOKEN, useValue: DEFAULT_MAP_CONFIG }
+    MapConfigService
   ]
 })
 export class ProjectMapComponent implements OnInit {
@@ -21,15 +21,14 @@ export class ProjectMapComponent implements OnInit {
   @Input() project: Project;
   @Input() zoom = 6;
 
-  constructor(
-    @Inject(MAP_CONFIG_TOKEN) private config: MapConfig
-  ) { }
+  constructor(private config: MapConfigService) { }
 
   ngOnInit(): void {
+    const props = this.config.get();
     const { latitude, longitude } = this.project;  // ES6 destructuring
 
-    this.webMapProperties = this.config.mainMap.webmap;
-    this.mapViewProperties = { ...this.config.mainMap.mapView, zoom: this.zoom, center: { latitude, longitude } };
+    this.webMapProperties = props.mainMap.webmap;
+    this.mapViewProperties = { ...props.mainMap.mapView, zoom: this.zoom, center: { latitude, longitude } };
   }
 
   onMapInit(mapInfo: { map: __esri.Map, mapView: __esri.MapView }): void {

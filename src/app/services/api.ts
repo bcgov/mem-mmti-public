@@ -13,6 +13,7 @@ export class Api {
   hostnameMEM: string;
   hostnameEPIC: string;
   params: Params;
+  env: 'local' | 'dev' | 'test' | 'prod';
 
   constructor(private http: Http) {
     const { hostname } = window.location;
@@ -21,24 +22,28 @@ export class Api {
         // Local
         this.hostnameMEM  = 'http://localhost:4000';
         this.hostnameEPIC = 'http://localhost:3000';
+        this.env = 'local';
         break;
 
       case 'www-mem-mmt-dev.pathfinder.gov.bc.ca':
         // Dev
         this.hostnameMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
         this.hostnameEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
+        this.env = 'dev';
         break;
 
       case 'www-mem-mmt-test.pathfinder.gov.bc.ca':
         // Test
         this.hostnameMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
         this.hostnameEPIC = 'https://esm-test.pathfinder.gov.bc.ca';
+        this.env = 'test';
         break;
 
       default:
         // Prod
         this.hostnameMEM  = 'https://mines.empr.gov.bc.ca';
         this.hostnameEPIC = 'https://projects.eao.gov.bc.ca';
+        this.env = 'prod';
     };
 
     this.pathMEM  = `${ this.hostnameMEM }/api`;
