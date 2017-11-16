@@ -2,14 +2,14 @@ import { Component, Inject, Input, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { EsriLoaderService } from 'angular-esri-loader';
 
-import { MAP_CONFIG_TOKEN, DEFAULT_MAP_CONFIG, MapConfig } from '../config';
+import { MapConfigService } from '../config/map-config.service';
 
 @Component({
   selector: 'app-main-map',
   templateUrl: './main-map.component.html',
   styleUrls: ['./main-map.component.scss'],
   providers: [
-    { provide: MAP_CONFIG_TOKEN, useValue: DEFAULT_MAP_CONFIG }
+    MapConfigService
   ]
 })
 export class MainMapComponent implements OnInit {
@@ -30,15 +30,16 @@ export class MainMapComponent implements OnInit {
   private selectedId: string;
 
   constructor(
-    @Inject(MAP_CONFIG_TOKEN) private config: MapConfig,
+    private config: MapConfigService,
     private route: ActivatedRoute,
     private esriLoader: EsriLoaderService
   ) { }
 
   ngOnInit() {
-    this.webMapProperties = this.config.mainMap.webmap;
-    this.mapViewProperties = this.config.mainMap.mapView;
-    this.popupProperties = this.config.mainMap.popup;
+    const props = this.config.get();
+    this.webMapProperties = props.mainMap.webmap;
+    this.mapViewProperties = props.mainMap.mapView;
+    this.popupProperties = props.mainMap.popup;
   }
 
   onMapInit(mapInfo: { map: __esri.Map, mapView: __esri.MapView }): void {
