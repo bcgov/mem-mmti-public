@@ -71,8 +71,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
    * Keeps track of pageYOffset when the window is scrolled
    */
   @HostListener('window:scroll')
-    persistYOffset() {
-      this.pageYOffset = window.pageYOffset;
+  persistYOffset() {
+    this.pageYOffset = window.pageYOffset;
   }
 
   restoreYOffset(): void {
