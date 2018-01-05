@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -23,11 +23,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   // private fields
   private sub: Subscription;
+  private pageYOffset: number;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.loading = true;
+    this.pageYOffset = 0;
 
     // wait for the resolver to retrieve the project details from back-end
     this.sub = this.route.data.subscribe(
@@ -42,6 +44,12 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       },
       error => console.log(error)
     );
+
+    // watch for route change events and restore Y scroll position
+    this.router.events.subscribe((val) => {
+      this.restoreYOffset();
+    },
+    error => console.log(error));
   }
 
   ngOnDestroy(): void {
@@ -57,5 +65,19 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     // so that the map component can show the popup for it.
     const projectId = this.project ? this.project.code : null;
     this.router.navigate(['/map', { project: projectId }]);
+  }
+
+  /**
+   * Keeps track of pageYOffset when the window is scrolled
+   */
+  @HostListener('window:scroll')
+    persistYOffset() {
+      this.pageYOffset = window.pageYOffset;
+  }
+
+  restoreYOffset(): void {
+    if (this.pageYOffset > 0) {
+      window.scroll(0, this.pageYOffset);
+    }
   }
 }
