@@ -13,7 +13,6 @@ export class Project {
   memPermitID: string;
   tailingsImpoundments: number;
   commodities: string[];
-  commodityType: string;
   commodity: string;
   longitude: number;
   latitude: number;
@@ -93,8 +92,8 @@ export class Project {
   constructor(obj?: any) {
     this._id                     = obj && obj._id                     || null;
     this.code                    = obj && obj.code                    || null;
-    this.commodityType           = obj && obj.commodityType           || null;
     this.commodity               = obj && obj.commodity               || null;
+    this.commodities             = obj && obj.commodities             || null;
     this.memPermitID             = obj && obj.memPermitID             || null;
     this.name                    = obj && obj.name                    || null;
     this.description             = obj && obj.description             || null;
@@ -117,12 +116,14 @@ export class Project {
     // Get the operator from the proponent.
     this.operator = obj && obj.proponent ? obj.proponent.name : '';
 
-    // Commodities come from commodity
-    this.commodities = obj && obj.commodity ? (<string>obj.commodity).split(',').map(x => {
-      const y = x.trim();
-      const commodity = y[0].toUpperCase() + y.substr(1).toLowerCase();
-      return commodity;
-    }) : [];
+    // If there are no commodities then look in commodity (old field)
+    if (!this.commodities) {
+      this.commodities = this.commodity ? (<string>this.commodity).split(',').map(x => {
+        const y = x.trim();
+        const commodity = y[0].toUpperCase() + y.substr(1).toLowerCase();
+        return commodity;
+      }) : [];
+    }
 
     // process incoming activity objects
     this.activities = obj && obj.activities ? obj.activities.map(x => this.parseActivity(x)) : [];
