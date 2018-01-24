@@ -158,6 +158,10 @@
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@types/arcgis-js-api/-/arcgis-js-api-4.5.0.tgz#2471a6dd0ffa68011db7d4c709884c3baa245a3a"
 
+"@types/geojson@7946.0.0":
+  version "7946.0.0"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.0.tgz#e8bc74e8183d966455f82023f0c72e1072a952d0"
+
 "@types/jasmine@2.5.38":
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"

@@ -47,6 +47,7 @@
     "@types/jasmine": "2.5.38",
     "@types/lodash": "4.14.80",
     "@types/node": "~6.0.60",
+    "@types/geojson": "7946.0.0",
     "codelyzer": "~2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",

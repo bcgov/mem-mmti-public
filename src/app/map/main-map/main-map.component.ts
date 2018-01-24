@@ -1,22 +1,20 @@
 import { Component, Inject, Input, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { EsriLoaderService } from 'angular-esri-loader';
 
 import { MapConfigService } from '../config/map-config.service';
+import { WidgetBuilder, ZoomWidgetProperties, SearchWidgetProperties } from '../widgets/widget-builder';
 
 @Component({
   selector: 'app-main-map',
   templateUrl: './main-map.component.html',
-  styleUrls: ['./main-map.component.scss'],
-  providers: [
-    MapConfigService
-  ]
+  styleUrls: ['./main-map.component.scss']
 })
 export class MainMapComponent implements OnInit {
   // public properties
   webMapProperties: __esri.WebMapProperties;
   mapViewProperties: __esri.MapViewProperties;
   popupProperties: __esri.PopupTemplateProperties;
+  geocoderProperties: any;
   map: __esri.Map;
   mapView: __esri.MapView;
   search: __esri.Search;
@@ -32,7 +30,7 @@ export class MainMapComponent implements OnInit {
   constructor(
     private config: MapConfigService,
     private route: ActivatedRoute,
-    private esriLoader: EsriLoaderService
+    private widgetBuilder: WidgetBuilder
   ) { }
 
   ngOnInit() {
@@ -40,6 +38,7 @@ export class MainMapComponent implements OnInit {
     this.webMapProperties = props.mainMap.webmap;
     this.mapViewProperties = props.mainMap.mapView;
     this.popupProperties = props.mainMap.popup;
+    this.geocoderProperties = props.mainMap.geocoder;
   }
 
   onMapInit(mapInfo: { map: __esri.Map, mapView: __esri.MapView }): void {
@@ -60,8 +59,7 @@ export class MainMapComponent implements OnInit {
       })
       // create zoom widget instance
       .then(obj => {
-        const { mapView } = obj;
-        return this.createZoomWidget(mapView)
+        return this.widgetBuilder.createWidget('zoom', { view: obj.mapView })
           .then(zoom => this.zoom = obj.zoom = zoom)
           .then(() => obj);
       })
@@ -79,8 +77,12 @@ export class MainMapComponent implements OnInit {
       })
       // create search widget instance, then add it to the map
       .then(obj => {
-        const { mapView, featureLayer } = obj;
-        return this.createSearchWidget(mapView, featureLayer)
+        const props: SearchWidgetProperties = {
+          view: obj.mapView,
+          featureLayer: obj.featureLayer,
+          geocoder: this.geocoderProperties
+        };
+        return this.widgetBuilder.createWidget('search', props)
           .then(search => this.search = obj.search = search)
           .then(() => obj);
       })
@@ -169,35 +171,5 @@ export class MainMapComponent implements OnInit {
       features: [targetMine],
       updateLocationEnabled: true  // updates the location of popup based on selected feature's geometry
     });
-  }
-
-  private createSearchWidget(view: __esri.MapView, featureLayer: __esri.FeatureLayer): Promise<__esri.Search> {
-    return this.esriLoader.loadModules(['esri/widgets/Search']).then(([Search]: [__esri.SearchConstructor]) => {
-      const search = new Search({
-        view: view,
-        sources: [
-          <any>{
-            featureLayer: featureLayer,
-            displayField: 'name',
-            searchFields: ['name', 'description'],  // the names of fields in the feature layer to search
-            outFields: ['*'],
-            autoNavigate: true,
-            resultGraphicEnabled: false,  // whether to show a graphic on the map for the selected source using the `resultSymbol`
-            withinViewEnabled: false,  // whether to constrain the search results to the view's extent
-            zoomScale: 500000,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 1,  // minimum number of characters required before querying for a suggestion
-            maxSuggestions: 6,
-            placeholder: 'Find Mines in BC'
-          }
-        ]
-      });
-      return search;
-    });
-  }
-
-  private createZoomWidget(view: __esri.MapView): Promise<__esri.Zoom> {
-    return this.esriLoader.loadModules(['esri/widgets/Zoom'])
-      .then(([Zoom]: [__esri.ZoomConstructor]) => new Zoom({ view: view }));
   }
 }

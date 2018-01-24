@@ -7,9 +7,6 @@ import { Project } from '../../models/project';
   selector: 'app-project-map',
   templateUrl: './project-map.component.html',
   styleUrls: ['./project-map.component.scss'],
-  providers: [
-    MapConfigService
-  ]
 })
 export class ProjectMapComponent implements OnInit {
   // public properties
