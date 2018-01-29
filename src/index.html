@@ -1,35 +1,35 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>British Columbia Mine Information</title>
-	<base href="/">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
-    
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="utf-8">
+  <title>British Columbia Mine Information</title>
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111256359-2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-111256359-2');
+      gtag('config', 'UA-111256359-2', { 'anonymize_ip': true });
     </script>
-    
+
 </head>
 <body id="top">
 
-	<app-root>
-		<div class="spinner-container" *ngIf="!results">
-			<div class="spinner-new rotating"></div>
-		</div>
-	</app-root>
-	
-	<!-- Typekit -->
-	<script src="https://use.typekit.net/xuv4guc.js"></script>
-	<script>try{Typekit.load({ async: true });}catch(e){}</script>
-	
+  <app-root>
+    <div class="spinner-container" *ngIf="!results">
+      <div class="spinner-new rotating"></div>
+    </div>
+  </app-root>
+
+  <!-- Typekit -->
+  <script src="https://use.typekit.net/xuv4guc.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
 </body>
 </html>
