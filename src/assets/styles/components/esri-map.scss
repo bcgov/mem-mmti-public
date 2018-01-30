@@ -8,6 +8,7 @@
         color: $bg-dark-color;
 
         .esri-widget {
+            background: $map-popup-bg;
             font-family: $map-search-font-family;
             color: $map-popup-color;
         }
@@ -21,10 +22,19 @@
             margin: 0 !important;
             padding: 1rem;
             font-size: $map-popup-font-size;
+
+            a {
+                color: $bg-dark-color;
+
+                &:focus,
+                &:hover {
+                    color: $gold;
+                }
+            }
         }
 
         &__button {
-            color: $bg-dark-color; 
+            color: $bg-dark-color;
 
             &:active,
             &:focus,
@@ -106,7 +116,7 @@
                 font-size: $map-search-font-size;
             }
         }
-        
+
         &__warning-body {
             font-size: $map-search-font-size;
 
@@ -177,7 +187,7 @@
     list-style-type: none;
     padding-left: 0 !important;
 
-    li { 
+    li {
         @include flex-box();
         font-size: $map-popup-font-size !important;
 
@@ -200,7 +210,7 @@
         }
 
         .esri-search {
-            width: 30rem; 
+            width: 30rem;
 
             input {
                 width: 100%;
