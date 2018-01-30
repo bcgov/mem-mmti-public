@@ -174,7 +174,7 @@ function createClass(esriLoader: EsriLoaderService, options: GeocoderSettings = 
               const features = geojson.features || [];
 
               // Parse server results into something that ArcGIS can understand...
-              return features.map(f => this._parseSuggestionResult(f));
+              return features.map((f, index) => this._parseSuggestionResult(f, index));
             });
         },
 
@@ -204,11 +204,11 @@ function createClass(esriLoader: EsriLoaderService, options: GeocoderSettings = 
           };
         },
 
-        _parseSuggestionResult(result: Feature<Point>): __esri.SuggestionResult {
+        _parseSuggestionResult(result: Feature<Point>, index: number): __esri.SuggestionResult {
           const { fullAddress } = result.properties;
           return {
             text: fullAddress as string,
-            magicKey: null,
+            magicKey: '' + index,  // convert number to string
             isCollection: false
           };
         }
