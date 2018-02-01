@@ -94,6 +94,9 @@
       width: 7.5rem;
       text-align: right;
     }
+    &__status-col {
+        display: none;
+      }
 
     &__project-details {
       &--links {
@@ -116,9 +119,14 @@
     }
 
     &__type-col {
-      width: 25%;
+      width: 17.5%;
       text-align: left;
     }
+
+    &__status-col {
+        width: 17.5%;
+        text-align: left;
+      }
 
     &__project-details {
       font-size: 0.9375rem;
