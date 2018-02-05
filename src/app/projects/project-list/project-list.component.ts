@@ -12,11 +12,20 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectListComponent implements OnInit {
   projects: Array<Project>;
+  public filter = '';
+  public showFilters: boolean;
+  public operatorfilter: '';
+  public operatorListFilter: '';
+  public typefilter: '';
+  public projectTypeFilter: '';
+  public statusfilter: '';
+  public projectStatusFilter: '';
   public isDesc: boolean;
   public column: string;
   public direction: number;
   public loading: boolean;
   public mineCount: number;
+  public operators: Array<String> = [];
   public config: PaginationInstance = {
     id: 'custom',
     itemsPerPage: 25,
@@ -30,6 +39,7 @@ export class ProjectListComponent implements OnInit {
     this.projectService.getAll().subscribe(
       data => {
         this.projects = data;
+        this.getOperators(data);
         this.mineCount = data ? data.length : 0;
         this.loading = false;
         // Needed in development mode - not required in prod.
@@ -39,10 +49,35 @@ export class ProjectListComponent implements OnInit {
     );
   }
 
+  getOperators(projects) {
+    const names = [];
+    projects.forEach(project => {
+      if (!project.operator) {
+        project.operator = '';
+      } else if (project.operator && names.indexOf(project.operator) === -1) {
+        names.push(project.operator);
+        this.operators.push(project.operator);
+      }
+    });
+  }
+
   sort (property) {
     this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
   }
 
+  applyOperatorFilter() {
+    this.operatorfilter = this.operatorListFilter;
+  }
+
+  clearAllProjectFilters() {
+    this.filter = undefined;
+    this.projectTypeFilter = undefined;
+    this.typefilter = undefined;
+    this.operatorListFilter = undefined;
+    this.operatorfilter = undefined;
+    this.projectStatusFilter = undefined;
+    this.statusfilter = undefined;
+  }
 }

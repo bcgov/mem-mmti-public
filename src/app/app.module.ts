@@ -10,7 +10,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewsComponent } from './news/news.component';
-import { ObjectFilterPipe } from './object-filter.pipe';
 import { LegislationComponent } from './legislation/legislation.component';
 import { ProcessComponent } from './process/process.component';
 import { ComplianceOversightComponent } from './compliance-oversight/compliance-oversight.component';
@@ -27,6 +26,7 @@ import { ProponentService } from './services/proponent.service';
 // feature modules
 import { MapModule } from './map/map.module';
 import { ProjectsModule } from './projects/projects.module';
+import { SharedModule } from 'app/shared/shared.module';
 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,7 +36,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     HomeComponent,
     NewsComponent,
-    ObjectFilterPipe,
     LegislationComponent,
     ProcessComponent,
     ComplianceOversightComponent,
@@ -47,7 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     WaterQualityComponent,
     TailingsManagementComponent,
     ReclamationComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     TagInputModule,
@@ -60,7 +59,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule.forRoot(),
     NgxPaginationModule,
     Ng2PageScrollModule.forRoot(),
-    MapModule
+    MapModule,
+    SharedModule
   ],
   providers: [NewsComponent, ProponentService, CookieService],
   bootstrap: [AppComponent]
