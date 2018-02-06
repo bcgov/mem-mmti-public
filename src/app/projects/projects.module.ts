@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 // modules
 import { MapModule } from '../map/map.module';
@@ -19,6 +20,7 @@ import { OrderByPipe } from '../filters/order-by.pipe';
 // services
 import { Api } from '../services/api';
 import { ProjectService } from '../services/project.service';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { ProjectService } from '../services/project.service';
     NgxPaginationModule,
     ProjectsRoutingModule,
     MapModule,
+    FormsModule,
+    SharedModule
   ],
   declarations: [
     ProjectListComponent,
@@ -35,7 +39,7 @@ import { ProjectService } from '../services/project.service';
     ComplianceTabContentComponent,
     DocumentsTabContentComponent,
     SiteActivitiesComponent,
-    OrderByPipe
+    OrderByPipe,
   ],
   exports: [
     ProjectListComponent,

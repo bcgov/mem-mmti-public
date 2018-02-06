@@ -17,6 +17,59 @@
         to its profile page, or click the ‘+’ sign to expand the list item to see basic information (e.g., operator,
         ownership, commodity/ies produced) about that mine. You can also use our <a href="/map" [routerLink]="['/map']">interactive map</a>                    to navigate to information on individual mines across British Columbia.</p>
 
+      <div class="filter-bar">
+        <div class="filter-input-row filters-basic">
+          <div class="form-group">
+            <input class="form-control" placeholder="Type a Project Name" type="text" [(ngModel)]="filter">
+          </div>
+          <button class="toggle-filter-btn btn btn-default btn-sm"
+            [ngClass]="{'show-filters': showFilters}"
+            (click)="showFilters = !showFilters">
+            <span class="show-filter-txt"><span class="btn-txt">Filter</span><i class="material-icons">keyboard_arrow_down</i></span>
+            <span class="hide-filter-txt"><span class="btn-txt">Filter</span><i class="material-icons">keyboard_arrow_up</i></span>
+          </button>
+        </div>
+        <div class="filter-input-row filters-advanced" *ngIf="showFilters">
+          <div class="col-md-4 form-group">
+            <label>Operator</label>
+            <select class="form-control" name="selectoperator" [(ngModel)]="operatorListFilter" (ngModelChange)="applyOperatorFilter()">
+              <option value="" selected>All</option>
+              <option *ngFor="let o of operators" [ngValue]="o">{{o}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label>Type</label>
+
+            <select class="form-control" [(ngModel)]="typefilter">
+              <option value="" selected>All</option>
+              <option value="Metal">Metal</option>
+              <option value="Coal">Coal</option>
+              <option value="Industrial Mineral">Industrial Mineral</option>
+              <option value="Sand & Gravel">Sand & Gravel</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label>Status</label>
+
+            <select class="form-control" [(ngModel)]="statusfilter">
+              <option value="" selected>All</option>
+              <option value="Pre-Application">Pre-Application</option>
+              <option value="Under Construction">Under Construction</option>
+              <option value="Operating">Operating</option>
+              <option value="Care & Maintenance">Care & Maintenance</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-row" *ngIf="filter || operatorListFilter || typefilter || statusfilter">
+          <button class="btn content-btn-alt" (click)="clearAllProjectFilters()">
+            Clear Filters
+          </button>
+        </div>
+      </div>
+
       <table class="table project-table" id="tableTop">
         <thead class="project-table__sort-header">
           <tr>
@@ -43,7 +96,7 @@
         </tr>
         </thead>
         <tbody class="project-table__content">
-          <tr *ngFor="let item of projects | orderBy: {property: column, direction: direction} | paginate: config">
+          <tr *ngFor="let item of projects | objectFilter: filter | operatorFilter: operatorfilter | projectTypeFilter: typefilter | projectStatusFilter: statusfilter | orderBy: {property: column, direction: direction} | paginate: config">
             <td class="accordion__collapse-item p-0" colspan="4">
               <div class="accordion__collapse-header" id="accordHead" role="tab">
                 <a class="accordion__collapse-header--column toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item.code}}">
