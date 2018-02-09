@@ -59,6 +59,10 @@
             <span class="name">Status</span>
             <span class="value">{{project?.status}}</span>
           </li>
+          <li>
+            <span class="name" *ngIf="project.intake.operatingjobs">Employment</span>
+            <span class="value">{{project?.intake?.operatingjobs}}</span>
+          </li>
         </ul>
       </section>
       <section class="card">
