@@ -47,6 +47,9 @@ export class SearchComponent implements OnInit {
 
   params: Params;
   terms: SearchTerms;
+  currentDate: Date;
+  minDate: NgbDateStruct;
+  maxDate: NgbDateStruct;
 
   myProjects: Array<any>;
 
@@ -66,6 +69,21 @@ export class SearchComponent implements OnInit {
     this.ranSearch          = false;
     this.showAdvancedFields = false;
     this.loading            = false;
+
+    // Get the current date
+    this.currentDate = new Date();
+    // Specify minimum date for datepicker to be 1/1/1990
+    this.minDate = {
+      year: 1900,
+      month: 1,
+      day: 1
+    };
+    // Specify maximum date for datepicker to be current date
+    this.maxDate = {
+      year: this.currentDate.getFullYear(),
+      month: ( this.currentDate.getMonth() + 1 ),
+      day: this.currentDate.getDate()
+    };
 
     this.route.params.subscribe((params: Params) => {
       /*
