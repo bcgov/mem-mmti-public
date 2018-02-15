@@ -21,6 +21,7 @@ import { WaterQualityComponent } from './water-quality/water-quality.component';
 import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { SearchComponent } from './search/search.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { ProponentService } from './services/proponent.service';
 
 // feature modules
@@ -47,6 +48,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TailingsManagementComponent,
     ReclamationComponent,
     SearchComponent,
+    NotFoundComponent,
   ],
   imports: [
     TagInputModule,
