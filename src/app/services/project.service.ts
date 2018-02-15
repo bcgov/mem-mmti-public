@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 
 import { Api } from './api';
@@ -38,46 +39,53 @@ export class ProjectService {
         return res.text() ? new Project(res.json()) : null;
       })
       .map((project: Project) => {
-        if (!project) { return; }
+        if (!project) { return Observable.throw(new Error('Project not found!')); }
 
         this.project = project;
         this.project.collections = new CollectionsList();
-
-        // Now grab the MEM collections
-        this.api.getProjectCollectionsMEM(this.project.code)
-          .map((res: Response) => this.processCollections(res))
-          .subscribe(memCollections => {
-            // Push them into the project
-            memCollections.forEach(collection => {
-              this.addCollection(this.project.collections, collection);
-            });
-          });
-
-        // Get EPIC collections next.
-        // Note: there may be multiple (or no) EPIC projects associated with this MEM project.
-        this.project.epicProjectCodes.forEach(epicProjectCode => {
-          this.api.getProjectCollectionsEPIC(epicProjectCode)
-            .map((res: Response) => this.processCollections(res))
-            .subscribe(epicCollections => {
-              // Push them into the project
-              epicCollections.forEach(collection => {
-                this.addCollection(this.project.collections, collection);
-              });
-            });
-        });
-
         return this.project;
       })
+      // Now grab the MEM collections
+      .switchMap(() => this.getCollectionsMEM())
+      // Get EPIC collections next.
+      .switchMap(() => this.getCollectionsEPIC())
+      .map(() => this.project)
       .catch(this.api.handleError);
   }
 
-  private processCollections(res: Response) {
+  private getCollectionsMEM() {
+    return this.api.getProjectCollectionsMEM(this.project.code)
+    .map((res: Response) => this.processCollections(res))
+    .map(memCollections => {
+      // Push them into the project
+      memCollections.forEach(collection => {
+        this.addCollection(this.project.collections, collection);
+      });
+    });
+  }
+
+  private getCollectionsEPIC() {
+    // Note: there may be multiple (or no) EPIC projects associated with this MEM project.
+    const observables = this.project.epicProjectCodes.map(epicProjectCode => {
+      return this.api.getProjectCollectionsEPIC(epicProjectCode)
+      .map((res: Response) => this.processCollections(res))
+      .map(epicCollections => {
+        // Push them into the project
+        epicCollections.forEach(collection => {
+          this.addCollection(this.project.collections, collection);
+        });
+      });
+    });
+
+    return Observable.forkJoin(observables);
+  }
+
+  private processCollections(res: Response): any[] {
     const collections = res.text() ? res.json() : [];
 
     collections.forEach((collection, index) => {
       collections[index] = new Collection(collection);
     });
-
     return collections;
   }
 
