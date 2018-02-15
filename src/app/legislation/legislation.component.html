@@ -6,13 +6,13 @@
                 <p>Mining in British Columbia is regulated by both the provincial and federal governments</p>
                 <div class="hero-banner__content--cta-btns">
                     <a class="btn hero-btn inverted" href="#provincialStatutes"
-                        pageScroll 
-                        [pageScrollOffset]="100" 
+                        pageScroll
+                        [pageScrollOffset]="100"
                         [pageScrollDuration]="800"><span>Provincial Statutes</span>
                     </a>&nbsp;
                     <a class="btn hero-btn inverted" href="#federalStatutes"
-                        pageScroll 
-                        [pageScrollOffset]="100" 
+                        pageScroll
+                        [pageScrollOffset]="100"
                         [pageScrollDuration]="1000"><span>Federal Statutes</span>
                     </a>&nbsp;
                 </div>
@@ -44,7 +44,7 @@
                     </ul>
                 </section>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" title="Learn More about the Environmental Assessment Act" 
+                    <a class="btn content-btn slide-r-btn" title="Learn More about the Environmental Assessment Act"
                         [routerLink]="['/authorizations']" fragment="eaProcess">
                         <span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
@@ -57,7 +57,7 @@
                     <li><a href="http://www2.gov.bc.ca/gov/content/industry/mineral-exploration-mining/health-safety/health-safety-and-reclamation-code-for-mines-in-british-columbia">Health, Safety and Reclamation Code for Mines in British Columbia</a></li>
                 </ul>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" title="Learn More authorizations issued to major mines under EMA" 
+                    <a class="btn content-btn slide-r-btn" title="Learn More authorizations issued to major mines under EMA"
                         [routerLink]="['/authorizations']" fragment="minesActPermits"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
@@ -84,8 +84,8 @@
                     </ul>
                 </section>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" 
-                        [routerLink]="['/authorizations']"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
+                    <a class="btn content-btn slide-r-btn"
+                        [routerLink]="['/authorizations']" fragment="majorPermits"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
             <section>
@@ -97,7 +97,7 @@
                     <li><a href="http://www.bclaws.ca/civix/document/id/complete/statreg/96294_01" target="_blank">Mining Right of Way Act</a></li>
                 </ul>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" ui-sref="authorizations({'#': 'tenureAuths'})"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
+                    <a class="btn content-btn slide-r-btn" [routerLink]="['/authorizations']" fragment="tenureAuths">><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
             <section>
@@ -111,7 +111,7 @@
                     <li><a href="http://www.bclaws.ca/civix/document/id/consol24/consol24/00_96488_01" target="_blank">Widlife Act</a></li>
                 </ul>
                 <div class="content-links">
-                    <a class="btn content-btn slide-r-btn" ui-sref="authorizations({'#': 'flnroAuths'})"><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
+                    <a class="btn content-btn slide-r-btn" [routerLink]="['/authorizations']" fragment="flnroAuths">><span>Learn More</span><i class="material-icons">arrow_forward</i></a>
                 </div>
             </section>
             <section>
