@@ -75,6 +75,14 @@ footer {
             }
         }
 
+        a.submit {
+            color: #FFF;
+            &:focus,
+            &:hover {
+                color: #FFF;
+            }
+        }
+
         .btn {
             font-size: 0.875rem;
             font-weight: 700;
