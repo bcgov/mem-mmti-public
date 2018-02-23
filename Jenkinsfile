@@ -1,72 +1,68 @@
-pipeline {
-    agent any
-    tools {
-        nodejs 'NodeJS-V8.x'
+// Edit your app's name below
+def APP_NAME = 'mem-mmt'
+
+// Edit your environment TAG names below
+def TAG_NAMES = ['dev', 'test', 'prod']
+
+// You shouldn't have to edit these if you're following the conventions
+def NGINX_BUILD_CONFIG = 'nginx-runtime'
+def BUILD_CONFIG = APP_NAME + '-build'
+def IMAGESTREAM_NAME = APP_NAME
+
+node {
+  try {
+    notifyBuild('STARTED')
+    stage('build angular-builder'){
+      echo "Building: angular-builder"
+      openshiftBuild(bldCfg: 'angular-builder', showBuildLogs: 'true')
     }
-    stages {
-        stage('build angular-builder'){
-            steps {
-                notifyBuild('STARTED')
-                openshiftBuild(bldCfg: 'angular-builder', showBuildLogs: 'true')
-            }
-        }
-        stage('tag angular-builder'){
-            steps {
-                openshiftTag(srcStream: 'angular-builder', srcTag: 'latest', destStream: 'angular-builder', destTag: 'dev')
-            }
-        }
-        stage('build nginx-runtime'){
-            steps {
-                openshiftBuild(bldCfg: 'nginx-runtime', showBuildLogs: 'true')
-            }
-        }
-        stage('tag nginx-runtime'){
-            steps {
-                openshiftTag(srcStream: 'nginx-runtime', srcTag: 'latest', destStream: 'nginx-runtime', destTag: 'dev')
-            }
-        }
-        stage('build and package angular-on-nginx-build'){
-            steps {
-                openshiftBuild(bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true')
-            }
-        }
-        stage('tag and deploy to dev') {
-            steps {
-                openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'latest', destStream: 'angular-on-nginx-build', destTag: 'dev')
-                notifyBuild('DEPLOYED:DEV')
-            }
-        }
-        stage('tag and deploy to test') {
-            steps {
-                script {
-                    try {
-                        timeout(time: 2, unit: 'MINUTES') {
-                          input "Deploy to TEST?"
-                          openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'dev', destStream: 'angular-on-nginx-build', destTag: 'test')
-                          notifyBuild('DEPLOYED:TEST')
-                        }
-                    } catch (err) {
-                        notifyBuild('DEPLOYMENT:TEST ABORTED')
-                    }
-                }
-            }
-        }
-        stage('tag and deploy to prod') {
-            steps {
-                script {
-                    try {
-                        timeout(time: 2, unit: 'MINUTES') {
-                          input "Deploy to PROD?"
-                          openshiftTag(srcStream: 'angular-on-nginx-build', srcTag: 'test', destStream: 'angular-on-nginx-build', destTag: 'prod')
-                          notifyBuild('DEPLOYED:PROD')
-                        }
-                    } catch (err) {
-                        notifyBuild('DEPLOYMENT:PROD ABORTED')
-                    }
-                }
-            }
-        }
+    stage('tag angular-builder'){
+      openshiftTag(srcStream: 'angular-builder', srcTag: 'latest', destStream: 'angular-builder', destTag: 'dev')
+      notifyBuild('ANGULAR_BUILDER:DEV')
     }
+    stage('build nginx runtime') {
+      echo "Building: " + NGINX_BUILD_CONFIG
+      openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
+    }
+    stage('build ' + BUILD_CONFIG) {
+      echo "Building: " + BUILD_CONFIG
+      openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
+      openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
+    }
+    stage('deploy-' + TAG_NAMES[0]) {
+      openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+      notifyBuild('DEPLOYED:DEV')
+    }
+    stage('deploy-' + TAG_NAMES[1]) {
+      try {
+        timeout(time: 2, unit: 'MINUTES') {
+          input "Deploy to " + TAG_NAMES[1] + "?"
+          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+          notifyBuild('DEPLOYED:TEST')
+        }
+      } catch (e) {
+        notifyBuild('DEPLOYMENT:TEST ABORTED')
+      }
+    }
+    stage('deploy-'  + TAG_NAMES[2]) {
+      try {
+        timeout(time: 2, unit: 'MINUTES') {
+          input "Deploy to " + TAG_NAMES[2] + "?"
+          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+          notifyBuild('DEPLOYED:PROD')
+        }
+      } catch (e) {
+        notifyBuild('DEPLOYMENT:PROD ABORTED')
+      }
+    }
+  } catch (e) {
+    // If there was an exception thrown, the build failed
+    currentBuild.result = "FAILED"
+    throw e
+  } finally {
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
+  }
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
