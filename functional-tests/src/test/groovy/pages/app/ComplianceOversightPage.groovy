@@ -7,6 +7,6 @@ class ComplianceOversightPage extends Page {
   static url = "/compliance-oversight"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeLink { $("#header .brand").click() }
+    HomeBtn { $("#header .brand").click() }
   }
 }

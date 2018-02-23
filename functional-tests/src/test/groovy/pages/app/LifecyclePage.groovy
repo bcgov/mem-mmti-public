@@ -7,6 +7,6 @@ class LifecyclePage extends Page {
   static url = "/lifecycle"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeLink { $("#header .brand").click() }
+    HomeBtn { $("#header .brand").click() }
   }
 }

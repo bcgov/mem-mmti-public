@@ -7,6 +7,6 @@ class ProjectsPage extends Page {
   static url = "/projects"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeLink { $("#header .brand").click() }
+    HomeBtn { $("#header .brand").click() }
   }
 }

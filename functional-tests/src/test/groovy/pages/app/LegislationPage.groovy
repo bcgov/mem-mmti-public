@@ -7,6 +7,6 @@ class LegislationPage extends Page {
   static url = "/legislation"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeLink { $("#header .brand").click() }
+    HomeBtn { $("#header .brand").click() }
   }
 }

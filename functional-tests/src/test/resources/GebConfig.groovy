@@ -1,7 +1,7 @@
 /*
-	This is the Geb configuration file.
+  This is the Geb configuration file.
 
-	See: http://www.gebish.org/manual/current/#configuration
+  See: http://www.gebish.org/manual/current/#configuration
 */
 
 import org.openqa.selenium.Dimension
@@ -15,69 +15,79 @@ import org.openqa.selenium.safari.SafariDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 
 waiting {
-	timeout = 20
-	retryInterval = 1
+  timeout = 20
+  retryInterval = 1
 }
 
 atCheckWaiting = [20, 1]
 
 environments {
 
-	// run via “./gradlew chromeTest”
-	// See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
-	chrome {
-		driver = { new ChromeDriver() }
-	}
+  // run via “./gradlew chromeTest”
+  // See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
+  chrome {
+    driver = {
+      ChromeOptions o = new ChromeOptions()
+      o.addArguments("--window-size=1366,768")
+      new ChromeDriver(o)
+    }
+  }
 
-	// run via “./gradlew chromeHeadlessTest”
-	// See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
-	chromeHeadless {
-		driver = {
-			ChromeOptions o = new ChromeOptions()
-			o.addArguments('headless')
-			o.addArguments('disable-gpu')
-			o.addArguments('no-sandbox')
-			new ChromeDriver(o)
-		}
-	}
+  // run via “./gradlew chromeHeadlessTest”
+  // See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
+  chromeHeadless {
+    driver = {
+      ChromeOptions o = new ChromeOptions()
+      o.addArguments("--window-size=1366,768")
+      o.addArguments('headless')
+      o.addArguments('disable-gpu')
+      o.addArguments('no-sandbox')
+      new ChromeDriver(o)
+    }
+  }
 
-	// run via “./gradlew firefoxTest”
-	// See: https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver
-	firefox {
-		driver = { new FirefoxDriver() }
-	}
+  // run via “./gradlew firefoxTest”
+  // See: https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver
+  firefox {
+    driver = {
+      FirefoxOptions o = new FirefoxOptions()
+      o.addArguments("--window-size=1366,768")
+      new FirefoxDriver(o)
+    }
+  }
 
-	firefoxHeadless {
-		driver = {
-			FirefoxOptions o = new FirefoxOptions()
-			o.addArguments("-headless")
-			new FirefoxDriver(o)
-		}
-	}
+  firefoxHeadless {
+    driver = {
+      FirefoxOptions o = new FirefoxOptions()
+      o.addArguments("-headless")
+      o.addArguments("--window-size=1366,768")
+      new FirefoxDriver(o)
+    }
+  }
 
-	// run via “./gradlew ieTest”
-	// See: https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
-	ie {
-		def d = new DesiredCapabilities();
-		d.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
-		d.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING,true);
-		d.setCapability(InternetExplorerDriver.NATIVE_EVENTS,false);
-		d.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS,true);
+  // run via “./gradlew ieTest”
+  // See: https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
+  ie {
+    def d = new DesiredCapabilities();
+    d.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
+    d.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING,true);
+    d.setCapability(InternetExplorerDriver.NATIVE_EVENTS,false);
+    d.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS,true);
 
-		driver = { new InternetExplorerDriver(d) }
-	}
+    driver = { new InternetExplorerDriver(d) }
+  }
 
-	// run via “./gradlew edgeTest”
-	// See: https://github.com/SeleniumHQ/selenium/wiki
-	edge {
-		driver = { new EdgeDriver() }
-	}
+  // run via “./gradlew edgeTest”
+  // See: https://github.com/SeleniumHQ/selenium/wiki
+  edge {
+    driver = { new EdgeDriver() }
+  }
 
-	// run via “./gradlew safariTest”
-	// See: https://github.com/SeleniumHQ/selenium/wiki
-	safari {
-		driver = { new SafariDriver() }
-	}
+  // run via “./gradlew safariTest”
+  // See: https://github.com/SeleniumHQ/selenium/wiki
+  safari {
+    driver = { new SafariDriver() }
+  }
 }
 
 // To run the tests with all browsers just run “./gradlew test”
@@ -89,7 +99,7 @@ baseNavigatorWaiting = true
 def env = System.getenv()
 baseUrl = env['BASEURL']
 if (!baseUrl) {
-	baseUrl = "http://localhost:4300"
+  baseUrl = "http://localhost:4300"
 }
 
 println "BaseURL: ${baseUrl}"
