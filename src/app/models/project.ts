@@ -35,6 +35,15 @@ export class Project {
     html: string;
   }[];
 
+  intake: {
+    constructionjobs: number;
+    constructionjobsNotes: string;
+    investment: number;
+    investmentNotes: string;
+    operatingjobs: number;
+    operatingjobsNotes: string;
+  };
+
   private _activities: {
     order: number;  // display order, not any business rules order
     status: string;  // one of: 'Active', 'Inactive', 'Pending', 'Complete', 'Suspended', 'N/A', ''
@@ -112,6 +121,7 @@ export class Project {
     this.externalLinks           = obj && obj.externalLinks           || [];
     this.ownershipData           = obj && obj.ownershipData           || [];
     this.collections             = obj && obj.collections             || null;
+    this.intake                  = obj && obj.intake                  || null;
 
     // Get the operator from the proponent.
     this.operator = obj && obj.proponent ? obj.proponent.name : '';
