@@ -7,7 +7,7 @@ def TAG_NAMES = ['dev', 'test', 'prod']
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
 def BUILD_CONFIG = APP_NAME + '-build'
-def IMAGESTREAM_NAME = 'angular-on-nginx-build-build'
+def IMAGESTREAM_NAME = 'angular-on-nginx-build'
 
 node {
   try {
