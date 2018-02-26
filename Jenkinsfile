@@ -7,27 +7,20 @@ def TAG_NAMES = ['dev', 'test', 'prod']
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
 def BUILD_CONFIG = APP_NAME + '-build'
-def IMAGESTREAM_NAME = APP_NAME
+def IMAGESTREAM_NAME = 'angular-on-nginx-build-build'
 
 node {
   try {
     notifyBuild('STARTED')
-    stage('build angular-builder'){
-      echo "Building: angular-builder"
-      openshiftBuild(bldCfg: 'angular-builder', showBuildLogs: 'true')
+    stage('build chained angular app build'){
+        steps {
+            notifyBuild('STARTED')
+            openshiftBuild(bldCfg: 'angular-on-nginx-build-build-angular-app-build', showBuildLogs: 'true')
+        }
     }
-    stage('tag angular-builder'){
-      openshiftTag(srcStream: 'angular-builder', srcTag: 'latest', destStream: 'angular-builder', destTag: 'dev')
-      notifyBuild('ANGULAR_BUILDER:DEV')
-    }
-    stage('build nginx runtime') {
-      echo "Building: " + NGINX_BUILD_CONFIG
-      openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
-    }
-    stage('build ' + BUILD_CONFIG) {
-      echo "Building: " + BUILD_CONFIG
-      openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
-      openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
+    stage('build angular-on-nginx-build-build') {
+      echo "Building: angular-on-nginx-build-build"
+      openshiftBuild bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true'
     }
     stage('deploy-' + TAG_NAMES[0]) {
       openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
