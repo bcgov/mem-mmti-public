@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
@@ -55,29 +56,32 @@ export class ProjectService {
 
   private getCollectionsMEM() {
     return this.api.getProjectCollectionsMEM(this.project.code)
-    .map((res: Response) => this.processCollections(res))
-    .map(memCollections => {
-      // Push them into the project
-      memCollections.forEach(collection => {
-        this.addCollection(this.project.collections, collection);
+      .map((res: Response) => this.processCollections(res))
+      .map(memCollections => {
+        // Push them into the project
+        memCollections.forEach(collection => {
+          this.addCollection(this.project.collections, collection);
+        });
       });
-    });
   }
 
   private getCollectionsEPIC() {
     // Note: there may be multiple (or no) EPIC projects associated with this MEM project.
-    const observables = this.project.epicProjectCodes.map(epicProjectCode => {
+    const observablesArray = this.project.epicProjectCodes.map(epicProjectCode => {
       return this.api.getProjectCollectionsEPIC(epicProjectCode)
-      .map((res: Response) => this.processCollections(res))
-      .map(epicCollections => {
-        // Push them into the project
-        epicCollections.forEach(collection => {
-          this.addCollection(this.project.collections, collection);
+        .map((res: Response) => this.processCollections(res))
+        .map(epicCollections => {
+          // Push them into the project
+          epicCollections.forEach(collection => {
+            this.addCollection(this.project.collections, collection);
+          });
         });
-      });
     });
 
-    return Observable.forkJoin(observables);
+    // If this MEM project has no associated EPIC projects, the call to Observable.forkJoin() breaks.
+    // So, we need to wrap `forkJoin` to ensure it doesn't get short-circuited by an empty array. Thus `forkJoinOrDefault`...
+    // https://github.com/ReactiveX/rxjs/issues/2816
+    return this.forkJoinOrDefault(observablesArray);
   }
 
   private processCollections(res: Response): any[] {
@@ -100,6 +104,14 @@ export class ProjectService {
       case 'Other':
         collectionsList.documents.add(collection);
         break;
+    }
+  }
+
+  private forkJoinOrDefault(observablesArray: Observable<any>[]): Observable<any[]> {
+    if (observablesArray.length === 0) {
+      return Observable.of([]);
+    } else {
+      return Observable.forkJoin(observablesArray);
     }
   }
 }
