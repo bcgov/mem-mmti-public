@@ -94,6 +94,11 @@ $search-input-font-size: 0.9375rem;
     .ng2-tag-input {
         border-bottom: 10px solid red;
     }
+
+    .tmp {
+        margin-top: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media (min-width: 768px) {
@@ -113,7 +118,7 @@ $search-input-font-size: 0.9375rem;
 
     &__header {
         padding: 1rem 0;
-        
+
         .srch-count {
             font-weight: 600;
         }
@@ -128,7 +133,7 @@ $search-input-font-size: 0.9375rem;
         padding: 1rem;
         flex-flow: column wrap;
         align-items: left;
-    
+
         &__actions {
             margin-top: 1.25rem;
             font-size: 0.875rem;
@@ -145,7 +150,7 @@ $search-input-font-size: 0.9375rem;
                 }
             }
         }
-    
+
         &__description {
             margin-top: 1rem;
             overflow: hidden;
@@ -153,19 +158,19 @@ $search-input-font-size: 0.9375rem;
             line-height: calc(0.875rem * 1.5);
             font-size: 0.875rem;
         }
-    
+
         &__meta {
             margin-top: 0.4rem;
             font-size: 0.875rem;
         }
-    
+
         &__project-name {
             margin-bottom: 0.4rem;
             line-height: 1rem;
             font-size: 0.975rem;
             font-weight: 400;
         }
-    
+
         &__title {
             margin-bottom: 0.4rem;
             width: 100%;
@@ -256,7 +261,7 @@ tag-input {
 
                 &:hover {
                     color: #fff !important;
-                    background: #5091cd !important; 
+                    background: #5091cd !important;
                 }
 
                 &__text {

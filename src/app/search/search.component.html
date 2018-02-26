@@ -15,9 +15,35 @@
               <input class="form-control" type="text" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
                 [disabled]="protoSearchActive" [(ngModel)]="terms.keywords"/>
             </div>
+            <div class="form-group mb-0">
+                <label></label>
+                <div class="form-inline">
+                  <label class="sr-only" for="dateRangeStart">Start Date</label>
+                  <input class="form-control" type="text" placeholder="Start Date" name="dateRangeStartInput" id="dateRangeStart"
+                    #dateRangeStart="ngbDatepicker"
+                    ngbDatepicker
+                    [minDate]="minDate"
+                    [maxDate]="terms.dateEnd || maxDate"
+                    readonly
+                    [disabled]="protoSearchActive"
+                    (click)="dateRangeStart.toggle();dateRangeEnd.close();"
+                    [(ngModel)]="terms.dateStart"/>
+                  <span class="date-range__spacer"> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
+                  <label class="sr-only" for="dateRangeEnd">End Date</label>
+                  <input class="form-control" type="text" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
+                    #dateRangeEnd="ngbDatepicker"
+                    ngbDatepicker
+                    [minDate]="terms.dateStart || minDate"
+                    [maxDate]="maxDate"
+                    readonly
+                    [disabled]="protoSearchActive"
+                    (click)="dateRangeEnd.toggle();dateRangeStart.close();"
+                    [(ngModel)]="terms.dateEnd"/>
+                </div>
+              </div>
           </div>
 
-          <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
+          <!-- <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
             <div class="form-group mb-4">
               <label for="projects">Project</label>
               <tag-input class="form-control" name='projectInput'
@@ -86,9 +112,9 @@
                   [(ngModel)]="terms.dateEnd"/>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="search-form__btn-container">
+          <div class="search-form__btn-container tmp">
             <button class="search-form__search-btn btn btn-primary slide-l-btn"
               [hidden]="protoSearchActive"
               type="submit">
@@ -101,14 +127,14 @@
               <i class="material-icons">search</i><span>Searching...</span>
             </button>
 
-            <button class="search-form__toggle-advanced-btn btn btn-link" type="button" (click)="toggleAdvancedSearch()">
+            <!-- <button class="search-form__toggle-advanced-btn btn btn-link" type="button" (click)="toggleAdvancedSearch()">
               <span *ngIf="!showAdvancedFields">
                   <i class="material-icons">add_box</i> Show Advanced
               </span>
               <span *ngIf="showAdvancedFields">
                 <i class="material-icons">indeterminate_check_box</i> Hide Advanced
               </span>
-            </button>
+            </button> -->
           </div>
 
         </form>
