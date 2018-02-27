@@ -21,14 +21,14 @@ node {
       openshiftBuild bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true'
     }
     stage('deploy-' + TAG_NAMES[0]) {
-      openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+      openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
       notifyBuild('DEPLOYED:DEV')
     }
     stage('deploy-' + TAG_NAMES[1]) {
       try {
         timeout(time: 2, unit: 'MINUTES') {
           input "Deploy to " + TAG_NAMES[1] + "?"
-          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: 'dev'
           notifyBuild('DEPLOYED:TEST')
         }
       } catch (e) {
@@ -39,7 +39,7 @@ node {
       try {
         timeout(time: 2, unit: 'MINUTES') {
           input "Deploy to " + TAG_NAMES[2] + "?"
-          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: 'test'
           notifyBuild('DEPLOYED:PROD')
         }
       } catch (e) {
