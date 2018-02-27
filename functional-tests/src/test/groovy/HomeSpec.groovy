@@ -23,11 +23,8 @@ import spock.lang.Title
 
 @Title("Functional tests for the Home page")
 class HomeSpec extends GebReportingSpec {
-   /**
-   * Header Tests
-   */
   @Unroll
-  def "Navigate Page from: HomePage, click Link: #ItemSelector -> #SubItemSelector, Assert Page: #AssertPage"(){
+  def "Navigate Page from: HomePage, click header Link: #ItemSelector -> #SubItemSelector, Assert Page: #AssertPage"(){
     given: "I start on the HomePage"
       to HomePage
     when: "I click on the link #ItemSelector -> #SubItemSelector"
@@ -51,11 +48,8 @@ class HomeSpec extends GebReportingSpec {
       [ text : "CONNECT WITH US" ]        |   null                             || ContactPage
   }
 
-  /**
-   * Body Tests
-   */
   @Unroll
-  def "Navigate Page from: #StartPage, click Link: #ClickLink, Assert Page: #AssertPage"() {
+  def "Navigate Page from: HomePage, click main content Link: #ClickLink, Assert Page: #AssertPage"() {
     given: "I start on the HomePage"
       to HomePage
     when: "I click on the #ClickLink"
@@ -79,11 +73,8 @@ class HomeSpec extends GebReportingSpec {
       "ComplianceOversightLearnMoreBtn" || ComplianceOversightPage
   }
 
-  /**
-   * Footer Tests
-   */
   @Unroll
-  def "Navigate Page from: #StartPage, click Link: #ClickLink, Assert Page: #AssertPage"() {
+  def "Navigate Page from: HomePage, click footer Link: #ClickLink, Assert Page: #AssertPage"() {
     given: "I start on the HomePage"
       to HomePage
     when: "I click on the #ClickLink"

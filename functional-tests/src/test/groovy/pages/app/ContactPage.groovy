@@ -1,7 +1,7 @@
 package pages.app
 
 import geb.Page
-import modules.ExternalLinksModule
+import modules.CommonLinkModule
 
 class ContactPage extends Page {
   static at = { pageTitle.equals("Connect With Us") }
@@ -10,6 +10,6 @@ class ContactPage extends Page {
     pageTitle { $("#pgTitle").text() }
     HomeBtn { $("#header .brand").click() }
 
-    externalLinks { module(ExternalLinksModule) }
+    commonLink { module(CommonLinkModule) }
   }
 }

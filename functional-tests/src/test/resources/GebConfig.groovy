@@ -28,7 +28,7 @@ environments {
   chrome {
     driver = {
       ChromeOptions o = new ChromeOptions()
-      o.addArguments("--window-size=1366,768")
+      o.addArguments("window-size=1400,800")
       new ChromeDriver(o)
     }
   }
@@ -38,7 +38,7 @@ environments {
   chromeHeadless {
     driver = {
       ChromeOptions o = new ChromeOptions()
-      o.addArguments("--window-size=1366,768")
+      o.addArguments("window-size=1400,800")
       o.addArguments('headless')
       o.addArguments('disable-gpu')
       o.addArguments('no-sandbox')
@@ -51,7 +51,7 @@ environments {
   firefox {
     driver = {
       FirefoxOptions o = new FirefoxOptions()
-      o.addArguments("--window-size=1366,768")
+      o.addArguments("window-size=1400,800")
       new FirefoxDriver(o)
     }
   }
@@ -60,7 +60,7 @@ environments {
     driver = {
       FirefoxOptions o = new FirefoxOptions()
       o.addArguments("-headless")
-      o.addArguments("--window-size=1366,768")
+      o.addArguments("window-size=1400,800")
       new FirefoxDriver(o)
     }
   }
@@ -99,7 +99,7 @@ baseNavigatorWaiting = true
 def env = System.getenv()
 baseUrl = env['BASEURL']
 if (!baseUrl) {
-  baseUrl = "http://localhost:4300"
+  baseUrl = "http://mines.nrs.gov.bc.ca/"
 }
 
 println "BaseURL: ${baseUrl}"
