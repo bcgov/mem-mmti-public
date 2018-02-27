@@ -13,10 +13,8 @@ node {
   try {
     notifyBuild('STARTED')
     stage('build chained angular app build'){
-        steps {
-            notifyBuild('STARTED')
-            openshiftBuild(bldCfg: 'angular-on-nginx-build-build-angular-app-build', showBuildLogs: 'true')
-        }
+      notifyBuild('STARTED')
+      openshiftBuild(bldCfg: 'angular-on-nginx-build-build-angular-app-build', showBuildLogs: 'true')
     }
     stage('build angular-on-nginx-build-build') {
       echo "Building: angular-on-nginx-build-build"
