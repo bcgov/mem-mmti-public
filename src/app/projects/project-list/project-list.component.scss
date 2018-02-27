@@ -2,110 +2,141 @@
 
 .project-table {
   tbody {
-    tr {
-      background: transparent;
+  tr {
+    background: transparent;
 
-      .accordion__collapse-header {
-        background: $table-row-bg;
-      }
-
-      &:nth-child(even) {
-        .accordion__collapse-header {
-          background: $table-alt-row-bg;
-        }
-      }
+    .accordion__collapse-header {
+    background: $table-row-bg;
     }
+
+    &:nth-child(even) {
+    .accordion__collapse-header {
+      background: $table-alt-row-bg;
+    }
+    }
+  }
   }
 
   .accordion__collapse-header {
-    background: transparent;
+  background: transparent;
   }
 
   &__project-details {
-    &--links {
-      padding-top: 1.5rem;
-    }
+  &--links {
+    padding-top: 1.5rem;
+  }
   }
 }
-
 
 .project-table {
   &__project-details {
     font-size: 0.85rem;
 
     &--description {
-      margin-bottom: 1.25rem;
+        margin-bottom: 1.25rem;
 
-      &::ng-deep {
+        &::ng-deep {
         p {
-          margin: 0;
-          line-height: calc(0.85rem * 1.5);
-          font-size: 0.85rem;
+            margin: 0;
+            line-height: calc(0.85rem * 1.5);
+            font-size: 0.85rem;
         }
-      }
+        }
     }
 
     &--list {
-      li {
+        li {
         @include align-items(start);
 
         + li {
-          border-top: 1px solid #fff;
+        border-top: 1px solid #fff;
         }
-      }
+        }
 
-      .name,
-      .value {
-        margin: 0;
-        padding: 0.5rem 0.75rem;
-        width: 50%;
-      }
+        .name,
+        .value {
+            margin: 0;
+            padding: 0.5rem 0.75rem;
+            width: 50%;
+            }
     }
   }
 }
 
 @media (max-width: 760px) {
+
   .project-table {
-    table-layout: auto;
-
     thead {
-      display: block;
-      width: 100%;
-
-      tr {
-        @include flex-box();
-      }
-
-      th {
-        border-top: none;
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-
-        &.project-table__name-col {
-          @include flex(1 1 auto);
-        }
-      }
-    }
-
-    &__operator-col {
       display: none;
     }
-    &__type-col {
-      width: 7.5rem;
-      text-align: right;
-    }
-    &__status-col {
+
+    .accordion__collapse-header {
+      &--column.toggle {
         display: none;
       }
 
-    &__project-details {
-      &--links {
-        .btn {
-          width: 100%;
+      &--column {
+      display: block;
+      }
+    }
 
-          +.btn {
-            margin-top: 0.5rem;
+    td {
+      display: block;
+      padding: 1rem;
+      border-top: none;
+
+      &.accordion__collapse-header {
+        display: block;
+      }
+
+      span {
+        &.accordion__collapse-header--column {
+          position: relative;
+          margin: 0 1rem;
+          padding: 0.25rem 0;
+
+          &:before {
+            display: inline-block;
+            width: 40%;
+            }
+
+          &:last-child {
+            padding-bottom: 1.25rem;
           }
+
+          &.project-table {
+
+            &__project-col {
+              padding-bottom: 0.75rem;
+              font-size: 1.25rem;
+              font-weight: 600;
+            }
+
+            &__operator-col:before {
+              content: 'Operator:';
+            }
+
+            &__type-col:before {
+              content: 'Type:';
+            }
+
+            &__status-col:before {
+              content: 'Status:';
+            }
+
+            &__operator-col,
+            &__type-col,
+            &__status-col {
+              span.inside-td {
+                display: inline-block;
+                vertical-align: top;
+                padding: none;
+                width: 60%;
+              }
+            }
+
+          }
+
         }
       }
     }

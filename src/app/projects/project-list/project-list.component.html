@@ -103,11 +103,11 @@
                   <i class="material-icons open-icon">add</i>
                   <i class="material-icons close-icon">remove</i>
                 </a>
-                <span class="accordion__collapse-header--column">
+                <span class="accordion__collapse-header--column project-table__project-col">
                   <a [routerLink]="['/p', item.code]">{{item.name}}</a></span>
-                <span class="accordion__collapse-header--column project-table__operator-col">{{item.operator}}</span>
-                <span class="accordion__collapse-header--column project-table__type-col" >{{item.type}}</span>
-                <span class="accordion__collapse-header--column project-table__status-col" >{{item.status}}</span>
+                <span class="accordion__collapse-header--column project-table__operator-col"><span class="inside-td">{{item.operator}}</span></span>
+                <span class="accordion__collapse-header--column project-table__type-col" ><span class="inside-td">{{item.type}}</span></span>
+                <span class="accordion__collapse-header--column project-table__status-col" ><span class="inside-td">{{item.status}}</span></span>
               </div>
               <div class="collapse" id="accordCollapse{{item.code}}" role="tabpanel">
                 <div class="accordion__collapse-body">
