@@ -60,7 +60,7 @@
             <span class="value">{{project?.status}}</span>
           </li>
           <li>
-            <span class="name" *ngIf="project.intake.operatingjobs">Employment</span>
+            <span class="name" *ngIf="project && project.intake && project.intake.operatingjobs">Employment</span>
             <span class="value">{{project?.intake?.operatingjobs}}</span>
           </li>
         </ul>
