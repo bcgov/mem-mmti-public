@@ -2,7 +2,7 @@ import geb.spock.GebReportingSpec
 
 import geb.Page
 import pages.app.AuthorizationsPage
-import pages.app.ExternalLinkPage
+import pages.external.ExternalLinkPage
 
 import spock.lang.Unroll
 import spock.lang.Title

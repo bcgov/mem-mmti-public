@@ -3,13 +3,30 @@ import geb.spock.GebReportingSpec
 import geb.Page
 import pages.app.LegislationPage
 import pages.app.AuthorizationsPage
-import pages.app.ExternalLinkPage
+import pages.external.ExternalLinkPage
 
 import spock.lang.Unroll
 import spock.lang.Title
 
 @Title("Functional tests for the Legislation page")
 class LegislationSpec extends GebReportingSpec {
+  @Unroll
+  def "Navigate Page from: LegislationPage, click learn more Button: #ClickLink, Assert Page: #AssertPage"() {
+    given: "I start on the LegislationPage"
+      to LegislationPage
+    when: "I click on the #ClickLink"
+      page."$ClickLink"
+    then: "I arrive on the #AssertPage page"
+      at AssertPage
+    where:
+      ClickLink                                || AssertPage
+      "EnvironmentalAssessmentActLearnMoreBtn" || AuthorizationsPage
+      "MinesActLearnMoreBtn"                   || AuthorizationsPage
+      "EnvironmentalManagementActLearnMoreBtn" || AuthorizationsPage
+      "TenureLearnMoreBtn"                     || AuthorizationsPage
+      "LegislationAdministeredLearnMoreBtn"    || AuthorizationsPage
+  }
+
   @Unroll
   def "Navigate Page from: LegislationPage, click main content Link: #ItemSelector, Assert Page: #AssertPage"() {
     given: "I start on the LegislationPage"
@@ -58,22 +75,5 @@ class LegislationSpec extends GebReportingSpec {
       [tag : "h4", text : "Other Federal Statutes"]                                                                                                                       | [text : "Migratory Birds Convention Act"]                                    || new ExternalLinkPage("Migratory Birds Convention Act, 1994", "justice.gc.ca")
       [tag : "h4", text : "Other Federal Statutes"]                                                                                                                       | [text : "Navigation Protection Act"]                                         || new ExternalLinkPage("Navigation Protection Act", "justice.gc.ca")
       [tag : "h4", text : "Other Federal Statutes"]                                                                                                                       | [text : "Species at Risk Act"]                                               || new ExternalLinkPage("Species at Risk Act", "justice.gc.ca")
-  }
-
-  @Unroll
-  def "Navigate Page from: LegislationPage, click learn more Button: #ClickLink, Assert Page: #AssertPage"() {
-    given: "I start on the LegislationPage"
-      to LegislationPage
-    when: "I click on the #ClickLink"
-      page."$ClickLink"
-    then: "I arrive on the #AssertPage page"
-      at AssertPage
-    where:
-      ClickLink                                || AssertPage
-      "EnvironmentalAssessmentActLearnMoreBtn" || AuthorizationsPage
-      "MinesActLearnMoreBtn"                   || AuthorizationsPage
-      "EnvironmentalManagementActLearnMoreBtn" || AuthorizationsPage
-      "TenureLearnMoreBtn"                     || AuthorizationsPage
-      "LegislationAdministeredLearnMoreBtn"    || AuthorizationsPage
   }
 }

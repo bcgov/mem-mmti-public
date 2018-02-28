@@ -1,4 +1,4 @@
-package pages.app
+package pages.external
 
 import geb.Page
 

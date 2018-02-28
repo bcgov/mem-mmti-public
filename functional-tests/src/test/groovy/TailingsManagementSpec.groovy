@@ -3,7 +3,7 @@ import geb.spock.GebReportingSpec
 import geb.Page
 import pages.app.TailingsManagementPage
 import pages.app.TopicsOfInterestPage
-import pages.app.ExternalLinkPage
+import pages.external.ExternalLinkPage
 
 import spock.lang.Unroll
 import spock.lang.Title
@@ -22,7 +22,7 @@ class TailingsManagementSpec extends GebReportingSpec {
       SectionSelector                                   | ItemSelector                                                                                                      || AssertPage
       //TODO PDF [tag : "h4", text : "RELATED DOCUMENTS"]          | [text : "Memorandum of Understanding Regulation of Impoundments and Diversions on a Mine Site (MEM, MOE, FLNRO)"] || new ExternalLinkPage("mou_impoundments_diversions.pdf", "gov.bc.ca")
 
-      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Health, Safety and TailingsManagement Code for Mines in British Columbia"]                               || new ExternalLinkPage("Health, Safety and TailingsManagement Code for Mines in British Columbia - Province of British Columbia", "gov.bc.ca")
+      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Health, Safety and Reclamation Code for Mines in British Columbia"]                                      || new ExternalLinkPage("Health, Safety and Reclamation Code for Mines in British Columbia - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Towards Sustainable Mining: Tailings Management (Mining Association of Canada)"]                         || new ExternalLinkPage("Tailings Management Protocol | The Mining Association of Canada", "mining.ca")
   }
   @Unroll
@@ -34,10 +34,10 @@ class TailingsManagementSpec extends GebReportingSpec {
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:
-      SectionSelector                                                                                     | ItemSelector                                                                            || AssertPage
-      [tag : "h2", text : "Ensuring effective tailings management at all mine sites in British Columbia"] | [text : "metal leaching and acid rock drainage (ML/ARD)"]                               || new ExternalLinkPage("Metal Leaching & Acid Rock Drainage - Province of British Columbia", "bc.gov.ca")
-      [tag : "h2", text : "Ensuring effective tailings management at all mine sites in British Columbia"] | [text : "Health, Safety and TailingsManagement Code for Mines in British Columbia (the Code)"] || new ExternalLinkPage("Health, Safety and TailingsManagement Code for Mines in British Columbia - Province of British Columbia", "bc.gov.ca")
-      [tag : "h2", text : "Ensuring effective tailings management at all mine sites in British Columbia"] | [text : "Mines Act"]                                                                    || new ExternalLinkPage("Mines Act", "bclaws.ca")
+      SectionSelector                                                                                     | ItemSelector                                                                                   || AssertPage
+      [tag : "h2", text : "Ensuring effective tailings management at all mine sites in British Columbia"] | [text : "metal leaching and acid rock drainage (ML/ARD)"]                                      || new ExternalLinkPage("Metal Leaching & Acid Rock Drainage - Province of British Columbia", "gov.bc.ca")
+      [tag : "h2", text : "Ensuring effective tailings management at all mine sites in British Columbia"] | [text : "Health, Safety and Reclamation Code for Mines in British Columbia (the Code)"]        || new ExternalLinkPage("Health, Safety and TailingsManagement Code for Mines in British Columbia - Province of British Columbia", "gov.bc.ca")
+      [tag : "h2", text : "Ensuring effective tailings management at all mine sites in British Columbia"] | [text : "Mines Act"]                                                                           || new ExternalLinkPage("Mines Act", "bclaws.ca")
   }
 
   @Unroll
