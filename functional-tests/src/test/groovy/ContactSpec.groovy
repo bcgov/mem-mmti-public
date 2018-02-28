@@ -2,7 +2,7 @@ import geb.spock.GebReportingSpec
 
 import geb.Page
 import pages.app.ContactPage
-import pages.app.ExternalLinkPage
+import pages.external.ExternalLinkPage
 
 import spock.lang.Unroll
 import spock.lang.Title
@@ -19,7 +19,7 @@ class ContactSpec extends GebReportingSpec {
       at AssertPage
     where:
       SectionSelector                                   | ItemSelector                                                   || AssertPage
-      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Ministy of Energy, Mines and Petroleum Resources"]    || new ExternalLinkPage("Ministry of Energy, Mines & Petroleum Resources - Province of British Columbia", "gov.bc.ca")
+      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Ministry of Energy, Mines and Petroleum Resources"]   || new ExternalLinkPage("Ministry of Energy, Mines & Petroleum Resources - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Ministry of Environment and Climate Change Strategy"] || new ExternalLinkPage("Ministry of Environment & Climate Change Strategy - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Environmental Assessment Office"]                     || new ExternalLinkPage("Environmental Assessment Office", "gov.bc.ca")
   }

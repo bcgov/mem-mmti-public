@@ -18,19 +18,22 @@ class HeaderModule extends Module {
      */
     void clickMenuItem(Map<String, Object> itemSelector, Map<String, Object> subItemSelector) {
         def navBarItem = navBar.$(".nav-item").has(itemSelector ,"span")
-        println("1: " + navBarItem.text())
         interact {
           moveToElement(navBarItem)
         }
 
-        def subNavBarItem = navBarItem.$("div").$("a").has(subItemSelector, "strong")
-        println("2: " + subNavBarItem.text())
-        if ( subNavBarItem != null ) {
+        def subNavBarItem = null
+        if (subItemSelector) {
+          subNavBarItem = navBarItem.$("div").$("a").has(subItemSelector, "strong")
+        }
+
+        if (subNavBarItem != null) {
           interact {
             moveToElement(subNavBarItem)
           }
           subNavBarItem.click()
         } else {
+          //header element does not have a drop down menu, so click the header element itself
           navBarItem.click()
         }
     }

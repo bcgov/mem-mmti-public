@@ -3,7 +3,7 @@ import geb.spock.GebReportingSpec
 import geb.Page
 import pages.app.WaterQualityPage
 import pages.app.TopicsOfInterestPage
-import pages.app.ExternalLinkPage
+import pages.external.ExternalLinkPage
 
 import spock.lang.Unroll
 import spock.lang.Title

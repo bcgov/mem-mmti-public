@@ -10,13 +10,14 @@ import pages.app.LegislationPage
 import pages.app.AuthorizationsPage
 import pages.app.ComplianceOversightPage
 import pages.app.ContactPage
-import pages.app.CopyrightPage
-import pages.app.DisclaimerPage
-import pages.app.PrivacyPage
-import pages.app.AccessibilityPage
-import pages.app.FacebookPage
-import pages.app.TwitterPage
-import pages.app.GooglePlusPage
+
+import pages.external.CopyrightPage
+import pages.external.DisclaimerPage
+import pages.external.PrivacyPage
+import pages.external.AccessibilityPage
+import pages.external.FacebookPage
+import pages.external.TwitterPage
+import pages.external.GooglePlusPage
 
 import spock.lang.Unroll
 import spock.lang.Title
