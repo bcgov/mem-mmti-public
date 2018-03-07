@@ -72,12 +72,13 @@ export class Collection {
       // Set documents
       this.documents = [];
 
-      if (collection.mainDocument && collection.mainDocument.document) {
-        this.documents.push({
-          name : collection.mainDocument.document.displayName,
-          ref  : this.getURL(collection.mainDocument.document._id),
-          date : collection.mainDocument.document.documentDate ? new Date(collection.mainDocument.document.documentDate) : null
-        });
+      if (collection.mainDocuments && collection.mainDocuments.length > 0) {
+        const mainDocs = collection.mainDocuments.sort((a, b) => { return a.sortOrder - b.sortOrder; });
+        mainDocs.forEach(item => this.documents.push({
+          name : item.document.displayName,
+          ref  : this.getURL(item.document._id),
+          date : item.document.documentDate ? new Date(item.document.documentDate) : null
+        }));
       }
 
       if (collection.otherDocuments && collection.otherDocuments.length > 0) {
