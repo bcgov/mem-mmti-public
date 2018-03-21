@@ -15,7 +15,7 @@ class TailingsManagementSpec extends GebReportingSpec {
     given: "I start on the TailingsManagementPage"
       to TailingsManagementPage
     when: "I click on the link #ItemSelector"
-      commonLink.clickSideBarLink(SectionSelector, ItemSelector)
+      commonLinkModule.clickSideBarLink(SectionSelector, ItemSelector)
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:
@@ -30,7 +30,7 @@ class TailingsManagementSpec extends GebReportingSpec {
     given: "I start on the TailingsManagementPage"
       to TailingsManagementPage
     when: "I click on the link #ItemSelector"
-      commonLink.clickMainContentLink(SectionSelector, ItemSelector)
+      commonLinkModule.clickMainContentLink(SectionSelector, ItemSelector)
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:
@@ -45,7 +45,7 @@ class TailingsManagementSpec extends GebReportingSpec {
     given: "I start on the TailingsManagementPage"
       to TailingsManagementPage
     when: "I click on the #ClickLink"
-      page."$ClickLink"
+      page."$ClickLink".click()
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:
