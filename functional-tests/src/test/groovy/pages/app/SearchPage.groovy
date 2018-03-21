@@ -1,12 +1,12 @@
 package pages.app
 
-import geb.Page
+import pages.base.BaseAppPage
 
-class SearchPage extends Page {
+class SearchPage extends BaseAppPage {
   static at = { pageTitle.equals("Find Documents...") }
   static url = "/search"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeBtn { $("#header .brand").click() }
+    HomeBtn { $("#header .brand") }
   }
 }

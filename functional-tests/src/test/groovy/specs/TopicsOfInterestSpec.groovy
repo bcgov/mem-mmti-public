@@ -16,7 +16,7 @@ class TopicsOfInterestSpec extends GebReportingSpec {
     given: "I start on the TopicsOfInterestPage"
       to TopicsOfInterestPage
     when: "I click on the #ClickLink"
-      page."$ClickLink"
+      page."$ClickLink".click()
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:

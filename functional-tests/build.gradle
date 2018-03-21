@@ -14,8 +14,8 @@ ext {
   ext {
     groovyVersion = '2.4.13'
     gebVersion = '2.1'
-    seleniumVersion = '3.6.0' //3.8.0
-    chromeDriverVersion = '2.35'
+    seleniumVersion = '3.11.0'
+    chromeDriverVersion = '2.36'
     geckoDriverVersion = '0.19.1'
     ieDriverVersion = '3.6.0'
     edgeDriverVersion = seleniumVersion
@@ -111,4 +111,3 @@ tasks.withType(Test) {
 tasks.withType(GroovyCompile) {
   groovyOptions.forkOptions.memoryMaximumSize = '256m'
 }
-

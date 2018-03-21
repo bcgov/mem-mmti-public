@@ -1,15 +1,12 @@
 package pages.app
 
-import geb.Page
-import modules.CommonLinkModule
+import pages.base.BaseAppPage
 
-class AuthorizationsPage extends Page {
+class AuthorizationsPage extends BaseAppPage {
   static at = { pageTitle.equals("Authorizations") }
   static url = "/authorizations"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeBtn { $("#header .brand").click() }
-
-    commonLink { module(CommonLinkModule) }
+    HomeBtn { $("#header .brand") }
   }
 }

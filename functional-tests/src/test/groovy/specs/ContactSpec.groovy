@@ -14,7 +14,7 @@ class ContactSpec extends GebReportingSpec {
     given: "I start on the ContactPage"
       to ContactPage
     when: "I click on the link #SectionSelector -> #ItemSelector"
-      commonLink.clickSideBarLink(SectionSelector, ItemSelector)
+      commonLinkModule.clickSideBarLink(SectionSelector, ItemSelector)
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:

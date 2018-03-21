@@ -29,7 +29,7 @@ class HomeSpec extends GebReportingSpec {
     given: "I start on the HomePage"
       to HomePage
     when: "I click on the link #ItemSelector -> #SubItemSelector"
-      header.clickMenuItem(ItemSelector, SubItemSelector)
+      headerModule.clickMenuItem(ItemSelector, SubItemSelector)
     then:
       at AssertPage
     where:
@@ -54,7 +54,7 @@ class HomeSpec extends GebReportingSpec {
     given: "I start on the HomePage"
       to HomePage
     when: "I click on the #ClickLink"
-      page."$ClickLink"
+      page."$ClickLink".click()
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:
@@ -79,7 +79,7 @@ class HomeSpec extends GebReportingSpec {
     given: "I start on the HomePage"
       to HomePage
     when: "I click on the #ClickLink"
-      page."$ClickLink"
+      footerModule."$ClickLink".click()
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:

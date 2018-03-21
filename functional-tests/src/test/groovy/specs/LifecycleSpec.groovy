@@ -18,7 +18,7 @@ class LifecycleSpec extends GebReportingSpec {
     given: "I start on the LifecyclePage"
       to LifecyclePage
     when: "I click on the link #ItemSelector"
-      commonLink.clickSideBarLink(SectionSelector, ItemSelector)
+      commonLinkModule.clickSideBarLink(SectionSelector, ItemSelector)
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:
@@ -36,7 +36,7 @@ class LifecycleSpec extends GebReportingSpec {
     given: "I start on the LifecyclePage"
       to LifecyclePage
     when: "I click on the link #ItemSelector"
-      commonLink.clickMainContentLink(SectionSelector, ItemSelector)
+      commonLinkModule.clickMainContentLink(SectionSelector, ItemSelector)
     then: "I arrive on the #AssertPage page"
       at AssertPage
     where:

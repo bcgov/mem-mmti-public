@@ -1,15 +1,12 @@
 package pages.app
 
-import geb.Page
-import modules.CommonLinkModule
+import pages.base.BaseAppPage
 
-class LifecyclePage extends Page {
+class LifecyclePage extends BaseAppPage {
   static at = { pageTitle.equals("The Mining Lifecycle") }
   static url = "/lifecycle"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeBtn { $("#header .brand").click() }
-
-    commonLink { module(CommonLinkModule) }
+    HomeBtn { $("#header .brand") }
   }
 }

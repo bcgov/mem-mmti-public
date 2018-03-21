@@ -1,17 +1,14 @@
 package pages.app
 
-import geb.Page
-import modules.CommonLinkModule
+import pages.base.BaseAppPage
 
-class TailingsManagementPage extends Page {
+class TailingsManagementPage extends BaseAppPage {
   static at = { pageTitle.equals("Tailings management") }
   static url = "/tailings-management"
   static content = {
     pageTitle { $("#pgTitle").text() }
-    HomeBtn { $("#header .brand").click() }
+    HomeBtn { $("#header .brand") }
 
-    commonLink { module(CommonLinkModule) }
-
-    BackToTopicsBtn { $("main").$(".content-links").$("a").has("span", text:"Back to Topics").click() }
+    BackToTopicsBtn { $("main").$(".content-links").$("a").has("span", text:"Back to Topics") }
   }
 }
