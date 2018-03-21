@@ -74,12 +74,6 @@ export class Api {
     return this.getMEM('organization');
   }
 
-  // News
-
-  getNews() {
-    return this.getEPIC('recentactivity');
-  }
-
   // Methods
 
   getMEM(apiRoute: string, options?: Object) {

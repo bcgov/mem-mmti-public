@@ -5,26 +5,22 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs/Subscription';
 
 import { HomeComponent } from './home/home.component';
-import { NewsService } from './services/news.service';
 import { DocumentService } from './services/document.service';
 import { SearchComponent } from './search/search.component';
 
-import { News } from './models/news';
 import { Api } from './services/api';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [NewsService, DocumentService]
+  providers: [DocumentService]
 })
 export class AppComponent implements OnInit {
-  recentNews: Array<News>;
   loggedIn: String;
   hostname: String;
   private sub: Subscription;
-  constructor(private newsService: NewsService,
-              private _router: Router,
+  constructor(private _router: Router,
               private cookieService: CookieService,
               private api: Api) {
     // Used for sharing links.
@@ -51,18 +47,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loggedIn = this.cookieService.get('loggedIn');
 
-    this._router.events.subscribe((url: any) => {
-      if (url.url === '/') {
-        this.newsService.getRecentNews().subscribe(
-          data => { this.recentNews = data; },
-          error => console.log(error)
-        );
-      } else {
-        this.recentNews = null;
-      }
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
-    });
   }
 }
 

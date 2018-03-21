@@ -9,9 +9,7 @@ import { Ng2PageScrollModule } from 'ng2-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NewsComponent } from './news/news.component';
 import { LegislationComponent } from './legislation/legislation.component';
-import { ProcessComponent } from './process/process.component';
 import { ComplianceOversightComponent } from './compliance-oversight/compliance-oversight.component';
 import { ContactComponent } from './contact/contact.component';
 import { AuthorizationsComponent } from './authorizations/authorizations.component';
@@ -36,9 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     HomeComponent,
-    NewsComponent,
     LegislationComponent,
-    ProcessComponent,
     ComplianceOversightComponent,
     ContactComponent,
     AuthorizationsComponent,
@@ -64,7 +60,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MapModule,
     SharedModule
   ],
-  providers: [NewsComponent, ProponentService, CookieService],
+  providers: [ProponentService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
