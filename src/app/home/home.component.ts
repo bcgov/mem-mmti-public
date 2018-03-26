@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Home } from '../models/home';
 import { ProjectService } from '../services/project.service';
+import { Api } from '../services/api';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { ProjectService } from '../services/project.service';
 export class HomeComponent implements OnInit {
   results: Array<Home>;
   numProjects: Number;
-  constructor( private projectService: ProjectService) { }
+  constructor( private projectService: ProjectService, private api: Api) { }
 
   ngOnInit() {
     this.projectService.getAll().subscribe(
