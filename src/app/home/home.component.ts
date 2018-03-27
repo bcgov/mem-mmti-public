@@ -11,6 +11,7 @@ import { Api } from '../services/api';
 export class HomeComponent implements OnInit {
   results: Array<Home>;
   numProjects: Number;
+  hostname: String;
   constructor( private projectService: ProjectService, private api: Api) { }
 
   ngOnInit() {
@@ -18,5 +19,6 @@ export class HomeComponent implements OnInit {
       data => { this.numProjects = data ? data.length : 0; },
       error => console.log(error)
     );
+    this.hostname = this.api.hostnameMEM;
   }
 }
