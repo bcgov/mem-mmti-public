@@ -71,9 +71,9 @@ export class Collection {
 
       // Set documents
       this.documents = [];
-
       if (collection.mainDocuments && collection.mainDocuments.length > 0) {
-        const mainDocs = collection.mainDocuments.sort((a, b) => { return a.sortOrder - b.sortOrder; });
+        const mainDocs = collection.mainDocuments.filter(doc => doc.document.isPublished)
+          .sort((a, b) => { return a.sortOrder - b.sortOrder; });
         mainDocs.forEach(item => this.documents.push({
           name : item.document.displayName,
           ref  : this.getURL(item.document._id),
@@ -83,7 +83,8 @@ export class Collection {
 
       if (collection.otherDocuments && collection.otherDocuments.length > 0) {
         // Sort them
-        const otherDocs = collection.otherDocuments.sort((a, b) => { return a.sortOrder - b.sortOrder; });
+        const otherDocs = collection.otherDocuments.filter(doc => doc.document.isPublished)
+          .sort((a, b) => { return a.sortOrder - b.sortOrder; });
 
         // Add them
         otherDocs.forEach(otherDoc => {
