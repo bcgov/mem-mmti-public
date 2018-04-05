@@ -1,85 +1,149 @@
-// Edit your app's name below
-def APP_NAME = 'mem-mmt'
+// Switch to using https://github.com/BCDevOps/jenkins-pipeline-shared-lib when stable.
+@NonCPS
+import groovy.json.JsonOutput
+/*
+ * Sends a slack notification
+ */
+def notifySlack(text, url, channel, attachments) {
+    def slackURL = url
+    def jenkinsIcon = 'https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png'
+    def payload = JsonOutput.toJson([text: text,
+        channel: channel,
+        username: "Jenkins",
+        icon_url: jenkinsIcon,
+        attachments: attachments
+    ])
+    def encodedReq = URLEncoder.encode(payload, "UTF-8")
+    sh("curl -s -S -X POST --data \'payload=${encodedReq}\' ${slackURL}")
+}
 
-// Edit your environment TAG names below
-def TAG_NAMES = ['dev', 'test', 'prod']
+/*
+ * Updates the global pastBuilds array: it will iterate recursively
+ * and add all the builds prior to the current one that had a result
+ * different than 'SUCCESS'.
+ */
+def buildsSinceLastSuccess(previousBuild, build) {
+  if ((build != null) && (build.result != 'SUCCESS')) {
+      pastBuilds.add(build)
+      buildsSinceLastSuccess(pastBuilds, build.getPreviousBuild())
+   }
+}
 
-// You shouldn't have to edit these if you're following the conventions
-def NGINX_BUILD_CONFIG = 'nginx-runtime'
-def BUILD_CONFIG = APP_NAME + '-build'
-def IMAGESTREAM_NAME = 'angular-on-nginx-build'
-
-node {
-  try {
-    notifyBuild('STARTED')
-    stage('build chained angular app build'){
-      notifyBuild('STARTED')
-      openshiftBuild(bldCfg: 'angular-on-nginx-build-build-angular-app-build', showBuildLogs: 'true')
-    }
-    stage('build angular-on-nginx-build-build') {
-      echo "Building: angular-on-nginx-build-build"
-      openshiftBuild bldCfg: 'angular-on-nginx-build-build', showBuildLogs: 'true'
-    }
-    stage('deploy-' + TAG_NAMES[0]) {
-      openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
-      notifyBuild('DEPLOYED:DEV')
-    }
-    stage('deploy-' + TAG_NAMES[1]) {
-      try {
-        timeout(time: 2, unit: 'MINUTES') {
-          input "Deploy to " + TAG_NAMES[1] + "?"
-          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: 'dev'
-          notifyBuild('DEPLOYED:TEST')
+/*
+ * Generates a string containing all the commit messages from
+ * the builds in pastBuilds.
+ */
+@NonCPS
+def getChangeLog(pastBuilds) {
+    def log = ""
+    for (int x = 0; x < pastBuilds.size(); x++) {
+        for (int i = 0; i < pastBuilds[x].changeSets.size(); i++) {
+            def entries = pastBuilds[x].changeSets[i].items
+            for (int j = 0; j < entries.length; j++) {
+                def entry = entries[j]
+                log += "* ${entry.msg} by ${entry.author} \n"
+            }
         }
-      } catch (e) {
-        notifyBuild('DEPLOYMENT:TEST ABORTED')
+    }
+    return log;
+}
+
+def CHANGELOG = "No new changes"
+
+node('master') {
+  /*
+   * Extract secrets and create relevant environment variables.
+   * The contents of the secret are extracted in as many files as the keys contained in the secret.
+   * The files are named as the key, and contain the corresponding value.
+   */
+  sh("oc extract secret/slack-secrets --to=${env.WORKSPACE} --confirm")
+  SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
+  DEV_CHANNEL = sh(script: "cat dev-channel", returnStdout: true)
+
+  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEV_CHANNEL=${DEV_CHANNEL}"]){
+    stage('Build'){
+      // isolate last successful builds and then get the changelog
+      pastBuilds = []
+      buildsSinceLastSuccess(pastBuilds, currentBuild);
+      CHANGELOG = getChangeLog(pastBuilds);
+
+      echo ">>>>>>Changelog: \n ${CHANGELOG}"
+
+      try {
+        echo "Building: mem-mmti-public-angular"
+        openshiftBuild bldCfg: 'mem-mmti-public-angular', showBuildLogs: 'true'
+        echo "Build done"
+
+        echo "Building: mem-mmti-public"
+        openshiftBuild bldCfg: 'mem-mmti-public', showBuildLogs: 'true'
+        echo "Build done"
+
+        echo "Tagging image..."
+        // Don't tag with BUILD_ID so the pruner can do it's job; it won't delete tagged images.
+        // Tag the images for deployment based on the image's hash
+        IMAGE_HASH = sh (
+        script: """oc get istag mem-mmti-public:latest -o template --template=\"{{.image.dockerImageReference}}\"|awk -F \":\" \'{print \$3}\'""",
+        returnStdout: true).trim()
+        echo ">> IMAGE_HASH: ${IMAGE_HASH}"
+
+        openshiftTag destStream: 'mem-mmti-public', verbose: 'true', destTag: "${IMAGE_HASH}", srcStream: 'mem-mmti-public', srcTag: 'latest'
+        echo "Tagging done"
+      } catch (error) {
+        notifySlack(
+          "The latest mem-mmti-public build seems to have broken\n'${error.message}'",
+          env.SLACK_HOOK,
+          env.DEV_CHANNEL,
+          []
+        )
+        throw error
       }
     }
-    stage('deploy-'  + TAG_NAMES[2]) {
-      try {
-        timeout(time: 2, unit: 'MINUTES') {
-          input "Deploy to " + TAG_NAMES[2] + "?"
-          openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: 'test'
-          notifyBuild('DEPLOYED:PROD')
-        }
-      } catch (e) {
-        notifyBuild('DEPLOYMENT:PROD ABORTED')
-      }
-    }
-  } catch (e) {
-    // If there was an exception thrown, the build failed
-    currentBuild.result = "FAILED"
-    throw e
-  } finally {
-    // Success or failure, always send notifications
-    notifyBuild(currentBuild.result)
   }
 }
 
-def notifyBuild(String buildStatus = 'STARTED') {
-  // build status of null means successful
-  buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
-  // Default values
-  def colorName = 'RED'
-  def colorCode = '#FF0000'
-  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  def summary = "${subject} (${env.BUILD_URL})"
-  def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-    <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>"""
 
-  // Override default values based on build status
-  if (buildStatus == 'STARTED' || buildStatus.startsWith("DEPLOYMENT")) {
-    color = 'YELLOW'
-    colorCode = '#FFFF00'
-  } else if (buildStatus == 'SUCCESSFUL' || buildStatus.startsWith("DEPLOYED")) {
-    color = 'GREEN'
-    colorCode = '#00FF00'
-  } else {
-    color = 'RED'
-    colorCode = '#FF0000'
+node('master') {
+  /*
+   * Extract secrets and create relevant environment variables.
+   * The contents of the secret are extracted in as many files as the keys contained in the secret.
+   * The files are named as the key, and contain the corresponding value.
+   */
+  sh("oc extract secret/slack-secrets --to=${env.WORKSPACE} --confirm")
+  SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
+  DEPLOY_CHANNEL = sh(script: "cat deploy-channel", returnStdout: true)
+  QA_CHANNEL = sh(script: "cat qa-channel", returnStdout: true)
+
+  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEPLOY_CHANNEL=${DEPLOY_CHANNEL}", "QA_CHANNEL=${QA_CHANNEL}"]){
+    stage('Deploy to Test'){
+      try {
+        echo "Deploying to test..."
+        openshiftTag destStream: 'mem-mmti-public', verbose: 'true', destTag: 'test', srcStream: 'mem-mmti-public', srcTag: 'latest'
+        sleep 5
+        openshiftVerifyDeployment depCfg: 'mem-public', namespace: 'mem-mmt-test', replicaCount: 1, verbose: 'false', verifyReplicaCount: 'false', waitTime: 600000
+        echo ">>>> Deployment Complete"
+
+        notifySlack(
+          "A new version of mem-mmti-public is now in Test. \n Changes: \n ${CHANGELOG}",
+          env.SLACK_HOOK,
+          env.DEPLOY_CHANNEL,
+          []
+        )
+
+        notifySlack(
+          "A new version of mem-mmti-public is now in Test and ready for QA. \n Changes to test: \n ${CHANGELOG}",
+          env.SLACK_HOOK,
+          env.QA_CHANNEL,
+          []
+        )
+      } catch (error) {
+        notifySlack(
+          "The latest deployment of mem-mmti-public to Test seems to have failed\n'${error.message}'",
+          env.SLACK_HOOK,
+          env.DEPLOY_CHANNEL,
+          []
+        )
+      }
+    }
   }
-
-  // Send notifications
-  slackSend (color: colorCode, message: summary)
 }
