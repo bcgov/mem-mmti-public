@@ -8,7 +8,7 @@
     "start": "ng serve -o",
     "build": "npm run lint && ng build --prod",
     "pretest": "npm run lint",
-    "test": "ng test",
+    "test": "ng test --sourcemaps=false",
     "lint": "ng lint --format=stylish",
     "e2e": "ng e2e",
     "postinstall": "ng build --prod"

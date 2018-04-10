@@ -1,11 +1,20 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { Api } from './api';
+import { Http, HttpModule } from '@angular/http';
 
 import { DocumentService } from './document.service';
 
 describe('DocumentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DocumentService]
+      providers: [
+        DocumentService,
+        Api
+      ],
+      declarations: [],
+      imports: [
+        HttpModule
+      ]
     });
   });
 

@@ -1,11 +1,20 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { Api } from '../../services/api';
+import { Http, HttpModule } from '@angular/http';
 
 import { MapConfigService } from './map-config.service';
 
 describe('MapConfigService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MapConfigService]
+      providers: [
+        MapConfigService,
+        Api
+      ],
+      declarations: [],
+      imports: [
+        HttpModule
+      ]
     });
   });
 

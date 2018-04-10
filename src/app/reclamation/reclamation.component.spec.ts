@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ReclamationComponent } from './reclamation.component';
 
@@ -8,7 +10,12 @@ describe('ReclamationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReclamationComponent ]
+      providers: [],
+      declarations: [ ReclamationComponent ],
+      imports: [
+        Ng2PageScrollModule.forRoot(),
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));

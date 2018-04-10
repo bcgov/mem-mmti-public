@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { TailingsManagementComponent } from './tailings-management.component';
 
@@ -8,7 +10,14 @@ describe('TailingsManagementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TailingsManagementComponent ]
+      providers: [],
+      declarations: [
+        TailingsManagementComponent
+      ],
+      imports: [
+        Ng2PageScrollModule.forRoot(),
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));
