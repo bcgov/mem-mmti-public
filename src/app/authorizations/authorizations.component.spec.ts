@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthorizationsComponent } from './authorizations.component';
 
@@ -8,7 +10,10 @@ describe('AuthorizationsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthorizationsComponent ]
+      declarations: [ AuthorizationsComponent ],
+      imports: [
+        Ng2PageScrollModule.forRoot(),
+        RouterTestingModule ]
     })
     .compileComponents();
   }));

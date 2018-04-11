@@ -33,15 +33,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
     // wait for the resolver to retrieve the project details from back-end
     this.sub = this.route.data.subscribe(
-      (data: { project: Project }) => {
-        this.loading = false;
-        this.project = data.project;
-
-        // project not found --> navigate back to project list
-        if (!this.project || !this.project.code) {
-          this.gotoProjectList();
-        }
-      },
+      (data: { project: Project }) => this.parseData(data),
       error => console.log(error)
     );
 
@@ -50,6 +42,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       this.restoreYOffset();
     },
     error => console.log(error));
+  }
+
+  parseData(data: {project: Project}): void {
+    this.loading = false;
+      this.project = data.project;
+
+      // project not found --> navigate back to project list
+      if (!this.project || !this.project.code) {
+        this.gotoProjectList();
+      }
   }
 
   ngOnDestroy(): void {

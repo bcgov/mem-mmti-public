@@ -38,15 +38,18 @@ export class ProjectListComponent implements OnInit {
     this.loading = true;
     this.projectService.getAll().subscribe(
       data => {
-        this.projects = data;
-        this.getOperators(data);
-        this.mineCount = data ? data.length : 0;
-        this.loading = false;
-        // Needed in development mode - not required in prod.
-        this._changeDetectionRef.detectChanges();
       },
       error => console.log(error)
     );
+  }
+
+  parseData(data: Array<Project>): void {
+    this.projects = data;
+    this.getOperators(data);
+    this.mineCount = data ? data.length : 0;
+    this.loading = false;
+    // Needed in development mode - not required in prod.
+    this._changeDetectionRef.detectChanges();
   }
 
   getOperators(projects) {

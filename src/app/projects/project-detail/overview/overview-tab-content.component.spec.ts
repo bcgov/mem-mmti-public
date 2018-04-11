@@ -1,14 +1,32 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Project } from '../../../models/project';
 
 import { OverviewTabContentComponent } from './overview-tab-content.component';
 
 describe('OverviewTabContentComponent', () => {
   let component: OverviewTabContentComponent;
   let fixture: ComponentFixture<OverviewTabContentComponent>;
+  let ActivatedRouteStub;
 
   beforeEach(async(() => {
+    // stub activated route
+    ActivatedRouteStub = {
+      parent: {
+        data: {
+          subscribe: (next: (value) => void) => {
+            next({project: jasmine.createSpyObj('Project', ['getContent'])});
+            return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+          }
+        }
+      }
+    };
     TestBed.configureTestingModule({
-      declarations: [ OverviewTabContentComponent ]
+      providers: [
+        { provide: ActivatedRoute, useValue: ActivatedRouteStub }
+      ],
+      declarations: [ OverviewTabContentComponent ],
+      imports: []
     })
     .compileComponents();
   }));
