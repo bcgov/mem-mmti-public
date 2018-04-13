@@ -69,7 +69,7 @@
         <h4 class="card-header">Site Activities</h4>
         <app-site-activities [activities]="project?.sortedActivities"></app-site-activities>
       </section>
-      <section class="card">
+      <section class="card" *ngIf="project?.sortedLinks.length > 0">
         <h4 class="card-header">External Links &amp; Resources</h4>
         <ul class="nv-list">
           <li *ngFor="let l of project?.sortedLinks">
