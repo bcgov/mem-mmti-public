@@ -37,8 +37,7 @@ export class ProjectListComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.projectService.getAll().subscribe(
-      data => {
-      },
+      data => this.parseData(data),
       error => console.log(error)
     );
   }
