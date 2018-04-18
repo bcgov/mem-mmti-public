@@ -35,11 +35,6 @@
       }
     }
   ],
-  "e2e": {
-    "protractor": {
-      "config": "./protractor.conf.js"
-    }
-  },
   "lint": [
     {
       "project": "src/tsconfig.app.json"
@@ -61,6 +56,6 @@
     "component": {},
     "serve": {
       "port": 4300
-    }    
+    }
   }
 }

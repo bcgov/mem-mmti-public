@@ -2,7 +2,7 @@
 
 # Prerequisites
 
-## Node and NPM 
+## Node and NPM
 
 Node 6.x or greater must be installed.
 
@@ -14,7 +14,7 @@ Node 6.x or greater must be installed.
 npm i -g @angular/cli
 ```
 
-`ng` is the CLI itself 
+`ng` is the CLI itself
 
 **Verify the installation**
 
@@ -38,7 +38,7 @@ npm i -g yarn
     Go to http://localhost:4300 to verify that the application is running
 
     :bulb: To change the default port, open `.angular-cli.json`, change the value on `defaults.serve.port`
-    
+
 1. Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build, like so: `ng serve --prod` to run in production mode.
 1. Run `npm run lint` to lint your app code using `TSLint`
 
@@ -114,16 +114,27 @@ ng g module admin --routing
 ## Running Tests
 
 ### Unit tests
-  
-Set up via Karma, Jasmine
-1. Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### End-to-end tests
+Set up via [Karma](https://karma-runner.github.io), [Jasmine](https://jasmine.github.io/).
+1. Run `ng test` to execute the unit tests.
 
-Set up with Protractor
+### End-to-end functional tests
 
-1. Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-1. Before running the tests make sure you are serving the app via `ng serve`.
+Set up with [BDDStack](https://github.com/BCDevOps/BDDStack).
+
+#### Run tests against local application:
+
+1. Run `ng run e2e` to automatically start the application locally and execute the end-to-end tests.
+
+#### Run tests against remote application:
+
+1. Determine the URL at which the application is running.
+2. Update the baseurl to the URL from step 1:
+    1. Either modify the GebConfig.groovy baseUrl directly.
+    2. Or set a `BASEURL` environment variable
+3. See `functional-tests/readme.md` for how to execute the tests.
+
+See the [BDDStack Wiki](https://github.com/BCDevOps/BDDStack/wiki) for more information.
 
 ## Change aspects of the application
 
