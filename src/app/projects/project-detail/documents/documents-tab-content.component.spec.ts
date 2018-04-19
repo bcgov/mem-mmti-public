@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../../models/project';
-import { CollectionsArray } from 'app/models/collection';
+import { CollectionsArray, CollectionsList } from 'app/models/collection';
 
 import { DocumentsTabContentComponent } from './documents-tab-content.component';
 
@@ -37,10 +37,28 @@ describe('DocumentsTabContentComponent', () => {
     component = fixture.componentInstance;
     component.collections = new CollectionsArray();
   });
-
-  it('should be created', () => {
-    spyOn(component, 'parseData').and.stub;
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
+  describe('ngOnInit()', () => {
+    beforeEach(() => {
+      component.ngOnInit();
+    });
+    it('should return data for route.data', () => {
+      expect(ActivatedRouteStub.data).toBeTruthy;
+    });
+    it('should return project data', () => {
+      expect(component.project).toBeTruthy;
+    });
+  });
+  describe('parseData(data)', () => {
+    beforeEach(() => {
+      const data = { project: new Project() };
+      data.project.collections = new CollectionsList();
+      component.parseData(data);
+    });
+    it('should return data for this.project', () => {
+      expect(component.project).toBeTruthy;
+    });
+    it('should return data for this.project.collections', () => {
+      expect(component.project.collections).toBeTruthy;
+    });
   });
 });

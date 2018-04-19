@@ -13,9 +13,6 @@ export class OrderByPipe implements PipeTransform {
         }
 
         return records.sort(function(a, b) {
-            if (!args) {
-                return 0;
-            }
 
             let aCompare = a[args.property];
             let bCompare = b[args.property];

@@ -8,7 +8,7 @@
     "start": "ng serve -o",
     "build": "npm run lint && ng build --prod",
     "pretest": "npm run lint",
-    "test": "ng test --sourcemaps=false",
+    "test": "ng test --code-coverage",
     "lint": "ng lint --format=stylish",
     "e2e": "ng e2e",
     "postinstall": "ng build --prod"
@@ -44,10 +44,10 @@
   "devDependencies": {
     "@angular/cli": "1.2.7",
     "@types/arcgis-js-api": "4.5.0",
+    "@types/geojson": "7946.0.0",
     "@types/jasmine": "2.5.38",
     "@types/lodash": "4.14.80",
     "@types/node": "~6.0.60",
-    "@types/geojson": "7946.0.0",
     "codelyzer": "~2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
@@ -57,6 +57,7 @@
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-spec-reporter": "0.0.32",
     "protractor": "~5.1.0",
     "ts-node": "2.0.0",
     "tslint": "4.5.0"

@@ -11,7 +11,7 @@ import { Project } from '../../../models/project';
 import { OrderByPipe } from '../../../filters/order-by.pipe';
 
 import { MapModule } from '../../../map/map.module';
-import { CollectionsArray } from 'app/models/collection';
+import { CollectionsGroup, CollectionsList } from 'app/models/collection';
 
 describe('AuthorizationsTabContentComponent', () => {
   let component: AuthorizationsTabContentComponent;
@@ -51,18 +51,32 @@ describe('AuthorizationsTabContentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AuthorizationsTabContentComponent);
     component = fixture.componentInstance;
+    component.project = new Project();
+    component.project.moreInspectionsLink = null;
+    component.collections = new CollectionsGroup();
   });
-
-  it('should be created', () => {
-    spyOn(component, 'parseData').and.stub;
-    component.collections = {
-      sort: () => {},
-      eao: new CollectionsArray(),
-      env: new CollectionsArray(),
-      mem: new CollectionsArray()
-    };
-    component.project = new Project({morePermitsLink: null});
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
+  describe('ngOnInit()', () => {
+    beforeEach(() => {
+      component.ngOnInit();
+    });
+    it('should return data for route.data', () => {
+      expect(ActivatedRouteStub.data).toBeTruthy;
+    });
+    it('should return project data', () => {
+      expect(component.project).toBeTruthy;
+    });
+  });
+  describe('parseData(data)', () => {
+    beforeEach(() => {
+      const data = { project: new Project() };
+      data.project.collections = new CollectionsList();
+      component.parseData(data);
+    });
+    it('should return data this.project', () => {
+      expect(component.project).toBeTruthy;
+    });
+    it('should return data for this.project.collections', () => {
+      expect(component.project.collections).toBeTruthy;
+    });
   });
 });
