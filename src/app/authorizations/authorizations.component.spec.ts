@@ -1,19 +1,37 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Ng2PageScrollModule } from 'ng2-page-scroll';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { AuthorizationsComponent } from './authorizations.component';
 
 describe('AuthorizationsComponent', () => {
   let component: AuthorizationsComponent;
   let fixture: ComponentFixture<AuthorizationsComponent>;
+  let navigationInstance;
+  const routerStub = {
+    events: {
+      subscribe: (next: (value) => void) => {
+        next(navigationInstance);
+        return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+      }
+    },
+    parseUrl: (url) => {
+      return {
+        fragment: 'test'
+      };
+    },
+    url: 'test.test.com'
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [
+        { provide: Router, useValue: routerStub }
+      ],
       declarations: [ AuthorizationsComponent ],
       imports: [
-        Ng2PageScrollModule.forRoot(),
-        RouterTestingModule ]
+        Ng2PageScrollModule.forRoot()
+      ]
     })
     .compileComponents();
   }));
@@ -21,10 +39,15 @@ describe('AuthorizationsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AuthorizationsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should be created', inject([Router], (router) => {
+    navigationInstance = new NavigationEnd(1, 'test.test.com', 'test.test.com');
+    new AuthorizationsComponent(router);
+    expect(component).toBeTruthy();
+  }));
+  it('should be truthy', () => {
+    component.ngOnInit();
     expect(component).toBeTruthy();
   });
 });

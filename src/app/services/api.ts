@@ -16,38 +16,56 @@ export class Api {
   env: 'local' | 'dev' | 'test' | 'prod';
 
   constructor(private http: Http) {
-    const { hostname } = window.location;
+    const host = this.getHostName(window.location.hostname);
+    this.hostnameEPIC = host.hostnameEPIC;
+    this.hostnameMEM = host.hostnameMEM;
+    this.env = host.env;
+    this.pathMEM  = this.getMEMPath(this.hostnameMEM);
+    this.pathEPIC = this.getEPICPath(this.hostnameEPIC);
+  }
+
+  getHostName(hostname: string) {
+    let hostnameEPIC: string;
+    let hostnameMEM: string;
+    let env: 'local' | 'dev' | 'test' | 'prod';
+
     switch (hostname) {
       case 'localhost':
         // Local
-        this.hostnameMEM  = 'http://localhost:4000';
-        this.hostnameEPIC = 'http://localhost:3000';
-        this.env = 'local';
+        hostnameMEM  = 'http://localhost:4000';
+        hostnameEPIC = 'http://localhost:3000';
+        env = 'local';
         break;
 
       case 'www-mem-mmt-dev.pathfinder.gov.bc.ca':
         // Dev
-        this.hostnameMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
-        this.hostnameEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
-        this.env = 'dev';
+        hostnameMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
+        hostnameEPIC = 'https://esm-master.pathfinder.gov.bc.ca';
+        env = 'dev';
         break;
 
       case 'www-mem-mmt-test.pathfinder.gov.bc.ca':
         // Test
-        this.hostnameMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
-        this.hostnameEPIC = 'https://test.projects.eao.gov.bc.ca';
-        this.env = 'test';
+        hostnameMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
+        hostnameEPIC = 'https://test.projects.eao.gov.bc.ca';
+        env = 'test';
         break;
 
       default:
         // Prod
-        this.hostnameMEM  = 'https://mines.empr.gov.bc.ca';
-        this.hostnameEPIC = 'https://projects.eao.gov.bc.ca';
-        this.env = 'prod';
+        hostnameMEM  = 'https://mines.empr.gov.bc.ca';
+        hostnameEPIC = 'https://projects.eao.gov.bc.ca';
+        env = 'prod';
     };
+    return { hostnameEPIC, hostnameMEM, env };
+  }
 
-    this.pathMEM  = `${ this.hostnameMEM }/api`;
-    this.pathEPIC = `${ this.hostnameEPIC }/api`;
+  getMEMPath(hostnameMEM) {
+    return `${ hostnameMEM }/api`;
+  }
+
+  getEPICPath(hostnameEPIC) {
+    return `${ hostnameEPIC }/api`;
   }
 
   // Projects
