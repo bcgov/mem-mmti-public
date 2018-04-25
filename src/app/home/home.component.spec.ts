@@ -4,6 +4,7 @@ import { ProjectService } from '../services/project.service';
 import { Api } from '../services/api';
 import { Http, HttpModule } from '@angular/http';
 import { HomeComponent } from './home.component';
+import { Project } from '../models/project';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,8 +14,12 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     // stub project service
     ProjectServiceStub = {
-      getAll: () => {
-        return jasmine.createSpyObj('Subscription', ['subscribe']);
+      getAll: function() {
+        return {
+          subscribe: function(fn) {
+            fn(Array<Project>());
+          }
+        };
       }
     };
     TestBed.configureTestingModule({
@@ -33,8 +38,12 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
+  describe('ngOnInit()', () => {
+    it('should call projectService.getAll()', () => {
+      expect(ProjectServiceStub.getAll()).toHaveBeenCalled;
+    });
+    it('should return results data', () => {
+      expect('component.results').toBeTruthy;
+    });
   });
 });
