@@ -71,7 +71,16 @@ export class Collection {
 
       // Set documents
       this.documents = [];
-      if (collection.mainDocuments && collection.mainDocuments.length > 0) {
+
+      if (this.agency === 'eao' && collection.mainDocument) {
+        // EAO main documents are still returned as a single element
+        this.documents.push({
+          name : collection.mainDocument.document.displayName,
+          ref  : this.getURL(collection.mainDocument.document._id),
+          date : collection.mainDocument.document.documentDate ? new Date(collection.mainDocument.document.documentDate) : null
+        });
+      } else if (collection.mainDocuments && collection.mainDocuments.length > 0) {
+        // MEM main documents come in an array
         const mainDocs = collection.mainDocuments.filter((doc) => {
           return doc.document && doc.document.isPublished;
         }).sort((a, b) => { return a.sortOrder - b.sortOrder; });
