@@ -72,7 +72,7 @@ export class Collection {
       // Set documents
       this.documents = [];
 
-      if (this.agency === 'eao' && collection.mainDocument) {
+      if (this.agency === 'eao' && collection.mainDocument && collection.mainDocument.document) {
         // EAO main documents are still returned as a single element
         this.documents.push({
           name : collection.mainDocument.document.displayName,
