@@ -98,6 +98,24 @@ export class SearchTerms {
     return params;
   }
 
+  /**
+   * Sets all search parameters to their original un-set state.
+   * Sets keywords to empty string.
+   * Sets projects to empty array.
+   * Sets proponents to empty array.
+   * Sets ownerships to empty array.
+   * Sets dateStart to null.
+   * Sets dateEnd to null.
+   */
+  clear() {
+    this.keywords   = '';
+    this.projects   = [];
+    this.proponents = [];
+    this.ownerships = [];
+    this.dateStart  = null;
+    this.dateEnd    = null;
+  }
+
   private getDateParam(date: NgbDateStruct) {
     let dateParam = date.year + '-';
 
