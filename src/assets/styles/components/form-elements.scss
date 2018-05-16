@@ -8,6 +8,24 @@
     &:focus {
         border-color: $fc-focus-border-color;
     }
+
+    &__container {
+        position: relative;
+
+        .form-control {
+            padding-right: 3.25rem;
+        }
+
+        .clear-btn {
+            position: absolute; 
+            top: 1px;
+            right: 1px;
+            bottom: 1px;
+            width: 3rem;
+            padding: 0.5rem;
+            background: transparent;
+        }
+    }
 }
 
 input {

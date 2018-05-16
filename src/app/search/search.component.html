@@ -11,38 +11,49 @@
         <form #f="ngForm" class="search-form ui form" (ngSubmit)="onSubmit()">
 
           <div class="search-form__basic-search-fields">
-            <div class="form-group mb-0">
-              <input class="form-control" type="text" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
-                [disabled]="protoSearchActive" [(ngModel)]="terms.keywords"/>
+            <div class="keyword-input form-group has-feedback mb-0">
+              <div class="form-control__container">
+                <input class="form-control" type="text" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
+                  [disabled]="protoSearchActive" [(ngModel)]="terms.keywords"/>
+                <button class="clear-btn btn btn-default" (click)="clearKeywords()" *ngIf="terms.keywords" title="Clear Keywords">
+                  <i class="material-icons">close</i>
+                </button>
+              </div>
             </div>
             <div class="form-group mb-0">
                 <label></label>
                 <div class="form-inline">
                   <label class="sr-only" for="dateRangeStart">Start Date</label>
-                  <input class="form-control" type="text" placeholder="Start Date" name="dateRangeStartInput" id="dateRangeStart"
-                    #dateRangeStart="ngbDatepicker"
-                    ngbDatepicker
-                    [minDate]="minDate"
-                    [maxDate]="terms.dateEnd || maxDate"
-                    readonly
-                    [disabled]="protoSearchActive"
-                    (click)="dateRangeStart.toggle();dateRangeEnd.close();"
-                    [(ngModel)]="terms.dateStart"/>
+                  <div class="form-control__container">
+                    <input class="form-control date-input" type="text" placeholder="Start Date" name="dateRangeStartInput" id="dateRangeStart"
+                      #dateRangeStart="ngbDatepicker"
+                      ngbDatepicker
+                      [minDate]="minDate"
+                      [maxDate]="terms.dateEnd || maxDate"
+                      readonly
+                      [disabled]="protoSearchActive"
+                      (click)="dateRangeStart.toggle();dateRangeEnd.close();"
+                      [(ngModel)]="terms.dateStart"/>
+                    <button class="clear-btn btn btn-default" (click)="clearDateStart()" *ngIf="terms.dateStart" title="Clear Start Date">
+                      <i class="material-icons">close</i>
+                    </button>
+                  </div>
                   <span class="date-range__spacer"> &nbsp;&nbsp; - &nbsp;&nbsp; </span>
                   <label class="sr-only" for="dateRangeEnd">End Date</label>
-                  <input class="form-control" type="text" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
-                    #dateRangeEnd="ngbDatepicker"
-                    ngbDatepicker
-                    [minDate]="terms.dateStart || minDate"
-                    [maxDate]="maxDate"
-                    readonly
-                    [disabled]="protoSearchActive"
-                    (click)="dateRangeEnd.toggle();dateRangeStart.close();"
-                    [(ngModel)]="terms.dateEnd"/>
-                    <span class="date-range__spacer"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                    <button class="btn content-btn-alt" (click)="clearTerms()" *ngIf="terms.keywords || terms.dateStart || terms.dateEnd">
-                        Clear Filters
+                  <div class="form-control__container">
+                    <input class="form-control date-input" type="text" placeholder="End Date" name="dateRangeEndInput" id="dateRangeEnd"
+                      #dateRangeEnd="ngbDatepicker"
+                      ngbDatepicker
+                      [minDate]="terms.dateStart || minDate"
+                      [maxDate]="maxDate"
+                      readonly
+                      [disabled]="protoSearchActive"
+                      (click)="dateRangeEnd.toggle();dateRangeStart.close();"
+                      [(ngModel)]="terms.dateEnd"/>
+                    <button class="clear-btn btn btn-default" (click)="clearDateEnd()" *ngIf="terms.dateEnd" title="Clear End Date">
+                      <i class="material-icons">close</i>
                     </button>
+                  </div>
                 </div>
               </div>
           </div>

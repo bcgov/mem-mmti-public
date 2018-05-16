@@ -54,41 +54,59 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('clearTerms()', () => {
-    it('clears the search fields', () => {
-      expect(component.terms.keywords).toEqual('');
-      expect(component.terms.projects).toEqual([]);
-      expect(component.terms.proponents).toEqual([]);
-      expect(component.terms.ownerships).toEqual([]);
-      expect(component.terms.dateStart).toEqual(null);
-      expect(component.terms.dateEnd).toEqual(null);
+  describe('clear fields', () => {
+    let project: Project;
+    let proponent: Proponent;
 
-      const project = new Project();
-      const proponent = new Proponent();
+    beforeEach(() => {
+      project = new Project();
+      proponent = new Proponent();
 
       component.terms.keywords = 'some search keywords';
       component.terms.projects = [project];
       component.terms.proponents = [proponent];
       component.terms.ownerships = [proponent];
-      component.terms.dateStart = { day: null, month: null, year: null };
-      component.terms.dateEnd = { day: null, month: null, year: null };
+      component.terms.dateStart = { day: 1, month: 2, year: 3 };
+      component.terms.dateEnd = { day: 4, month: 5, year: 6 };
+    });
 
-      expect(component.terms.keywords).toEqual('some search keywords');
-      expect(component.terms.projects).toEqual([project]);
-      expect(component.terms.proponents).toEqual([proponent]);
-      expect(component.terms.ownerships).toEqual([proponent]);
-      expect(component.terms.dateStart).toEqual({ day: null, month: null, year: null });
-      expect(component.terms.dateEnd).toEqual({ day: null, month: null, year: null });
+    describe('clearKeywords()', () => {
+      it('clears the keywords field', () => {
+        component.clearKeywords();
 
-      component.clearTerms();
-      fixture.detectChanges();
+        expect(component.terms.keywords).toEqual('');
+        expect(component.terms.projects).toEqual([project]);
+        expect(component.terms.proponents).toEqual([proponent]);
+        expect(component.terms.ownerships).toEqual([proponent]);
+        expect(component.terms.dateStart).toEqual({ day: 1, month: 2, year: 3 });
+        expect(component.terms.dateEnd).toEqual({ day: 4, month: 5, year: 6 });
+      });
+    });
 
-      expect(component.terms.keywords).toEqual('');
-      expect(component.terms.projects).toEqual([]);
-      expect(component.terms.proponents).toEqual([]);
-      expect(component.terms.ownerships).toEqual([]);
-      expect(component.terms.dateStart).toEqual(null);
-      expect(component.terms.dateEnd).toEqual(null);
+    describe('clearDateStart()', () => {
+      it('clears the dateStart field', () => {
+        component.clearDateStart();
+
+        expect(component.terms.keywords).toEqual('some search keywords');
+        expect(component.terms.projects).toEqual([project]);
+        expect(component.terms.proponents).toEqual([proponent]);
+        expect(component.terms.ownerships).toEqual([proponent]);
+        expect(component.terms.dateStart).toEqual(null);
+        expect(component.terms.dateEnd).toEqual({ day: 4, month: 5, year: 6 });
+      });
+    });
+
+    describe('cleartDateEnd', () => {
+      it('clears the dateEnd field', () => {
+        component.clearDateEnd();
+
+        expect(component.terms.keywords).toEqual('some search keywords');
+        expect(component.terms.projects).toEqual([project]);
+        expect(component.terms.proponents).toEqual([proponent]);
+        expect(component.terms.ownerships).toEqual([proponent]);
+        expect(component.terms.dateStart).toEqual({ day: 1, month: 2, year: 3 });
+        expect(component.terms.dateEnd).toEqual(null);
+      });
     });
   });
 });
