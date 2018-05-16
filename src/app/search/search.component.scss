@@ -3,6 +3,11 @@
 
 $search-input-font-size: 0.9375rem;
 
+// in IE: search bars come with their own 'x' clear button.  Remove it in favour of our custom one.
+::-ms-clear {
+    display: none;
+}
+
 .hero-banner {
     height: auto;
 

@@ -15,7 +15,7 @@
               <div class="form-control__container">
                 <input class="form-control" type="text" placeholder="Enter Keywords..." name="keywordInput" id="keywordInput"
                   [disabled]="protoSearchActive" [(ngModel)]="terms.keywords"/>
-                <button class="clear-btn btn btn-default" (click)="clearKeywords()" *ngIf="terms.keywords" title="Clear Keywords">
+                <button class="clear-btn btn btn-default" (click)="clearKeywords()" *ngIf="terms.keywords" title="Clear Keywords" type="button">
                   <i class="material-icons">close</i>
                 </button>
               </div>
@@ -34,7 +34,7 @@
                       [disabled]="protoSearchActive"
                       (click)="dateRangeStart.toggle();dateRangeEnd.close();"
                       [(ngModel)]="terms.dateStart"/>
-                    <button class="clear-btn btn btn-default" (click)="clearDateStart()" *ngIf="terms.dateStart" title="Clear Start Date">
+                    <button class="clear-btn btn btn-default" (click)="clearDateStart()" *ngIf="terms.dateStart" title="Clear Start Date" type="button">
                       <i class="material-icons">close</i>
                     </button>
                   </div>
@@ -50,7 +50,7 @@
                       [disabled]="protoSearchActive"
                       (click)="dateRangeEnd.toggle();dateRangeStart.close();"
                       [(ngModel)]="terms.dateEnd"/>
-                    <button class="clear-btn btn btn-default" (click)="clearDateEnd()" *ngIf="terms.dateEnd" title="Clear End Date">
+                    <button class="clear-btn btn btn-default" (click)="clearDateEnd()" *ngIf="terms.dateEnd" title="Clear End Date" type="button">
                       <i class="material-icons">close</i>
                     </button>
                   </div>
