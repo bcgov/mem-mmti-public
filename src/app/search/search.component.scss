@@ -132,7 +132,7 @@ $search-input-font-size: 0.9375rem;
         margin-bottom: 0.25rem;
         padding: 1rem;
         flex-flow: column wrap;
-        align-items: left;
+        align-items: flex-start;
 
         &__actions {
             margin-top: 1.25rem;
