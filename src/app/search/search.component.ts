@@ -224,4 +224,9 @@ export class SearchComponent implements OnInit {
   loadMore() {
     this.doSearch(false);
   }
+
+  clearTerms() {
+    this.terms.clear();
+    this.router.navigate(['search']);
+  }
 }

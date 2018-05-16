@@ -39,6 +39,10 @@
                     [disabled]="protoSearchActive"
                     (click)="dateRangeEnd.toggle();dateRangeStart.close();"
                     [(ngModel)]="terms.dateEnd"/>
+                    <span class="date-range__spacer"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                    <button class="btn content-btn-alt" (click)="clearTerms()" *ngIf="terms.keywords || terms.dateStart || terms.dateEnd">
+                        Clear Filters
+                    </button>
                 </div>
               </div>
           </div>
