@@ -225,8 +225,18 @@ export class SearchComponent implements OnInit {
     this.doSearch(false);
   }
 
-  clearTerms() {
-    this.terms.clear();
-    this.router.navigate(['search']);
+  clearKeywords() {
+    this.terms.keywords = '';
+    this.onSubmit();
+  }
+
+  clearDateStart() {
+    this.terms.dateStart = null;
+    this.onSubmit();
+  }
+
+  clearDateEnd() {
+    this.terms.dateEnd = null;
+    this.onSubmit();
   }
 }
