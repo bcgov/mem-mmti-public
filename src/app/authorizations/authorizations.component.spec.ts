@@ -46,8 +46,4 @@ describe('AuthorizationsComponent', () => {
     new AuthorizationsComponent(router);
     expect(component).toBeTruthy();
   }));
-  it('should be truthy', () => {
-    component.ngOnInit();
-    expect(component).toBeTruthy();
-  });
 });

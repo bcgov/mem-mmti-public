@@ -14,23 +14,17 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     // stub project service
     ProjectServiceStub = {
-      getAll: function() {
-        return {
-          subscribe: function(fn) {
-            fn(Array<Project>());
-          }
-        };
-      }
+      getAll: jasmine.createSpy().and.returnValue({
+        subscribe: function(fn) {
+          fn(Array<Project>());
+        }
+      })
     };
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      providers: [
-        {provide: ProjectService, useValue: ProjectServiceStub},
-        Api
-      ],
-      imports: [ RouterTestingModule, HttpModule ]
-    })
-    .compileComponents();
+      declarations: [HomeComponent],
+      providers: [{ provide: ProjectService, useValue: ProjectServiceStub }, Api],
+      imports: [RouterTestingModule, HttpModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -40,10 +34,7 @@ describe('HomeComponent', () => {
   });
   describe('ngOnInit()', () => {
     it('should call projectService.getAll()', () => {
-      expect(ProjectServiceStub.getAll()).toHaveBeenCalled;
-    });
-    it('should return results data', () => {
-      expect('component.results').toBeTruthy;
+      expect(ProjectServiceStub.getAll).toHaveBeenCalled();
     });
   });
 });

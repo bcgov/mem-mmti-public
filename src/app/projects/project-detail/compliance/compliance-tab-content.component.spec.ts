@@ -59,11 +59,8 @@ describe('ComplianceTabContentComponent', () => {
     beforeEach(() => {
       component.ngOnInit();
     });
-    it('should return data for route.data', () => {
-      expect(ActivatedRouteStub.data).toBeTruthy;
-    });
     it('should return project data', () => {
-      expect(component.project).toBeTruthy;
+      expect(component.project).toBeTruthy();
     });
   });
   describe('parseData(data)', () => {
@@ -73,10 +70,10 @@ describe('ComplianceTabContentComponent', () => {
       component.parseData(data);
     });
     it('should return data this.project', () => {
-      expect(component.project).toBeTruthy;
+      expect(component.project).toBeTruthy();
     });
     it('should return data for this.project.collections', () => {
-      expect(component.project.collections).toBeTruthy;
+      expect(component.project.collections).toBeTruthy();
     });
     it('should set sortField to date', () => {
       expect(component.sortField).toBe('date');

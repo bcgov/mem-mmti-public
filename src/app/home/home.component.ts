@@ -9,7 +9,6 @@ import { Api } from '../services/api';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  results: Array<Home>;
   numProjects: Number;
   hostname: String;
   constructor( private projectService: ProjectService, private api: Api) { }
