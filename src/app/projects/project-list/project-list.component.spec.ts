@@ -24,13 +24,11 @@ describe('ProjectComponent', () => {
     // stub project service
     // mock service
     ProjectServiceStub = {
-      getAll: function() {
-        return {
-          subscribe: function(fn) {
-            fn(Array<Project>());
-          }
-        };
-      }
+      getAll: jasmine.createSpy().and.returnValue({
+        subscribe: function(fn) {
+          fn(Array<Project>());
+        }
+      })
     };
     TestBed.configureTestingModule({
       providers: [
@@ -66,10 +64,10 @@ describe('ProjectComponent', () => {
     });
 
     it('should call projectService.getAll()', () => {
-      expect(ProjectServiceStub.getAll()).toHaveBeenCalled;
+      expect(ProjectServiceStub.getAll).toHaveBeenCalled();
     });
     it('should return projects data', () => {
-      expect(component.projects).toBeTruthy;
+      expect(component.projects).toBeTruthy();
     });
   });
   describe('parseData(data)', () => {
@@ -172,37 +170,37 @@ describe('ProjectComponent', () => {
     it('should set filter to undefined', () => {
       component.filter = 'filtertest';
       component.clearAllProjectFilters();
-      expect(component.filter).toBeFalsy;
+      expect(component.filter).toBeFalsy();
     });
     it('should set NewsTypeFilter to be undefined', () => {
       component.projectTypeFilter = '';
       component.clearAllProjectFilters();
-      expect(component.projectTypeFilter).toBeFalsy;
+      expect(component.projectTypeFilter).toBeFalsy();
     });
     it('should set typefilter to be undefined', () => {
       component.typefilter = '';
       component.clearAllProjectFilters();
-      expect(component.typefilter).toBeFalsy;
+      expect(component.typefilter).toBeFalsy();
     });
     it('should set opteratorListFilter to be undefined', () => {
       component.operatorListFilter = '';
       component.clearAllProjectFilters();
-      expect(component.operatorListFilter).toBeFalsy;
+      expect(component.operatorListFilter).toBeFalsy();
     });
     it('should set operatorfilter to be undefined', () => {
       component.operatorfilter = '';
       component.clearAllProjectFilters();
-      expect(component.operatorfilter).toBeFalsy;
+      expect(component.operatorfilter).toBeFalsy();
     });
     it('should set projectStatusFilter to be undefined', () => {
       component.projectStatusFilter = '';
       component.clearAllProjectFilters();
-      expect(component.projectStatusFilter).toBeFalsy;
+      expect(component.projectStatusFilter).toBeFalsy();
     });
     it('should set statusfilter to be undefined', () => {
       component.statusfilter = '';
       component.clearAllProjectFilters();
-      expect(component.statusfilter).toBeFalsy;
+      expect(component.statusfilter).toBeFalsy();
     });
   });
 });

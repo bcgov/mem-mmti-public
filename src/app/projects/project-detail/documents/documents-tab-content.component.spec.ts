@@ -9,6 +9,7 @@ describe('DocumentsTabContentComponent', () => {
   let component: DocumentsTabContentComponent;
   let fixture: ComponentFixture<DocumentsTabContentComponent>;
   let ActivatedRouteStub;
+  const project: Project = new Project({ collections: { documents: { sort: () => {} } } });
 
   beforeEach(async(() => {
     // stub activated route
@@ -16,7 +17,7 @@ describe('DocumentsTabContentComponent', () => {
       parent: {
         data: {
           subscribe: (next: (value) => void) => {
-            next({project: Project});
+            next({project});
             return jasmine.createSpyObj('Subscription', ['unsubscribe']);
           }
         }
@@ -41,11 +42,8 @@ describe('DocumentsTabContentComponent', () => {
     beforeEach(() => {
       component.ngOnInit();
     });
-    it('should return data for route.data', () => {
-      expect(ActivatedRouteStub.data).toBeTruthy;
-    });
     it('should return project data', () => {
-      expect(component.project).toBeTruthy;
+      expect(component.project).toBeTruthy();
     });
   });
   describe('parseData(data)', () => {
@@ -55,10 +53,10 @@ describe('DocumentsTabContentComponent', () => {
       component.parseData(data);
     });
     it('should return data for this.project', () => {
-      expect(component.project).toBeTruthy;
+      expect(component.project).toBeTruthy();
     });
     it('should return data for this.project.collections', () => {
-      expect(component.project.collections).toBeTruthy;
+      expect(component.project.collections).toBeTruthy();
     });
   });
 });

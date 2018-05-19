@@ -76,10 +76,10 @@ describe('ProjectDetailComponent', () => {
 
   describe('ngOnInit()', () => {
     it('should return data for route.data', () => {
-      expect(ActivatedRouteStub.data).toBeTruthy;
+      expect(ActivatedRouteStub.data).toBeTruthy();
     });
     it('should return project data', () => {
-      expect(component.project).toBeTruthy;
+      expect(component.project).toBeTruthy();
     });
   });
   describe('parseData(data)', () => {
@@ -111,28 +111,4 @@ describe('ProjectDetailComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/map', { project: component.project.code}]);
     });
   });
-  // TODO scrollTo does not appear to be working as expected.
-  // describe('persistYOffset()', () => {
-  //   it('should save pageYOffset', () => {
-  //     window.scrollTo(0, 10);
-  //     component.persistYOffset();
-  //     expect(window.pageYOffset).toBe(10);
-  //   });
-  // });
-  // describe('restoreYOffset()', () => {
-  //   it('leaves window where it is', () => {
-  //     window.scrollTo(0, 0);
-  //     component.persistYOffset();
-  //     component.restoreYOffset();
-  //     expect(window.pageYOffset).toBe(0);
-  //   });
-  //   it('should move window to pageYOffset', () => {
-  //     window.scrollTo(0, 10);
-  //     component.persistYOffset();
-  //     window.scrollTo(0, 0);
-  //     expect(window.pageYOffset).toBe(0);
-  //     component.restoreYOffset();
-  //     expect(window.pageYOffset).toBe(10);
-  //   });
-  // });
 });
