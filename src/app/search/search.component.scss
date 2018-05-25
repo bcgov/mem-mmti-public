@@ -119,6 +119,10 @@ $search-input-font-size: 0.9375rem;
         span {
             display: inline;
         }
+        
+        strong {
+            font-weight: 600;
+        }
     }
 
     &__header {
@@ -128,6 +132,7 @@ $search-input-font-size: 0.9375rem;
             font-weight: 600;
         }
     }
+    
     &__footer {
         text-align: center;
     }
@@ -158,8 +163,8 @@ $search-input-font-size: 0.9375rem;
 
         &__description {
             margin-top: 1rem;
+            width: 100%;
             overflow: hidden;
-            word-break: break-all;
             line-height: calc(0.875rem * 1.5);
             font-size: 0.875rem;
         }
