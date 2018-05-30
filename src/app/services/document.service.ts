@@ -47,7 +47,9 @@ export class DocumentService {
         });
       });
       memProjectQuery += '&project=' + params['projects'];
-      epicProjectQuery += '&projectcode=' + epicQuery;
+      if (epicQuery.length) {
+        epicProjectQuery += '&projectcode=' + epicQuery;
+      }
     } else {
       // Make sure we query all the projects by default
       const projectQuery = [];
@@ -135,17 +137,20 @@ export class DocumentService {
       }
       return data;
     });
-    const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`)
-    .map((res: Response) => {
-      const data = res.text() ? res.json() : { count: 0, results: [] };
-      if (data.results) {
-        data.results.forEach(i => {
-          i.hostname = this.api.hostnameEPIC;
-        });
-      }
-      return data;
-    });
 
-    return Observable.forkJoin([mem, epic]);
+    if (epicProjectQuery) {
+      const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`)
+      .map((res: Response) => {
+        const data = res.text() ? res.json() : { count: 0, results: [] };
+        if (data.results) {
+          data.results.forEach(i => {
+            i.hostname = this.api.hostnameEPIC;
+          });
+        }
+        return data;
+      });
+      return Observable.forkJoin([mem, epic]);
+    }
+    return Observable.forkJoin([mem]);
   }
 }

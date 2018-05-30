@@ -58,7 +58,7 @@
               </div>
           </div>
 
-          <!-- <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
+          <div class="search-form__advanced-search-fields mt-4" id="advancedSearchFields" [hidden]="!showAdvancedFields">
             <div class="form-group mb-4">
               <label for="projects">Project</label>
               <tag-input class="form-control" name='projectInput'
@@ -127,7 +127,7 @@
                   [(ngModel)]="terms.dateEnd"/>
               </div>
             </div>
-          </div> -->
+          </div>
 
           <div class="search-form__btn-container tmp">
             <button class="search-form__search-btn btn btn-primary slide-l-btn"
@@ -142,15 +142,14 @@
               <i class="material-icons">search</i><span>Searching...</span>
             </button>
 
-            <!-- <button class="search-form__toggle-advanced-btn btn btn-link" type="button" (click)="toggleAdvancedSearch()">
+            <button class="search-form__toggle-advanced-btn btn btn-link" type="button" (click)="toggleAdvancedSearch()">
               <span *ngIf="!showAdvancedFields">
                   <i class="material-icons">add_box</i> Show Advanced
               </span>
               <span *ngIf="showAdvancedFields">
                 <i class="material-icons">indeterminate_check_box</i> Hide Advanced
               </span>
-            </button> -->
-
+            </button>
           </div>
         </form>
 
