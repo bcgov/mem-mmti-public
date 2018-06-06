@@ -191,23 +191,25 @@ export class SearchComponent implements OnInit {
     this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
       data => {
         this.loading = false;
-
-        // Push in 1st call
+        let memCount = 0;
+        let epicCount = 0;
+        // mem-data
         if (data[0].results) {
+
           data[0].results.forEach(i => {
             this.results.push(i);
           });
+          memCount = data[0].count;
         }
 
-        // Push in 2nd call
-        if (data[1].results) {
+        // esm-server data
+        if (data.length === 2) {
           data[1].results.forEach(i => {
             this.results.push(i);
           });
+          epicCount = data[1].count;
         }
-
-        this.count = (data[0].count || 0) + (data[1].count || 0);
-
+        this.count = memCount + epicCount;
         this.noMoreResults = (this.results.length === this.count) || (data[0].results.length === 0 && data[1].results.length === 0);
 
         // Needed in development mode - not required in prod.
