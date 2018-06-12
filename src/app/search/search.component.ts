@@ -221,6 +221,8 @@ export class SearchComponent implements OnInit {
 
   onSubmit() {
     this.router.navigate(['search', this.terms.getParams()]);
+    document.getElementById('anchor-point').scrollIntoView();
+
   }
 
   loadMore() {
