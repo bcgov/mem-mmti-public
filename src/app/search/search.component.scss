@@ -119,7 +119,7 @@ $search-input-font-size: 0.9375rem;
         span {
             display: inline;
         }
-        
+
         strong {
             font-weight: 600;
         }
@@ -132,7 +132,7 @@ $search-input-font-size: 0.9375rem;
             font-weight: 600;
         }
     }
-    
+
     &__footer {
         text-align: center;
     }
@@ -285,6 +285,10 @@ tag-input {
                         fill: #fff;
                     }
                 }
+            }
+
+            ::-ms-clear {
+                display: none;
             }
         }
     }
