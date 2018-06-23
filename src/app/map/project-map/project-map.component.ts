@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { MapConfigService } from '../config/map-config.service';
 import { Project } from '../../models/project';
+import { whenLayersReady, findLayerByTitle, setLayerFilter } from '../support/map-utils';
 
 @Component({
   selector: 'app-project-map',
@@ -15,6 +16,9 @@ export class ProjectMapComponent implements OnInit {
   map: __esri.Map;
   mapView: __esri.MapView;
 
+  pointLayerTitle: string;
+  pointLayer: __esri.FeatureLayer;
+
   @Input() project: Project;
   @Input() zoom = 6;
 
@@ -24,51 +28,28 @@ export class ProjectMapComponent implements OnInit {
     const props = this.config.get();
     const { latitude, longitude } = this.project;  // ES6 destructuring
 
+    this.pointLayerTitle = props.mainMap.pointLayerTitle;
     this.webMapProperties = props.mainMap.webmap;
     this.mapViewProperties = { ...props.mainMap.mapView, zoom: this.zoom, center: { latitude, longitude } };
   }
 
   onMapInit(mapInfo: { map: __esri.Map, mapView: __esri.MapView }): void {
-    const args = {
-      ...mapInfo,
-      featureLayer: <__esri.FeatureLayer>null
-    };
+    const map = mapInfo.map;
+    const view = mapInfo.mapView;
+    const projectId = this.project.code;
 
-    Promise.resolve(args)
-      // store local references to map and view
-      .then(obj => {
-        this.map = obj.map;
-        this.mapView = obj.mapView;
-        return obj;
-      })
-      // find the feature layer with `project` data
-      .then(obj => {
-        const { map } = obj;  // es6 destructuring
-        obj.featureLayer = this.findFeatureLayer(map);
-        return obj;
-      })
-      // filter out all projects except the one we want to show
-      .then(obj => {
-        const { featureLayer } = obj;  // es6 destructuring
-        return this.showSingleProject(featureLayer, this.project.code)
-          .then(() => obj);
-      });
-  }
+    // find the feature layer with `project` data
+    const layerTitle = this.pointLayerTitle;
+    const featureLayer = <__esri.FeatureLayer>findLayerByTitle(map, layerTitle);
 
-  private findFeatureLayer(map: __esri.Map): __esri.FeatureLayer {
-    // need to cast the layer as FeatureLayer to make TypeScript happy
-    return map.layers.find(lyr => lyr.type === 'feature') as __esri.FeatureLayer;
-  }
+    // store local references to map and view
+    this.map = map;
+    this.mapView = view;
+    this.pointLayer = featureLayer;
 
-  private showSingleProject(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      // set the definition expression directly on layer instance to only display a single project
-      return featureLayer.then(
-        (fl: __esri.FeatureLayer) => {
-          fl.definitionExpression = `code = '${projectId}'`;
-        })
-        .then(() => resolve())
-        .otherwise(reject);
-    });
+    // 1- wait for layers to load
+    // 2- filter out all projects except the one we want to show
+    whenLayersReady([featureLayer])
+      .then(() => setLayerFilter(featureLayer, projectId));
   }
 }
