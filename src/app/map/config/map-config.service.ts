@@ -4,13 +4,14 @@ import { Api } from 'app/services/api';
 import { GeocoderSettings } from '../widgets/support/geocoder';
 
 const webmaps = {
-  dev: 'b8ea19982bd74db3bd968d3c7f038e43',
-  test: 'b8ea19982bd74db3bd968d3c7f038e43',
+  dev: 'f08adba6da4a458f99a73099ad218fb3',
+  test: 'f08adba6da4a458f99a73099ad218fb3',
   prod: 'b8ea19982bd74db3bd968d3c7f038e43'
 };
 
 export interface MapConfig {
   mainMap?: {
+    pointLayerTitle?: string;
     webmap?: __esri.WebMapProperties,
     mapView?: __esri.MapViewProperties,
     popup?: __esri.PopupTemplateProperties,
@@ -27,6 +28,7 @@ export class MapConfigService {
     const webmapId = this.webmapForEnv(this.api.env);
     return {
       mainMap: {
+        pointLayerTitle: 'MMTI Major Mines',
         webmap: {
           portalItem: { id: webmapId }
         },

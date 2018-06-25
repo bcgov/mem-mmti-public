@@ -21,6 +21,16 @@
     esri-map {
         @include fill-parent(absolute);
     }
+
+    .__btn-container {
+        display: inline-block;
+        position: relative;
+        top: 15px;
+        left: 50%;
+        z-index: 1000;
+        padding: 0.75rem 1rem;
+        background: $bg-dark;
+    }
 }
 
 @media (min-width: 1024px) {
