@@ -1,6 +1,4 @@
 <div class="map-container">
-  <div class="__btn-container">
-    <button class="toggle-btn btn inverted" (click)="toggle()">{{ boundariesButtonText }}</button>
-  </div>
+  <button class="toggle-boundary-btn btn btn-default" (click)="toggle()">{{ boundariesButtonText }}</button>
   <esri-map [webMapProperties]="webMapProperties" [mapViewProperties]="mapViewProperties" [suppressPopupActions]="true" (mapInit)="onMapInit($event)"></esri-map>
 </div>
