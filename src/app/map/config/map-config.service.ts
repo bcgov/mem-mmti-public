@@ -15,6 +15,7 @@ export interface MapConfig {
     webmap?: __esri.WebMapProperties,
     mapView?: __esri.MapViewProperties,
     popup?: __esri.PopupTemplateProperties,
+    mouseover?: __esri.PopupTemplateProperties,
     geocoder?: GeocoderSettings;
   };
 }
@@ -42,6 +43,7 @@ export class MapConfigService {
           }
         },
         popup: this.defaultPopupTemplate,
+        mouseover: this.defaultMouseoverTemplate,
         geocoder: {
           type: 'databc',  // One of: [databc, arcgis]
         }
@@ -66,6 +68,13 @@ export class MapConfigService {
                     </a>
                   <div>
                 </div>`
+    };
+  }
+
+  get defaultMouseoverTemplate(): __esri.PopupTemplateProperties {
+    return {
+      title: '{name}',
+      content: `<div class="map-mouseover-hidden-description-content"></div>`
     };
   }
 
