@@ -16,6 +16,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
   webMapProperties: __esri.WebMapProperties;
   mapViewProperties: __esri.MapViewProperties;
   popupProperties: __esri.PopupTemplateProperties;
+  mouseoverProperties: __esri.PopupTemplateProperties;
   geocoderProperties: any;
   map: __esri.Map;
   mapView: __esri.MapView;
@@ -45,6 +46,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.webMapProperties = props.mainMap.webmap;
     this.mapViewProperties = props.mainMap.mapView;
     this.popupProperties = props.mainMap.popup;
+    this.mouseoverProperties = props.mainMap.mouseover;
     this.geocoderProperties = props.mainMap.geocoder;
     this.boundariesVisible = this.showBoundaries;
   }
@@ -58,6 +60,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
     const view = mapInfo.mapView;
     const widgetBuilder = this.widgetBuilder;
     const popupProperties = this.popupProperties;
+    const mouseoverProperties = this.mouseoverProperties;
     const geocoder = this.geocoderProperties;
 
     // find the feature layer with `project` data.
@@ -71,10 +74,12 @@ export class MainMapComponent implements OnInit, OnDestroy {
 
     // 1- wait for layers to load
     // 2- set map popup to match our custom styling
-    // 3- create interactive map controls (e.g. zoom, search widgets)
-    // 4- automatically show project popup on the map when coming from project details page
+    // 3- set map mouseovers to match our custom styling
+    // 4- create interactive map controls (e.g. zoom, search widgets)
+    // 5- automatically show project popup on the map when coming from project details page
     utils.whenLayersReady([featureLayer])
-      .then(() => utils.setPopupTemplate(featureLayer, popupProperties))
+      .then(() => utils.setPopupTemplate(featureLayer, view, popupProperties))
+      .then(() => utils.setMouseoverTemplate(featureLayer, view, mouseoverProperties, popupProperties))
       .then(() => utils.addWidgets(view, widgetBuilder, { search: { featureLayer, geocoder } }))
       .then(() => {
         // grabbing route parameters (the Observable way)

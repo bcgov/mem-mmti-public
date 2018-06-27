@@ -55,7 +55,8 @@ export function findProjectById(pointLayer: __esri.FeatureLayer, projectId: stri
  * When set on the layer, the popupTemplate allows users to access attributes and
  * display their values in the view's popup when a feature is selected on the map.
  */
-export function setPopupTemplate(featureLayer: __esri.FeatureLayer, popupTemplate: __esri.PopupTemplateProperties): Promise<void> {
+export function setPopupTemplate(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
+   popupTemplate: __esri.PopupTemplateProperties): Promise<void> {
   if (!popupTemplate) {
     return Promise.resolve();
   }
@@ -65,9 +66,115 @@ export function setPopupTemplate(featureLayer: __esri.FeatureLayer, popupTemplat
   const popupPromise = whenReady(featureLayer).then(() => {
     featureLayer.popupTemplate.title = popupTemplate.title;
     featureLayer.popupTemplate.content = popupTemplate.content;
-  });
+  }) && whenReady(mapView).then(() => {
+      // we need the mapview to access the mouseover event, which is now called pointer-move in esri 4.7
+      mapView.whenLayerView(featureLayer).then(function(lv) {
+        mapView.on('click', onClickHandler(featureLayer, mapView, popupTemplate));
+      });
+    });
   return toNativePromise(popupPromise);
 }
+
+/**
+ * Sets the mouseover popup template and event handler for the mapview.
+ */
+export function setMouseoverTemplate(
+ featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
+ mouseoverTemplate: __esri.PopupTemplateProperties, popupTemplate: __esri.PopupTemplateProperties): Promise<void> {
+  if (!(mouseoverTemplate) || !(popupTemplate)) {
+    return Promise.resolve();
+  }
+
+  // the `esri/MapView` instance is promise-based...
+  // call the .when() method to execute code once the mapView is ready
+  const mouseoverPromise = whenReady(mapView).then(() => {
+      // we need the mapview to access the mouseover event, which is now called pointer-move in esri 4.7
+      mapView.whenLayerView(featureLayer).then(function(lv) {
+        mapView.on('pointer-move', onMouseoverHandler(featureLayer, mapView, mouseoverTemplate, popupTemplate));
+      });
+    });
+  return toNativePromise(mouseoverPromise);
+}
+
+/**
+ * Resets the popup template for the layer whenever the user clicks a pin.
+ * We need to do this because we are alternating between real click popups
+ * and fake popups we use to simulate mouseover tooltips.  We need to switch
+ * the skins so that it appears seamless to the user.
+ */
+export function onClickHandler(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
+  popupTemplate: __esri.PopupTemplateProperties) {
+  return function() {
+    resetToPopupStyle(featureLayer, mapView, popupTemplate);
+  };
+}
+
+/**
+ * Resets the popup template for the layer.
+ * We need to do this because we are alternating between real click popups
+ * and fake popups we use to simulate mouseover tooltips.  We need to switch
+ * the skins so that it appears seamless to the user.
+ */
+export function resetToPopupStyle(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
+  popupTemplate: __esri.PopupTemplateProperties) {
+   if (null !== mapView.popup.title) {
+     const currentPopupTitle = String(mapView.popup.title.toString());
+
+     if (currentPopupTitle.includes('moTitle') || 0 === currentPopupTitle.length) {
+       mapView.popup.close();
+     }
+   }
+   if (popupTemplate) {
+     featureLayer.popupTemplate.title = popupTemplate.title;
+     featureLayer.popupTemplate.content = popupTemplate.content;
+   }
+   mapView.popup.dockOptions = {
+     buttonEnabled: true
+   };
+ }
+
+/**
+ * Event handler for mouseovers on the map pins.
+ * Sets the correct popup style, making a quasi tooltip out of the esri popups.
+ * Displays the pin name in the popup title and hides the popup content.
+ */
+ export function onMouseoverHandler(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
+  mouseoverTemplate: __esri.PopupTemplateProperties, popupTemplate: __esri.PopupTemplateProperties) {
+   return function(args) {
+     resetToPopupStyle(featureLayer, mapView, popupTemplate);
+
+     // only proceed if we're over the pin on the map
+     mapView.hitTest(args).then(function(evt) {
+       if (null !== evt.results[0].graphic) {
+         // if there is an open popup, do nothing unless it's closed
+         if ((null !== mapView.popup.visible) && (mapView.popup.visible)) {
+           if (null !== mapView.popup.title) {
+             const currentPopupTitle = String(mapView.popup.title.toString());
+             if (!currentPopupTitle.includes('moTitle')) {
+               if (0 === mapView.popup.title.length) {
+                 mapView.popup.close();
+               }
+               return;
+             }
+           }
+         }
+         // set the look and feel for the popup we are using as a mouseover
+         if (mouseoverTemplate) {
+           featureLayer.popupTemplate.title = mouseoverTemplate.title;
+           featureLayer.popupTemplate.content = mouseoverTemplate.content;
+         }
+         mapView.popup.dockOptions = {
+           // Disable dock button
+           buttonEnabled: false
+         };
+         mapView.popup.open({
+           location: evt.results[0].mapPoint,
+           title: '<div id="moTitle">' + evt.results[0].graphic.attributes.name + '</div>'
+         });
+       }
+     });
+   };
+ }
 
 export function setLayerFilter(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
   // set the definition expression directly on layer instance to only display a single project
