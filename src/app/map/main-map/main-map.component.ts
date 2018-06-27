@@ -74,8 +74,9 @@ export class MainMapComponent implements OnInit, OnDestroy {
 
     // 1- wait for layers to load
     // 2- set map popup to match our custom styling
-    // 3- create interactive map controls (e.g. zoom, search widgets)
-    // 4- automatically show project popup on the map when coming from project details page
+    // 3- set map mouseovers to match our custom styling
+    // 4- create interactive map controls (e.g. zoom, search widgets)
+    // 5- automatically show project popup on the map when coming from project details page
     utils.whenLayersReady([featureLayer])
       .then(() => utils.setPopupTemplate(featureLayer, view, popupProperties))
       .then(() => utils.setMouseoverTemplate(featureLayer, view, mouseoverProperties, popupProperties))
