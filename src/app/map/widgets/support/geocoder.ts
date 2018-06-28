@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { createRequestBuilder } from './geocoder-api';
-import { EsriLoaderService } from 'angular-esri-loader';
+import { EsriModuleProvider } from '../../core';
 
 // The following "type" declarations do not generate code.
 // They just provide better intellisense and type checking with TypeScript.
@@ -46,30 +46,29 @@ interface ServerMetadata {
 export interface GeocoderSettings {
   type?: string;
   url?: string;
-  suggestUrl?: string;
 }
 
 export function singleLineFieldName(options: GeocoderSettings = {}): string {
   return options.type === 'databc' ? 'addressString' : 'SingleLine';
 }
 
-export function createGeocoder(esriLoader: EsriLoaderService, options: GeocoderSettings = {}): Promise<__esri.Locator> {
+export function createGeocoder(moduleProvider: EsriModuleProvider, options: GeocoderSettings = {}): Promise<__esri.Locator> {
   if (options.type === 'databc') {
-    return createDataBcGeocoder(esriLoader, options);
+    return createDataBcGeocoder(moduleProvider, options);
   } else {
-    return createArcgisGeocoder(esriLoader, options);  // default
+    return createArcgisGeocoder(moduleProvider, options);  // default
   }
 }
 
-function createArcgisGeocoder(esriLoader: EsriLoaderService, options: GeocoderSettings = {}): Promise<__esri.Locator> {
+function createArcgisGeocoder(moduleProvider: EsriModuleProvider, options: GeocoderSettings = {}): Promise<__esri.Locator> {
   const url = options.url || '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer';
-  return esriLoader.loadModules(['esri/tasks/Locator'])
+  return moduleProvider.require(['esri/tasks/Locator'])
     .then(([Locator]: [__esri.LocatorConstructor]) => new Locator({ url: url }));
 }
 
-function createDataBcGeocoder(esriLoader: EsriLoaderService, options: GeocoderSettings = {}): Promise<__esri.Locator> {
-  const url = options.url || 'https://apps.gov.bc.ca/pub/geocoder';
-  return createClass(esriLoader, options)
+function createDataBcGeocoder(moduleProvider: EsriModuleProvider, options: GeocoderSettings = {}): Promise<__esri.Locator> {
+  const url = options.url || 'https://geocoder.api.gov.bc.ca';
+  return createClass(moduleProvider, options)
     .then((DataBcLocator: __esri.LocatorConstructor) => new DataBcLocator({ url: url }));
 }
 
@@ -77,34 +76,29 @@ function createDataBcGeocoder(esriLoader: EsriLoaderService, options: GeocoderSe
  * Creates a geocoder class that leverages the DataBC Geocoder API
  * https://raw.githubusercontent.com/bcgov/api-specs/master/geocoder/geocoder.json
  */
-function createClass(esriLoader: EsriLoaderService, options: GeocoderSettings = {}): Promise<__esri.LocatorConstructor> {
-  return esriLoader.loadModules([
+function createClass(moduleProvider: EsriModuleProvider, options: GeocoderSettings = {}): Promise<__esri.LocatorConstructor> {
+  return moduleProvider.require([
     'esri/tasks/Locator',
     'esri/tasks/support/AddressCandidate',
     'esri/geometry/support/webMercatorUtils',
-    'esri/geometry/SpatialReference',
     'esri/request',
     'esri/config'])
     .then((modules: [
       __esri.LocatorConstructor,
       __esri.AddressCandidateConstructor,
       __esri.webMercatorUtils,
-      __esri.SpatialReference,
       EsriRequest,
       __esri.config]) => {
 
-      const [Locator, AddressCandidate, webMercatorUtils, SpatialReference, esriRequest, esriConfig] = modules;
+      const [Locator, AddressCandidate, webMercatorUtils, esriRequest, esriConfig] = modules;
 
-      // As of Jan 2018, the autocomplete capability of the DataBC geocoder is available in Test, not in production.
-      // To handle this, two URLs are passed in the config object:
+      // The following is passed in the config object:
       //    `url`: Production service to implement single line address search
-      //    `suggestUrl`: Test service to implement auto-complete suggestions
-      const url = options.url || 'https://apps.gov.bc.ca/pub/geocoder';
-      const suggestUrl = options.suggestUrl || 'https://test.apps.gov.bc.ca/pub/geocoder';
+      //    `type`: One of: [databc, arcgis]
+      const url = options.url || 'https://geocoder.api.gov.bc.ca';
 
       // Add known servers to the list of CORS enabled servers.
       esriConfig.request.corsEnabledServers.push(url);
-      esriConfig.request.corsEnabledServers.push(suggestUrl);
 
       // Return the new class
       return (<any>Locator).createSubclass({
@@ -157,11 +151,10 @@ function createClass(esriLoader: EsriLoaderService, options: GeocoderSettings = 
           const { outSpatialReference } = self;
           const { text, maxSuggestions } = params;
 
-          // Try `suggestUrl` if available, or fallback to `url`
-          const requestUrl = createRequestBuilder(suggestUrl)
+          const requestUrl = createRequestBuilder(url)
             .setOutputFormat('json')
             .setAddress(text)
-            .setAutoComplete(true)
+            .setAutoComplete(true)  // <-- return address suggestions instead of full results
             .setMaxResults(maxSuggestions)
             .setEcho(false)
             .build();
@@ -198,7 +191,7 @@ function createClass(esriLoader: EsriLoaderService, options: GeocoderSettings = 
             location: {  // autocasts as new Point()
               x: x,
               y: y,
-              spatialReference: SpatialReference.WebMercator
+              spatialReference: { wkid: 3857 }  // autocasts as new SpatialReference()
             },
             attributes: _.omit(result.properties, ['fullAddress', 'score'])
           };

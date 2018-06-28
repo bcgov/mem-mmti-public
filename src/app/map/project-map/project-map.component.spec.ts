@@ -3,9 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProjectMapComponent } from './project-map.component';
 
-import { EsriLoaderModule } from 'angular-esri-loader';
-import { MapLoaderService } from '../map-loader.service';
-import { MapConfigService } from '../config/map-config.service';
+import { MapLoaderService } from '../core';
+import { MapConfigService } from '../core';
 import { GeocoderSettings } from '../widgets/support/geocoder';
 import { EsriMapComponent } from '../esri-map/esri-map.component';
 import { Project } from '../../models/project';
@@ -38,8 +37,7 @@ describe('ProjectMapComponent', () => {
         EsriMapComponent
       ],
       imports: [
-        RouterTestingModule,
-        EsriLoaderModule
+        RouterTestingModule
       ]
     })
     .compileComponents();

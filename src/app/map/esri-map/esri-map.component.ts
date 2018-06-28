@@ -1,6 +1,11 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 
-import { MapLoaderService } from '../map-loader.service';
+import { MapLoaderService } from '../core';
+
+export interface MapInitEvent {
+  map: __esri.Map;
+  mapView: __esri.MapView;
+};
 
 /* tslint:disable:component-selector */
 @Component({
@@ -10,11 +15,10 @@ import { MapLoaderService } from '../map-loader.service';
 })
 /* tslint:enable:component-selector */
 export class EsriMapComponent implements OnInit, OnDestroy {
-  // public properties
   map: __esri.Map;
   mapView: __esri.MapView;
 
-  // create the MapView at the DOM element in this component
+  // this is needed to be able to create the MapView at the DOM element in this component
   @ViewChild('map') mapEl: ElementRef;
 
   @Input() mapProperties: __esri.MapProperties;
@@ -23,7 +27,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
   @Input() suppressPopupActions = false;
   @Input() staticMap = false;
 
-  @Output() mapInit = new EventEmitter();
+  @Output() mapInit = new EventEmitter<MapInitEvent>();
 
   // private fields
   private subs: IHandle[];
@@ -53,7 +57,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
       mapEl: this.mapEl
     };
 
-    // suppress default popup actions; i.e. 'zoom-to'
+    // suppress default popup actions; i.e. "zoom-to"
     if (this.suppressPopupActions) {
       options.mapViewProperties = { ...options.mapViewProperties, popup: { actions: [] } };
     }

@@ -1,7 +1,6 @@
 import { Injectable, Optional } from '@angular/core';
-import { EsriLoaderService } from 'angular-esri-loader';
 
-import { MapConfigService } from '../config/map-config.service';
+import { MapConfigService, EsriModuleProvider } from '../core';
 import { createGeocoder, singleLineFieldName } from './support/geocoder';
 
 export interface ZoomWidgetProperties {
@@ -25,7 +24,7 @@ export class WidgetBuilder {
 
   constructor(
     private config: MapConfigService,
-    private esriLoader: EsriLoaderService
+    private moduleProvider: EsriModuleProvider
   ) { }
 
   // TODO Add more overloads as more widgets are implemented - i.e. layer list, legend, etc
@@ -43,7 +42,7 @@ export class WidgetBuilder {
   }
 
   private createZoom(props: ZoomWidgetProperties): Promise<__esri.Zoom> {
-    return this.esriLoader.loadModules(['esri/widgets/Zoom'])
+    return this.moduleProvider.require(['esri/widgets/Zoom'])
       .then(([Zoom]: [__esri.ZoomConstructor]) => new Zoom({ view: props.view }));
   }
 
@@ -56,9 +55,9 @@ export class WidgetBuilder {
     const locatorSource = this.getLocationSearchProps();
     const layerSource = this.getLayerSearchProps();
 
-    return createGeocoder(this.esriLoader, geocoder)
+    return createGeocoder(this.moduleProvider, geocoder)
       .then(g => geoService = g)
-      .then(() => this.esriLoader.loadModules(['esri/widgets/Search']))
+      .then(() => this.moduleProvider.require(['esri/widgets/Search']))
       .then(([Search]: [__esri.SearchConstructor]) => {
         // the locator task used to search. This is *required*
         locatorSource.locator = geoService;

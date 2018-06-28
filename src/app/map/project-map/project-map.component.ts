@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
-import { MapConfigService } from '../config/map-config.service';
+import { MapInitEvent } from '../esri-map/esri-map.component';
+import { MapConfigService } from '../core';
 import { Project } from '../../models/project';
 import { whenLayersReady, findLayerByTitle, setLayerFilter } from '../support/map-utils';
 
@@ -33,7 +34,7 @@ export class ProjectMapComponent implements OnInit {
     this.mapViewProperties = { ...props.mainMap.mapView, zoom: this.zoom, center: { latitude, longitude } };
   }
 
-  onMapInit(mapInfo: { map: __esri.Map, mapView: __esri.MapView }): void {
+  onMapInit(mapInfo: MapInitEvent): void {
     const map = mapInfo.map;
     const view = mapInfo.mapView;
     const projectId = this.project.code;
