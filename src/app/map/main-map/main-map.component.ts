@@ -1,9 +1,9 @@
-import { Component, Inject, Input, HostBinding, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, HostBinding, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { MapConfigService } from '../config/map-config.service';
-import { WidgetBuilder, ZoomWidgetProperties, SearchWidgetProperties } from '../widgets/widget-builder';
+import { WidgetBuilder } from '../widgets/widget-builder';
 import * as utils from '../support/map-utils';
 
 @Component({
@@ -68,6 +68,9 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.map = map;
     this.mapView = view;
     this.pointLayer = featureLayer;
+
+    this.mapView.on('click', utils.onClickHandler(featureLayer, view, popupProperties));
+    this.mapView.on('pointer-move', utils.onMouseoverHandler(featureLayer, view, popupProperties));
 
     // 1- wait for layers to load
     // 2- set map popup to match our custom styling
