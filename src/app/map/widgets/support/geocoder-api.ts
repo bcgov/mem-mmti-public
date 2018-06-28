@@ -24,7 +24,7 @@ class RequestBuilder {
   private _maxDistance: number;
 
   constructor(baseUrl: string) {
-    this._baseUrl = baseUrl || 'https://apps.gov.bc.ca/pub/geocoder';
+    this._baseUrl = baseUrl || 'https://geocoder.api.gov.bc.ca';
     this._outputFormat = 'json';
     this._outputSRS = 4326;  // --> WGS84 (default map projection)
   }

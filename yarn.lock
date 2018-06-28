@@ -192,9 +192,9 @@
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.0.15.tgz#f74c55f77351992b4d2e23d549e45f96a84fa946"
 
-"@types/arcgis-js-api@4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@types/arcgis-js-api/-/arcgis-js-api-4.5.1.tgz#d05203216147b3e4268858bb666eb619ef9f734a"
+"@types/arcgis-js-api@4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@types/arcgis-js-api/-/arcgis-js-api-4.6.0.tgz#8224849e9ab38d55faf1a09ca997287f5afc554e"
 
 "@types/geojson@7946.0.3":
   version "7946.0.3"
@@ -309,12 +309,6 @@ amqplib@^0.5.2:
     buffer-more-ints "0.0.2"
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
-
-angular-esri-loader@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/angular-esri-loader/-/angular-esri-loader-1.1.1.tgz#d471da9de67d6b96bf5312ad6e96591bdfad5340"
-  dependencies:
-    esri-loader "^1.0.0"
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -2169,9 +2163,9 @@ esrecurse@^4.1.0:
   dependencies:
     estraverse "^4.1.0"
 
-esri-loader@^1.0.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/esri-loader/-/esri-loader-1.7.0.tgz#940f2e5abc4fa33c1fd7f862845a734551799d13"
+esri-loader@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/esri-loader/-/esri-loader-2.2.0.tgz#fcba0235de64129b7f3d4b512d099374fe137ff4"
 
 estraverse@^4.1.0, estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.2.0"

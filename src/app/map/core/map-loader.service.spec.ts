@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { EsriLoaderModule, EsriLoaderService } from 'angular-esri-loader';
+import { EsriModuleProvider } from './esri-module-provider';
 
 import { MapLoaderService } from './map-loader.service';
 
@@ -8,7 +8,7 @@ describe('MapLoaderService', () => {
     TestBed.configureTestingModule({
       providers: [
         MapLoaderService,
-        EsriLoaderService
+        EsriModuleProvider
     ],
       declarations: [],
       imports: []

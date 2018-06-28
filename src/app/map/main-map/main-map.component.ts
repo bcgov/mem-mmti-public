@@ -2,7 +2,8 @@ import { Component, Input, HostBinding, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { MapConfigService } from '../config/map-config.service';
+import { MapInitEvent } from '../esri-map/esri-map.component';
+import { MapConfigService } from '../core';
 import { WidgetBuilder } from '../widgets/widget-builder';
 import * as utils from '../support/map-utils';
 
@@ -53,7 +54,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  onMapInit(mapInfo: { map: __esri.Map; mapView: __esri.MapView }): void {
+  onMapInit(mapInfo: MapInitEvent): void {
     const map = mapInfo.map;
     const view = mapInfo.mapView;
     const widgetBuilder = this.widgetBuilder;

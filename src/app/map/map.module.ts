@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { EsriLoaderModule } from 'angular-esri-loader';
 
 import { EsriMapComponent } from './esri-map/esri-map.component';
 import { MainMapComponent } from './main-map/main-map.component';
 import { ProjectMapComponent } from './project-map/project-map.component';
-import { MapLoaderService } from './map-loader.service';
-import { MapConfigService } from './config/map-config.service';
 import { WidgetBuilder } from './widgets/widget-builder';
+import { MapLoaderService, MapConfigService, EsriModuleProvider } from './core';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
-    EsriLoaderModule
+    RouterModule
   ],
   declarations: [
     EsriMapComponent,
@@ -29,7 +26,8 @@ import { WidgetBuilder } from './widgets/widget-builder';
   providers: [
     MapConfigService,
     MapLoaderService,
-    WidgetBuilder
+    WidgetBuilder,
+    EsriModuleProvider
   ]
 })
 export class MapModule { }

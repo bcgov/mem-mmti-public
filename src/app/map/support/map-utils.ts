@@ -8,7 +8,7 @@ const fail: OnRejected = err => { throw err; };
 
 /** Returns a Promise that resolves when all layers have been loaded into the map and are ready to use */
 export function whenLayersReady(layers: __esri.Layer[] = []): Promise<void> {
-  const promises = layers.map(lyr => whenReady(lyr));
+  const promises = layers.map(lyr => lyr.when());
   return Promise.all(promises).then(done);
 }
 
@@ -62,7 +62,7 @@ export function setPopupTemplate(featureLayer: __esri.FeatureLayer, popupTemplat
 
   // `esri/layers/FeatureLayer` classes are promise-based...
   // so we need to wait for it to be "ready" before accessing its configuration
-  const popupPromise = whenReady(featureLayer).then(() => {
+  const popupPromise = featureLayer.when(() => {
     featureLayer.popupTemplate.title = popupTemplate.title;
     featureLayer.popupTemplate.content = popupTemplate.content;
   });
@@ -146,7 +146,7 @@ export function resetToPopupStyle(featureLayer: __esri.FeatureLayer, mapView: __
 
 export function setLayerFilter(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
   // set the definition expression directly on layer instance to only display a single project
-  const filterPromise = whenReady(featureLayer).then(() => {
+  const filterPromise = featureLayer.when(() => {
     featureLayer.definitionExpression = `code = '${projectId}'`;
   });
   return toNativePromise(filterPromise);

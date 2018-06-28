@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, ElementRef } from '@angular/core';
-import { EsriLoaderService } from 'angular-esri-loader';
+import { EsriModuleProvider } from './esri-module-provider';
 
-export interface MapLoaderOptions {
+interface MapLoaderOptions {
   mapProperties?: __esri.MapProperties;
   webMapProperties?: __esri.WebMapProperties;
   mapViewProperties?: __esri.MapViewProperties;
@@ -10,11 +10,12 @@ export interface MapLoaderOptions {
 
 @Injectable()
 export class MapLoaderService {
+  // The `loaded` event is fired when all required resources have been loaded
   isLoaded = new EventEmitter();
   map: __esri.Map;
   mapView: __esri.MapView;
 
-  constructor(private esriLoader: EsriLoaderService) { }
+  constructor(private moduleProvider: EsriModuleProvider) { }
 
   load(options: MapLoaderOptions = {}): Promise<{ map: __esri.Map, mapView: __esri.MapView }> {
     // destructuring assignment; this creates new variables "mapProperties", "webMapProperties", etc.
@@ -34,10 +35,8 @@ export class MapLoaderService {
   private loadMap(mapProperties: __esri.MapProperties,
     mapViewProperties: __esri.MapViewProperties,
     mapEl: ElementRef): Promise<{ map: __esri.Map, mapView: __esri.MapView }> {
-    // only load the ArcGIS API for JavaScript when this component is loaded
-    return this.loadArcgis()
-      // load the needed Map and MapView modules from the JSAPI
-      .then(() => this.esriLoader.loadModules(['esri/Map', 'esri/views/MapView']))
+    // require modules
+    return this.moduleProvider.require(['esri/Map', 'esri/views/MapView'])
       .then(([Map, MapView]: [__esri.MapConstructor, __esri.MapViewConstructor]) => {
         // create a Map instance
         const map = new Map(mapProperties);
@@ -49,19 +48,17 @@ export class MapLoaderService {
           map: map,  // References a Map instance
         });
 
-        // an instance of MapView is also a Promise. Call the .then() method on the MapView instance
-        // to execute processes that may only run after the map has loaded.
-        return mapView.then(() => {
+        // wait for the view to finish loading before proceeding...
+        return mapView.when(() => {
           this.map = map;
           this.mapView = mapView;
-
+          // fire event
           this.isLoaded.emit();
-
           return {
             map: map,
             mapView: mapView
           };
-        }).otherwise((error) => {
+        }).catch((error) => {
           console.log('The map view failed to load: ', error);
         });
       });
@@ -70,10 +67,8 @@ export class MapLoaderService {
   private loadWebMap(webMapProperties: __esri.WebMapProperties,
     mapViewProperties: __esri.MapViewProperties,
     mapEl: ElementRef): Promise<{ map: __esri.Map, mapView: __esri.MapView }> {
-    // only load the ArcGIS API for JavaScript when this component is loaded
-    return this.loadArcgis()
-      // load the needed WebMap and MapView modules from the JSAPI
-      .then(() => this.esriLoader.loadModules(['esri/WebMap', 'esri/views/MapView']))
+    // require modules
+    return this.moduleProvider.require(['esri/WebMap', 'esri/views/MapView'])
       .then(([WebMap, MapView]: [__esri.WebMapConstructor, __esri.MapViewConstructor]) => {
         // create a WebMap instance
         const webmap = new WebMap(webMapProperties);
@@ -85,28 +80,19 @@ export class MapLoaderService {
           map: webmap,  // the WebMap instance created above
         });
 
-        // an instance of MapView is also a Promise. Call the .then() method on the MapView instance
-        // to execute processes that may only run after the map has loaded.
-        return mapView.then(() => {
+        // wait for the view to finish loading before proceeding...
+        return mapView.when(() => {
           this.map = webmap;
           this.mapView = mapView;
-
+          // fire event
           this.isLoaded.emit();
-
           return {
             map: webmap,
             mapView: mapView
           };
-        }).otherwise((error) => {
+        }).catch((error) => {
           console.log('The map view failed to load: ', error);
         });
       });
-  }
-
-  private loadArcgis(): Promise<Function> {
-    return this.esriLoader.load({
-      // use a specific version of the API instead of the latest
-      url: 'https://js.arcgis.com/4.5/'
-    });
   }
 }

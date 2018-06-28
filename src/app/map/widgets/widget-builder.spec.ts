@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule, Http, Response, ResponseOptions, BaseRequestOptions, XHRBackend } from '@angular/http';
 
 import { WidgetBuilder } from './widget-builder';
-import { MapConfigService } from '../config/map-config.service';
+import { MapConfigService } from '../core';
 import { Api } from '../../services/api';
 import { MapModule } from '../map.module';
 
