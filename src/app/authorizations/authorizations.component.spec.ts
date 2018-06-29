@@ -1,5 +1,5 @@
 import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { AuthorizationsComponent } from './authorizations.component';
@@ -30,7 +30,7 @@ describe('AuthorizationsComponent', () => {
       ],
       declarations: [ AuthorizationsComponent ],
       imports: [
-        Ng2PageScrollModule.forRoot()
+        NgxPageScrollModule
       ]
     })
     .compileComponents();

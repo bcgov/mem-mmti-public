@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LifecycleComponent } from './lifecycle.component';
@@ -13,7 +13,7 @@ describe('LifecycleComponent', () => {
       providers: [],
       declarations: [ LifecycleComponent ],
       imports: [
-        Ng2PageScrollModule.forRoot(),
+        NgxPageScrollModule,
         RouterTestingModule
       ]
     })
