@@ -1,18 +1,19 @@
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
-import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { DocumentService } from '../services/document.service';
+import { PageScrollInstance, PageScrollService } from 'ngx-page-scroll';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
 import { Project } from '../models/project';
-import { Search, SearchTerms } from '../models/search';
 import { Proponent } from '../models/proponent';
+import { Search, SearchTerms } from '../models/search';
+import { DocumentService } from '../services/document.service';
 import { ProjectService } from '../services/project.service';
 import { ProponentService } from '../services/proponent.service';
-import { Api } from '../services/api';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-search',
@@ -21,16 +22,17 @@ import 'rxjs/add/operator/map';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('visibility', [
-      transition(':enter', [   // :enter is alias to 'void => *'
-        animate('0.2s 0s', style({opacity: 1}))
+      transition(':enter', [
+        // :enter is alias to 'void => *'
+        animate('0.2s 0s', style({ opacity: 1 }))
       ]),
-      transition(':leave', [   // :leave is alias to '* => void'
-        animate('0.2s 0.75s', style({opacity: 0}))
+      transition(':leave', [
+        // :leave is alias to '* => void'
+        animate('0.2s 0.75s', style({ opacity: 0 }))
       ])
     ])
   ]
 })
-
 export class SearchComponent implements OnInit {
   results: Search[];
   page: number;
@@ -53,22 +55,24 @@ export class SearchComponent implements OnInit {
 
   myProjects: Array<any>;
 
-  constructor(calender: NgbCalendar,
-              private documentService: DocumentService,
-              private projectService: ProjectService,
-              private proponentService: ProponentService,
-              private _changeDetectionRef: ChangeDetectorRef,
-              private router: Router,
-              private route: ActivatedRoute,
-              private api: Api) {
+  constructor(
+    private documentService: DocumentService,
+    private projectService: ProjectService,
+    private proponentService: ProponentService,
+    private _changeDetectionRef: ChangeDetectorRef,
+    private router: Router,
+    private route: ActivatedRoute,
+    private pageScrollService: PageScrollService,
+    @Inject(DOCUMENT) private document: any
+  ) {
     this.limit = 15;
   }
 
   ngOnInit() {
-    this.noMoreResults      = true;
-    this.ranSearch          = false;
+    this.noMoreResults = true;
+    this.ranSearch = false;
     this.showAdvancedFields = false;
-    this.loading            = false;
+    this.loading = false;
 
     // Get the current date
     this.currentDate = new Date();
@@ -81,7 +85,7 @@ export class SearchComponent implements OnInit {
     // Specify maximum date for datepicker to be current date
     this.maxDate = {
       year: this.currentDate.getFullYear(),
-      month: ( this.currentDate.getMonth() + 1 ),
+      month: this.currentDate.getMonth() + 1,
       day: this.currentDate.getDate()
     };
 
@@ -93,7 +97,7 @@ export class SearchComponent implements OnInit {
           this.params.limit
       */
       this.params = params;
-      this.terms  = new SearchTerms();
+      this.terms = new SearchTerms();
 
       // Get the proponents
       this.proponentService.getAll().subscribe(
@@ -143,7 +147,7 @@ export class SearchComponent implements OnInit {
                   month: dateStart.getUTCMonth() + 1,
                   year: dateStart.getUTCFullYear()
                 };
-                this.showAdvancedFields = true;
+                this.showAdvancedFields = false;
               }
 
               if (this.params.dateend && Date.parse(this.params.dateend)) {
@@ -153,7 +157,7 @@ export class SearchComponent implements OnInit {
                   month: dateEnd.getUTCMonth() + 1,
                   year: dateEnd.getUTCFullYear()
                 };
-                this.showAdvancedFields = true;
+                this.showAdvancedFields = false;
               }
 
               // Needed in development mode - not required in prod.
@@ -195,11 +199,11 @@ export class SearchComponent implements OnInit {
         let epicCount = 0;
         // mem-data
         if (data[0].results) {
-
           data[0].results.forEach(i => {
             this.results.push(i);
           });
           memCount = data[0].count;
+          this.scrollToResults();
         }
 
         // esm-server data
@@ -210,7 +214,8 @@ export class SearchComponent implements OnInit {
           epicCount = data[1].count;
         }
         this.count = memCount + epicCount;
-        this.noMoreResults = (this.results.length === this.count) || (data[0].results.length === 0 && data[1].results.length === 0);
+        this.noMoreResults =
+          this.results.length === this.count || (data[0].results.length === 0 && data[1].results.length === 0);
 
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
@@ -221,8 +226,15 @@ export class SearchComponent implements OnInit {
 
   onSubmit() {
     this.router.navigate(['search', this.terms.getParams()]);
-    document.getElementById('anchor-point').scrollIntoView();
+  }
 
+  scrollToResults(): void {
+    const pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({
+      document: this.document,
+      pageScrollDuration: 300,
+      scrollTarget: '#scrollToPoint'
+    });
+    this.pageScrollService.start(pageScrollInstance);
   }
 
   loadMore() {
