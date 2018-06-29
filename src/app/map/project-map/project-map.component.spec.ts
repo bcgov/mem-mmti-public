@@ -5,7 +5,7 @@ import { ProjectMapComponent } from './project-map.component';
 
 import { MapLoaderService } from '../core';
 import { MapConfigService } from '../core';
-import { GeocoderSettings } from '../widgets/support/geocoder';
+import { EsriModuleProvider } from '../core/esri-module-provider';
 import { EsriMapComponent } from '../esri-map/esri-map.component';
 import { Project } from '../../models/project';
 
@@ -30,6 +30,7 @@ describe('ProjectMapComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         MapLoaderService,
+        EsriModuleProvider,
         { provide: MapConfigService, useValue: MockMapConfigService }
       ],
       declarations: [

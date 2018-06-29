@@ -11,7 +11,7 @@ describe('EsriMapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        MapLoaderService
+        { provide: MapLoaderService, useValue: jasmine.createSpyObj('MapLoaderService', ['load']) }
       ],
       declarations: [
         EsriMapComponent
@@ -29,10 +29,12 @@ describe('EsriMapComponent', () => {
     component.webMapProperties = {};
     component.mapViewProperties = {};
     component.mapEl = new ElementRef('div');
-    fixture.detectChanges();
   });
 
   it('should be created', () => {
+    const mapLoaderService = TestBed.get(MapLoaderService);
+    mapLoaderService.load.and.returnValue({ then: () => Promise.resolve({}) });
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
