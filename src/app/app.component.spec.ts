@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { Api } from './services/api';
 import { Http, HttpModule } from '@angular/http';
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        Ng2PageScrollModule.forRoot(),
+        NgxPageScrollModule,
         HttpModule
       ]
     }).compileComponents();

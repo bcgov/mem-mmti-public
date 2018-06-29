@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TopicsOfInterestComponent } from './topics-of-interest.component';
@@ -15,7 +15,7 @@ describe('TopicsOfInterestComponent', () => {
         TopicsOfInterestComponent
       ],
       imports: [
-        Ng2PageScrollModule.forRoot(),
+        NgxPageScrollModule,
         RouterTestingModule
       ]
     })

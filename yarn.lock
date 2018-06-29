@@ -4377,10 +4377,6 @@ ng2-material-dropdown@0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/ng2-material-dropdown/-/ng2-material-dropdown-0.8.0.tgz#9ad5757fbab2922a51216e3bf38e12d3a7964c60"
 
-ng2-page-scroll@4.0.0-beta.12:
-  version "4.0.0-beta.12"
-  resolved "https://registry.yarnpkg.com/ng2-page-scroll/-/ng2-page-scroll-4.0.0-beta.12.tgz#26b4e71ef9ad0859f1fa4e5e8d6ce7c75b73c6f7"
-
 ngx-chips@1.5.11:
   version "1.5.11"
   resolved "https://registry.yarnpkg.com/ngx-chips/-/ngx-chips-1.5.11.tgz#75112f7909c585ae059719b2b4c9c368aa938ae8"
@@ -4390,6 +4386,10 @@ ngx-chips@1.5.11:
 ngx-cookie-service@1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-1.0.10.tgz#dc17ff4f1a0224cf3b0c7a7f52bff2b798396e3d"
+
+ngx-page-scroll@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-page-scroll/-/ngx-page-scroll-4.0.2.tgz#0b1b7f26f48f2d55356a19023490052e9fa5a8d9"
 
 ngx-pagination@3.0.3:
   version "3.0.3"
