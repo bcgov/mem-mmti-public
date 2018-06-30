@@ -1,4 +1,26 @@
 <div class="map-container">
-  <button class="toggle-boundary-btn btn btn-default" (click)="toggle()">{{ boundariesButtonText }}</button>
   <esri-map [webMapProperties]="webMapProperties" [mapViewProperties]="mapViewProperties" [suppressPopupActions]="true" (mapInit)="onMapInit($event)"></esri-map>
+  <button class="toggle-boundary-btn btn btn-default" (click)="toggle()">{{ boundariesButtonText }}</button>
+  <!-- Modal -->
+  <ng-template #modal let-closeDialog="close">
+    <div class="modal-header">
+      <h5 class="modal-title" id="mapModalLabel">Modal title</h5>
+      <button type="button" class="close" (click)="goToHomePage()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Modal body text goes here...</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-link" (click)="goToHomePage()">Disagree</button>
+      <button type="button" class="btn content-btn-alt" (click)="closeDialog('accept')">I accept the terms and conditions</button>
+    </div>
+  </ng-template>
 </div>
