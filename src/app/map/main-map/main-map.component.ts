@@ -1,6 +1,8 @@
-import { Component, Input, HostBinding, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, Input, HostBinding, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 
 import { MapInitEvent } from '../esri-map/esri-map.component';
 import { MapConfigService } from '../core';
@@ -24,12 +26,17 @@ export class MainMapComponent implements OnInit, OnDestroy {
   pointLayerTitle: string;
   pointLayer: __esri.FeatureLayer;
 
+  // this is needed to auto-open the map disclaimer modal on page load
+  @ViewChild('modal') modal: ElementRef;
+  modalRef: NgbModalRef;
+
   @Input() animate = true;
   @Input() showBoundaries = true;
-
+  @Input() showDisclaimer = true;
   @HostBinding('class.full-screen') fullScreen = true;
 
   // private fields
+  private cookieValue = 'UNKNOWN';
   private selectedId: string;
   private sub: Subscription;
   private boundariesVisible: boolean;
@@ -37,7 +44,10 @@ export class MainMapComponent implements OnInit, OnDestroy {
   constructor(
     private config: MapConfigService,
     private route: ActivatedRoute,
-    private widgetBuilder: WidgetBuilder
+    private router: Router,
+    private widgetBuilder: WidgetBuilder,
+    private modalService: NgbModal,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -48,10 +58,21 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.popupProperties = props.mainMap.popup;
     this.geocoderProperties = props.mainMap.geocoder;
     this.boundariesVisible = this.showBoundaries;
+
+    // only show disclaimer once per user
+    this.checkDisclaimerCookie();
+
+    // need to wrap this call in a Promise to work around a bug in ng-bootstrap (`setTimeout` also works)
+    // (see https://github.com/ng-bootstrap/ng-bootstrap/issues/1775)
+    if (this.showDisclaimer) {
+      Promise.resolve().then(() => this.openModal());
+    }
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   onMapInit(mapInfo: MapInitEvent): void {
@@ -97,6 +118,47 @@ export class MainMapComponent implements OnInit, OnDestroy {
   toggle() {
     this.boundariesVisible = !this.boundariesVisible;
     this.setVisibilityForAllBoundaries(this.boundariesVisible);
+  }
+
+  goToHomePage() {
+    this.closeModal();
+    this.router.navigate(['/']);
+  }
+
+  private checkDisclaimerCookie() {
+    const cookieExists = this.cookieService.check('disclaimerSeenOnce');
+    if (cookieExists) {
+      this.cookieValue = this.cookieService.get('disclaimerSeenOnce') || 'UNKNOWN';
+    }
+
+    // show map disclaimer only once. will not show on repeat visits to the site
+    this.showDisclaimer = this.cookieValue !== 'true';
+  }
+
+  // wait a year before asking again...
+  private setDisclaimerCookie() {
+    const now = new Date();
+    const nextYear = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+    this.cookieService.set('disclaimerSeenOnce', 'true', nextYear);
+  }
+
+  private openModal() {
+    this.modalRef = this.modalService.open(this.modal, { keyboard: false, backdrop: 'static' });
+
+    // The promise is resolved when the modal is closed...
+    this.modalRef
+      .result
+      .then(value => {
+        // If the user accepts the terms and conditions, don't ask again (in a year)
+        if (value === 'accept') {
+          this.setDisclaimerCookie();
+        }
+      })
+      .catch(() => { /* ignore */ });
+  }
+
+  private closeModal() {
+    this.modalRef.dismiss('disagree');
   }
 
   private setVisibilityForAllBoundaries(value: boolean) {
