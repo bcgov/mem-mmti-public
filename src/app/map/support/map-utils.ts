@@ -77,7 +77,7 @@ export function setPopupTemplate(featureLayer: __esri.FeatureLayer, popupTemplat
  */
 export function onClickHandler(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
   popupTemplate: __esri.PopupTemplateProperties) {
-  return function() {
+  return function () {
     resetToPopupStyle(featureLayer, mapView, popupTemplate);
   };
 }
@@ -111,38 +111,46 @@ export function resetToPopupStyle(featureLayer: __esri.FeatureLayer, mapView: __
  * Sets the correct popup style, making a quasi tooltip out of the esri popups.
  * Displays the pin name in the popup title and hides the popup content.
  */
- export function onMouseoverHandler(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
+export function onMouseoverHandler(featureLayer: __esri.FeatureLayer, mapView: __esri.MapView,
   popupTemplate: __esri.PopupTemplateProperties) {
-   return function(args) {
-     resetToPopupStyle(featureLayer, mapView, popupTemplate);
+  return function (args) {
+    resetToPopupStyle(featureLayer, mapView, popupTemplate);
 
-     // only proceed if we're over the pin on the map
-     mapView.hitTest(args).then(function(evt) {
-       if (null !== evt.results[0].graphic) {
-         // if there is an open popup, do nothing unless it's closed
-         if ((null !== mapView.popup.visible) && (mapView.popup.visible)) {
-           if (null !== mapView.popup.title) {
-             const currentPopupTitle = String(mapView.popup.title.toString());
-             if (!currentPopupTitle.includes('moTitle')) {
-               if (0 === mapView.popup.title.length) {
-                 mapView.popup.close();
-               }
-               return;
-             }
-           }
-         }
-         mapView.popup.dockOptions = {
-           // Disable dock button
-           buttonEnabled: false
-         };
-         mapView.popup.open({
-           location: evt.results[0].mapPoint,
-           title: '<div id="moTitle">' + evt.results[0].graphic.attributes.name + '</div>'
-         });
-       }
-     });
-   };
- }
+    // only proceed if we're over the pin on the map
+    mapView.hitTest(args).then(function (evt) {
+      // get the topmost graphic from the Major Mines (point) layer, while ignoring other layers (e.g. shapefiles)
+      // resolves EM-1132 bug
+      const mapPins = (evt.results || []).filter(x => x.graphic.layer === featureLayer);
+      if (mapPins.length > 0) {
+        const topmostGraphic = mapPins[0].graphic;
+        const topmostLocation = mapPins[0].mapPoint;
+
+        if (null !== topmostGraphic) {
+          // if there is an open popup, do nothing unless it's closed
+          if ((null !== mapView.popup.visible) && (mapView.popup.visible)) {
+            if (null !== mapView.popup.title) {
+              const currentPopupTitle = String(mapView.popup.title.toString());
+              if (!currentPopupTitle.includes('moTitle')) {
+                if (0 === mapView.popup.title.length) {
+                  mapView.popup.close();
+                }
+                return;
+              }
+            }
+          }
+          mapView.popup.dockOptions = {
+            // Disable dock button
+            buttonEnabled: false
+          };
+          mapView.popup.open({
+            location: topmostLocation,
+            title: '<div id="moTitle">' + topmostGraphic.attributes.name + '</div>'
+          });
+        }
+      }
+    });
+  };
+}
 
 export function setLayerFilter(featureLayer: __esri.FeatureLayer, projectId: string): Promise<void> {
   // set the definition expression directly on layer instance to only display a single project
