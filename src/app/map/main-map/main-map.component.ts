@@ -86,6 +86,12 @@ export class MainMapComponent implements OnInit, OnDestroy {
     const layerTitle = this.pointLayerTitle;
     const featureLayer = <__esri.FeatureLayer>utils.findLayerByTitle(map, layerTitle);
 
+    // point layer is required to complete map initialization...
+    if (!featureLayer) {
+      console.log(`The map view failed to initialize: could not find layer with title '${layerTitle}'`);
+      return;
+    }
+
     // store local references to map and view
     this.map = map;
     this.mapView = view;
