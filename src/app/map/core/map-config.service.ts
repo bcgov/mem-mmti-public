@@ -19,8 +19,8 @@ const arcgisDefaults: ILoadScriptOptions = {
 };
 
 const webmaps = {
-  dev: 'f08adba6da4a458f99a73099ad218fb3',
-  test: 'f08adba6da4a458f99a73099ad218fb3',
+  dev: 'b8ea19982bd74db3bd968d3c7f038e43',
+  test: 'b8ea19982bd74db3bd968d3c7f038e43',
   prod: 'b8ea19982bd74db3bd968d3c7f038e43'
 };
 
