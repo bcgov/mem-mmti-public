@@ -63,7 +63,7 @@ export class MapConfigService {
     return {
       arcgis: loadScriptOptions,
       mainMap: {
-        pointLayerTitle: 'MMTI Major Mines',
+        pointLayerTitle: 'geojsonMMTI',
         webmap: {
           portalItem: { id: webmapId }
         },
