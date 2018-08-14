@@ -101,6 +101,10 @@ export class MapConfigService {
                       <span>Go to Project Details</span><i class="material-icons">arrow_forward</i>
                     </a>
                   <div>
+                  <div class="map-popup-disc">The Province has reviewed the Maps but makes
+                  no guarantee or warranties whatsoever, either expressed or implied, with
+                  respect to the accuracy or quality of information, content, or materials,
+                  and disclaims all responsibility for the accuracy or completeness contained herein.</div>
                 </div>`
     };
   }

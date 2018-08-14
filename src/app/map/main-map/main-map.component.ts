@@ -32,7 +32,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
 
   @Input() animate = true;
   @Input() showBoundaries = true;
-  @Input() showDisclaimer = true;
+  @Input() showDisclaimer = false;  // Enable this here to start using the on-map-load disclaimer again.
   @HostBinding('class.full-screen') fullScreen = true;
 
   // private fields
@@ -60,7 +60,9 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.boundariesVisible = this.showBoundaries;
 
     // only show disclaimer once per user
-    this.checkDisclaimerCookie();
+    if (this.showDisclaimer) {
+      this.checkDisclaimerCookie();
+    }
 
     // need to wrap this call in a Promise to work around a bug in ng-bootstrap (`setTimeout` also works)
     // (see https://github.com/ng-bootstrap/ng-bootstrap/issues/1775)
