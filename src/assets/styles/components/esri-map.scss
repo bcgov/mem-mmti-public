@@ -152,6 +152,14 @@
     }
 }
 
+.map-popup-disc {
+    margin-top: 1.1rem;
+    max-height: 20rem;
+    font-size: calc(#{$map-popup-font-size} * 0.8);
+    line-height: calc(#{$map-popup-font-size} * 1.1);
+    font-style: italic;
+}
+
 .map-popup-btns {
     margin-top: 1.5rem;
 
