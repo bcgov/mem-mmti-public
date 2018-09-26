@@ -3,7 +3,7 @@
 .hero-banner {
     position: relative;
     background-color: rgba(#00245a, 1);
-    background-image: url("~assets/images/hero-banner-1.jpg");
+    background-image: url("/assets/images/hero-banner-1.jpg");
     background-repeat: no-repeat;
     box-shadow: 0 0 4rem #00264d inset;
 
@@ -17,24 +17,24 @@
             margin-bottom: 1.5rem;
             font-size: 2rem;
             line-height: 2rem;
-    
+
             span {
                 display: inline-block;
             }
         }
-    
+
         p {
             margin-bottom: 1.5rem;
             font-size: 0.9375rem;
             font-weight: 300;
             line-height: 1.4rem;
         }
-    
+
         strong {
             color: $gold;
             font-weight: 700;
         }
-    
+
         .badge {
             position: relative;
             top: 0.4rem;
@@ -47,14 +47,14 @@
 
         &--cta-btns {
             @include clearfix();
-    
+
             strong {
                 display: block;
                 color: #fff;
                 font-size: 1rem;
                 font-weight: 600;
             }
-    
+
             .btn {
                 margin-top: 0.4rem;
                 padding: 0.5rem;
@@ -62,7 +62,7 @@
                 text-transform: uppercase;
                 font-size: 0.7rem;
                 font-weight: 700;
-    
+
                 + span {
                     display: inline-block;
                     margin: 0.25rem;
@@ -124,7 +124,7 @@
                 line-height: 2.5rem;
                 font-size: 2.4rem;
             }
-    
+
             p {
                 margin-bottom: 1.5rem;
                 line-height: 1.8rem;
@@ -133,7 +133,7 @@
 
             &--cta-btns {
                 @include clearfix();
-        
+
                 .btn {
                     font-size: 0.85rem;
                 }
