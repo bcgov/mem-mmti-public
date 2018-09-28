@@ -13,7 +13,7 @@ export class Collection {
     date: Date;
   }[];
 
-  constructor(collection?: any) {
+  constructor(hostnameEPIC: string, hostnameMEM: string, collection?: any) {
     this._id         = collection && collection._id         || null;
     this.displayName = collection && collection.displayName || null;
     this.parentType  = collection && collection.parentType  || null;
@@ -76,7 +76,7 @@ export class Collection {
         // EAO main documents are still returned as a single element
         this.documents.push({
           name : collection.mainDocument.document.displayName,
-          ref  : this.getURL(collection.mainDocument.document._id),
+          ref  : this.getURL(collection.mainDocument.document._id, hostnameEPIC, hostnameMEM),
           date : collection.mainDocument.document.documentDate ? new Date(collection.mainDocument.document.documentDate) : null
         });
       } else if (collection.mainDocuments && collection.mainDocuments.length > 0) {
@@ -86,7 +86,7 @@ export class Collection {
         }).sort((a, b) => { return a.sortOrder - b.sortOrder; });
         mainDocs.forEach(item => this.documents.push({
           name : item.document.displayName,
-          ref  : this.getURL(item.document._id),
+          ref  : this.getURL(item.document._id, hostnameEPIC, hostnameMEM),
           date : item.document.documentDate ? new Date(item.document.documentDate) : null
         }));
       }
@@ -102,7 +102,7 @@ export class Collection {
           if (otherDoc.document) {
             this.documents.push({
               name : otherDoc.document.displayName,
-              ref  : this.getURL(otherDoc.document._id),
+              ref  : this.getURL(otherDoc.document._id, hostnameEPIC, hostnameMEM),
               date : otherDoc.document.documentDate ? new Date(otherDoc.document.documentDate) : null
             });
           }
@@ -111,9 +111,9 @@ export class Collection {
     }
   }
 
-  private getURL(id: string) {
-    const host = this.agency === 'eao' ? 'projects.eao.gov.bc.ca' : 'mines.empr.gov.bc.ca';
-    return `https://${host}/api/document/${id}/fetch`;
+  private getURL(id: string, hostnameEPIC: string, hostnameMEM: string) {
+    const host = this.agency === 'eao' ? hostnameEPIC : hostnameMEM;
+    return `${host}/api/document/${id}/fetch`;
   }
 }
 

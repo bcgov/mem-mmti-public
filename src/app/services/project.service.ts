@@ -90,7 +90,7 @@ export class ProjectService {
     const collections = res.text() ? res.json() : [];
 
     collections.forEach((collection, index) => {
-      collections[index] = new Collection(collection);
+      collections[index] = new Collection(this.api.hostnameEPIC, this.api.hostnameMEM, collection);
     });
     return collections;
   }
