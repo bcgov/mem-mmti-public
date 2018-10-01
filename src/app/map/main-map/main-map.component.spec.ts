@@ -1,17 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModalBackdrop } from '@ng-bootstrap/ng-bootstrap/modal/modal-backdrop';
-import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
-import { NgbModalWindow } from '@ng-bootstrap/ng-bootstrap/modal/modal-window';
-import { EsriModuleProvider } from '../core/esri-module-provider';
-import { MapConfigService } from '../core/map-config.service';
-import { MapLoaderService } from '../core/map-loader.service';
-import { EsriMapComponent } from '../esri-map/esri-map.component';
 import { WidgetBuilder } from '../widgets/widget-builder';
-import { MainMapComponent } from './main-map.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
+import { EsriModuleProvider } from '../core/esri-module-provider';
+import { MapLoaderService } from '../core/map-loader.service';
+import { MainMapComponent } from './main-map.component';
+import { MapConfigService } from '../core/map-config.service';
+import { EsriMapComponent } from '../esri-map/esri-map.component';
 
 describe('MainMapComponent', () => {
   let component: MainMapComponent;
@@ -34,22 +30,22 @@ describe('MainMapComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
-        EsriModuleProvider,
+        NgbModule,
         MapLoaderService,
-        NgbModal,
-        NgbModalStack,
         WidgetBuilder,
+        EsriModuleProvider,
         { provide: MapConfigService, useValue: MockMapConfigService }
       ],
-      declarations: [EsriMapComponent, MainMapComponent, NgbModalBackdrop, NgbModalWindow],
-      imports: [RouterTestingModule]
+      declarations: [
+        MainMapComponent,
+        EsriMapComponent
+      ],
+      imports: [
+        NgbModule.forRoot(),
+        RouterTestingModule
+      ]
     })
-      .overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: [NgbModalBackdrop, NgbModalWindow]
-        }
-      })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -62,22 +58,16 @@ describe('MainMapComponent', () => {
       expect(MockMapConfigService.get()).toBeTruthy();
     });
     it('should set webMapProperties', () => {
-      expect(JSON.stringify(component.webMapProperties)).toBe(
-        JSON.stringify(MockMapConfigService.get().mainMap.webmap)
-      );
+      expect(JSON.stringify(component.webMapProperties)).toBe(JSON.stringify(MockMapConfigService.get().mainMap.webmap));
     });
     it('should set mapViewProperties', () => {
-      expect(JSON.stringify(component.mapViewProperties)).toBe(
-        JSON.stringify(MockMapConfigService.get().mainMap.mapView)
-      );
+      expect(JSON.stringify(component.mapViewProperties)).toBe(JSON.stringify(MockMapConfigService.get().mainMap.mapView));
     });
     it('should set popupProperties', () => {
       expect(JSON.stringify(component.popupProperties)).toBe(JSON.stringify(MockMapConfigService.get().mainMap.popup));
     });
     it('should set geocoderProperties', () => {
-      expect(JSON.stringify(component.geocoderProperties)).toBe(
-        JSON.stringify(MockMapConfigService.get().mainMap.geocoder)
-      );
+      expect(JSON.stringify(component.geocoderProperties)).toBe(JSON.stringify(MockMapConfigService.get().mainMap.geocoder));
     });
   });
 });
