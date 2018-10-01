@@ -1,113 +1,115 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
-  id "idea"
-  id "groovy"
-  id "com.energizedwork.webdriver-binaries" version "1.0"
-  id "com.energizedwork.idea-base" version "1.2"
+    id "idea"
+    id "groovy"
+    id "com.energizedwork.webdriver-binaries" version "1.0"
+    id "com.energizedwork.idea-base" version "1.2"
 }
 
 ext {
-  // The drivers we want to use
-  drivers = ["firefox", "firefoxHeadless", "chrome", "chromeHeadless","ie","edge","safari"]
+    // The drivers we want to use
+    drivers = ["firefox", "firefoxHeadless", "chrome", "chromeHeadless","ie","edge","safari"]
 
-  ext {
-    groovyVersion = '2.4.13'
-    gebVersion = '2.1'
-    seleniumVersion = '3.11.0'
-    chromeDriverVersion = '2.36'
-    geckoDriverVersion = '0.19.1'
-    ieDriverVersion = '3.6.0'
-    edgeDriverVersion = seleniumVersion
-    safariDriverVersion = seleniumVersion
-  }
+    ext {
+        groovyVersion = '2.4.15'
+        gebVersion = '2.2'
+        seleniumVersion = '3.14.0'
+        chromeDriverVersion = '2.41'
+        geckoDriverVersion = '0.21.0'
+        ieDriverVersion = '3.14.0'
+        edgeDriverVersion = '3.14.0'
+        safariDriverVersion = '3.14.0'
+
+        spockCoreVersion = '1.1-groovy-2.4'
+        spockReportsVersion = '1.6.0'
+        slf4jApiVersion = '1.7.25'
+    }
 }
 
 apply from: "gradle/osSpecificDownloads.gradle"
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  // If using Spock, need to depend on geb-spock
-  testCompile "org.gebish:geb-spock:$gebVersion"
-  testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
-      exclude group: "org.codehaus.groovy"
-  }
-  testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    // If using Spock, need to depend on geb-spock
+    testCompile "org.gebish:geb-spock:$gebVersion"
+    testCompile("org.spockframework:spock-core:$spockCoreVersion") {
+        exclude group: "org.codehaus.groovy"
+    }
+    testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
 
-  // If using JUnit, need to depend on geb-junit (3 or 4)
-  testCompile "org.gebish:geb-junit4:$gebVersion"
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testCompile "org.gebish:geb-junit4:$gebVersion"
 
-  //Support
-  testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+    //Support
+    testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
 
-  // Drivers
-  testCompile "org.seleniumhq.selenium:selenium-safari-driver:$seleniumVersion"
-  testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
-  testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
-  testCompile "org.seleniumhq.selenium:selenium-ie-driver:$seleniumVersion"
-  testCompile "org.seleniumhq.selenium:selenium-edge-driver:$seleniumVersion"
+    // Drivers
+    testCompile "org.seleniumhq.selenium:selenium-safari-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-ie-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-edge-driver:$seleniumVersion"
 
-  // Spock reports
-  testCompile( 'com.athaydes:spock-reports:1.4.0' ) {
-      transitive = false // this avoids affecting your version of Groovy/Spock
-  }
-  testCompile 'org.slf4j:slf4j-api:1.7.13'
-  testCompile 'org.slf4j:slf4j-simple:1.7.13'
+    // Spock reports
+    testCompile( "com.athaydes:spock-reports:$spockReportsVersion" ) {
+        transitive = false // this avoids affecting your version of Groovy/Spock
+    }
+    // if you don't already have slf4j-api and an implementation of it in the classpath, add this!
+    testCompile "org.slf4j:slf4j-api:$slf4jApiVersion"
+    testCompile "org.slf4j:slf4j-simple:$slf4jApiVersion"
 }
 
 webdriverBinaries {
-  chromedriver chromeDriverVersion
-  geckodriver geckoDriverVersion
-  //iedriver ieDriverVersion
+    chromedriver chromeDriverVersion
+    geckodriver geckoDriverVersion
+    //iedriver ieDriverVersion
 }
 
 drivers.each { driver ->
-  task "${driver}Test"(type: Test) {
-    group JavaBasePlugin.VERIFICATION_GROUP
+    task "${driver}Test"(type: Test) {
+        group JavaBasePlugin.VERIFICATION_GROUP
 
-    outputs.upToDateWhen { false }  // Always run tests
+        outputs.upToDateWhen { false }  // Always run tests
 
-    systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
-    systemProperty "geb.env", driver
-  }
+        systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
+        systemProperty "geb.env", driver
+    }
 }
 
 ieTest {
-  dependsOn unzipIeDriver
+    dependsOn unzipIeDriver
 
-  def iedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "IEDriverServer.exe" : "IEDriverServer"
-  systemProperty "webdriver.ie.driver", new File(unzipIeDriver.outputs.files.singleFile, iedriverFilename).absolutePath
+    def iedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "IEDriverServer.exe" : "IEDriverServer"
+    systemProperty "webdriver.ie.driver", new File(unzipIeDriver.outputs.files.singleFile, iedriverFilename).absolutePath
 }
 
 edgeTest {
-  dependsOn unzipEdgeDriver
+    dependsOn unzipEdgeDriver
 
-  def edgedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "MicrosoftWebDriver.exe" : "MicrosoftWebDriver.exe"
-  systemProperty "webdriver.edge.driver", new File(unzipEdgeDriver.outputs.files.singleFile,edgedriverFilename).absolutePath
+    def edgedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "MicrosoftWebDriver.exe" : "MicrosoftWebDriver.exe"
+    systemProperty "webdriver.edge.driver", new File(unzipEdgeDriver.outputs.files.singleFile,edgedriverFilename).absolutePath
 }
 
 test {
-  dependsOn drivers.collect { tasks["${it}Test"] }
-  // enabled = false
-  testLogging {
-    showStandardStreams = true
-  }
+    dependsOn drivers.collect { tasks["${it}Test"] }
+    enabled = false
 }
 
 tasks.withType(Test) {
-  maxHeapSize = "1g"
-  jvmArgs '-XX:MaxMetaspaceSize=128m'
-  testLogging {
-    exceptionFormat = 'full'
-  }
-  systemProperty 'com.athaydes.spockframework.report.outputDir', 'build/reports/spock'
-  systemProperty 'com.athaydes.spockframework.report.internal.HtmlReportCreator.inlineCss', false
-  systemProperty 'com.athaydes.spockframework.report.projectName',"DEVEX"
+    maxHeapSize = "1g"
+    jvmArgs '-XX:MaxMetaspaceSize=128m'
+    testLogging {
+        exceptionFormat = 'full'
+    }
+    systemProperty 'com.athaydes.spockframework.report.outputDir', 'build/reports/spock'
+    systemProperty 'com.athaydes.spockframework.report.internal.HtmlReportCreator.inlineCss', false
+    systemProperty 'com.athaydes.spockframework.report.projectName',"MEM-MMTI-PUBLIC"
 }
 
 tasks.withType(GroovyCompile) {
-  groovyOptions.forkOptions.memoryMaximumSize = '256m'
+    groovyOptions.forkOptions.memoryMaximumSize = '256m'
 }
