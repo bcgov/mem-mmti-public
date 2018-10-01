@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WidgetBuilder } from '../widgets/widget-builder';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 
 import { EsriModuleProvider } from '../core/esri-module-provider';
 import { MapLoaderService } from '../core/map-loader.service';
@@ -29,6 +31,8 @@ describe('MainMapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
+        CookieService,
+        NgbModule,
         MapLoaderService,
         WidgetBuilder,
         EsriModuleProvider,
@@ -39,6 +43,7 @@ describe('MainMapComponent', () => {
         EsriMapComponent
       ],
       imports: [
+        NgbModule.forRoot(),
         RouterTestingModule
       ]
     })
