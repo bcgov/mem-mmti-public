@@ -39,3 +39,5 @@ Thumbs.db
 # Sonar Runner
 /sonar-runner/.gradle
 /sonar-runner/build
+
+functional-tests/\.java-version

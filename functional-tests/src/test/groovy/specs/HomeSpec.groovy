@@ -15,9 +15,7 @@ import pages.external.CopyrightPage
 import pages.external.DisclaimerPage
 import pages.external.PrivacyPage
 import pages.external.AccessibilityPage
-import pages.external.FacebookPage
-import pages.external.TwitterPage
-import pages.external.GooglePlusPage
+import pages.external.ExternalLinkPage
 
 import spock.lang.Unroll
 import spock.lang.Title
@@ -104,8 +102,7 @@ class HomeSpec extends GebReportingSpec {
       "PrivacyLink"             || PrivacyPage
       "AccessibilityLink"       || AccessibilityPage
 
-      "FacebookBtn"             || FacebookPage
-      "TwitterBtn"              || TwitterPage
-      "GooglePlusBtn"           || GooglePlusPage
+      "FacebookBtn"             || new ExternalLinkPage("Facebook", "www.facebook.com")
+      "TwitterBtn"              || new ExternalLinkPage("Share a link on Twitter", "twitter.com")
   }
 }
