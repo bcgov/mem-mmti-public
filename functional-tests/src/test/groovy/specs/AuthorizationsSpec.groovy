@@ -41,7 +41,7 @@ class AuthorizationsSpec extends GebReportingSpec {
       SectionSelector                                                           | ItemSelector                                                                            || AssertPage
       [tag : "h2", text : "Authorizations for Major Mines in British Columbia"] | [text : "Major Mine Permitting Office (MMPO)"]                                          || new ExternalLinkPage("Major Mine Permitting Office (MMPO) - Province of British Columbia", "gov.bc.ca")
 
-      [tag : "h3", text : "Environmental Assessment (EA) Process"]              | [text : "Environmental Assessment Office (EAO)"]                                        || new ExternalLinkPage("Environmental Assessment Office", "eao.gov.bc.ca")
+      [tag : "h3", text : "Environmental Assessment (EA) Process"]              | [text : "Environmental Assessment Office (EAO)"]                                        || new ExternalLinkPage("Environmental Assessments - Province of British Columbia", "www2.gov.bc.ca")
       [tag : "h3", text : "Environmental Assessment (EA) Process"]              | [text : "Environmental Assessment Act"]                                                 || new ExternalLinkPage("Environmental Assessment Act", "bclaws.ca")
       [tag : "h3", text : "Environmental Assessment (EA) Process"]              | [text : "Reviewable Projects Regulation"]                                               || new ExternalLinkPage("Reviewable Projects Regulation", "bclaws.ca")
       //TODO [tag : "h3", text : "Environmental Assessment (EA) Process"]              | [text : "http://www.eao.gov.bc.ca/ea_process.html"]                                     || new ExternalLinkPage("", "eao.gov.bc.ca")

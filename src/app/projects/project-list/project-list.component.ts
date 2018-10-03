@@ -28,7 +28,7 @@ export class ProjectListComponent implements OnInit {
   public operators: Array<String> = [];
   public config: PaginationInstance = {
     id: 'custom',
-    itemsPerPage: 25,
+    itemsPerPage: 50,
     currentPage: 1
   };
 

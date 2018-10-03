@@ -3,12 +3,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { WidgetBuilder } from '../widgets/widget-builder';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
-
 import { EsriModuleProvider } from '../core/esri-module-provider';
 import { MapLoaderService } from '../core/map-loader.service';
 import { MainMapComponent } from './main-map.component';
 import { MapConfigService } from '../core/map-config.service';
-import { GeocoderSettings } from '../widgets/support/geocoder';
 import { EsriMapComponent } from '../esri-map/esri-map.component';
 
 describe('MainMapComponent', () => {
