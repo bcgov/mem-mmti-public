@@ -163,3 +163,7 @@ For dev, test, and production builds on OpenShift/Jenkins see [openshift/README.
 # How to Contribute
 
 Feel free to create pull requests from the default "master" branch, click here to create one automatically: https://github.com/bcgov/mem-mmti-public/pull/new/master
+
+# Testing Thanks
+
+Thanks to BrowserStack for Testing Tool support via OpenSource Licensing ![BrowserStack](browserstack-logo-white-small.png)
