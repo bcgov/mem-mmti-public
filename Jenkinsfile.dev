@@ -51,42 +51,42 @@ def getChangeLog(pastBuilds) {
 def CHANGELOG = "No new changes"
 def IMAGE_HASH = "latest"
 
-// podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
-//   containerTemplate(
-//     name: 'jnlp',
-//     image: '172.50.0.2:5000/openshift/jenkins-slave-bddstack',
-//     resourceRequestCpu: '500m',
-//     resourceLimitCpu: '1000m',
-//     resourceRequestMemory: '1Gi',
-//     resourceLimitMemory: '4Gi',
-//     workingDir: '/home/jenkins',
-//     command: '',
-//     args: '${computer.jnlpmac} ${computer.name}'
-//   )
-// ])
-// {
-//   stage('Unit Test on Dev') {
-//     node('bddstack') {
-//       echo "checking out source"
-//       echo "Build: ${BUILD_ID}"
-//       checkout scm
-//       try {
-//         sh 'yarn install'
-//         sh 'npm test'
-//       } finally {
-//         archiveArtifacts allowEmptyArchive: true, artifacts: 'build/coverage/src/**/*'
-//         publishHTML (target: [
-//                     allowMissing: false,
-//                     alwaysLinkToLastBuild: false,
-//                     keepAll: true,
-//                     reportDir: 'build/coverage/src',
-//                     reportFiles: 'index.html',
-//                     reportName: "Unit Test Coverage Report"
-//                   ])
-//       }
-//     }
-//   }
-// }
+podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
+  containerTemplate(
+    name: 'jnlp',
+    image: 'docker-registry.default.svc:5000/bcgov/jenkins-slave-bddstack:v1-stable',
+    resourceRequestCpu: '500m',
+    resourceLimitCpu: '1000m',
+    resourceRequestMemory: '1Gi',
+    resourceLimitMemory: '4Gi',
+    workingDir: '/home/jenkins',
+    command: '',
+    args: '${computer.jnlpmac} ${computer.name}'
+  )
+])
+{
+  stage('Unit Test on Dev') {
+    node('bddstack') {
+      echo "checking out source"
+      echo "Build: ${BUILD_ID}"
+      checkout scm
+      try {
+        sh 'yarn install'
+        sh 'npm test'
+      } finally {
+        archiveArtifacts allowEmptyArchive: true, artifacts: 'build/coverage/src/**/*'
+        publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'build/coverage/src',
+                    reportFiles: 'index.html',
+                    reportName: "Unit Test Coverage Report"
+                  ])
+      }
+    }
+  }
+}
 
 node('master') {
   /*
