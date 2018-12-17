@@ -1,5 +1,5 @@
 @import "~assets/styles/base.scss";
-
+//TO DO: Techinal Debt, fix banner resizing issues
 header {
     &.app-header {
         @include clearfix;
@@ -20,7 +20,7 @@ header {
     display: block;
     width: 265px;
     height: 55px;
-    background-image: url("~assets/images/bcgov-mineinfo-horiz-SM.png");
+    background-image: url("/assets/images/bcgov-mineinfo-horiz-SM.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: auto;
@@ -163,6 +163,11 @@ header {
 
     .brand-container {
         float: left;
+
+
+      .navbar-toggler {
+        display: none;
+      }
     }
 
     .brand {
@@ -241,7 +246,7 @@ header {
     .brand {
         width: 400px; // Using PX dimensions here to ensure exact match to image
         height: 4rem;
-        background-image: url("~assets/images/bcgov-mineinfo-horiz-LG.png");
+        background-image: url("/assets/images/bcgov-mineinfo-horiz-LG.png");
         background-size: auto;
     }
 }
