@@ -4,7 +4,7 @@
 
 ## Node and NPM
 
-Node 6.x or greater must be installed.
+Node 6.x must be installed.
 
 ## Install angular/cli
 
