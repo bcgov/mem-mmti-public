@@ -10,14 +10,14 @@
                 "displayName": "Name",
                 "description": "The suffix for all created objects",
                 "required": false,
-                "value": "proxy-caddy"
+                "value": "mem-proxy-caddy"
             },
             {
                 "name": "BUILD_PROJECT",
                 "displayName": "Build project",
                 "description": "The suffix for all created objects",
                 "required": false,
-                "value": "moe-gwells-tools"
+                "value": "mem-mmti-tools"
             }
     ],
     "objects": [

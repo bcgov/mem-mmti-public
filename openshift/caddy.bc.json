@@ -10,14 +10,14 @@
                 "displayName": "Name",
                 "description": "The suffix for all created objects",
                 "required": false,
-                "value": "eao-proxy-caddy"
+                "value": "mem-proxy-caddy"
             },
             {
                 "name": "GIT_REPO",
                 "displayName": "GIT_REPO",
                 "description": "URL to GitHub repo with static content",
                 "required": false,
-                "value": "https://github.com/MaxWardle/eao-public.git"
+                "value": "https://github.com/MaxWardle/mem-mmti-public.git"
             },
             {
                 "name": "GIT_BRANCH",
