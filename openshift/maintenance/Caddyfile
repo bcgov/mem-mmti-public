@@ -1,5 +1,7 @@
 0.0.0.0:2015
 
+proxy /var/www/html
+
 log stdout
 
 errors stdout
