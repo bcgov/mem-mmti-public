@@ -18,7 +18,6 @@ push /index.html {
 }
 
 header / {
-  Cache-Control "no-cache, no-store, must-revalidate"
-  Pragma "no-cache"
+  Cache-Control "must-revalidate"
   Expires "0"
 }
