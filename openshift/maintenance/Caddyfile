@@ -11,6 +11,12 @@ rewrite / {
   to /maintenance.html
 }
 
+push /maintenance.html {
+  /bcgov-mintinfo-horiz-LG.png
+  /flacicon.ico
+  /hero-banner-1.jpg
+}
+
 header / {
   Cache-Control "no-cache, no-store, must-revalidate"
   Pragma "no-cache"
