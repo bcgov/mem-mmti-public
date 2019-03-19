@@ -8,10 +8,10 @@ errors stdout
 
 rewrite / {
   regexp .*
-  to /maintenance.html
+  to /
 }
 
-push /maintenance.html {
+push /index.html {
   /bcgov-mintinfo-horiz-LG.png
   /flacicon.ico
   /hero-banner-1.jpg
