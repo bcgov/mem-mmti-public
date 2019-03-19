@@ -12,12 +12,13 @@ rewrite / {
 }
 
 push /index.html {
-  /bcgov-mintinfo-horiz-LG.png
-  /flacicon.ico
-  /hero-banner-1.jpg
+  /resources/images/bcgov-mintinfo-horiz-LG.png
+  /resources/images/flacicon.ico
+  /resources/images/hero-banner-1.jpg
 }
 
 header / {
-  Cache-Control "must-revalidate"
+  Cache-Control "no-cache, no-store, must-revalidate"
+  Pragma "no-cache"
   Expires "0"
 }
