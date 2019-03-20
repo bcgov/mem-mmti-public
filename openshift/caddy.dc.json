@@ -17,7 +17,7 @@
                 "displayName": "Build project",
                 "description": "The suffix for all created objects",
                 "required": false,
-                "value": "mem-mmti-tools"
+                "value": "mem-mmt-tools"
             }
     ],
     "objects": [
