@@ -1,21 +1,10 @@
 0.0.0.0:2015
 
-root /var/www/html
+root /Users/mwardle/Documents/bcgov/mem-mmti-public/openshift/maintenance
 
 log stdout
 
 errors stdout
-
-rewrite / {
-  regexp .*
-  to /
-}
-
-push /index.html {
-  /resources/images/bcgov-mintinfo-horiz-LG.png
-  /resources/images/flacicon.ico
-  /resources/images/hero-banner-1.jpg
-}
 
 header / {
   Cache-Control "no-cache, no-store, must-revalidate"
