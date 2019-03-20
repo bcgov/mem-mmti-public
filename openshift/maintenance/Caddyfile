@@ -1,6 +1,6 @@
 0.0.0.0:2015
 
-root /Users/mwardle/Documents/bcgov/mem-mmti-public/openshift/maintenance
+root /var/www/html
 
 log stdout
 
