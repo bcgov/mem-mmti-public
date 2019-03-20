@@ -17,14 +17,14 @@
                 "displayName": "GIT_REPO",
                 "description": "URL to GitHub repo with static content",
                 "required": false,
-                "value": "https://github.com/MaxWardle/mem-mmti-public.git"
+                "value": "https://github.com/bcgov/mem-mmti-public.git"
             },
             {
                 "name": "GIT_BRANCH",
                 "displayName": "GIT_BRANCH",
                 "description": "Branch related to GitHub repo",
                 "required": false,
-                "value": "EM-29"
+                "value": "dev"
             },
             {
                 "name": "IMG_SRC",
