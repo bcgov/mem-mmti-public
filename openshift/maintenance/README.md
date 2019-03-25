@@ -4,7 +4,7 @@
 
 ### Usage
 
-Caddy pods serving static html are deployed to our prod and test environments.  To enable maintenance mode switch the routes between the mem-public and mem-proxy-caddy services.  A namespace (project) for deployment must be specified.
+Caddy pods serving static html are deployed to our prod environment. To enable maintenance mode switch the routes between the mem-public and mem-proxy-caddy services.  A namespace (project) for deployment must be specified.
 
 Expected namespaces:
 

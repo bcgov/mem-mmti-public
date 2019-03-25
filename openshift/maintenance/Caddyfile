@@ -6,6 +6,12 @@ log stdout
 
 errors stdout
 
+rewrite / {
+  regexp .*
+  ext !.jpg !.png !.ico
+  to /
+}
+
 header / {
   Cache-Control "no-cache, no-store, must-revalidate"
   Pragma "no-cache"
