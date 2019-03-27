@@ -18,6 +18,20 @@ def notifySlack(text, url, channel, attachments) {
 }
 
 /*
+ * Sends a rocket chat notification
+ */
+def notifyRocketChat(text, url) {
+    def rocketChatURL = url
+    def payload = JsonOutput.toJson([
+      "username":"Jenkins",
+      "icon_url":"https://wiki.jenkins.io/download/attachments/2916393/headshot.png",
+      "text": text
+    ])
+
+    sh("curl -X POST -H 'Content-Type: application/json' --data \'${payload}\' ${rocketChatURL}")
+}
+
+/*
  * Updates the global pastBuilds array: it will iterate recursively
  * and add all the builds prior to the current one that had a result
  * different than 'SUCCESS'.
@@ -112,8 +126,11 @@ node('master') {
   SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
   DEPLOY_CHANNEL = sh(script: "cat deploy-channel", returnStdout: true)
   QA_CHANNEL = sh(script: "cat qa-channel", returnStdout: true)
+  sh("oc extract secret/rocket-chat-secrets --to=${env.WORKSPACE} --confirm")
+  ROCKET_QA_WEBHOOK = sh(script: "cat rocket-qa-webhook", returnStdout: true)
+  ROCKET_DEPLOY_WEBHOOK = sh(script: "cat rocket-deploy-webhook", returnStdout: true)
 
-  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEPLOY_CHANNEL=${DEPLOY_CHANNEL}", "QA_CHANNEL=${QA_CHANNEL}"]){
+  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEPLOY_CHANNEL=${DEPLOY_CHANNEL}", "QA_CHANNEL=${QA_CHANNEL}", "ROCKET_QA_WEBHOOK=${ROCKET_QA_WEBHOOK}", "ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
     stage('Deploy to Test'){
       try {
         echo "Deploying to test..."
@@ -122,11 +139,21 @@ node('master') {
         openshiftVerifyDeployment depCfg: 'mem-public', namespace: 'mem-mmt-test', replicaCount: 1, verbose: 'false', verifyReplicaCount: 'false', waitTime: 600000
         echo ">>>> Deployment Complete"
 
+        notifyRocketChat(
+          "A new version of mem-mmti-public is now in Test. \n Changes: \n ${CHANGELOG}",
+          ROCKET_DEPLOY_WEBHOOK
+        )
+
         notifySlack(
           "A new version of mem-mmti-public is now in Test. \n Changes: \n ${CHANGELOG}",
           env.SLACK_HOOK,
           env.DEPLOY_CHANNEL,
           []
+        )
+
+        notifyRocketChat(
+          "A new version of mem-mmti-public is now in Test and ready for QA. \n Changes to test: \n ${CHANGELOG}",
+          ROCKET_QA_WEBHOOK
         )
 
         notifySlack(
@@ -136,6 +163,11 @@ node('master') {
           []
         )
       } catch (error) {
+        notifyRocketChat(
+          "The latest deployment of mem-mmti-public to Test seems to have failed\n'${error.message}'",
+          ROCKET_DEPLOY_WEBHOOK
+        )
+
         notifySlack(
           "The latest deployment of mem-mmti-public to Test seems to have failed\n'${error.message}'",
           env.SLACK_HOOK,
