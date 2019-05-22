@@ -33,32 +33,36 @@ export class Api {
       case 'localhost':
         // Local
         hostnameMEM  = 'http://localhost:4000';
+        // We used to serve collections from EPIC but now we have them on MEM instead.
         // TODO: Cleanup legacy hostnameEPIC variable references - should only be using hostnameMEM
-        hostnameEPIC = 'http://localhost:4000';
+        hostnameEPIC = hostnameMEM;
         env = 'local';
         break;
 
       case 'www-mem-mmt-dev.pathfinder.gov.bc.ca':
         // Dev
         hostnameMEM  = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
+        // We used to serve collections from EPIC but now we have them on MEM instead.
         // TODO: Cleanup legacy hostnameEPIC variable references - should only be using hostnameMEM
-        hostnameEPIC = 'https://mem-mmt-dev.pathfinder.gov.bc.ca';
+        hostnameEPIC = hostnameMEM;
         env = 'dev';
         break;
 
       case 'www-mem-mmt-test.pathfinder.gov.bc.ca':
         // Test
         hostnameMEM  = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
+        // We used to serve collections from EPIC but now we have them on MEM instead.
         // TODO: Cleanup legacy hostnameEPIC variable references - should only be using hostnameMEM
-        hostnameEPIC = 'https://mem-mmt-test.pathfinder.gov.bc.ca';
+        hostnameEPIC = hostnameMEM;
         env = 'test';
         break;
 
       default:
         // Prod
         hostnameMEM  = 'https://mines.empr.gov.bc.ca';
+        // We used to serve collections from EPIC but now we have them on MEM instead.
         // TODO: Cleanup legacy hostnameEPIC variable references - should only be using hostnameMEM
-        hostnameEPIC = 'https://mines.empr.gov.bc.ca';
+        hostnameEPIC = hostnameMEM;
         env = 'prod';
     };
     return { hostnameEPIC, hostnameMEM, env };
