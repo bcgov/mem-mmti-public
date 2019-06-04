@@ -13,6 +13,7 @@ import { WaterQualityComponent } from 'app/water-quality/water-quality.component
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
 import { SearchComponent } from 'app/search/search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { EnforcementActionsComponent } from './enforcement-actions/enforcement-actions.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'water-quality',
     component: WaterQualityComponent
+  },
+  {
+    path: 'enforcement-actions',
+    component: EnforcementActionsComponent
   },
   {
     path: 'map',
