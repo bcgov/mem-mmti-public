@@ -29,6 +29,7 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EnforcementActionsComponent } from './enforcement-actions/enforcement-actions.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReclamationComponent,
     SearchComponent,
     NotFoundComponent,
+    EnforcementActionsComponent,
   ],
   imports: [
     TagInputModule,
