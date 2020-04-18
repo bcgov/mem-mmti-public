@@ -35,7 +35,6 @@ class HomeSpec extends GebReportingSpec {
       [ text : "FIND MINES IN BC" ]       | [ text : "Find Projects by List" ] || ProjectsPage
       [ text : "FIND MINES IN BC" ]       | [ text : "Find Projects by Map" ]  || MapPage
 
-      [ text : "FIND DOCUMENTS" ]         |   null                             || SearchPage
 
       [ text : "MINING IN BC" ]           | [ text : "The Mining Lifecycle" ]  || LifecyclePage
       [ text : "MINING IN BC" ]           | [ text : "Topics of Interest" ]    || TopicsOfInterestPage
