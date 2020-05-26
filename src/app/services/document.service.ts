@@ -1,11 +1,14 @@
+
+import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/catch';
+
+
+
 
 import { Api } from './api';
 
@@ -127,8 +130,8 @@ export class DocumentService {
 
     // Field selection
     query += '&fields=_id project displayName documentDate description datePosted documentCategories collections keywords inspectionReport';
-    const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`)
-    .map((res: Response) => {
+    const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`).pipe(
+    map((res: Response) => {
       const data = res.text() ? res.json() : { count: 0, results: [] };
       if (data.results) {
         data.results.forEach(i => {
@@ -136,11 +139,11 @@ export class DocumentService {
         });
       }
       return data;
-    });
+    }));
 
     if (epicProjectQuery) {
-      const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`)
-      .map((res: Response) => {
+      const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`).pipe(
+      map((res: Response) => {
         const data = res.text() ? res.json() : { count: 0, results: [] };
         if (data.results) {
           data.results.forEach(i => {
@@ -148,9 +151,9 @@ export class DocumentService {
           });
         }
         return data;
-      });
-      return Observable.forkJoin([mem, epic]);
+      }));
+      return observableForkJoin([mem, epic]);
     }
-    return Observable.forkJoin([mem]);
+    return observableForkJoin([mem]);
   }
 }
