@@ -1,9 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Params } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
 
 
 @Injectable()
@@ -125,7 +125,7 @@ export class Api {
   handleError(error: any) {
     const reason = error.message ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
     console.log(reason);
-    return Observable.throw(reason);
+    return observableThrowError(reason);
   }
 
   // Private

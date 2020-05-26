@@ -1,6 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project';
@@ -11,9 +14,9 @@ export class ProjectDetailResolver implements Resolve<Project> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Project | Observable<Project> | Promise<Project> {
     const code = route.paramMap.get('code');
-    return this.projectService.getByCode(code)
-      .catch(err => {
-        return Observable.throw(err);
-      });
+    return this.projectService.getByCode(code).pipe(
+      catchError(err => {
+        return observableThrowError(err);
+      }));
   }
 }

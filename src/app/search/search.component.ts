@@ -5,9 +5,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 import { PageScrollInstance, PageScrollService } from 'ngx-page-scroll';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+
+
+
 import { Project } from '../models/project';
 import { Proponent } from '../models/proponent';
 import { Search, SearchTerms } from '../models/search';
