@@ -5,12 +5,6 @@ import {switchMap, catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 
-
-
-
-
-
-
 import { Api } from './api';
 
 import { Project } from '../models/project';
@@ -62,7 +56,7 @@ export class ProjectService {
   private getCollectionsMEM() {
     return this.api.getProjectCollectionsMEM(this.project.code).pipe(
       map((res: Response) => this.processCollections(res)),
-      map(memCollections => {
+      map((memCollections: any[]) => {
         // Push them into the project
         memCollections.forEach(collection => {
           this.addCollection(this.project.collections, collection);
@@ -77,7 +71,7 @@ export class ProjectService {
         map((res: Response) => this.processCollections(res)),
         map(epicCollections => {
           // Push them into the project
-          epicCollections.forEach(collection => {
+          epicCollections.forEach((collection: Collection) => {
             this.addCollection(this.project.collections, collection);
           });
         }),);

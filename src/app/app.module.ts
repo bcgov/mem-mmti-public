@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
@@ -53,12 +54,17 @@ import { EnforcementActionsComponent } from './enforcement-actions/enforcement-a
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClient,
+    HttpClientModule,
     ProjectsModule,  // <-- module import order matters - https://angular.io/guide/router#module-import-order-matters
     AppRoutingModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgxPaginationModule,
     NgxPageScrollModule,
+    NgxPageScrollCoreModule.forRoot({
+      scrollOffset: 50,
+      duration: 300
+    }),
     MapModule,
     SharedModule
   ],
