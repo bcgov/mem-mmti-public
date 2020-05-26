@@ -19,5 +19,8 @@
       "dom"
     ],
     "module": "es2015"
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false          /* Must be false until we replace ng-zorro https://github.com/NG-ZORRO/ng-zorro-antd/issues/3975 */
   }
 }
