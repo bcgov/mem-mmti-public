@@ -6,8 +6,6 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 import { PageScrollService } from 'ngx-page-scroll-core';
 
-
-
 import { Project } from '../models/project';
 import { Proponent } from '../models/proponent';
 import { Search, SearchTerms } from '../models/search';
