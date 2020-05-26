@@ -3,7 +3,7 @@ import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
 
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -131,8 +131,8 @@ export class DocumentService {
     // Field selection
     query += '&fields=_id project displayName documentDate description datePosted documentCategories collections keywords inspectionReport';
     const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`).pipe(
-    map((res: Response) => {
-      const data = res.text() ? res.json() : { count: 0, results: [] };
+    map((res: HttpResponse<any>) => {
+      const data = res.body.text() ? res.body.json() : { count: 0, results: [] };
       if (data.results) {
         data.results.forEach(i => {
           i.hostname = this.api.hostnameMEM;
@@ -143,8 +143,8 @@ export class DocumentService {
 
     if (epicProjectQuery) {
       const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`).pipe(
-      map((res: Response) => {
-        const data = res.text() ? res.json() : { count: 0, results: [] };
+      map((res: HttpResponse<any>) => {
+        const data = res.body.text() ? res.body.json() : { count: 0, results: [] };
         if (data.results) {
           data.results.forEach(i => {
             i.hostname = this.api.hostnameEPIC;

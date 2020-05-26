@@ -43,7 +43,8 @@ describe('AuthorizationsComponent', () => {
 
   it('should be created', inject([Router], (router) => {
     navigationInstance = new NavigationEnd(1, 'test.test.com', 'test.test.com');
-    new AuthorizationsComponent(router);
+    const authComp = new AuthorizationsComponent(router);
+    expect(authComp).not.toBeNull();
     expect(component).toBeTruthy();
   }));
 });

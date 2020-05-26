@@ -1,7 +1,3 @@
-export function createRequestBuilder(baseUrl: string): RequestBuilder {
-  return new RequestBuilder(baseUrl);
-}
-
 class RequestBuilder {
   // required
   private _baseUrl: string;
@@ -197,4 +193,8 @@ class RequestBuilder {
     }
     return url;
   }
+}
+
+export function createRequestBuilder(baseUrl: string): RequestBuilder {
+  return new RequestBuilder(baseUrl);
 }
