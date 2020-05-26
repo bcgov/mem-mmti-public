@@ -1,9 +1,4 @@
 import * as _ from 'lodash';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
-
-
-
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { createRequestBuilder } from './geocoder-api';
 import { EsriModuleProvider } from '../../core';

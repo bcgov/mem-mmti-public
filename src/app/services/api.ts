@@ -1,7 +1,6 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
 
 
@@ -15,7 +14,7 @@ export class Api {
   params: Params;
   env: 'local' | 'dev' | 'test' | 'prod';
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     const host = this.getHostName(window.location.hostname);
     this.hostnameEPIC = host.hostnameEPIC;
     this.hostnameMEM = host.hostnameMEM;

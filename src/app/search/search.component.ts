@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit }
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
-import { PageScrollInstance, PageScrollService } from 'ngx-page-scroll';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 
 
@@ -193,7 +193,7 @@ export class SearchComponent implements OnInit {
     }
 
     this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
-      data => {
+      (data: any[]) => {
         this.loading = false;
         let memCount = 0;
         let epicCount = 0;
@@ -229,12 +229,10 @@ export class SearchComponent implements OnInit {
   }
 
   scrollToResults(): void {
-    const pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({
+    this.pageScrollService.scroll({
       document: this.document,
-      pageScrollDuration: 300,
       scrollTarget: '#scrollToPoint'
     });
-    this.pageScrollService.start(pageScrollInstance);
   }
 
   loadMore() {
