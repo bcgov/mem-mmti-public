@@ -1,18 +1,12 @@
-
-import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
+import {forkJoin as observableForkJoin } from 'rxjs';
 
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-
-
-
 
 import { Api } from './api';
 
-import { Search, SearchArray, SearchTerms } from '../models/search';
+import {  SearchArray, SearchTerms } from '../models/search';
 import { Project } from '../models/project';
 import { Proponent } from '../models/proponent';
 
@@ -152,8 +146,10 @@ export class DocumentService {
         }
         return data;
       }));
+
       return observableForkJoin([mem, epic]);
     }
-    return observableForkJoin([mem]);
+
+    return mem;
   }
 }

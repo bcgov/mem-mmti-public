@@ -190,14 +190,14 @@ export class SearchComponent implements OnInit {
       this.page += 1;
     }
 
-    this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
-      (data: any[]) => {
+    this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit)
+    .subscribe((data: any[]) => {
         this.loading = false;
         let memCount = 0;
         let epicCount = 0;
         // mem-data
         if (data[0].results) {
-          data[0].results.forEach(i => {
+          data[0].results.forEach((i: Search) => {
             this.results.push(i);
           });
           memCount = data[0].count;
@@ -206,7 +206,7 @@ export class SearchComponent implements OnInit {
 
         // esm-server data
         if (data.length === 2) {
-          data[1].results.forEach(i => {
+          data[1].results.forEach((i: Search) => {
             this.results.push(i);
           });
           epicCount = data[1].count;
@@ -218,7 +218,7 @@ export class SearchComponent implements OnInit {
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
       },
-      error => console.log(error)
+      (error: any) => console.log(error)
     );
   }
 
