@@ -17,8 +17,8 @@ export class ProjectService {
 
   getAll() {
     return this.api.getProjects().pipe(
-      map((res: HttpResponse<any>) => {
-        const projects = res.body.text() ? res.body.json() : [];
+      map((res: any[]) => {
+        const projects = res ? res : [];
 
         projects.forEach((project, index) => {
           projects[index] = new Project(project);
@@ -35,7 +35,7 @@ export class ProjectService {
     // Grab the project data first
     return this.api.getProjectByCode(code).pipe(
       map((res: HttpResponse<any>) => {
-        return res.body.text() ? new Project(res.body.json()) : null;
+        return res ? new Project(res) : null;
       }),
       map((project: Project) => {
         if (!project) { return observableThrowError(new Error('Project not found!')); }
@@ -54,7 +54,7 @@ export class ProjectService {
 
   private getCollectionsMEM() {
     return this.api.getProjectCollectionsMEM(this.project.code).pipe(
-      map((res: HttpResponse<any>) => this.processCollections(res)),
+      map((res: any) => this.processCollections(res)),
       map((memCollections: any[]) => {
         // Push them into the project
         memCollections.forEach(collection => {
@@ -67,7 +67,7 @@ export class ProjectService {
     // Note: there may be multiple (or no) EPIC projects associated with this MEM project.
     const observablesArray = this.project.epicProjectCodes.map(epicProjectCode => {
       return this.api.getProjectCollectionsEPIC(epicProjectCode).pipe(
-        map((res: HttpResponse<any>) => this.processCollections(res)),
+        map((res: any) => this.processCollections(res)),
         map(epicCollections => {
           // Push them into the project
           epicCollections.forEach((collection: Collection) => {
@@ -82,8 +82,8 @@ export class ProjectService {
     return this.forkJoinOrDefault(observablesArray);
   }
 
-  private processCollections(res: HttpResponse<any>): any[] {
-    const collections = res.body.text() ? res.body.json() : [];
+  private processCollections(res: any[]): any[] {
+    const collections = res ? res : [];
 
     collections.forEach((collection, index) => {
       collections[index] = new Collection(this.api.hostnameEPIC, this.api.hostnameMEM, collection);
