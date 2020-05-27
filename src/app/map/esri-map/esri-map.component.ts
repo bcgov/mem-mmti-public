@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
-
 import { MapLoaderService } from '../core';
 
 export interface MapInitEvent {
@@ -17,9 +16,6 @@ export interface MapInitEvent {
 export class EsriMapComponent implements OnInit, OnDestroy {
   map: __esri.Map;
   mapView: __esri.MapView;
-
-  // this is needed to be able to create the MapView at the DOM element in this component
-  //@ViewChild('map') mapEl: ElementRef;
 
   @Input() mapProperties: __esri.MapProperties;
   @Input() webMapProperties: __esri.WebMapProperties;
