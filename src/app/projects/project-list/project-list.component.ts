@@ -36,6 +36,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    window.scrollTo(0, 0);
     this.projectService.getAll().subscribe(
       data => this.parseData(data),
       error => console.log(error)

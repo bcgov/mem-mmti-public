@@ -25,6 +25,7 @@ export class AuthorizationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
   }
 
 }
