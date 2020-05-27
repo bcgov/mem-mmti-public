@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MapConfigService, EsriModuleProvider } from '../core';
+import { EsriModuleProvider } from '../core';
 import { createGeocoder, singleLineFieldName } from './support/geocoder';
 
 export interface ZoomWidgetProperties {
@@ -23,7 +23,6 @@ export interface SearchWidgetProperties {
 export class WidgetBuilder {
 
   constructor(
-    private config: MapConfigService,
     private moduleProvider: EsriModuleProvider
   ) { }
 
