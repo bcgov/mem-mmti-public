@@ -103,11 +103,10 @@ function createClass(moduleProvider: EsriModuleProvider, options: GeocoderSettin
 
         // Find candidates for a single address specified in the address parameter.
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#addressToLocations
-        addressToLocations(params: __esri.LocatorAddressToLocationsParams,
-          requestOptions?: any): IPromise<__esri.AddressCandidate[]> {
+        addressToLocations(params: __esri.LocatorAddressToLocationsParams): IPromise<__esri.AddressCandidate[]> {
 
-          const self: __esri.Locator = this;
-          const { outSpatialReference } = self;
+          // const self: __esri.Locator = this;
+          // const { outSpatialReference } = self;
           const { address, maxLocations } = params;
           const singleLineField = singleLineFieldName(options);
 
@@ -141,9 +140,7 @@ function createClass(moduleProvider: EsriModuleProvider, options: GeocoderSettin
 
         // Get character by character auto-complete suggestions.
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#suggestLocations
-        suggestLocations(params: LocatorSuggestLocationsParams, requestOptions?): IPromise<__esri.SuggestionResult[]> {
-          const self: __esri.Locator = this;
-          const { outSpatialReference } = self;
+        suggestLocations(params: LocatorSuggestLocationsParams): IPromise<__esri.SuggestionResult[]> {
           const { text, maxSuggestions } = params;
 
           const requestUrl = createRequestBuilder(url)

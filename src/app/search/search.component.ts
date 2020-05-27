@@ -123,7 +123,7 @@ export class SearchComponent implements OnInit {
             projects => {
               this.projects = projects;
               this.projectArray = [];
-              this.projects.forEach((project, index) => {
+              this.projects.forEach((project) => {
                 this.projectArray.push(project._id);
               });
 

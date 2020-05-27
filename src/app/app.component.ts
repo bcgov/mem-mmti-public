@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription } from 'rxjs';
 
-import { HomeComponent } from './home/home.component';
 import { DocumentService } from './services/document.service';
-import { SearchComponent } from './search/search.component';
 
 import { Api } from './services/api';
 
@@ -18,7 +15,6 @@ import { Api } from './services/api';
 export class AppComponent implements OnInit {
   loggedIn: String;
   hostname: String;
-  private sub: Subscription;
   constructor(private _router: Router,
               private cookieService: CookieService,
               private api: Api) {
