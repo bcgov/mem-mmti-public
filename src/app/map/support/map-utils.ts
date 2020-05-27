@@ -165,7 +165,7 @@ interface WidgetProperties {
     featureLayer: __esri.FeatureLayer;
     geocoder: any;
   };
-};
+}
 
 export function addWidgets(view: __esri.MapView, widgetBuilder: WidgetBuilder, props?: WidgetProperties): Promise<void> {
   // create widgets in parallel

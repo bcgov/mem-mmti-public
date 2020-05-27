@@ -4,7 +4,7 @@ import { MapLoaderService } from '../core';
 export interface MapInitEvent {
   map: __esri.Map;
   mapView: __esri.MapView;
-};
+}
 
 /* tslint:disable:component-selector */
 @Component({

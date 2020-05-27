@@ -67,7 +67,8 @@ export class Api {
         // TODO: Cleanup legacy hostnameEPIC variable references - should only be using hostnameMEM
         hostnameEPIC = hostnameMEM;
         env = 'prod';
-    };
+    }
+
     return { hostnameEPIC, hostnameMEM, env };
   }
 
