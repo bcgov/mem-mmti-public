@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { MapConfigService, EsriModuleProvider } from '../core';
 import { createGeocoder, singleLineFieldName } from './support/geocoder';
