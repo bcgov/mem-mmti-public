@@ -130,10 +130,10 @@ export class Api {
   // Private
 
   private get(apiPath: string, apiRoute: string, options?: Object) {
-    return this.http.get(`${ apiPath }/${ apiRoute }`, options || null);
+    return this.http.get(`${ apiPath }/${ apiRoute }`, options || {});
   }
 
   private put(apiPath: string, apiRoute: string, body?: Object, options?: Object) {
-    return this.http.put(`${ apiPath }/${ apiRoute }`, body || null, options || null);
+    return this.http.put(`${ apiPath }/${ apiRoute }`, body || null, options || {});
   }
 }
