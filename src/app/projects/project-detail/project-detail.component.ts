@@ -36,12 +36,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       (data: { project: Project }) => this.parseData(data),
       error => console.log(error)
     );
-
     // watch for route change events and restore Y scroll position
     this.router.events.subscribe(() => {
       this.restoreYOffset();
     },
     error => console.log(error));
+
+    window.scrollTo(0, 0);
   }
 
   parseData(data: {project: Project}): void {

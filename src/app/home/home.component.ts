@@ -18,5 +18,6 @@ export class HomeComponent implements OnInit {
       error => console.log(error)
     );
     this.hostname = this.api.hostnameMEM;
+    window.scrollTo(0, 0);
   }
 }
