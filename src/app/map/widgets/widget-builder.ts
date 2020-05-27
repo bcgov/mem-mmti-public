@@ -27,8 +27,8 @@ export class WidgetBuilder {
   ) { }
 
   // TODO Add more overloads as more widgets are implemented - i.e. layer list, legend, etc
-  createWidget(type: 'zoom', props?: ZoomWidgetProperties): Promise<__esri.Zoom>
-  createWidget(type: 'search', props?: SearchWidgetProperties): Promise<__esri.Search>
+  createWidget(type: 'zoom', props?: ZoomWidgetProperties): Promise<__esri.Zoom>;
+  createWidget(type: 'search', props?: SearchWidgetProperties): Promise<__esri.Search>;
   createWidget(type: string, props?: any): Promise<any> {
     switch (type) {
       case 'zoom':
