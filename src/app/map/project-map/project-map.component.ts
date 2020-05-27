@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { MapInitEvent } from '../esri-map/esri-map.component';
 import { MapConfigService } from '../core';

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 import { DocumentService } from './services/document.service';
@@ -15,11 +14,10 @@ import { Api } from './services/api';
 export class AppComponent implements OnInit {
   loggedIn: String;
   hostname: String;
-  constructor(private _router: Router,
-              private cookieService: CookieService,
+  constructor(private cookieService: CookieService,
               private api: Api) {
     // Used for sharing links.
-    this.hostname = api.hostnameMEM;
+    this.hostname = this.api.hostnameMEM;
   }
 
   ngOnInit() {
