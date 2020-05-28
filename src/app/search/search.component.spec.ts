@@ -7,7 +7,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageScrollService } from 'ngx-page-scroll-core';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { SearchComponent } from './search.component';
 import { Api } from 'app/services/api';
 import { ProjectService } from 'app/services/project.service';
@@ -44,7 +46,10 @@ describe('SearchComponent', () => {
         FormsModule,
         NgbModule,
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        NgxPaginationModule,
+        NgxPageScrollModule,
+        NgxPageScrollCoreModule
       ]
     })
     .compileComponents();

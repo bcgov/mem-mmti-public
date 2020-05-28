@@ -95,7 +95,7 @@ export class SearchComponent implements OnInit {
           this.params.limit
       */
       this.params = params;
-      this.terms = new SearchTerms();
+      this['terms'] = new SearchTerms();
 
       // Get the proponents
       this.proponentService.getAll().subscribe(
