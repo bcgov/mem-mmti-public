@@ -7,7 +7,6 @@ import { HomeComponent } from './home.component';
 import { Project } from '../models/project';
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let ProjectServiceStub;
 
@@ -29,7 +28,6 @@ describe('HomeComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
   describe('ngOnInit()', () => {
