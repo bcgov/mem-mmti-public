@@ -5,7 +5,7 @@ import { MapLoaderService } from './map-loader.service';
 import { MapConfigService } from './map-config.service';
 import { Api } from 'app/services/api';
 
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MapLoaderService', () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('MapLoaderService', () => {
     ],
       declarations: [],
       imports: [
-        HttpModule
+        HttpClientModule
       ]
     });
   });

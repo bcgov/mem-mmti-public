@@ -1,11 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule, Http, Response, ResponseOptions, BaseRequestOptions, XHRBackend } from '@angular/http';
+import { HttpClientModule, HttpResponse, HttpXhrBackend } from '@angular/common/http';
 import { MockBackend } from '@angular/http/testing';
 
 import { ProponentService } from './proponent.service';
 import { Api } from './api';
-
-import { Observable } from 'rxjs/Rx';
 
 describe('ProponentService', () => {
   let proponentItem;
@@ -16,13 +14,13 @@ describe('ProponentService', () => {
     };
   }
 
-  function mockBackEnd(mockResponse: any[], mockBackend: any) {
+  function mockBackEnd(mockHttpResponse: any[], mockBackend: any) {
     // Subscribe to opened http connections
     mockBackend.connections.subscribe((connection) => {
-      // Have connection send a response
-      connection.mockRespond(new Response(new ResponseOptions({
-        body: JSON.stringify(mockResponse)
-      })));
+      // Have connection send a HttpResponse
+      connection.mockRespond(new HttpResponse({
+        body: JSON.stringify(mockHttpResponse)
+      }));
     });
   }
 
@@ -31,24 +29,24 @@ describe('ProponentService', () => {
       providers: [
         ProponentService,
         Api,
-        { provide: XHRBackend, useClass: MockBackend }
+        { provide: HttpXhrBackend, useClass: MockBackend }
       ],
       imports: [
-        HttpModule
+        HttpClientModule
       ]
     });
   });
 
   describe('getAll()', () => {
-    describe('given an invalid response', () => {
-      let mockResponse;
+    describe('given an invalid HttpResponse', () => {
+      let mockHttpResponse;
 
       it('returns 0 items',
-        inject([ProponentService, XHRBackend], (proponentService, mockBackend) => {
+        inject([ProponentService, HttpXhrBackend], (proponentService, mockBackend) => {
 
-          mockResponse = undefined;
+          mockHttpResponse = undefined;
 
-          mockBackEnd(mockResponse, mockBackend);
+          mockBackEnd(mockHttpResponse, mockBackend);
 
           proponentService.getAll().subscribe(
             proponent => {
@@ -57,11 +55,11 @@ describe('ProponentService', () => {
           );
       }));
       it('returns an empty array',
-        inject([ProponentService, XHRBackend], (proponentService, mockBackend) => {
+        inject([ProponentService, HttpXhrBackend], (proponentService, mockBackend) => {
 
-          mockResponse = undefined;
+          mockHttpResponse = undefined;
 
-          mockBackEnd(mockResponse, mockBackend);
+          mockBackEnd(mockHttpResponse, mockBackend);
 
           proponentService.getAll().subscribe(
             proponent => {
@@ -70,15 +68,15 @@ describe('ProponentService', () => {
           );
       }));
     });
-    describe('given a valid response', () => {
-      let mockResponse;
+    describe('given a valid HttpResponse', () => {
+      let mockHttpResponse;
 
       it('returns 0 items',
-        inject([ProponentService, XHRBackend], (proponentService, mockBackend) => {
+        inject([ProponentService, HttpXhrBackend], (proponentService, mockBackend) => {
 
-          mockResponse = [];
+          mockHttpResponse = [];
 
-          mockBackEnd(mockResponse, mockBackend);
+          mockBackEnd(mockHttpResponse, mockBackend);
 
           proponentService.getAll().subscribe(
             proponent => {
@@ -87,14 +85,14 @@ describe('ProponentService', () => {
           );
       }));
       it('returns 2 items',
-        inject([ProponentService, XHRBackend], (proponentService, mockBackend) => {
+        inject([ProponentService, HttpXhrBackend], (proponentService, mockBackend) => {
 
-          mockResponse = [
+          mockHttpResponse = [
             createProponentItem('1234'),
             createProponentItem('4321')
           ];
 
-          mockBackEnd(mockResponse, mockBackend);
+          mockBackEnd(mockHttpResponse, mockBackend);
 
           proponentService.getAll().subscribe(
             proponent => {
@@ -103,9 +101,9 @@ describe('ProponentService', () => {
           );
       }));
       it('returns n items',
-        inject([ProponentService, XHRBackend], (proponentService, mockBackend) => {
+        inject([ProponentService, HttpXhrBackend], (proponentService, mockBackend) => {
 
-          mockResponse = [
+          mockHttpResponse = [
             createProponentItem('1234'),
             createProponentItem('1234'),
             createProponentItem('1234'),
@@ -116,7 +114,7 @@ describe('ProponentService', () => {
             createProponentItem('4321')
           ];
 
-          mockBackEnd(mockResponse, mockBackend);
+          mockBackEnd(mockHttpResponse, mockBackend);
 
           proponentService.getAll().subscribe(
             proponent => {

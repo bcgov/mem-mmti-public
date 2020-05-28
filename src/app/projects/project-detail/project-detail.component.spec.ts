@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Project } from '../../models/project';
 import { MapModule } from '../../map/map.module';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ProjectDetailComponent } from './project-detail.component';
 
 import { OrderByPipe } from '../../filters/order-by.pipe';
@@ -43,8 +43,8 @@ describe('ProjectDetailComponent', () => {
             return jasmine.createSpyObj('Subscription', ['unsubscribe']);
           }
         },
-        createUrlTree: (commands, navExtras = {}) => {},
-        serializeUrl: (url) => ''
+        createUrlTree: () => {},
+        serializeUrl: () => ''
       };
       TestBed.configureTestingModule({
         providers: [
@@ -62,7 +62,7 @@ describe('ProjectDetailComponent', () => {
             { path: 'projects', redirectTo: '' }
           ]),
           MapModule,
-          HttpModule
+          HttpClientModule
         ]
       }).compileComponents();
     })

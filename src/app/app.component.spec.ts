@@ -3,8 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { Api } from './services/api';
-import { Http, HttpModule } from '@angular/http';
-import { DocumentService } from './services/document.service';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -20,7 +19,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         NgxPageScrollModule,
-        HttpModule
+        HttpClientModule
       ]
     }).compileComponents();
   }));

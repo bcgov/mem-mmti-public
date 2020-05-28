@@ -7,15 +7,15 @@ import { AuthorizationsComponent } from './authorizations.component';
 describe('AuthorizationsComponent', () => {
   let component: AuthorizationsComponent;
   let fixture: ComponentFixture<AuthorizationsComponent>;
-  let navigationInstance;
+  let navigationInstance: NavigationEnd;
   const routerStub = {
     events: {
-      subscribe: (next: (value) => void) => {
+      subscribe: (next: (value: any) => void) => {
         next(navigationInstance);
         return jasmine.createSpyObj('Subscription', ['unsubscribe']);
       }
     },
-    parseUrl: (url) => {
+    parseUrl: () => {
       return {
         fragment: 'test'
       };
@@ -41,7 +41,7 @@ describe('AuthorizationsComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should be created', inject([Router], (router) => {
+  it('should be created', inject([Router], (router: Router) => {
     navigationInstance = new NavigationEnd(1, 'test.test.com', 'test.test.com');
     const authComp = new AuthorizationsComponent(router);
     expect(authComp).not.toBeNull();

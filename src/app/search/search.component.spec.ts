@@ -2,11 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from '../services/document.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PageScrollService } from 'ngx-page-scroll';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 import { SearchComponent } from './search.component';
 import { Api } from 'app/services/api';
@@ -42,8 +42,8 @@ describe('SearchComponent', () => {
         TagInputModule,
         BrowserAnimationsModule,
         FormsModule,
-        NgbModule.forRoot(),
-        HttpModule,
+        NgbModule,
+        HttpClientModule,
         RouterTestingModule
       ]
     })

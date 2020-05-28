@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule, Http, Response, ResponseOptions, BaseRequestOptions, XHRBackend } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MapConfigService } from './map-config.service';
 import { Api } from '../../services/api';
@@ -8,7 +8,7 @@ describe('MapConfigService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule
+        HttpClientModule
       ],
       providers: [
         MapConfigService,
