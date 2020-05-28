@@ -53,7 +53,7 @@ describe('OrderByPipe', () => {
     });
   });
   describe('given property does not exist on a record', () => {
-    // These cases are not handled by the order by pipe
+    // These cases are not handled by the order-by pipe
     // removing case temporarily until we fix.
    /* it('returns null records at top', () => {
       records = [
