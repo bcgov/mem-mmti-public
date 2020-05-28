@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Project } from '../../models/project';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ProjectListComponent } from './project-list.component';
 import { OrderByPipe } from '../../filters/order-by.pipe';
@@ -13,7 +13,6 @@ import { OperatorFilterPipe } from '../../operator-filter.pipe';
 import { ObjectFilterPipe } from '../../object-filter.pipe';
 import { ProjectService } from 'app/services/project.service';
 import { Api } from 'app/services/api';
-import { Observable } from 'rxjs/Observable';
 
 describe('ProjectComponent', () => {
   let component: ProjectListComponent;
@@ -47,7 +46,7 @@ describe('ProjectComponent', () => {
         RouterTestingModule,
         NgxPaginationModule,
         FormsModule,
-        HttpModule
+        HttpClientModule
       ]
     })
     .compileComponents();

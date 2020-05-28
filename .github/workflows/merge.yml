@@ -1,0 +1,26 @@
+name: MergeActions
+
+on:
+  push:
+    branches:
+    - master
+  milestone:
+    types: [created, edited]
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Zap Scan MMTI Public
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: develop
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.3.0
+        continue-on-error: true
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: 'https://www-mem-mmt-dev.pathfinder.gov.bc.ca/'
+          rules_file_name: '.zap/rules.tsv'

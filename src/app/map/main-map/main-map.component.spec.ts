@@ -41,7 +41,7 @@ describe('MainMapComponent', () => {
         EsriMapComponent
       ],
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         RouterTestingModule
       ]
     })
