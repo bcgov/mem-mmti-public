@@ -193,7 +193,7 @@ function queryLayer(featureLayer: __esri.FeatureLayer, params: __esri.Query): Pr
 // }
 
 // Esri promise implementation is not compatible with native JS promises
-// This is a wrapper to create proper native promises...
+// This is a wrapper to create proper native promises
 function toNativePromise<T>(esriPromise: IPromise<T>, onfulfilled = done, onrejected = fail): Promise<any> {
   return Promise.resolve(esriPromise.then(onfulfilled, onrejected));
 }
