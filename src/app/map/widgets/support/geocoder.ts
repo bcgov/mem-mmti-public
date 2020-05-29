@@ -105,7 +105,6 @@ function createClass(moduleProvider: EsriModuleProvider, options: GeocoderSettin
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#addressToLocations
         addressToLocations(params: __esri.LocatorAddressToLocationsParams): IPromise<__esri.AddressCandidate[]> {
 
-          // const self: __esri.Locator = this;
           // const { outSpatialReference } = self;
           const { address, maxLocations } = params;
           const singleLineField = singleLineFieldName(options);
