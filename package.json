@@ -11,7 +11,7 @@
     "pretest": "npm run lint",
     "test": "ng test --watch=false",
     "test-ci": "ng test --watch=false",
-    "e2e": "ng e2e",
+    "e2e": "node e2e.ts",
     "postinstall": "ng build --prod"
   },
   "private": true,
