@@ -20,6 +20,6 @@ jobs:
     - name: npm install, and test
       run: |
         npm install
-        npm run tests-ci
+        npm run test-ci
       env:
         CI: true
