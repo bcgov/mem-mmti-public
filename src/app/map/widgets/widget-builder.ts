@@ -42,7 +42,7 @@ export class WidgetBuilder {
 
   private createZoom(props: ZoomWidgetProperties): Promise<__esri.Zoom> {
     return this.moduleProvider.require(['esri/widgets/Zoom'])
-      .then(([Zoom]: [__esri.ZoomConstructor]) => new Zoom({ view: props.view }));
+      .then(([Zoom]: [__esri.ZoomConstructor]) =>  new Zoom({ view: props ? props.view : null }));
   }
 
   private createSearch(props: SearchWidgetProperties): Promise<__esri.Search> {
