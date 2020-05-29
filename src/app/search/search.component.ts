@@ -64,6 +64,7 @@ export class SearchComponent implements OnInit {
     @Inject(DOCUMENT) private document: any
   ) {
     this.limit = 15;
+    this.terms = new SearchTerms();
   }
 
   ngOnInit() {
@@ -95,7 +96,7 @@ export class SearchComponent implements OnInit {
           this.params.limit
       */
       this.params = params;
-      this['terms'] = new SearchTerms();
+      this.terms = new SearchTerms();
 
       // Get the proponents
       this.proponentService.getAll().subscribe(
