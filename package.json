@@ -9,9 +9,8 @@
     "prebuild": "npm run lint",
     "build": "ng build --prod",
     "pretest": "npm run lint",
-    "test": "echo 'Test suite should be run with \"`npm run tests` or npm `run tests-ci`\"'",
-    "tests": "ng test --watch=false",
-    "tests-ci": "ng test --watch=false",
+    "test": "ng test --watch=false",
+    "test-ci": "ng test --watch=false",
     "e2e": "ng e2e",
     "postinstall": "ng build --prod"
   },
