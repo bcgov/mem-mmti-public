@@ -1,6 +1,5 @@
-/*import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientModule, HttpResponse, HttpXhrBackend } from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
+import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientModule, HttpResponse } from '@angular/common/http';
 
 import { ProjectService } from './project.service';
 import { Api } from './api';
@@ -32,9 +31,9 @@ describe('ProjectService', () => {
     };
   }
 
-  function createHttpResponseItem(HttpResponse: any) {
+  function createHttpResponseItem(resp: any) {
     HttpResponseItem = {
-      HttpResponse: HttpResponse
+      HttpResponse: resp
     };
     return HttpResponseItem;
   }
@@ -56,14 +55,13 @@ describe('ProjectService', () => {
     return HttpResponses;
   }
 
-  function mockBackEnd(mockHttpResponses: any[], mockBackend: any) {
-    // Subscribe to opened http connections
-    mockBackend.connections.subscribe((connection) => {
-      const mockHttpResponse = mockHttpResponses.shift();
-      connection.mockRespond(new HttpResponse(({
-        body: JSON.stringify(mockHttpResponse.HttpResponse)
-      })));
-    });
+  function mockBackEnd(mockHttpResponses: any[]) {
+      // Have connection send a HttpResponse
+      let mockResponse = new HttpResponse({
+        body: JSON.stringify(mockHttpResponses)
+      });
+
+      return mockResponse;
   }
 
   beforeEach(() => {
@@ -71,8 +69,7 @@ describe('ProjectService', () => {
       imports: [HttpClientModule],
       providers: [
         Api,
-        ProjectService,
-        { provide: HttpXhrBackend, useClass: MockBackend },
+        ProjectService
       ]
     });
   });
@@ -85,9 +82,9 @@ describe('ProjectService', () => {
         mockHttpResponses = createGetAllMockHttpResponses(projectObjs);
       });
       it('returns 0 items',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
-        mockBackEnd(mockHttpResponses, mockBackend);
+        mockBackEnd(mockHttpResponses);
 
         projectService.getAll().subscribe(
           project => {
@@ -97,9 +94,9 @@ describe('ProjectService', () => {
       }));
 
       it('returns an empty array',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
-        mockBackEnd(mockHttpResponses, mockBackend);
+        mockBackEnd(mockHttpResponses);
 
         projectService.getAll().subscribe(
           project => {
@@ -113,12 +110,12 @@ describe('ProjectService', () => {
       projcode = '1234';
 
       it('returns 0 items',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         const projectObjs = [];
         mockHttpResponses = createGetAllMockHttpResponses(projectObjs);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
+        mockBackEnd(mockHttpResponses);
 
         projectService.getAll().subscribe(
           project => {
@@ -127,7 +124,7 @@ describe('ProjectService', () => {
         );
       }));
       it('returns 2 items',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         const projectObjs = [
           projectFactory(),
@@ -135,7 +132,7 @@ describe('ProjectService', () => {
         ];
         mockHttpResponses = createGetAllMockHttpResponses(projectObjs);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
+        mockBackEnd(mockHttpResponses);
 
         projectService.getAll().subscribe(
           project => {
@@ -144,7 +141,7 @@ describe('ProjectService', () => {
         );
       }));
       it('returns n items',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
 
         const projectObjs = [
@@ -160,7 +157,7 @@ describe('ProjectService', () => {
         ];
         mockHttpResponses = createGetAllMockHttpResponses(projectObjs);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
+        mockBackEnd(mockHttpResponses);
 
         projectService.getAll().subscribe(
           project => {
@@ -172,12 +169,11 @@ describe('ProjectService', () => {
   });
   describe('getBycode(code)', () => {
     let mockHttpResponses;
-    let expectedHttpResponse;
     let numEpicCodes;
 
     describe('given a valid HttpResponse', () => {
       it('returns an empty project',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         projcode = '';
         numEpicCodes = 0;
@@ -189,9 +185,7 @@ describe('ProjectService', () => {
 
         mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
-
-        expectedHttpResponse = [];
+        mockBackEnd(mockHttpResponses);
 
         projectService.getByCode(projcode).subscribe(
           project => {
@@ -201,7 +195,7 @@ describe('ProjectService', () => {
       }));
 
       it('returns the project corresponding to the code',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         projcode = '1234';
         numEpicCodes = 3;
@@ -213,9 +207,7 @@ describe('ProjectService', () => {
 
         mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
-
-        expectedHttpResponse = [];
+        mockBackEnd(mockHttpResponses);
 
         projectService.getByCode(projcode).subscribe(
           project => {
@@ -227,12 +219,11 @@ describe('ProjectService', () => {
   });
   describe('getCollectionsMEM()', () => {
     let mockHttpResponses;
-    let expectedHttpResponse;
     let numEpicCodes;
 
     describe('given a valid HttpResponse', () => {
       it('returns 0 collection',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         projcode = '';
         numEpicCodes = 0;
@@ -244,9 +235,7 @@ describe('ProjectService', () => {
 
         mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
-
-        expectedHttpResponse = [];
+        mockBackEnd(mockHttpResponses);
 
         projectService.getByCode(projcode).subscribe(
           project => {
@@ -256,7 +245,7 @@ describe('ProjectService', () => {
       }));
 
       it('returns 1 collection',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         projcode = '';
         numEpicCodes = 0;
@@ -268,9 +257,7 @@ describe('ProjectService', () => {
 
         mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
-
-        expectedHttpResponse = [];
+        mockBackEnd(mockHttpResponses);
 
         projectService.getByCode(projcode).subscribe(
           project => {
@@ -282,12 +269,11 @@ describe('ProjectService', () => {
   });
   describe('getCollectionsEPIC()', () => {
     let mockHttpResponses;
-    let expectedHttpResponse;
     let numEpicCodes;
 
     describe('given a valid HttpResponse', () => {
       it('returns 0 collection',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         projcode = '';
         numEpicCodes = 0;
@@ -299,9 +285,7 @@ describe('ProjectService', () => {
 
         mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
-
-        expectedHttpResponse = [];
+        mockBackEnd(mockHttpResponses);
 
         projectService.getByCode(projcode).subscribe(
           project => {
@@ -315,7 +299,7 @@ describe('ProjectService', () => {
       }));
 
       it('returns 1 collection',
-        inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+        inject([ProjectService], (projectService) => {
 
         projcode = '';
         numEpicCodes = 1;
@@ -327,9 +311,7 @@ describe('ProjectService', () => {
 
         mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-        mockBackEnd(mockHttpResponses, mockBackend);
-
-        expectedHttpResponse = [];
+        mockBackEnd(mockHttpResponses);
 
         projectService.getByCode(projcode).subscribe(
           project => {
@@ -341,13 +323,12 @@ describe('ProjectService', () => {
   });
   describe('addCollections(collectionsList, collection)', () => {
     let mockHttpResponses;
-    let expectedHttpResponse;
     let numEpicCodes;
 
     describe('given a valid HttpResponse', () => {
       describe('given parentType is Authorizations', () => {
         it('adds the collection to the eao agency in under authorizations',
-          inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+          inject([ProjectService], (projectService) => {
 
           projcode = '';
           numEpicCodes = 1;
@@ -359,9 +340,7 @@ describe('ProjectService', () => {
 
           mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-          mockBackEnd(mockHttpResponses, mockBackend);
-
-          expectedHttpResponse = [];
+          mockBackEnd(mockHttpResponses);
 
           projectService.getByCode(projcode).subscribe(
             project => {
@@ -370,7 +349,7 @@ describe('ProjectService', () => {
           );
         }));
         it('adds the collection to the mem agency in under authorizations',
-          inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+          inject([ProjectService], (projectService) => {
 
           projcode = '';
           numEpicCodes = 1;
@@ -382,9 +361,7 @@ describe('ProjectService', () => {
 
           mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-          mockBackEnd(mockHttpResponses, mockBackend);
-
-          expectedHttpResponse = [];
+          mockBackEnd(mockHttpResponses);
 
           projectService.getByCode(projcode).subscribe(
             project => {
@@ -393,7 +370,7 @@ describe('ProjectService', () => {
           );
         }));
         it('adds the collection to the env agency in under authorizations',
-          inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+          inject([ProjectService], (projectService) => {
 
           projcode = '';
           numEpicCodes = 1;
@@ -405,9 +382,7 @@ describe('ProjectService', () => {
 
           mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-          mockBackEnd(mockHttpResponses, mockBackend);
-
-          expectedHttpResponse = [];
+          mockBackEnd(mockHttpResponses);
 
           projectService.getByCode(projcode).subscribe(
             project => {
@@ -418,7 +393,7 @@ describe('ProjectService', () => {
       });
       describe('given parentType is Compliance and Enforcement', () => {
         it('adds the collection under compliance',
-          inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+          inject([ProjectService], (projectService) => {
 
           projcode = '';
           numEpicCodes = 1;
@@ -430,9 +405,7 @@ describe('ProjectService', () => {
 
           mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-          mockBackEnd(mockHttpResponses, mockBackend);
-
-          expectedHttpResponse = [];
+          mockBackEnd(mockHttpResponses);
 
           projectService.getByCode(projcode).subscribe(
             project => {
@@ -442,7 +415,7 @@ describe('ProjectService', () => {
         }));
         describe('given parentType is Other', () => {
           it('adds the collection under documents',
-            inject([ProjectService, HttpXhrBackend], (projectService, mockBackend) => {
+            inject([ProjectService], (projectService) => {
 
             projcode = '';
             numEpicCodes = 1;
@@ -454,9 +427,7 @@ describe('ProjectService', () => {
 
             mockHttpResponses = createGetByCodeMockHttpResponses(projObj, memObj, epicObj, numEpicCodes);
 
-            mockBackEnd(mockHttpResponses, mockBackend);
-
-            expectedHttpResponse = [];
+            mockBackEnd(mockHttpResponses);
 
             projectService.getByCode(projcode).subscribe(
               project => {
@@ -468,4 +439,4 @@ describe('ProjectService', () => {
       });
     });
   });
-});*/
+});
