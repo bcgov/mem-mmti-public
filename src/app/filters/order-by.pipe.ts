@@ -19,17 +19,17 @@ export class OrderByPipe implements PipeTransform {
 
             if (typeof aCompare === 'object' && !(aCompare instanceof Date)) {
                 // MBL TODO: Assume name for sub-property.  Fix this to be more generic.
-                if (aCompare.name === undefined) {
+                if (aCompare && aCompare.name === undefined) {
                     return 0;
                 }
 
-                aCompare = aCompare.name;
-                bCompare = bCompare.name;
+                aCompare = aCompare ? aCompare.name : null;
+                bCompare = bCompare ? bCompare.name : null;
             }
 
             if (typeof aCompare === 'string') {
-                aCompare = aCompare.toLowerCase();
-                bCompare = bCompare.toLowerCase();
+                aCompare = aCompare ? aCompare.toLowerCase() : null;
+                bCompare = bCompare ? bCompare.toLowerCase() : null;
             }
 
             if (aCompare < bCompare) {
@@ -42,5 +42,5 @@ export class OrderByPipe implements PipeTransform {
 
             return 0;
         });
-    };
+    }
 }

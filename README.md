@@ -1,10 +1,10 @@
-# mem-mmti-public
+# BCMI (mem-mmti-public)
 
 # Prerequisites
 
 ## Node and NPM
 
-Node 6.x must be installed.
+Node 10.19 must be installed.
 
 ## Install angular/cli
 
@@ -23,16 +23,10 @@ npm list -g @angular/cli --depth=0
 ng -v
 ```
 
-## Install [yarn](https://yarnpkg.com/lang/en/docs/install/#alternatives-tab).
-
-```
-npm i -g yarn
-```
-
 ## Fork, Build and Deployment
 
-1. After installing Node and Yarn, you can fork or straight download a copy of this application to start your own app.
-1. First download all the dependencies with `yarn install`
+1. After installing Node and Angular CLI, you can fork or straight download a copy of this application to start your own app.
+1. First download all the dependencies with `npm install`
 1. Run `npm start` to start the webpack server to run the application on port 4300
 
     Go to http://localhost:4300 to verify that the application is running
@@ -41,7 +35,7 @@ npm i -g yarn
 
 1. Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build, like so: `ng serve --prod` to run in production mode.
 1. Run `npm run lint` to lint your app code using `TSLint`
-
+1. Run `npm run test` to run the unit tests
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
@@ -125,6 +119,8 @@ Set up with [BDDStack](https://github.com/BCDevOps/BDDStack).
 #### Run tests against local application:
 
 1. Run `ng run e2e` to automatically start the application locally and execute the end-to-end tests.
+
+Note, e2e functional testing requires Java.
 
 #### Run tests against remote application:
 

@@ -165,7 +165,7 @@ interface WidgetProperties {
     featureLayer: __esri.FeatureLayer;
     geocoder: any;
   };
-};
+}
 
 export function addWidgets(view: __esri.MapView, widgetBuilder: WidgetBuilder, props?: WidgetProperties): Promise<void> {
   // create widgets in parallel
@@ -188,12 +188,12 @@ function queryLayer(featureLayer: __esri.FeatureLayer, params: __esri.Query): Pr
 // Warning! Esri promises are not compatible with native JS Promises
 // Adding `done` handler avoids infinite loop in the browser...
 // (see https://www.esri.com/arcgis-blog/products/js-api-arcgis/mapping/making-better-promises)
-function whenReady(esriLoadable: IPromise<any>): IPromise<any> {
-  return esriLoadable.then(done, fail);
-}
+// function whenReady(esriLoadable: IPromise<any>): IPromise<any> {
+//   return esriLoadable.then(done, fail);
+// }
 
 // Esri promise implementation is not compatible with native JS promises
-// This is a wrapper to create proper native promises...
+// This is a wrapper to create proper native promises
 function toNativePromise<T>(esriPromise: IPromise<T>, onfulfilled = done, onrejected = fail): Promise<any> {
   return Promise.resolve(esriPromise.then(onfulfilled, onrejected));
 }

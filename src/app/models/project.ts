@@ -44,6 +44,21 @@ export class Project {
     operatingjobsNotes: string;
   };
 
+  // same as `activities` but sorted by display order
+  sortedActivities: {
+    order: number;
+    status: string;
+    name: string;
+    cssClass?: string;
+  }[];
+
+  // same as `externalLinks` but without duplicate links and sorted by `order`
+  sortedLinks: {
+    link: string;
+    title: string;
+    order: number;
+  }[];
+
   private _activities: {
     order: number;  // display order, not any business rules order
     status: string;  // one of: 'Active', 'Inactive', 'Pending', 'Complete', 'Suspended', 'N/A', ''
@@ -64,14 +79,6 @@ export class Project {
     }
   }
 
-  // same as `activities` but sorted by display order
-  sortedActivities: {
-    order: number;
-    status: string;
-    name: string;
-    cssClass?: string;
-  }[];
-
   private _externalLinks: {
     link: string;
     title: string;
@@ -90,13 +97,6 @@ export class Project {
       this.sortedLinks = [];
     }
   }
-
-  // same as `externalLinks` but without duplicate links and sorted by `order`
-  sortedLinks: {
-    link: string;
-    title: string;
-    order: number;
-  }[];
 
   constructor(obj?: any) {
     this._id                     = obj && obj._id                     || null;

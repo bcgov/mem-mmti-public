@@ -1,7 +1,9 @@
+
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { HttpResponse } from '@angular/common/http';
+
+
 
 import { Api } from './api';
 
@@ -13,16 +15,16 @@ export class ProponentService {
 
   getAll() {
     // Get all organizations
-    return this.api.getProponents()
-      .map((res: Response) => {
-        const organizations = res.text() ? res.json() : [];
+    return this.api.getProponents().pipe(
+      map((res: HttpResponse<any>) => {
+        const organizations = res.body.text() ? res.body.json() : [];
 
         organizations.forEach((org, index) => {
           organizations[index] = new Proponent(org);
         });
 
         return organizations;
-      })
-      .catch(this.api.handleError);
+      }),
+      catchError(this.api.handleError));
   }
 }

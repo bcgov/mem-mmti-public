@@ -4,10 +4,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit }
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
-import { PageScrollInstance, PageScrollService } from 'ngx-page-scroll';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { PageScrollService } from 'ngx-page-scroll-core';
+
 import { Project } from '../models/project';
 import { Proponent } from '../models/proponent';
 import { Search, SearchTerms } from '../models/search';
@@ -66,6 +64,7 @@ export class SearchComponent implements OnInit {
     @Inject(DOCUMENT) private document: any
   ) {
     this.limit = 15;
+    this.terms = new SearchTerms();
   }
 
   ngOnInit() {
@@ -125,7 +124,7 @@ export class SearchComponent implements OnInit {
             projects => {
               this.projects = projects;
               this.projectArray = [];
-              this.projects.forEach((project, index) => {
+              this.projects.forEach((project) => {
                 this.projectArray.push(project._id);
               });
 
@@ -192,14 +191,14 @@ export class SearchComponent implements OnInit {
       this.page += 1;
     }
 
-    this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit).subscribe(
-      data => {
+    this.documentService.get(this.terms, this.projects, this.proponents, this.page, this.limit)
+    .subscribe((data: any[]) => {
         this.loading = false;
         let memCount = 0;
         let epicCount = 0;
         // mem-data
         if (data[0].results) {
-          data[0].results.forEach(i => {
+          data[0].results.forEach((i: Search) => {
             this.results.push(i);
           });
           memCount = data[0].count;
@@ -208,7 +207,7 @@ export class SearchComponent implements OnInit {
 
         // esm-server data
         if (data.length === 2) {
-          data[1].results.forEach(i => {
+          data[1].results.forEach((i: Search) => {
             this.results.push(i);
           });
           epicCount = data[1].count;
@@ -220,7 +219,7 @@ export class SearchComponent implements OnInit {
         // Needed in development mode - not required in prod.
         this._changeDetectionRef.detectChanges();
       },
-      error => console.log(error)
+      (error: any) => console.log(error)
     );
   }
 
@@ -229,12 +228,10 @@ export class SearchComponent implements OnInit {
   }
 
   scrollToResults(): void {
-    const pageScrollInstance: PageScrollInstance = PageScrollInstance.newInstance({
+    this.pageScrollService.scroll({
       document: this.document,
-      pageScrollDuration: 300,
       scrollTarget: '#scrollToPoint'
     });
-    this.pageScrollService.start(pageScrollInstance);
   }
 
   loadMore() {

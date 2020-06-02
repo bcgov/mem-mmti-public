@@ -1,9 +1,8 @@
+import {throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
 
 
 @Injectable()
@@ -15,7 +14,7 @@ export class Api {
   params: Params;
   env: 'local' | 'dev' | 'test' | 'prod';
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     const host = this.getHostName(window.location.hostname);
     this.hostnameEPIC = host.hostnameEPIC;
     this.hostnameMEM = host.hostnameMEM;
@@ -68,7 +67,8 @@ export class Api {
         // TODO: Cleanup legacy hostnameEPIC variable references - should only be using hostnameMEM
         hostnameEPIC = hostnameMEM;
         env = 'prod';
-    };
+    }
+
     return { hostnameEPIC, hostnameMEM, env };
   }
 
@@ -125,16 +125,16 @@ export class Api {
   handleError(error: any) {
     const reason = error.message ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
     console.log(reason);
-    return Observable.throw(reason);
+    return observableThrowError(reason);
   }
 
   // Private
 
   private get(apiPath: string, apiRoute: string, options?: Object) {
-    return this.http.get(`${ apiPath }/${ apiRoute }`, options || null);
+    return this.http.get(`${ apiPath }/${ apiRoute }`, options || {});
   }
 
   private put(apiPath: string, apiRoute: string, body?: Object, options?: Object) {
-    return this.http.put(`${ apiPath }/${ apiRoute }`, body || null, options || null);
+    return this.http.put(`${ apiPath }/${ apiRoute }`, body || null, options || {});
   }
 }

@@ -1,11 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
-
+import { Component, OnInit, ElementRef, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 import { MapLoaderService } from '../core';
 
 export interface MapInitEvent {
   map: __esri.Map;
   mapView: __esri.MapView;
-};
+}
 
 /* tslint:disable:component-selector */
 @Component({
@@ -17,9 +16,6 @@ export interface MapInitEvent {
 export class EsriMapComponent implements OnInit, OnDestroy {
   map: __esri.Map;
   mapView: __esri.MapView;
-
-  // this is needed to be able to create the MapView at the DOM element in this component
-  @ViewChild('map') mapEl: ElementRef;
 
   @Input() mapProperties: __esri.MapProperties;
   @Input() webMapProperties: __esri.WebMapProperties;
@@ -54,7 +50,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
       mapProperties: this.mapProperties,
       webMapProperties: this.webMapProperties,
       mapViewProperties: this.mapViewProperties,
-      mapEl: this.mapEl
+      mapEl: new ElementRef<any>('esri-map')
     };
 
     // suppress default popup actions; i.e. "zoom-to"

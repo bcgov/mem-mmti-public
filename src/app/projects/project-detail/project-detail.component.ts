@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { Project } from '../../models/project';
 
@@ -36,12 +36,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       (data: { project: Project }) => this.parseData(data),
       error => console.log(error)
     );
-
     // watch for route change events and restore Y scroll position
-    this.router.events.subscribe((val) => {
+    this.router.events.subscribe(() => {
       this.restoreYOffset();
     },
     error => console.log(error));
+
+    window.scrollTo(0, 0);
   }
 
   parseData(data: {project: Project}): void {
@@ -55,7 +56,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   gotoProjectList(): void {

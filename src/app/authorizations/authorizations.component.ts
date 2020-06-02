@@ -11,7 +11,7 @@ export class AuthorizationsComponent implements OnInit {
   constructor( private router: Router ) {
     // Note: Angular 'fragment' attribute is not working so this is a work around until they decide to fix it
     // Get URL and find the fragment of it which should be an ID. Scroll to said ID.
-    router.events.subscribe(event => {
+    this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
             const url = router.parseUrl(router.url);
             if (url.fragment) {
@@ -25,6 +25,7 @@ export class AuthorizationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
   }
 
 }

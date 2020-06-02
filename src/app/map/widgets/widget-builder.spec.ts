@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule, Http, Response, ResponseOptions, BaseRequestOptions, XHRBackend } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { WidgetBuilder } from './widget-builder';
 import { MapConfigService } from '../core';
@@ -18,7 +18,7 @@ describe('MapWidgetFactoryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule,
+        HttpClientModule,
         MapModule
       ],
       providers: [

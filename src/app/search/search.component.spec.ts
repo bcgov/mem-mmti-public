@@ -1,13 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+
+// ? Search Document pages were removed as they have never functions
+// ? the code is intact, but the search has bee removed for now until
+// ? this functionality is re-introduced
+
+/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentService } from '../services/document.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PageScrollService } from 'ngx-page-scroll';
-
+import { PageScrollService } from 'ngx-page-scroll-core';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { SearchComponent } from './search.component';
 import { Api } from 'app/services/api';
 import { ProjectService } from 'app/services/project.service';
@@ -42,9 +50,12 @@ describe('SearchComponent', () => {
         TagInputModule,
         BrowserAnimationsModule,
         FormsModule,
-        NgbModule.forRoot(),
-        HttpModule,
-        RouterTestingModule
+        NgbModule,
+        HttpClientModule,
+        RouterTestingModule,
+        NgxPaginationModule,
+        NgxPageScrollModule,
+        NgxPageScrollCoreModule
       ]
     })
     .compileComponents();
@@ -115,4 +126,4 @@ describe('SearchComponent', () => {
       });
     });
   });
-});
+});*/

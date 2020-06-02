@@ -1,9 +1,4 @@
 import * as _ from 'lodash';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { createRequestBuilder } from './geocoder-api';
 import { EsriModuleProvider } from '../../core';
@@ -108,17 +103,11 @@ function createClass(moduleProvider: EsriModuleProvider, options: GeocoderSettin
 
         // Find candidates for a single address specified in the address parameter.
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#addressToLocations
-        addressToLocations(params: __esri.LocatorAddressToLocationsParams,
-          requestOptions?: any): IPromise<__esri.AddressCandidate[]> {
+        addressToLocations(params: __esri.LocatorAddressToLocationsParams): IPromise<__esri.AddressCandidate[]> {
 
-          const self: __esri.Locator = this;
-          const { outSpatialReference } = self;
           const { address, maxLocations } = params;
           const singleLineField = singleLineFieldName(options);
 
-          //  var address = {
-          //    "addressString": "525 Superior St, Victoria, BC"
-          //  };
           const addressString: string = address[singleLineField];
 
           const requestUrl = createRequestBuilder(url)
@@ -146,9 +135,7 @@ function createClass(moduleProvider: EsriModuleProvider, options: GeocoderSettin
 
         // Get character by character auto-complete suggestions.
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#suggestLocations
-        suggestLocations(params: LocatorSuggestLocationsParams, requestOptions?): IPromise<__esri.SuggestionResult[]> {
-          const self: __esri.Locator = this;
-          const { outSpatialReference } = self;
+        suggestLocations(params: LocatorSuggestLocationsParams): IPromise<__esri.SuggestionResult[]> {
           const { text, maxSuggestions } = params;
 
           const requestUrl = createRequestBuilder(url)

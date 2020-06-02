@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProjectDetailResolver } from './project-detail-resolver.service';
 import { ProjectService } from 'app/services/project.service';
 import { Api } from 'app/services/api';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ProjectDetailResolverService', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('ProjectDetailResolverService', () => {
       ],
       declarations: [],
       imports: [
-        HttpModule,
+        HttpClientModule,
         RouterTestingModule
       ]
     });

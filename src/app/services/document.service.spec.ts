@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { Api } from './api';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { DocumentService } from './document.service';
 
@@ -13,7 +13,7 @@ describe('DocumentService', () => {
       ],
       declarations: [],
       imports: [
-        HttpModule
+        HttpClientModule
       ]
     });
   });

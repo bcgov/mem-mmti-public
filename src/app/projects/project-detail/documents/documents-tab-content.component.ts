@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { Project } from '../../../models/project';
 import { CollectionsArray } from '../../../models/collection';
@@ -39,6 +39,8 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

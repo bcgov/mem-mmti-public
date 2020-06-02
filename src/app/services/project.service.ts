@@ -1,12 +1,8 @@
+import {forkJoin as observableForkJoin, of as observableOf, throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {switchMap, catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { HttpResponse } from '@angular/common/http';
 
 import { Api } from './api';
 
@@ -20,64 +16,64 @@ export class ProjectService {
   constructor(private api: Api) { }
 
   getAll() {
-    return this.api.getProjects()
-      .map((res: Response) => {
-        const projects = res.text() ? res.json() : [];
+    return this.api.getProjects().pipe(
+      map((res: any[]) => {
+        const projects = res ? res : [];
 
         projects.forEach((project, index) => {
           projects[index] = new Project(project);
         });
 
         return projects;
-      })
-      .catch(this.api.handleError);
+      }),
+      catchError(this.api.handleError));
   }
 
   getByCode(code: string): Observable<Project> {
     this.project = null;
 
     // Grab the project data first
-    return this.api.getProjectByCode(code)
-      .map((res: Response) => {
-        return res.text() ? new Project(res.json()) : null;
-      })
-      .map((project: Project) => {
-        if (!project) { return Observable.throw(new Error('Project not found!')); }
+    return this.api.getProjectByCode(code).pipe(
+      map((res: HttpResponse<any>) => {
+        return res ? new Project(res) : null;
+      }),
+      map((project: Project) => {
+        if (!project) { return observableThrowError(new Error('Project not found!')); }
 
         this.project = project;
         this.project.collections = new CollectionsList();
         return this.project;
-      })
+      }),
       // Now grab the MEM collections
-      .switchMap(() => this.getCollectionsMEM())
+      switchMap(() => this.getCollectionsMEM()),
       // Get EPIC collections next.
-      .switchMap(() => this.getCollectionsEPIC())
-      .map(() => this.project)
-      .catch(this.api.handleError);
+      switchMap(() => this.getCollectionsEPIC()),
+      map(() => this.project),
+      catchError(this.api.handleError));
   }
 
   private getCollectionsMEM() {
-    return this.api.getProjectCollectionsMEM(this.project.code)
-      .map((res: Response) => this.processCollections(res))
-      .map(memCollections => {
+    return this.api.getProjectCollectionsMEM(this.project.code).pipe(
+      map((res: any) => this.processCollections(res)),
+      map((memCollections: any[]) => {
         // Push them into the project
         memCollections.forEach(collection => {
           this.addCollection(this.project.collections, collection);
         });
-      });
+      }));
   }
 
   private getCollectionsEPIC() {
     // Note: there may be multiple (or no) EPIC projects associated with this MEM project.
     const observablesArray = this.project.epicProjectCodes.map(epicProjectCode => {
-      return this.api.getProjectCollectionsEPIC(epicProjectCode)
-        .map((res: Response) => this.processCollections(res))
-        .map(epicCollections => {
+      return this.api.getProjectCollectionsEPIC(epicProjectCode).pipe(
+        map((res: any) => this.processCollections(res)),
+        map(epicCollections => {
           // Push them into the project
-          epicCollections.forEach(collection => {
+          epicCollections.forEach((collection: Collection) => {
             this.addCollection(this.project.collections, collection);
           });
-        });
+        }));
     });
 
     // If this MEM project has no associated EPIC projects, the call to Observable.forkJoin() breaks.
@@ -86,8 +82,8 @@ export class ProjectService {
     return this.forkJoinOrDefault(observablesArray);
   }
 
-  private processCollections(res: Response): any[] {
-    const collections = res.text() ? res.json() : [];
+  private processCollections(res: any[]): any[] {
+    const collections = res ? res : [];
 
     collections.forEach((collection, index) => {
       collections[index] = new Collection(this.api.hostnameEPIC, this.api.hostnameMEM, collection);
@@ -111,9 +107,9 @@ export class ProjectService {
 
   private forkJoinOrDefault(observablesArray: Observable<any>[]): Observable<any[]> {
     if (observablesArray.length === 0) {
-      return Observable.of([]);
+      return observableOf([]);
     } else {
-      return Observable.forkJoin(observablesArray);
+      return observableForkJoin(observablesArray);
     }
   }
 }

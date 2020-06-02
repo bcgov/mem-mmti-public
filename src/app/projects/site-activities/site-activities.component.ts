@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { Project } from '../../models/project';
-
 @Component({
   selector: 'app-site-activities',
   templateUrl: './site-activities.component.html',

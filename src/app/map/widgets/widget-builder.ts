@@ -1,6 +1,6 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { MapConfigService, EsriModuleProvider } from '../core';
+import { EsriModuleProvider } from '../core';
 import { createGeocoder, singleLineFieldName } from './support/geocoder';
 
 export interface ZoomWidgetProperties {
@@ -23,13 +23,12 @@ export interface SearchWidgetProperties {
 export class WidgetBuilder {
 
   constructor(
-    private config: MapConfigService,
     private moduleProvider: EsriModuleProvider
   ) { }
 
   // TODO Add more overloads as more widgets are implemented - i.e. layer list, legend, etc
-  createWidget(type: 'zoom', props?: ZoomWidgetProperties): Promise<__esri.Zoom>
-  createWidget(type: 'search', props?: SearchWidgetProperties): Promise<__esri.Search>
+  createWidget(type: 'zoom', props?: ZoomWidgetProperties): Promise<__esri.Zoom>;
+  createWidget(type: 'search', props?: SearchWidgetProperties): Promise<__esri.Search>;
   createWidget(type: string, props?: any): Promise<any> {
     switch (type) {
       case 'zoom':
@@ -43,7 +42,7 @@ export class WidgetBuilder {
 
   private createZoom(props: ZoomWidgetProperties): Promise<__esri.Zoom> {
     return this.moduleProvider.require(['esri/widgets/Zoom'])
-      .then(([Zoom]: [__esri.ZoomConstructor]) => new Zoom({ view: props.view }));
+      .then(([Zoom]: [__esri.ZoomConstructor]) =>  new Zoom({ view: props ? props.view : null }));
   }
 
   private createSearch(props: SearchWidgetProperties): Promise<__esri.Search> {
