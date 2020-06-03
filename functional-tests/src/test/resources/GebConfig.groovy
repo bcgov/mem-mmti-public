@@ -13,6 +13,30 @@ import org.openqa.selenium.ie.InternetExplorerDriver
 import org.openqa.selenium.edge.EdgeDriver
 import org.openqa.selenium.safari.SafariDriver
 import org.openqa.selenium.remote.DesiredCapabilities
+import org.openqa.selenium.remote.RemoteWebDriver
+import listeners.SessionIdHolder
+
+
+// Allows for setting you baseurl in an environment variable.
+// This is particularly handy for development and the pipeline
+def env = System.getenv()
+baseUrl = env['BASEURL']
+if (!baseUrl) {
+  baseUrl = "https://www-mem-mmt-dev.pathfinder.gov.bc.ca/"
+}
+
+println "BaseURL: ${baseUrl}"
+println "--------------------------"
+
+USERNAME = env['BROWSERSTACK_USERNAME']
+AUTOMATE_KEY = env['BROWSERSTACK_TOKEN']
+DEBUG_MODE = env['DEBUG_MODE']
+
+if (!USERNAME || !AUTOMATE_KEY)
+    throw RuntimeError('BROWSERSTACK_USERNAME and BROWSERSTACK_TOKEN are required');
+
+if (!DEBUG_MODE)
+  DEBUG_MODE=false
 
 waiting {
   timeout = 40
@@ -20,6 +44,8 @@ waiting {
 }
 
 atCheckWaiting = [40, 2]
+
+String buildId = SessionIdHolder.instance.buildId
 
 environments {
 
@@ -88,23 +114,74 @@ environments {
   safari {
     driver = { new SafariDriver() }
   }
+
+  remoteFirefox {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Firefox")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Firefox")
+      caps.setCapability("browserstack.maskCommands", "setValues, getValues, setCookies, getCookies");
+      caps.setCapability("browserstack.debug", DEBUG_MODE);
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
+    }
+  }
+
+  remoteEdge {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Edge")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Edge")
+      caps.setCapability("browserstack.maskCommands", "setValues, getValues, setCookies, getCookies");
+      caps.setCapability("browserstack.debug", DEBUG_MODE);
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
+    }
+  }
+
+  remoteChrome {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Chrome")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Chrome")
+      caps.setCapability("browserstack.maskCommands", "setValues, getValues, setCookies, getCookies");
+      caps.setCapability("browserstack.debug", DEBUG_MODE);
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
+    }
+  }
 }
 
 // To run the tests with all browsers just run “./gradlew test”
 
 baseNavigatorWaiting = true
-
-// Allows for setting you baseurl in an environment variable.
-// This is particularly handy for development and the pipeline
-def env = System.getenv()
-baseUrl = env['BASEURL']
-if (!baseUrl) {
-  baseUrl = "https://www-mem-mmt-dev.pathfinder.gov.bc.ca/"
-}
-
-println "BaseURL: ${baseUrl}"
-println "--------------------------"
-
 autoClearCookies = true
 autoClearWebStorage = true
 cacheDriverPerThread = true
