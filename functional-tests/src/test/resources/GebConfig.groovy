@@ -40,10 +40,10 @@ if (!DEBUG_MODE)
 
 waiting {
   timeout = 40
-  retryInterval = 2
+  retryInterval = 1
 }
 
-atCheckWaiting = [40, 2]
+atCheckWaiting = [40, 1]
 
 String buildId = SessionIdHolder.instance.buildId
 
@@ -125,7 +125,7 @@ environments {
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Firefox")
-      caps.setCapability("browserstack.maskCommands", "setValues, getValues, setCookies, getCookies");
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies");
       caps.setCapability("browserstack.debug", DEBUG_MODE);
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
@@ -146,7 +146,7 @@ environments {
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Edge")
-      caps.setCapability("browserstack.maskCommands", "setValues, getValues, setCookies, getCookies");
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies");
       caps.setCapability("browserstack.debug", DEBUG_MODE);
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
@@ -167,7 +167,7 @@ environments {
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Chrome")
-      caps.setCapability("browserstack.maskCommands", "setValues, getValues, setCookies, getCookies");
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies");
       caps.setCapability("browserstack.debug", DEBUG_MODE);
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
