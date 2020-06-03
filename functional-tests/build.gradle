@@ -115,7 +115,6 @@ tasks.withType(Test) {
     jvmArgs '-XX:MaxMetaspaceSize=128m'
     testLogging {
       exceptionFormat = 'full'
-      showStandardStreams = true
     }
     systemProperty 'com.athaydes.spockframework.report.outputDir', 'build/reports/spock'
     systemProperty 'com.athaydes.spockframework.report.internal.HtmlReportCreator.inlineCss', false
