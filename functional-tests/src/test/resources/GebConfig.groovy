@@ -109,12 +109,6 @@ environments {
     driver = { new EdgeDriver() }
   }
 
-  // run via “./gradlew safariTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki
-  safari {
-    driver = { new SafariDriver() }
-  }
-
   remoteFirefox {
     driver = {
       DesiredCapabilities caps = new DesiredCapabilities();
@@ -125,8 +119,11 @@ environments {
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Firefox")
-      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies");
-      caps.setCapability("browserstack.debug", DEBUG_MODE);
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 
@@ -146,8 +143,11 @@ environments {
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Edge")
-      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies");
-      caps.setCapability("browserstack.debug", DEBUG_MODE);
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 
@@ -167,8 +167,33 @@ environments {
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Chrome")
-      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies");
-      caps.setCapability("browserstack.debug", DEBUG_MODE);
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
+    }
+  }
+
+  // safari fails to find many elements, v13 also has bug with clicks
+  remoteSafari {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Safari")
+      caps.setCapability("os", "OS X")
+      caps.setCapability("os_version", "Catalinaq")
+      caps.setCapability("resolution", "1600x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Safari")
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.selenium_version", "3.141.59")
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 
@@ -180,9 +205,8 @@ environments {
 }
 
 // To run the tests with all browsers just run “./gradlew test”
-
 baseNavigatorWaiting = true
 autoClearCookies = true
-autoClearWebStorage = true
+autoClearWebStorage = false
 cacheDriverPerThread = true
 quitCachedDriverOnShutdown = true
