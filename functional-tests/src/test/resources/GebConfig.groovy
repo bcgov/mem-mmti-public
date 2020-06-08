@@ -229,7 +229,7 @@ environments {
   //     driver.manage().window().maximize();
   //     return driver
   //   }
-  }
+  // }
 }
 
 // To run the tests with all browsers just run “./gradlew test”
