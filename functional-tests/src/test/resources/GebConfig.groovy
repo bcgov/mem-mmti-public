@@ -35,9 +35,6 @@ DEBUG_MODE = env['DEBUG_MODE']
 if (!USERNAME || !AUTOMATE_KEY)
     throw RuntimeError('BROWSERSTACK_USERNAME and BROWSERSTACK_TOKEN are required');
 
-if (!DEBUG_MODE)
-  DEBUG_MODE=false
-
 waiting {
   timeout = 40
   retryInterval = 1
@@ -70,43 +67,6 @@ environments {
       o.addArguments('no-sandbox')
       new ChromeDriver(o)
     }
-  }
-
-  // run via “./gradlew firefoxTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver
-  firefox {
-    driver = {
-      FirefoxOptions o = new FirefoxOptions()
-      o.addArguments("window-size=1400,800")
-      new FirefoxDriver(o)
-    }
-  }
-
-  firefoxHeadless {
-    driver = {
-      FirefoxOptions o = new FirefoxOptions()
-      o.addArguments("-headless")
-      o.addArguments("window-size=1400,800")
-      new FirefoxDriver(o)
-    }
-  }
-
-  // run via “./gradlew ieTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
-  ie {
-    def d = new DesiredCapabilities();
-    d.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
-    d.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING,true);
-    d.setCapability(InternetExplorerDriver.NATIVE_EVENTS,false);
-    d.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS,true);
-
-    driver = { new InternetExplorerDriver(d) }
-  }
-
-  // run via “./gradlew edgeTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki
-  edge {
-    driver = { new EdgeDriver() }
   }
 
   remoteFirefox {
@@ -206,35 +166,35 @@ environments {
   }
 
   // safari fails to find many elements (ie. sidebar), v13 driver has bug with clicks
-  // remoteSafari {
-  //   driver = {
-  //     DesiredCapabilities caps = new DesiredCapabilities();
-  //     caps.setCapability("browser", "Safari")
-  //     caps.setCapability("os", "OS X")
-  //     caps.setCapability("os_version", "Catalina")
-  //     caps.setCapability("resolution", "1600x1200")
-  //     caps.setCapability("name", "Automated Test")
-  //     caps.setCapability("project", "BCMI")
-  //     caps.setCapability("build", "${buildId}:Safari")
-  //     caps.setCapability("browserstack.use_w3c", true)
-  //     caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
-  //     caps.setCapability("browserstack.debug", DEBUG_MODE)
-  //     caps.setCapability("browserstack.enablePopups", true)
-  //     caps.setCapability("browserstack.appiumLogs", false)
-  //     caps.setCapability("browserstack.seleniumLogs", true)
+  remoteSafari {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Safari")
+      caps.setCapability("os", "OS X")
+      caps.setCapability("os_version", "Catalina")
+      caps.setCapability("resolution", "1600x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Safari")
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.enablePopups", true)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", true)
 
-  //     String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 
-  //     driver = new RemoteWebDriver(new URL(URL), caps)
-  //     driver.manage().window().maximize();
-  //     return driver
-  //   }
-  // }
+      driver = new RemoteWebDriver(new URL(URL), caps)
+      driver.manage().window().maximize();
+      return driver
+    }
+  }
 }
 
 // To run the tests with all browsers just run “./gradlew test”
 baseNavigatorWaiting = true
 autoClearCookies = true
-autoClearWebStorage = false
+autoClearWebStorage = false  // firefox doesn't allow access to web storage, must be false
 cacheDriverPerThread = true
 quitCachedDriverOnShutdown = true
