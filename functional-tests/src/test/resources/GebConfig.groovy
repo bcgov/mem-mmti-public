@@ -43,7 +43,7 @@ waiting {
   retryInterval = 1
 }
 
-atCheckWaiting = [40, 1]
+atCheckWaiting = [40, 4]
 
 String buildId = SessionIdHolder.instance.buildId
 
@@ -157,16 +157,17 @@ environments {
     }
   }
 
-  remoteChrome {
+  remoteIE {
     driver = {
       DesiredCapabilities caps = new DesiredCapabilities();
-      caps.setCapability("browser", "Chrome")
+      caps.setCapability("browser", "IE")
       caps.setCapability("os", "Windows")
       caps.setCapability("os_version", "10")
       caps.setCapability("resolution", "1920x1200")
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
       caps.setCapability("build", "${buildId}:Chrome")
+      caps.setCapability("browserstack.use_w3c", true)
       caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
       caps.setCapability("browserstack.debug", DEBUG_MODE)
       caps.setCapability("browserstack.appiumLogs", false)
@@ -180,20 +181,21 @@ environments {
     }
   }
 
-  // safari fails to find many elements, v13 also has bug with clicks
-  remoteSafari {
+  remoteChrome {
     driver = {
       DesiredCapabilities caps = new DesiredCapabilities();
-      caps.setCapability("browser", "Safari")
-      caps.setCapability("os", "OS X")
-      caps.setCapability("os_version", "Catalinaq")
-      caps.setCapability("resolution", "1600x1200")
+      caps.setCapability("browser", "Chrome")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
       caps.setCapability("name", "Automated Test")
       caps.setCapability("project", "BCMI")
-      caps.setCapability("build", "${buildId}:Safari")
+      caps.setCapability("build", "${buildId}:Chrome")
+      caps.setCapability("browserstack.use_w3c", true)
       caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
       caps.setCapability("browserstack.debug", DEBUG_MODE)
-      caps.setCapability("browserstack.selenium_version", "3.141.59")
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
 
       String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 
@@ -201,6 +203,32 @@ environments {
 
       return driver
     }
+  }
+
+  // safari fails to find many elements (ie. sidebar), v13 driver has bug with clicks
+  // remoteSafari {
+  //   driver = {
+  //     DesiredCapabilities caps = new DesiredCapabilities();
+  //     caps.setCapability("browser", "Safari")
+  //     caps.setCapability("os", "OS X")
+  //     caps.setCapability("os_version", "Catalina")
+  //     caps.setCapability("resolution", "1600x1200")
+  //     caps.setCapability("name", "Automated Test")
+  //     caps.setCapability("project", "BCMI")
+  //     caps.setCapability("build", "${buildId}:Safari")
+  //     caps.setCapability("browserstack.use_w3c", true)
+  //     caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+  //     caps.setCapability("browserstack.debug", DEBUG_MODE)
+  //     caps.setCapability("browserstack.enablePopups", true)
+  //     caps.setCapability("browserstack.appiumLogs", false)
+  //     caps.setCapability("browserstack.seleniumLogs", true)
+
+  //     String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+  //     driver = new RemoteWebDriver(new URL(URL), caps)
+  //     driver.manage().window().maximize();
+  //     return driver
+  //   }
   }
 }
 
