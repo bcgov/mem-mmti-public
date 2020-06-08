@@ -16,10 +16,11 @@ The following commands will launch the tests with the individual browsers:
 
     ./gradlew chromeTest
     ./gradlew chromeHeadlessTest //Will run in pipeline as well
-    ./gradlew firefoxTest
-    ./gradlew firefoxHeadlessTest //Will run in pipeline as well
-    ./gradlew edgeTest
-    ./gradlew ieTest
+    ./gradlew remoteChrome
+    ./gradlew remoteFirefox
+    ./gradlew remoteEdge
+    ./gradlew remoteIe      // not passing, possible test changes required
+    ./gradlew remoteSafari // current drivers don't work well, test changes required
     
 To run with all, you can run:
 
@@ -29,7 +30,7 @@ Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Window
 
 ## Questions and issues
 
-Please ask questions on our [Slack Channel][slack_channel] and raise issues in [BDDStack issue tracker][issue_tracker].
+Please ask questions on our [RocketChat channel][rc_channel] and raise issues in [BDDStack issue tracker][issue_tracker].
 
 ## Useful Links:
 
@@ -47,4 +48,4 @@ Please ask questions on our [Slack Channel][slack_channel] and raise issues in [
 [navunit]: https://github.com/bcgov/navUnit
 [dockerfile]: https://github.com/BCDevOps/openshift-tools/blob/master/provisioning/jenkins-slaves/bddstack/Dockerfile
 [issue_tracker]: https://github.com/rstens/BDDStack/issues
-[slack_channel]: https://devopspathfinder.slack.com/messages/C7J72K1MG
+[rc_channel]: https://chat.pathfinder.gov.bc.ca/channel/falcon-general
