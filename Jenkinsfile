@@ -2,22 +2,6 @@
 @NonCPS
 import groovy.json.JsonOutput
 /*
- * Sends a slack notification
- */
-def notifySlack(text, url, channel, attachments) {
-    def slackURL = url
-    def jenkinsIcon = 'https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png'
-    def payload = JsonOutput.toJson([text: text,
-        channel: channel,
-        username: "Jenkins",
-        icon_url: jenkinsIcon,
-        attachments: attachments
-    ])
-    def encodedReq = URLEncoder.encode(payload, "UTF-8")
-    sh("curl -s -S -X POST --data \'payload=${encodedReq}\' ${slackURL}")
-}
-
-/*
  * Sends a rocket chat notification
  */
 def notifyRocketChat(text, url) {
@@ -71,11 +55,10 @@ node('master') {
    * The contents of the secret are extracted in as many files as the keys contained in the secret.
    * The files are named as the key, and contain the corresponding value.
    */
-  sh("oc extract secret/slack-secrets --to=${env.WORKSPACE} --confirm")
-  SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
-  DEV_CHANNEL = sh(script: "cat dev-channel", returnStdout: true)
+  sh("oc extract secret/rocket-chat-secrets --to=${env.WORKSPACE} --confirm")
+  ROCKET_QA_WEBHOOK = sh(script: "cat rocket-qa-webhook", returnStdout: true)
 
-  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEV_CHANNEL=${DEV_CHANNEL}"]){
+  withEnv(["ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
     stage('Build'){
       // isolate last successful builds and then get the changelog
       pastBuilds = []
@@ -102,11 +85,9 @@ node('master') {
         echo ">> IMAGE_HASH: ${IMAGE_HASH}"
         echo "Tagging done"
       } catch (error) {
-        notifySlack(
-          "The latest mem-mmti-public build seems to have broken\n'${error.message}'",
-          env.SLACK_HOOK,
-          env.DEV_CHANNEL,
-          []
+        notifyRocketChat(
+          "The latest build of mem-mmti-public for Test seems to have failed\n'${error.message}'",
+          ROCKET_DEPLOY_WEBHOOK
         )
         throw error
       }
@@ -122,15 +103,11 @@ node('master') {
    * The contents of the secret are extracted in as many files as the keys contained in the secret.
    * The files are named as the key, and contain the corresponding value.
    */
-  sh("oc extract secret/slack-secrets --to=${env.WORKSPACE} --confirm")
-  SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
-  DEPLOY_CHANNEL = sh(script: "cat deploy-channel", returnStdout: true)
-  QA_CHANNEL = sh(script: "cat qa-channel", returnStdout: true)
   sh("oc extract secret/rocket-chat-secrets --to=${env.WORKSPACE} --confirm")
   ROCKET_QA_WEBHOOK = sh(script: "cat rocket-qa-webhook", returnStdout: true)
   ROCKET_DEPLOY_WEBHOOK = sh(script: "cat rocket-deploy-webhook", returnStdout: true)
 
-  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEPLOY_CHANNEL=${DEPLOY_CHANNEL}", "QA_CHANNEL=${QA_CHANNEL}", "ROCKET_QA_WEBHOOK=${ROCKET_QA_WEBHOOK}", "ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
+  withEnv(["ROCKET_QA_WEBHOOK=${ROCKET_QA_WEBHOOK}", "ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
     stage('Deploy to Test'){
       try {
         echo "Deploying to test..."
@@ -144,35 +121,14 @@ node('master') {
           ROCKET_DEPLOY_WEBHOOK
         )
 
-        notifySlack(
-          "A new version of mem-mmti-public is now in Test. \n Changes: \n ${CHANGELOG}",
-          env.SLACK_HOOK,
-          env.DEPLOY_CHANNEL,
-          []
-        )
-
         notifyRocketChat(
           "A new version of mem-mmti-public is now in Test and ready for QA. \n Changes to test: \n ${CHANGELOG}",
           ROCKET_QA_WEBHOOK
-        )
-
-        notifySlack(
-          "A new version of mem-mmti-public is now in Test and ready for QA. \n Changes to test: \n ${CHANGELOG}",
-          env.SLACK_HOOK,
-          env.QA_CHANNEL,
-          []
         )
       } catch (error) {
         notifyRocketChat(
           "The latest deployment of mem-mmti-public to Test seems to have failed\n'${error.message}'",
           ROCKET_DEPLOY_WEBHOOK
-        )
-
-        notifySlack(
-          "The latest deployment of mem-mmti-public to Test seems to have failed\n'${error.message}'",
-          env.SLACK_HOOK,
-          env.DEPLOY_CHANNEL,
-          []
         )
       }
     }
