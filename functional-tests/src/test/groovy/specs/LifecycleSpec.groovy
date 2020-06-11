@@ -41,7 +41,7 @@ class LifecycleSpec extends GebReportingSpec {
       at AssertPage
     where:
       SectionSelector                      | ItemSelector                            || AssertPage
-      [tag : "h3", text : "Exploration"]   | [text : "BC Geological Survey"]         || new ExternalLinkPage("Geoscience", "gov.bc.ca")
+      // [tag : "h3", text : "Exploration"]   | [text : "BC Geological Survey"]         || new ExternalLinkPage("Geoscience", "gov.bc.ca")    DEAD page
       [tag : "h3", text : "Exploration"]   | [text : "“Notice of Work” permit"]    || AuthorizationsPage
 
       //TODO [tag : "h4", text : "Design"]        | [text : "environmental assessment"]     ||

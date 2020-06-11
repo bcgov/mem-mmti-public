@@ -114,13 +114,25 @@ Set up via [Karma](https://karma-runner.github.io), [Jasmine](https://jasmine.gi
 
 ### End-to-end functional tests
 
-Set up with [BDDStack](https://github.com/BCDevOps/BDDStack).
+Set up with [BDDStack](https://github.com/BCDevOps/BDDStack) and [BrowserStack](https://www.browserstack.com/). Modify `GebConfig.groovy` to customise your preferred browser. Configured remotes, confirmed to work with current tests include Chrome, Firefox, and Edge. Internet explorer and Safari are available as well, but tests fail due to driver compatiblity with current tests.
+
+### BrowserStack Config
+
+Open Source projects have free access to Browserstack Live and Automate, for up to 5 team members. To run tests with Browserstack you need to set the following environemnt variables:
+
+1. BROWSERSTACK_USERNAME
+2. BROWSERSTACK_TOKEN
+3. DEBUG_MODE (true or false)
 
 #### Run tests against local application:
 
-1. Run `ng run e2e` to automatically start the application locally and execute the end-to-end tests.
+- Run `ng run e2e` to automatically start the application locally and execute the end-to-end tests against a headless Chrome.
 
-Note, e2e functional testing requires Java.
+    OR
+
+- Download BrowserStack [binary](https://www.browserstack.com/local-testing) set `BASEURL` to your local application address, and run `./gradlew remoteChrome`
+
+Note, e2e functional testing requires Java 10+.
 
 #### Run tests against remote application:
 

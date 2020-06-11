@@ -13,13 +13,36 @@ import org.openqa.selenium.ie.InternetExplorerDriver
 import org.openqa.selenium.edge.EdgeDriver
 import org.openqa.selenium.safari.SafariDriver
 import org.openqa.selenium.remote.DesiredCapabilities
+import org.openqa.selenium.remote.RemoteWebDriver
+import listeners.SessionIdHolder
+
+
+// Allows for setting you baseurl in an environment variable.
+// This is particularly handy for development and the pipeline
+def env = System.getenv()
+baseUrl = env['BASEURL']
+if (!baseUrl) {
+  baseUrl = "https://www-mem-mmt-dev.pathfinder.gov.bc.ca/"
+}
+
+println "BaseURL: ${baseUrl}"
+println "--------------------------"
+
+USERNAME = env['BROWSERSTACK_USERNAME']
+AUTOMATE_KEY = env['BROWSERSTACK_TOKEN']
+DEBUG_MODE = env['DEBUG_MODE']
+
+if (!USERNAME || !AUTOMATE_KEY)
+    throw RuntimeError('BROWSERSTACK_USERNAME and BROWSERSTACK_TOKEN are required');
 
 waiting {
   timeout = 40
-  retryInterval = 2
+  retryInterval = 1
 }
 
-atCheckWaiting = [40, 2]
+atCheckWaiting = [40, 4]
+
+String buildId = SessionIdHolder.instance.buildId
 
 environments {
 
@@ -46,66 +69,132 @@ environments {
     }
   }
 
-  // run via “./gradlew firefoxTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver
-  firefox {
+  remoteFirefox {
     driver = {
-      FirefoxOptions o = new FirefoxOptions()
-      o.addArguments("window-size=1400,800")
-      new FirefoxDriver(o)
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Firefox")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Firefox")
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
     }
   }
 
-  firefoxHeadless {
+  remoteEdge {
     driver = {
-      FirefoxOptions o = new FirefoxOptions()
-      o.addArguments("-headless")
-      o.addArguments("window-size=1400,800")
-      new FirefoxDriver(o)
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Edge")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Edge")
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
     }
   }
 
-  // run via “./gradlew ieTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
-  ie {
-    def d = new DesiredCapabilities();
-    d.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
-    d.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING,true);
-    d.setCapability(InternetExplorerDriver.NATIVE_EVENTS,false);
-    d.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS,true);
+  remoteIE {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "IE")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Chrome")
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
 
-    driver = { new InternetExplorerDriver(d) }
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
+    }
   }
 
-  // run via “./gradlew edgeTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki
-  edge {
-    driver = { new EdgeDriver() }
+  remoteChrome {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Chrome")
+      caps.setCapability("os", "Windows")
+      caps.setCapability("os_version", "10")
+      caps.setCapability("resolution", "1920x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Chrome")
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", false)
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+
+      return driver
+    }
   }
 
-  // run via “./gradlew safariTest”
-  // See: https://github.com/SeleniumHQ/selenium/wiki
-  safari {
-    driver = { new SafariDriver() }
+  // safari fails to find many elements (ie. sidebar), v13 driver has bug with clicks
+  remoteSafari {
+    driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("browser", "Safari")
+      caps.setCapability("os", "OS X")
+      caps.setCapability("os_version", "Catalina")
+      caps.setCapability("resolution", "1600x1200")
+      caps.setCapability("name", "Automated Test")
+      caps.setCapability("project", "BCMI")
+      caps.setCapability("build", "${buildId}:Safari")
+      caps.setCapability("browserstack.use_w3c", true)
+      caps.setCapability("browserstack.maskCommands", "setValues, setCookies, getCookies")
+      caps.setCapability("browserstack.debug", DEBUG_MODE)
+      caps.setCapability("browserstack.enablePopups", true)
+      caps.setCapability("browserstack.appiumLogs", false)
+      caps.setCapability("browserstack.seleniumLogs", true)
+
+      String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+      driver = new RemoteWebDriver(new URL(URL), caps)
+      driver.manage().window().maximize();
+      return driver
+    }
   }
 }
 
 // To run the tests with all browsers just run “./gradlew test”
-
 baseNavigatorWaiting = true
-
-// Allows for setting you baseurl in an environment variable.
-// This is particularly handy for development and the pipeline
-def env = System.getenv()
-baseUrl = env['BASEURL']
-if (!baseUrl) {
-  baseUrl = "https://www-mem-mmt-dev.pathfinder.gov.bc.ca/"
-}
-
-println "BaseURL: ${baseUrl}"
-println "--------------------------"
-
 autoClearCookies = true
-autoClearWebStorage = true
+autoClearWebStorage = false  // firefox doesn't allow access to web storage, must be false
 cacheDriverPerThread = true
 quitCachedDriverOnShutdown = true

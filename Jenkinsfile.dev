@@ -1,22 +1,9 @@
+#!/usr/bin/env groovy
+
+
 // Switch to using https://github.com/BCDevOps/jenkins-pipeline-shared-lib when stable.
 @NonCPS
 import groovy.json.JsonOutput
-/*
- * Sends a slack notification
- */
-def notifySlack(text, url, channel, attachments) {
-  def slackURL = url
-  def jenkinsIcon = 'https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png'
-  def payload = JsonOutput.toJson([text: text,
-      channel: channel,
-      username: "Jenkins",
-      icon_url: jenkinsIcon,
-      attachments: attachments
-  ])
-  def encodedReq = URLEncoder.encode(payload, "UTF-8")
-  sh("curl -s -S -X POST --data \'payload=${encodedReq}\' ${slackURL}")
-}
-
 /*
  * Sends a rocket chat notification
  */
@@ -65,54 +52,15 @@ def getChangeLog(pastBuilds) {
 def CHANGELOG = "No new changes"
 def IMAGE_HASH = "latest"
 
-// podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
-//   containerTemplate(
-//     name: 'jnlp',
-//     image: '172.50.0.2:5000/openshift/jenkins-slave-bddstack',
-//     resourceRequestCpu: '500m',
-//     resourceLimitCpu: '1000m',
-//     resourceRequestMemory: '1Gi',
-//     resourceLimitMemory: '4Gi',
-//     workingDir: '/home/jenkins',
-//     command: '',
-//     args: '${computer.jnlpmac} ${computer.name}'
-//   )
-// ])
-// {
-//   stage('Unit Test on Dev') {
-//     node('bddstack') {
-//       echo "checking out source"
-//       echo "Build: ${BUILD_ID}"
-//       checkout scm
-//       try {
-//         sh 'yarn install'
-//         sh 'npm test'
-//       } finally {
-//         archiveArtifacts allowEmptyArchive: true, artifacts: 'build/coverage/src/**/*'
-//         publishHTML (target: [
-//                     allowMissing: false,
-//                     alwaysLinkToLastBuild: false,
-//                     keepAll: true,
-//                     reportDir: 'build/coverage/src',
-//                     reportFiles: 'index.html',
-//                     reportName: "Unit Test Coverage Report"
-//                   ])
-//       }
-//     }
-//   }
-// }
-
 node('master') {
   /*
    * Extract secrets and create relevant environment variables.
    * The contents of the secret are extracted in as many files as the keys contained in the secret.
    * The files are named as the key, and contain the corresponding value.
    */
-  sh("oc extract secret/slack-secrets --to=${env.WORKSPACE} --confirm")
-  SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
-  DEV_CHANNEL = sh(script: "cat dev-channel", returnStdout: true)
-
-  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEV_CHANNEL=${DEV_CHANNEL}"]){
+  sh("oc extract secret/rocket-chat-secrets --to=${env.WORKSPACE} --confirm")
+  ROCKET_DEPLOY_WEBHOOK = sh(script: "cat rocket-deploy-webhook", returnStdout: true)
+  withEnv(["ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
     stage('Build'){
       // isolate last successful builds and then get the changelog
       pastBuilds = []
@@ -139,11 +87,9 @@ node('master') {
         echo ">> IMAGE_HASH: ${IMAGE_HASH}"
         echo "Tagging done"
       } catch (error) {
-        notifySlack(
-            "The latest mem-mmti-public-dev build seems to have broken\n'${error.message}'",
-            env.SLACK_HOOK,
-            env.DEV_CHANNEL,
-            []
+        notifyRocketChat(
+          "The latest deployment of mem-mmti-public-dev to Dev seems to have failed\n'${error.message}'",
+          ROCKET_DEPLOY_WEBHOOK
         )
         throw error
       }
@@ -192,13 +138,10 @@ node('master'){
   * The contents of the secret are extracted in as many files as the keys contained in the secret.
   * The files are named as the key, and contain the corresponding value.
   */
-  sh("oc extract secret/slack-secrets --to=${env.WORKSPACE} --confirm")
-  SLACK_HOOK = sh(script: "cat webhook", returnStdout: true)
-  DEPLOY_CHANNEL = sh(script: "cat deploy-channel", returnStdout: true)
   sh("oc extract secret/rocket-chat-secrets --to=${env.WORKSPACE} --confirm")
   ROCKET_DEPLOY_WEBHOOK = sh(script: "cat rocket-deploy-webhook", returnStdout: true)
 
-  withEnv(["SLACK_HOOK=${SLACK_HOOK}", "DEPLOY_CHANNEL=${DEPLOY_CHANNEL}", "ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
+  withEnv(["ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
     stage('Deploy to Dev'){
       try {
         echo "Deploying to dev..."
@@ -211,54 +154,44 @@ node('master'){
           "A new version of mem-mmti-public-dev is now in Dev. \n Changes: \n ${CHANGELOG}",
           ROCKET_DEPLOY_WEBHOOK
         )
-
-        notifySlack(
-          "A new version of mem-mmti-public-dev is now in Dev. \n Changes: \n ${CHANGELOG}",
-          env.SLACK_HOOK,
-          env.DEPLOY_CHANNEL,
-          []
-        )
       } catch (error) {
         notifyRocketChat(
           "The latest deployment of mem-mmti-public-dev to Dev seems to have failed\n'${error.message}'",
           ROCKET_DEPLOY_WEBHOOK
-        )
-
-        notifySlack(
-          "The latest deployment of mem-mmti-public-dev to Dev seems to have failed\n'${error.message}'",
-          env.SLACK_HOOK,
-          env.DEPLOY_CHANNEL,
-          []
         )
       }
     }
   }
 }
 
-def bddPodLabel = "mem-bdd-${UUID.randomUUID().toString()}"
-podTemplate(label: bddPodLabel, name: bddPodLabel, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
+def browserStackPodLabel = "mem-bdd-${UUID.randomUUID().toString()}"
+podTemplate(label: browserStackPodLabel, name: browserStackPodLabel, serviceAccount: 'jenkins', cloud: 'openshift', containers: [
   containerTemplate(
     name: 'jnlp',
-    image: 'docker-registry.default.svc:5000/bcgov/jenkins-slave-bddstack:v1-stable',
-    resourceRequestCpu: '500m',
+    image: 'registry.access.redhat.com/openshift3/jenkins-slave-maven-rhel7:v3.9',
+    resourceRequestCpu: '1000m',
     resourceLimitCpu: '1000m',
-    resourceRequestMemory: '1Gi',
-    resourceLimitMemory: '4Gi',
-    workingDir: '/home/jenkins',
+    resourceRequestMemory: '2Gi',
+    resourceLimitMemory: '2Gi',
+    workingDir: '/tmp',
     command: '',
-    args: '${computer.jnlpmac} ${computer.name}'
+    args: '${computer.jnlpmac} ${computer.name}',
   )
-])
-{
-  stage('FT on Dev') {
-    node(bddPodLabel) {
-      //the checkout is mandatory, otherwise functional test would fail
-      echo "checking out source"
-      echo "Build: ${BUILD_ID}"
+]) {
+  stage ('Functional tests') {
+    node('bdd-browserstack') {
+      sh("oc extract secret/bdd-browserstack --to=${env.WORKSPACE} --confirm")
+      BROWSERSTACK_USERNAME = sh(script: "cat BROWSERSTACK_USERNAME", returnStdout: true)
+      BROWSERSTACK_TOKEN = sh(script: "cat BROWSERSTACK_TOKEN", returnStdout: true)
+      DEBUG_MODE = false
+      withEnv(["BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "DEBUG_MODE=${DEBUG_MODE"])
       checkout scm
       dir('functional-tests') {
         try {
-          sh './gradlew chromeHeadlessTest'
+          echo "Starting Functional Tests"
+          sh './gradlew remoteChrome'
+        } catch (error) {
+          throw error
         } finally {
           archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/geb/**/*'
           junit 'build/test-results/**/*.xml'
