@@ -100,7 +100,7 @@ node('master') {
 podTemplate(label: 'sonarqube-maven', name: 'sonarqube-maven', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
   containerTemplate(
     name: 'jnlp',
-    image: 'registry.access.redhat.com/openshift3/jenkins-slave-maven-rhel7',
+    image: 'registry.access.redhat.com/openshift3/jenkins-agent-nodejs-8-rhel7',
     resourceRequestCpu: '500m',
     resourceLimitCpu: '1000m',
     resourceRequestMemory: '1Gi',
@@ -178,40 +178,41 @@ podTemplate(label: browserStackPodLabel, name: browserStackPodLabel, serviceAcco
     args: '${computer.jnlpmac} ${computer.name}',
   )
 ]) {
-  stage ('Functional tests') {
-    node('bdd-browserstack') {
+    node(browserStackPodLabel) {
       sh("oc extract secret/bdd-browserstack --to=${env.WORKSPACE} --confirm")
       BROWSERSTACK_USERNAME = sh(script: "cat BROWSERSTACK_USERNAME", returnStdout: true)
       BROWSERSTACK_TOKEN = sh(script: "cat BROWSERSTACK_TOKEN", returnStdout: true)
       DEBUG_MODE = false
-      withEnv(["BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "DEBUG_MODE=${DEBUG_MODE"])
-      checkout scm
-      dir('functional-tests') {
-        try {
-          echo "Starting Functional Tests"
-          sh './gradlew remoteChrome'
-        } catch (error) {
-          throw error
-        } finally {
-          archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/geb/**/*'
-          junit 'build/test-results/**/*.xml'
-          publishHTML (target: [
-                      allowMissing: false,
-                      alwaysLinkToLastBuild: false,
-                      keepAll: true,
-                      reportDir: 'build/reports/spock',
-                      reportFiles: 'index.html',
-                      reportName: "BDD Spock Report"
-                  ])
-          publishHTML (target: [
-                      allowMissing: false,
-                      alwaysLinkToLastBuild: false,
-                      keepAll: true,
-                      reportDir: 'build/reports/tests/chromeHeadlessTest',
-                      reportFiles: 'index.html',
-                      reportName: "Full Test Report"
-                  ])
-          perfReport compareBuildPrevious: true, excludeResponseTime: true, ignoreFailedBuilds: true, ignoreUnstableBuilds: true, modeEvaluation: true, modePerformancePerTestCase: true, percentiles: '0,50,90,100', relativeFailedThresholdNegative: 80.0, relativeFailedThresholdPositive: 20.0, relativeUnstableThresholdNegative: 50.0, relativeUnstableThresholdPositive: 50.0, sourceDataFiles: 'build/test-results/**/*.xml'
+      withEnv(["BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "DEBUG_MODE=${DEBUG_MODE}"]) {
+        stage ('Functional tests') {
+        checkout scm
+        dir('functional-tests') {
+          try {
+            echo "Starting Functional Tests"
+            sh './gradlew remoteChrome'
+          } catch (error) {
+            throw error
+          } finally {
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/geb/**/*'
+            junit 'build/test-results/**/*.xml'
+            publishHTML (target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'build/reports/spock',
+                        reportFiles: 'index.html',
+                        reportName: "BDD Spock Report"
+                    ])
+            publishHTML (target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'build/reports/tests/chromeHeadlessTest',
+                        reportFiles: 'index.html',
+                        reportName: "Full Test Report"
+                    ])
+            perfReport compareBuildPrevious: true, excludeResponseTime: true, ignoreFailedBuilds: true, ignoreUnstableBuilds: true, modeEvaluation: true, modePerformancePerTestCase: true, percentiles: '0,50,90,100', relativeFailedThresholdNegative: 80.0, relativeFailedThresholdPositive: 20.0, relativeUnstableThresholdNegative: 50.0, relativeUnstableThresholdPositive: 50.0, sourceDataFiles: 'build/test-results/**/*.xml'
+          }
         }
       }
     }
