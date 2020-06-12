@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Project } from './models/project';
+import { Project } from '../models/project';
 
 @Pipe({
   name: 'projectStatusFilter'

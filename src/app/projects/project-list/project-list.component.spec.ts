@@ -6,11 +6,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProjectListComponent } from './project-list.component';
-import { OrderByPipe } from '../../filters/order-by.pipe';
-import { ProjectStatusFilterPipe } from '../../project-status-filter.pipe';
-import { ProjectTypeFilterPipe } from '../../project-type-filter.pipe';
-import { OperatorFilterPipe } from '../../operator-filter.pipe';
-import { ObjectFilterPipe } from '../../object-filter.pipe';
+import { OrderByPipe } from '../../pipes/filters/order-by.pipe';
+import { ProjectStatusFilterPipe } from '../../pipes/project-status-filter.pipe';
+import { ProjectTypeFilterPipe } from '../../pipes/project-type-filter.pipe';
+import { OperatorFilterPipe } from '../../pipes/operator-filter.pipe';
+import { ObjectFilterPipe } from '../../pipes/object-filter.pipe';
 import { ProjectService } from 'app/services/project.service';
 import { Api } from 'app/services/api';
 

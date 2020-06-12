@@ -10,16 +10,15 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { LegislationComponent } from './legislation/legislation.component';
-import { ComplianceOversightComponent } from './compliance-oversight/compliance-oversight.component';
-import { ContactComponent } from './contact/contact.component';
-import { AuthorizationsComponent } from './authorizations/authorizations.component';
-import { LifecycleComponent } from './lifecycle/lifecycle.component';
-import { TopicsOfInterestComponent } from './topics-of-interest/topics-of-interest.component';
-import { WaterQualityComponent } from './water-quality/water-quality.component';
-import { TailingsManagementComponent } from './tailings-management/tailings-management.component';
-import { ReclamationComponent } from './reclamation/reclamation.component';
-import { SearchComponent } from './search/search.component';
+import { LegislationComponent } from './static-pages/legislation/legislation.component';
+import { ComplianceOversightComponent } from './static-pages/compliance-oversight/compliance-oversight.component';
+import { ContactComponent } from './static-pages/contact/contact.component';
+import { AuthorizationsComponent } from './static-pages/authorizations/authorizations.component';
+import { LifecycleComponent } from './static-pages/lifecycle/lifecycle.component';
+import { TopicsOfInterestComponent } from './static-pages/topics-of-interest/topics-of-interest.component';
+import { WaterQualityComponent } from './static-pages/water-quality/water-quality.component';
+import { TailingsManagementComponent } from './static-pages/tailings-management/tailings-management.component';
+import { ReclamationComponent } from './static-pages/reclamation/reclamation.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProponentService } from './services/proponent.service';
 
@@ -30,7 +29,7 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EnforcementActionsComponent } from './enforcement-actions/enforcement-actions.component';
+import { EnforcementActionsComponent } from './static-pages/enforcement-actions/enforcement-actions.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,6 @@ import { EnforcementActionsComponent } from './enforcement-actions/enforcement-a
     WaterQualityComponent,
     TailingsManagementComponent,
     ReclamationComponent,
-    SearchComponent,
     NotFoundComponent,
     EnforcementActionsComponent,
   ],

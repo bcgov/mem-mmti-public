@@ -6,7 +6,7 @@ import { MapModule } from '../../map/map.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectDetailComponent } from './project-detail.component';
 
-import { OrderByPipe } from '../../filters/order-by.pipe';
+import { OrderByPipe } from '../../pipes/filters/order-by.pipe';
 import { SiteActivitiesComponent } from '../site-activities/site-activities.component';
 import { Api } from 'app/services/api';
 

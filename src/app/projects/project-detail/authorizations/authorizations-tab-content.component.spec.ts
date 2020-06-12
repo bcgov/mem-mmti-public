@@ -7,7 +7,7 @@ import { AuthorizationsTabContentComponent } from './authorizations-tab-content.
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../../models/project';
 
-import { OrderByPipe } from '../../../filters/order-by.pipe';
+import { OrderByPipe } from '../../../pipes/filters/order-by.pipe';
 
 import { MapModule } from '../../../map/map.module';
 import { CollectionsGroup, CollectionsList } from 'app/models/collection';

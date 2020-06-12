@@ -15,7 +15,7 @@ import { AuthorizationsTabContentComponent } from './project-detail/authorizatio
 import { ComplianceTabContentComponent } from './project-detail/compliance/compliance-tab-content.component';
 import { DocumentsTabContentComponent } from './project-detail/documents/documents-tab-content.component';
 import { SiteActivitiesComponent } from './site-activities/site-activities.component';
-import { OrderByPipe } from '../filters/order-by.pipe';
+import { OrderByPipe } from '../pipes/filters/order-by.pipe';
 
 // services
 import { Api } from '../services/api';

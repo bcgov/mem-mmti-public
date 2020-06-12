@@ -1,5 +1,5 @@
 import { ProjectStatusFilterPipe } from './project-status-filter.pipe';
-import { Project } from './models/project';
+import { Project } from '../models/project';
 
 describe('ProjectStatusFilterPipe', () => {
 
