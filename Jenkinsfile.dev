@@ -100,7 +100,7 @@ node('master') {
 podTemplate(label: 'sonarqube-maven', name: 'sonarqube-maven', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
   containerTemplate(
     name: 'jnlp',
-    image: 'registry.access.redhat.com/openshift3/jenkins-slave-maven-rhel7',
+    image: 'registry.access.redhat.com/openshift3/jenkins-agent-nodejs-8-rhel7',
     resourceRequestCpu: '500m',
     resourceLimitCpu: '1000m',
     resourceRequestMemory: '1Gi',
@@ -178,7 +178,7 @@ podTemplate(label: browserStackPodLabel, name: browserStackPodLabel, serviceAcco
     args: '${computer.jnlpmac} ${computer.name}',
   )
 ]) {
-    node('bdd-browserstack') {
+    node(browserStackPodLabel) {
       sh("oc extract secret/bdd-browserstack --to=${env.WORKSPACE} --confirm")
       BROWSERSTACK_USERNAME = sh(script: "cat BROWSERSTACK_USERNAME", returnStdout: true)
       BROWSERSTACK_TOKEN = sh(script: "cat BROWSERSTACK_TOKEN", returnStdout: true)
