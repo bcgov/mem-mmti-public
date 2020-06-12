@@ -212,7 +212,7 @@
       "displayName": "Name",
       "description": "The name assigned to all of the openshift objects defined in this template. It is also the name of runtime image you want.",
       "required": true,
-      "value": "angular-scaffold"
+      "value": "mem-mmti-public"
     },
     {
       "name": "GROUP_NAME",
@@ -250,7 +250,7 @@
       "name": "APPLICATION_DOMAIN",
       "displayName": "Application Hostname",
       "description": "The exposed hostname that will route to the service.  Recall that both admin and public share the same domain, just use different paths (public uses '/' and admin uses '/admin/'.",
-      "value": "angular-scaffold-demo.pathfinder.gov.bc.ca"
+      "value": "www-mem-mmt-dev.pathfinder.gov.bc.ca"
     },
     {
       "name": "TAG_NAME",
@@ -262,13 +262,13 @@
       "name": "REMOTE_API_PATH",
       "displayName": "URL path to API",
       "description": "The 'https://' prefixed URL path to the API the public Angular app will make calls to.",
-      "value": ""
+      "value": "https://mem-mmt-dev.pathfinder.gov.bc.ca/api/"
     },
     {
       "name": "REMOTE_ADMIN_PATH",
       "displayName": "URL path to Admin",
       "description": "The 'https://' prefixed URL path to the Admin app that the public Angular app will link to.  Note that the trailing slash is required.",
-      "value": ""
+      "value": "https://mem-mmt-dev.pathfinder.gov.bc.ca/"
     },
     {
       "name": "BANNER_COLOUR",
