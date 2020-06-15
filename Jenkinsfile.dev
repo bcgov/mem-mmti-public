@@ -207,7 +207,7 @@ podTemplate(label: browserStackPodLabel, name: browserStackPodLabel, serviceAcco
                         allowMissing: false,
                         alwaysLinkToLastBuild: false,
                         keepAll: true,
-                        reportDir: 'build/reports/tests/chromeHeadlessTest',
+                        reportDir: 'build/reports/tests/remoteChromeTest',
                         reportFiles: 'index.html',
                         reportName: "Full Test Report"
                     ])
