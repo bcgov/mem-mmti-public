@@ -183,7 +183,7 @@ podTemplate(label: browserStackPodLabel, name: browserStackPodLabel, serviceAcco
       BROWSERSTACK_USERNAME = sh(script: "cat BROWSERSTACK_USERNAME", returnStdout: true)
       BROWSERSTACK_TOKEN = sh(script: "cat BROWSERSTACK_TOKEN", returnStdout: true)
       DEBUG_MODE = false
-      withEnv(["BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "DEBUG_MODE=${DEBUG_MODE}"]) {
+      withEnv(["BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME}", "BROWSERSTACK_TOKEN=${BROWSERSTACK_TOKEN}", "DEBUG_MODE=${DEBUG_MODE}"]) {
         stage ('Functional tests') {
         checkout scm
         dir('functional-tests') {
