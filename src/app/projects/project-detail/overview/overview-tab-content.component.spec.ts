@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { OverviewTabContentComponent } from './overview-tab-content.component';
+import { OverviewTabContentComponent } from 'app/projects/project-detail/overview/overview-tab-content.component';
 
 describe('OverviewTabContentComponent', () => {
   let component: OverviewTabContentComponent;

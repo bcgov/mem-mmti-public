@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 
-import { DocumentService } from './services/document.service';
+import { DocumentService } from 'app/services/document.service';
 
-import { Api } from './services/api';
+import { Api } from 'app/services/api';
 
 @Component({
   selector: 'app-root',

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { WaterQualityComponent } from './water-quality.component';
+import { WaterQualityComponent } from 'app/static-pages/water-quality/water-quality.component';
 
 describe('WaterQualityComponent', () => {
   let component: WaterQualityComponent;

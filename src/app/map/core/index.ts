@@ -1,3 +1,3 @@
-export * from './map-config.service';
-export * from './esri-module-provider';
-export * from './map-loader.service';
+export * from 'app/map/core/map-config.service';
+export * from 'app/map/core/esri-module-provider';
+export * from 'app/map/core/map-loader.service';

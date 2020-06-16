@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { loadModules, ILoadScriptOptions } from 'esri-loader';
-import { MapConfigService } from './map-config.service';
+import { MapConfigService } from 'app/map/core/map-config.service';
 
 /**
  * `EsriModuleProvider` - a service which abstracts the esri loader service using ArcGIS API for JavaScript v4.6

@@ -1,5 +1,5 @@
-import { ProjectTypeFilterPipe } from './project-type-filter.pipe';
-import { Project } from '../models/project';
+import { ProjectTypeFilterPipe } from 'app/pipes/project-type-filter.pipe';
+import { Project } from 'app/models/project';
 
 describe('ProjectTypeFilterPipe', () => {
 

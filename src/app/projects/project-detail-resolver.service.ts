@@ -5,8 +5,8 @@ import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
-import { ProjectService } from '../services/project.service';
-import { Project } from '../models/project';
+import { ProjectService } from 'app/services/project.service';
+import { Project } from 'app/models/project';
 
 @Injectable()
 export class ProjectDetailResolver implements Resolve<Project> {

@@ -2,7 +2,7 @@ import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing'
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { Router, NavigationEnd } from '@angular/router';
 
-import { AuthorizationsComponent } from './authorizations.component';
+import { AuthorizationsComponent } from 'app/static-pages/authorizations/authorizations.component';
 
 describe('AuthorizationsComponent', () => {
   let component: AuthorizationsComponent;

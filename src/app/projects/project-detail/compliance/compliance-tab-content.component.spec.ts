@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ObjectFilterPipe } from '../../../pipes/object-filter.pipe';
-import { OperatorFilterPipe } from '../../../pipes/operator-filter.pipe';
-import { ProjectStatusFilterPipe } from '../../../pipes/project-status-filter.pipe';
-import { ProjectTypeFilterPipe } from '../../../pipes/project-type-filter.pipe';
-import { Project } from '../../../models/project';
+import { ObjectFilterPipe } from 'app/pipes/object-filter.pipe';
+import { OperatorFilterPipe } from 'app/pipes/operator-filter.pipe';
+import { ProjectStatusFilterPipe } from 'app/pipes/project-status-filter.pipe';
+import { ProjectTypeFilterPipe } from 'app/pipes/project-type-filter.pipe';
+import { Project } from 'app/models/project';
 import { CollectionsArray, CollectionsList } from 'app/models/collection';
 import { ActivatedRoute } from '@angular/router';
 
-import { ComplianceTabContentComponent } from './compliance-tab-content.component';
+import { ComplianceTabContentComponent } from 'app/projects/project-detail/compliance//compliance-tab-content.component';
 import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
 
 describe('ComplianceTabContentComponent', () => {

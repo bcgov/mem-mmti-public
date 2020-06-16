@@ -4,11 +4,11 @@ import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
-import { Api } from './api';
+import { Api } from 'app/services/api';
 
-import {  SearchArray, SearchTerms } from '../models/search';
-import { Project } from '../models/project';
-import { Proponent } from '../models/proponent';
+import {  SearchArray, SearchTerms } from 'app/models/search';
+import { Project } from 'app/models/project';
+import { Proponent } from 'app/models/proponent';
 
 @Injectable()
 export class DocumentService {

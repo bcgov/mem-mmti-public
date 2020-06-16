@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { Api } from './api';
+import { Api } from 'app/services/api';
 import { HttpClientModule } from '@angular/common/http';
 
-import { DocumentService } from './document.service';
+import { DocumentService } from 'app/services/document.service';
 
 describe('DocumentService', () => {
   beforeEach(() => {

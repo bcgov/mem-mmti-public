@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
-import { MapLoaderService } from '../core';
+import { MapLoaderService } from 'app/map/core';
 
 export interface MapInitEvent {
   map: __esri.Map;

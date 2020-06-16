@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnforcementActionsComponent } from './enforcement-actions.component';
+import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
 
 describe('EmprEaComponent', () => {
   let component: EnforcementActionsComponent;

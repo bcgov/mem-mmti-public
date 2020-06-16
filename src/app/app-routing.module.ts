@@ -11,8 +11,8 @@ import { TailingsManagementComponent } from 'app/static-pages/tailings-managemen
 import { TopicsOfInterestComponent } from 'app/static-pages/topics-of-interest/topics-of-interest.component';
 import { WaterQualityComponent } from 'app/static-pages/water-quality/water-quality.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { EnforcementActionsComponent } from './static-pages/enforcement-actions/enforcement-actions.component';
+import { NotFoundComponent } from 'app/not-found/not-found.component';
+import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
 
 const routes: Routes = [
   {

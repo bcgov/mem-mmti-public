@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MapConfigService } from './map-config.service';
-import { Api } from '../../services/api';
+import { MapConfigService } from 'app/map/core/map-config.service';
+import { Api } from 'app/services/api';
 
 describe('MapConfigService', () => {
   beforeEach(() => {

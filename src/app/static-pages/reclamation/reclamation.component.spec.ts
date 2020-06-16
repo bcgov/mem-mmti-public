@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ReclamationComponent } from './reclamation.component';
+import { ReclamationComponent } from 'app/static-pages/reclamation/reclamation.component';
 
 describe('ReclamationComponent', () => {
   let component: ReclamationComponent;

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { LegislationComponent } from './legislation.component';
+import { LegislationComponent } from 'app/static-pages/legislation/legislation.component';
 
 describe('LegislationComponent', () => {
   let component: LegislationComponent;
