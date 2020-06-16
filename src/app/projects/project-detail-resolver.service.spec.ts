@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ProjectDetailResolver } from './project-detail-resolver.service';
+import { ProjectDetailResolver } from 'app/projects/project-detail-resolver.service';
 import { ProjectService } from 'app/services/project.service';
 import { Api } from 'app/services/api';
 import { HttpClientModule } from '@angular/common/http';

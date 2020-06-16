@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { EsriModuleProvider } from './esri-module-provider';
+import { EsriModuleProvider } from 'app/map/core/esri-module-provider';
 
-import { MapLoaderService } from './map-loader.service';
-import { MapConfigService } from './map-config.service';
+import { MapLoaderService } from 'app/map/core/map-loader.service';
+import { MapConfigService } from 'app/map/core/map-config.service';
 import { Api } from 'app/services/api';
 
 import { HttpClientModule } from '@angular/common/http';

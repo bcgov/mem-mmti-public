@@ -1,5 +1,5 @@
-import { Project } from './project';
-import { Proponent } from './proponent';
+import { Project } from 'app/models/project';
+import { Proponent } from 'app/models/proponent';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Search {

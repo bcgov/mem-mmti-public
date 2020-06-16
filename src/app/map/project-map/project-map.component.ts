@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { MapInitEvent } from '../esri-map/esri-map.component';
-import { MapConfigService } from '../core';
-import { Project } from '../../models/project';
-import { whenLayersReady, findLayerByTitle, setLayerFilter } from '../support/map-utils';
+import { MapInitEvent } from 'app/map/esri-map/esri-map.component';
+import { MapConfigService } from 'app/map/core';
+import { Project } from 'app/models/project';
+import { whenLayersReady, findLayerByTitle, setLayerFilter } from 'app/map/support/map-utils';
 
 @Component({
   selector: 'app-project-map',

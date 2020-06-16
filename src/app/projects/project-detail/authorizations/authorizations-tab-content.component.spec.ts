@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SiteActivitiesComponent } from '../../site-activities/site-activities.component';
+import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
 
-import { AuthorizationsTabContentComponent } from './authorizations-tab-content.component';
+import { AuthorizationsTabContentComponent } from 'app/projects/project-detail/authorizations/authorizations-tab-content.component';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../../../models/project';
+import { Project } from 'app/models/project';
 
-import { OrderByPipe } from '../../../filters/order-by.pipe';
+import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
 
-import { MapModule } from '../../../map/map.module';
+import { MapModule } from 'app/map/map.module';
 import { CollectionsGroup, CollectionsList } from 'app/models/collection';
 
 describe('AuthorizationsTabContentComponent', () => {

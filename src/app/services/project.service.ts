@@ -4,10 +4,10 @@ import {switchMap, catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
-import { Api } from './api';
+import { Api } from 'app/services/api';
 
-import { Project } from '../models/project';
-import { Collection, CollectionsList } from '../models/collection';
+import { Project } from 'app/models/project';
+import { Collection, CollectionsList } from 'app/models/collection';
 
 @Injectable()
 export class ProjectService {

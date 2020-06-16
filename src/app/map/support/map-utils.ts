@@ -1,4 +1,4 @@
-import { WidgetBuilder } from '../widgets/widget-builder';
+import { WidgetBuilder } from 'app/map/widgets/widget-builder';
 
 type OnFulfilled = (value?: any) => any;
 type OnRejected = (reason?: any) => void;

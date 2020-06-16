@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Api } from 'app/services/api';
-import { GeocoderSettings } from '../widgets/support/geocoder';
+import { GeocoderSettings } from 'app/map/widgets/support/geocoder';
 import { ILoadScriptOptions } from 'esri-loader';
 
 // Default ArcGIS options:

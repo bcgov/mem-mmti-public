@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Feature, FeatureCollection, Point } from 'geojson';
-import { createRequestBuilder } from './geocoder-api';
-import { EsriModuleProvider } from '../../core';
+import { createRequestBuilder } from 'app/map/widgets/support/geocoder-api';
+import { EsriModuleProvider } from 'app/map/core';
 
 // The following "type" declarations do not generate code.
 // They just provide better intellisense and type checking with TypeScript.
