@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 
-import { Project } from '../../models/project';
-import { ProjectService } from '../../services/project.service';
+import { Project } from 'app/models/project';
+import { ProjectService } from 'app/services/project.service';
 
 @Component({
   selector: 'app-project-list',

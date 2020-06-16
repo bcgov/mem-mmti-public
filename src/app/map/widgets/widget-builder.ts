@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { EsriModuleProvider } from '../core';
-import { createGeocoder, singleLineFieldName } from './support/geocoder';
+import { EsriModuleProvider } from 'app/map/core';
+import { createGeocoder, singleLineFieldName } from 'app/map/widgets/support/geocoder';
 
 export interface ZoomWidgetProperties {
   view: __esri.MapViewProperties;

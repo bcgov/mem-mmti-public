@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthorizationsComponent } from 'app/authorizations/authorizations.component';
-import { ComplianceOversightComponent } from 'app/compliance-oversight/compliance-oversight.component';
-import { ContactComponent } from 'app/contact/contact.component';
+import { AuthorizationsComponent } from 'app/static-pages/authorizations/authorizations.component';
+import { ComplianceOversightComponent } from 'app/static-pages/compliance-oversight/compliance-oversight.component';
+import { ContactComponent } from 'app/static-pages/contact/contact.component';
 import { HomeComponent } from 'app/home/home.component';
-import { LegislationComponent } from 'app/legislation/legislation.component';
-import { LifecycleComponent } from 'app/lifecycle/lifecycle.component';
-import { ReclamationComponent } from 'app/reclamation/reclamation.component';
-import { TailingsManagementComponent } from 'app/tailings-management/tailings-management.component';
-import { TopicsOfInterestComponent } from 'app/topics-of-interest/topics-of-interest.component';
-import { WaterQualityComponent } from 'app/water-quality/water-quality.component';
+import { LegislationComponent } from 'app/static-pages/legislation/legislation.component';
+import { LifecycleComponent } from 'app/static-pages/lifecycle/lifecycle.component';
+import { ReclamationComponent } from 'app/static-pages/reclamation/reclamation.component';
+import { TailingsManagementComponent } from 'app/static-pages/tailings-management/tailings-management.component';
+import { TopicsOfInterestComponent } from 'app/static-pages/topics-of-interest/topics-of-interest.component';
+import { WaterQualityComponent } from 'app/static-pages/water-quality/water-quality.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
-import { SearchComponent } from 'app/search/search.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { EnforcementActionsComponent } from './enforcement-actions/enforcement-actions.component';
+import { NotFoundComponent } from 'app/not-found/not-found.component';
+import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
 
 const routes: Routes = [
   {
@@ -63,10 +62,6 @@ const routes: Routes = [
   {
     path: 'map',
     component: MainMapComponent
-  },
-  {
-    path: 'search',
-    component: SearchComponent
   },
   {
     path: '**',

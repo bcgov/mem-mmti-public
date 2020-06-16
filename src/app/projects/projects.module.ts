@@ -4,22 +4,22 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 
 // modules
-import { MapModule } from '../map/map.module';
-import { ProjectsRoutingModule } from './projects-routing.module';
+import { MapModule } from 'app/map/map.module';
+import { ProjectsRoutingModule } from 'app/projects/projects-routing.module';
 
 // components
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
-import { OverviewTabContentComponent } from './project-detail/overview/overview-tab-content.component';
-import { AuthorizationsTabContentComponent } from './project-detail/authorizations/authorizations-tab-content.component';
-import { ComplianceTabContentComponent } from './project-detail/compliance/compliance-tab-content.component';
-import { DocumentsTabContentComponent } from './project-detail/documents/documents-tab-content.component';
-import { SiteActivitiesComponent } from './site-activities/site-activities.component';
-import { OrderByPipe } from '../filters/order-by.pipe';
+import { ProjectListComponent } from 'app/projects/project-list/project-list.component';
+import { ProjectDetailComponent } from 'app/projects/project-detail/project-detail.component';
+import { OverviewTabContentComponent } from 'app/projects/project-detail/overview/overview-tab-content.component';
+import { AuthorizationsTabContentComponent } from 'app/projects/project-detail/authorizations/authorizations-tab-content.component';
+import { ComplianceTabContentComponent } from 'app/projects/project-detail/compliance/compliance-tab-content.component';
+import { DocumentsTabContentComponent } from 'app/projects/project-detail/documents/documents-tab-content.component';
+import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
+import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
 
 // services
-import { Api } from '../services/api';
-import { ProjectService } from '../services/project.service';
+import { Api } from 'app/services/api';
+import { ProjectService } from 'app/services/project.service';
 import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({

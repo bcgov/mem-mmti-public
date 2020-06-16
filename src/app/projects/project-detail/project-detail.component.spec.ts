@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Project } from '../../models/project';
-import { MapModule } from '../../map/map.module';
+import { Project } from 'app/models/project';
+import { MapModule } from 'app/map/map.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ProjectDetailComponent } from './project-detail.component';
+import { ProjectDetailComponent } from 'app/projects/project-detail/project-detail.component';
 
-import { OrderByPipe } from '../../filters/order-by.pipe';
-import { SiteActivitiesComponent } from '../site-activities/site-activities.component';
+import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
+import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
 import { Api } from 'app/services/api';
 
 describe('ProjectDetailComponent', () => {

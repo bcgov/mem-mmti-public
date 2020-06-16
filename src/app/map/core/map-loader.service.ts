@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter, ElementRef } from '@angular/core';
-import { EsriModuleProvider } from './esri-module-provider';
+import { EsriModuleProvider } from 'app/map/core/esri-module-provider';
 
 interface MapLoaderOptions {
   mapProperties?: __esri.MapProperties;

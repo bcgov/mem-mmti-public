@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
-import { ProjectDetailResolver } from './project-detail-resolver.service';
-import { TAB_NAV_ROUTES } from './project-detail/routes';
+import { ProjectListComponent } from 'app/projects/project-list/project-list.component';
+import { ProjectDetailComponent } from 'app/projects/project-detail/project-detail.component';
+import { ProjectDetailResolver } from 'app/projects/project-detail-resolver.service';
+import { TAB_NAV_ROUTES } from 'app/projects/project-detail/routes';
 
 const routes: Routes = [
   {

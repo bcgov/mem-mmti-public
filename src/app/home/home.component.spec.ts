@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProjectService } from '../services/project.service';
-import { Api } from '../services/api';
+import { ProjectService } from 'app/services/project.service';
+import { Api } from 'app/services/api';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home.component';
-import { Project } from '../models/project';
+import { HomeComponent } from 'app/home/home.component';
+import { Project } from 'app/models/project';
 
 describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;

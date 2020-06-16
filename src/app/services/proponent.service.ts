@@ -5,9 +5,9 @@ import { HttpResponse } from '@angular/common/http';
 
 
 
-import { Api } from './api';
+import { Api } from 'app/services/api';
 
-import { Proponent } from '../models/proponent';
+import { Proponent } from 'app/models/proponent';
 
 @Injectable()
 export class ProponentService {

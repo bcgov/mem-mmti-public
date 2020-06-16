@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Project } from '../../models/project';
+import { Project } from 'app/models/project';
 
 @Component({
   selector: 'app-project-detail',

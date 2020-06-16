@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { CollectionsList } from './collection';
+import { CollectionsList } from 'app/models/collection';
 
 export class Project {
   _id: string;
