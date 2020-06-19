@@ -1,6 +1,5 @@
 <div class="map-container">
-  <esri-map [webMapProperties]="webMapProperties" [mapViewProperties]="mapViewProperties" [suppressPopupActions]="true" (mapInit)="onMapInit($event)"></esri-map>
-  <button class="toggle-boundary-btn btn btn-default" (click)="toggle()">{{ boundariesButtonText }}</button>
+  <leaflet-map></leaflet-map>
   <!-- Modal -->
   <ng-template #modal let-closeDialog="close">
     <div class="modal-header">

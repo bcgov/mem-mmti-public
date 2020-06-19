@@ -1,13 +1,8 @@
 import { Component, Input, HostBinding, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
-
-import { MapInitEvent } from 'app/map/esri-map/esri-map.component';
-import { MapConfigService } from 'app/map/core';
-import { WidgetBuilder } from 'app/map/widgets/widget-builder';
-import * as utils from 'app/map/support/map-utils';
 
 @Component({
   selector: 'app-main-map',
@@ -37,26 +32,17 @@ export class MainMapComponent implements OnInit, OnDestroy {
 
   // private fields
   private cookieValue = 'UNKNOWN';
-  private selectedId: string;
+  // private selectedId: string;
   private sub: Subscription;
   private boundariesVisible: boolean;
 
   constructor(
-    private config: MapConfigService,
-    private route: ActivatedRoute,
     private router: Router,
-    private widgetBuilder: WidgetBuilder,
     private modalService: NgbModal,
     private cookieService: CookieService
   ) { }
 
   ngOnInit() {
-    const props = this.config.get();
-    this.pointLayerTitle = props.mainMap.pointLayerTitle;
-    this.webMapProperties = props.mainMap.webmap;
-    this.mapViewProperties = props.mainMap.mapView;
-    this.popupProperties = props.mainMap.popup;
-    this.geocoderProperties = props.mainMap.geocoder;
     this.boundariesVisible = this.showBoundaries;
 
     // only show disclaimer once per user
@@ -77,55 +63,12 @@ export class MainMapComponent implements OnInit, OnDestroy {
     }
   }
 
-  onMapInit(mapInfo: MapInitEvent): void {
-    const map = mapInfo.map;
-    const view = mapInfo.mapView;
-    const widgetBuilder = this.widgetBuilder;
-    const popupProperties = this.popupProperties;
-    const geocoder = this.geocoderProperties;
-
-    // find the feature layer with `project` data.
-    const layerTitle = this.pointLayerTitle;
-    const featureLayer = <__esri.FeatureLayer>utils.findLayerByTitle(map, layerTitle);
-
-    // point layer is required to complete map initialization...
-    if (!featureLayer) {
-      console.log(`The map view failed to initialize: could not find layer with title '${layerTitle}'`);
-      return;
-    }
-
-    // store local references to map and view
-    this.map = map;
-    this.mapView = view;
-    this.pointLayer = featureLayer;
-
-    this.mapView.on('click', utils.onClickHandler(featureLayer, view, popupProperties));
-    this.mapView.on('pointer-move', utils.onMouseoverHandler(featureLayer, view, popupProperties));
-
-    // 1- wait for layers to load
-    // 2- set map popup to match our custom styling
-    // 3- create interactive map controls (e.g. zoom, search widgets)
-    // 4- automatically show project popup on the map when coming from project details page
-    utils.whenLayersReady([featureLayer])
-      .then(() => utils.setPopupTemplate(featureLayer, popupProperties))
-      .then(() => utils.addWidgets(view, widgetBuilder, { search: { featureLayer, geocoder } }))
-      .then(() => {
-        // grabbing route parameters (the Observable way)
-        this.sub = this.route.paramMap.subscribe(
-          (params: ParamMap) => this.onRouteChange(params),
-          () => this.sub.unsubscribe(),
-          () => this.sub.unsubscribe(),
-        );
-      });
-  }
-
   get boundariesButtonText(): string {
     return this.boundariesVisible ? 'Hide Boundaries' : 'Show Boundaries';
   }
 
   toggle() {
     this.boundariesVisible = !this.boundariesVisible;
-    this.setVisibilityForAllBoundaries(this.boundariesVisible);
   }
 
   goToHomePage() {
@@ -169,14 +112,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.modalRef.dismiss('disagree');
   }
 
-  private setVisibilityForAllBoundaries(value: boolean) {
-    const map = this.map;
-    return utils.whenLayersReady(map.layers.toArray())
-      .then(() => utils.findAllBoundaryLayers(map))
-      .then(boundaries => boundaries.forEach(layer => layer.visible = value));
-  }
-
-  private onRouteChange(params: ParamMap) {
+  /* private onRouteChange(params: ParamMap) {
     // fetch the project Id from URL/route params (if any)
     this.selectedId = params.get('project');
 
@@ -195,5 +131,5 @@ export class MainMapComponent implements OnInit, OnDestroy {
       })
       .then(() => utils.zoomToLocation(view, target, animate))
       .then(() => utils.showMapPopup(view, target));
-  }
+  } */
 }
