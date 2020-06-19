@@ -154,27 +154,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   }
 
   ngAfterViewInit() {
-    // custom control to reset map view
-    const resetViewControl = L.Control.extend({
-      options: {
-        position: 'bottomright'
-      },
-      onAdd: function () {
-        const element = L.DomUtil.create('button');
-
-        element.title = 'Reset view';
-        element.innerText = 'refresh'; // material icon name
-        element.onclick = () => this.fitBounds();
-        element.className = 'material-icons map-reset-control';
-
-        // prevent underlying map actions for these events
-        L.DomEvent.disableClickPropagation(element); // includes double-click
-        L.DomEvent.disableScrollPropagation(element);
-
-        return element;
-      },
-    });
-
     let mapOptions = {
       maxZoom: 17,
       zoomControl: false, // will be added manually below
@@ -214,8 +193,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
       L.control.scale({ position: 'bottomleft' }).addTo(this.map);
       // add zoom control
       L.control.zoom({ position: 'bottomright' }).addTo(this.map);
-      // add reset view control
-      this.map.addControl(new resetViewControl());
 
       // set the default basemap
       LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
