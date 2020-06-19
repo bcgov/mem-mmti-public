@@ -100,7 +100,7 @@
       "displayName": "Angular Builder Image",
       "description": "The image that we compiled our code in.",
       "required": true,
-      "value": "angular-builder"
+      "value": "mem-mmti-public-angular-builder"
     }
   ]
 }
