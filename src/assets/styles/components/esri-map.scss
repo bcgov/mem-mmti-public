@@ -226,3 +226,54 @@
         }
     }
 }
+
+/* Popup style */
+.popup-container {
+    max-height: 500px;
+    background: #244278;
+    font-family: myriad-pro;
+    color: #fff;
+    width: 400px;
+    outline: none;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+    max-height: 300px;
+    background-color: #fff;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.popup-header {
+    background: #036;
+    position: relative;
+    font-size: 12px;
+    align-items: flex-start;
+    justify-content: space-between;
+    display: flex;
+    flex: 0 0 auto;
+    opacity: 1;
+    animation: esri-fade-in 375ms ease-out;
+    font-family: inherit;
+    font-size: 14px;
+    margin: 0!important;
+    padding: 1rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.popup-content {
+    box-sizing: inherit;
+    background: #244278;
+    font-family: myriad-pro;
+    color: #fff;
+    padding: 20px;
+}
+
+.map-popup-disc {
+    margin-top: 1.1rem;
+    max-height: 20rem;
+    font-size: calc(.9375rem * .8);
+    line-height: calc(.9375rem * 1.1);
+    font-style: italic;
+}

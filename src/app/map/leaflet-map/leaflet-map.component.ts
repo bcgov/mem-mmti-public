@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnChanges, OnDestroy, Input, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
@@ -15,8 +16,6 @@ declare module 'leaflet' {
     projectId: number;
   }
 }
-
-// const L = window['L'];
 
 const markerIconYellow = L.icon({
   iconUrl: 'assets/images/marker-icon-yellow.svg',
@@ -43,6 +42,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   readonly defaultBounds = L.latLngBounds([48, -139], [60, -114]); // all of BC
   readonly maxBounds = L.latLngBounds([40, -150], [70, -110]); // all of BC
   public projects: Array<Project> = [];
+  public selectedProject: Project = null;
   private map: L.Map = null;
   private markerList: Array<L.Marker> = [];
   private markerClusterGroup = L.markerClusterGroup({
@@ -51,12 +51,16 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   });
 
   constructor(
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private router: ActivatedRoute
   ) { }
 
   ngOnInit() {
     // Load the projects. If this is a thumbnail with a project set, ignore
     if (!this.thumbnail) {
+
+      let routerProjId = this.router.snapshot.paramMap.get('project');
+
       this.projectService.getAll().subscribe(results => {
         if (results) {
           this.projects = results;
@@ -72,6 +76,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
               marker.projectId = index;
               this.markerList.push(marker); // save to list
               this.markerClusterGroup.addLayer(marker); // save to marker clusters group
+            }
+
+            if (routerProjId && routerProjId === proj._id) {
+              this.selectedProject = proj;
+              this.map.setView(new L.LatLng(proj.latitude, proj.longitude), 10);
             }
           });
         }
@@ -124,7 +133,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
     popup = L.popup(popupOptions)
       .setLatLng(marker.getLatLng())
-      .setContent(`<h4>I am a popup for ${proj.name}</h4>`);
+      .setContent(LeafletMapUtils.generateProjectPopup(proj));
 
     // bind popup to marker so it automatically closes when marker is removed
     marker.bindPopup(popup).openPopup();
@@ -205,7 +214,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
       // set the default basemap
       LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
 
-      // zoom to the default bounds
       this.fitBounds();
     } else {
       // zoom to the project bounds

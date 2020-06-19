@@ -50,9 +50,9 @@ $toggle-list-anim-duration: 0.2s;
   }
 
   .leaflet-popup-content {
-    width: 20rem !important;
+    width: 400px !important;
     margin: 0;
-    overflow: hidden;
+    background: #244278;
   }
 
   .leaflet-control-attribution {
