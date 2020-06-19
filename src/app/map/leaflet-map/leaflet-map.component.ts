@@ -76,11 +76,17 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
               marker.projectId = index;
               this.markerList.push(marker); // save to list
               this.markerClusterGroup.addLayer(marker); // save to marker clusters group
-            }
 
-            if (routerProjId && routerProjId === proj._id) {
-              this.selectedProject = proj;
-              this.map.setView(new L.LatLng(proj.latitude, proj.longitude), 10);
+              // did we navigate to the map with a poject defined?
+              // if so, zoom to the icon and open the popup
+              if (routerProjId && routerProjId === proj._id) {
+                this.selectedProject = proj;
+                this.map.setView(new L.LatLng(proj.latitude, proj.longitude), 10);
+
+                setTimeout(() => {
+                  marker.openPopup();
+                }, 1000);
+              }
             }
           });
         }
