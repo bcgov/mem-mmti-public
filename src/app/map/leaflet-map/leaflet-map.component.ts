@@ -84,7 +84,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
                 this.map.setView(new L.LatLng(proj.latitude, proj.longitude), 10);
 
                 setTimeout(() => {
-                  marker.openPopup();
+                  this.createMarkerPopup(proj, marker);
                 }, 1000);
               }
             }
