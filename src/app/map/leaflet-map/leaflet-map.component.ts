@@ -1,10 +1,11 @@
-import { Component, AfterViewInit, OnChanges, OnDestroy, Input, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnChanges, OnDestroy, Input, OnInit, HostListener } from '@angular/core';
 import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
 
 import 'leaflet';
 import 'leaflet.markercluster';
+import * as L from 'leaflet';
 
 declare module 'leaflet' {
   export interface FeatureGroup<P = any> {
@@ -15,7 +16,7 @@ declare module 'leaflet' {
   }
 }
 
-const L = window['L'];
+// const L = window['L'];
 
 const markerIconYellow = L.icon({
   iconUrl: 'assets/images/marker-icon-yellow.svg',
@@ -25,16 +26,6 @@ const markerIconYellow = L.icon({
   iconAnchor: [18, 36],
   tooltipAnchor: [16, -28]
 });
-
-/*const markerIconYellowLg = L.icon({
-  iconUrl: 'assets/images/marker-icon-yellow-lg.svg',
-  // Retina Icon is not needed here considering we're using an SVG. Enable if you want to change to a raster asset.
-  // iconRetinaUrl: 'assets/images/marker-icon-yellow-lg.svg',
-  iconSize: [48, 48],
-  iconAnchor: [24, 48],
-  // popupAnchor: [1, -34], // TODO: update, if needed
-  // tooltipAnchor: [16, -28] // TODO: update, if needed
-}); */
 
 @Component({
   selector: 'leaflet-map',
@@ -51,7 +42,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   public loading = false;
   readonly defaultBounds = L.latLngBounds([48, -139], [60, -114]); // all of BC
   readonly maxBounds = L.latLngBounds([40, -150], [70, -110]); // all of BC
-  public baseLayerName = 'World Topographic';
   public projects: Array<Project> = [];
   private map: L.Map = null;
   private markerList: Array<L.Marker> = [];
@@ -60,7 +50,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     maxClusterRadius: 40, // 0 disables
   });
 
-  constructor(private projectService: ProjectService
+  constructor(
+    private projectService: ProjectService
   ) { }
 
   ngOnInit() {
@@ -133,21 +124,21 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
     popup = L.popup(popupOptions)
       .setLatLng(marker.getLatLng())
-      .setContent(`<h1>I am a popup for ${proj.name}</h1>`);
+      .setContent(`<h4>I am a popup for ${proj.name}</h4>`);
 
     // bind popup to marker so it automatically closes when marker is removed
     marker.bindPopup(popup).openPopup();
   }
 
+  @HostListener('unloaded')
   ngOnDestroy(): void {
+    this.map.remove();
   }
 
   ngOnChanges(): void {
   }
 
   ngAfterViewInit() {
-    const self = this; // for closure function below
-
     // custom control to reset map view
     const resetViewControl = L.Control.extend({
       options: {
@@ -158,7 +149,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
         element.title = 'Reset view';
         element.innerText = 'refresh'; // material icon name
-        element.onclick = () => self.fitBounds();
+        element.onclick = () => this.fitBounds();
         element.className = 'material-icons map-reset-control';
 
         // prevent underlying map actions for these events
@@ -211,28 +202,23 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
       // add reset view control
       this.map.addControl(new resetViewControl());
 
-      this.markerClusterGroup.addTo(this.map);
+      // set the default basemap
       LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
 
+      // zoom to the default bounds
+      this.fitBounds();
     } else {
-      LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
+      // zoom to the project bounds
+      this.map.setView(new L.LatLng(this.project.latitude, this.project.longitude), 10);
     }
 
-    // load base layer
-    for (const key of Object.keys(baseLayers)) {
-      if (key === this.baseLayerName) {
-        this.map.addLayer(baseLayers[key]);
-        break;
-      }
-    }
+    // set the default basemap, turn on the marker layer
+    LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
+    this.markerClusterGroup.addTo(this.map);
 
-    // save any future base layer changes
-    this.map.on('baselayerchange', function (e: L.LayersControlEvent) {
-       this.baseLayerName = e.name;
-    }, this);
-
-    this.fitBounds();
-    this.map.invalidateSize();
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 100);
   }
 
   private fitBounds(bounds: L.LatLngBounds = null) {
@@ -241,5 +227,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     } else {
       this.map.fitBounds(this.defaultBounds);
     }
+
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 100);
   }
 }
