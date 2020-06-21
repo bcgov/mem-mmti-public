@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, OnChanges, OnDestroy, Input, OnInit, HostListener } from '@angular/core';
+import { Component, AfterViewInit, OnChanges, OnDestroy, Input, OnInit, HostListener, ApplicationRef, Injector, ComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
+import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
 
 import 'leaflet';
 import 'leaflet.markercluster';
@@ -52,7 +53,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
   constructor(
     private projectService: ProjectService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private appRef: ApplicationRef,
+    private injector: Injector,
+    private resolver: ComponentFactoryResolver
   ) { }
 
   ngOnInit() {
@@ -137,9 +141,18 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
       };
     }
 
+    // compile marker popup component
+    const compFactory = this.resolver.resolveComponentFactory(ProjectPopupComponent);
+    const compRef = compFactory.create(this.injector);
+    compRef.instance.project = proj;
+    compRef.instance.parentMap = this.map;
+    this.appRef.attachView(compRef.hostView);
+    compRef.onDestroy(() => this.appRef.detachView(compRef.hostView));
+    const div = document.createElement('div').appendChild(compRef.location.nativeElement);
+
     popup = L.popup(popupOptions)
       .setLatLng(marker.getLatLng())
-      .setContent(LeafletMapUtils.generateProjectPopup(proj));
+      .setContent(div);
 
     // bind popup to marker so it automatically closes when marker is removed
     marker.bindPopup(popup).openPopup();

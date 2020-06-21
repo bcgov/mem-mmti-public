@@ -62,8 +62,6 @@ $toggle-list-anim-duration: 0.2s;
     height: 400px;
     margin: 0;
     background: #244278;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
   .leaflet-control-attribution {
@@ -234,7 +232,6 @@ $toggle-list-anim-duration: 0.2s;
     pointer-events: auto;
     position: relative;
     z-index: 1;
-    max-height: 300px;
     background-color: #fff;
     display: flex;
     flex-flow: column nowrap;
@@ -249,7 +246,6 @@ $toggle-list-anim-duration: 0.2s;
     display: flex;
     flex: 0 0 auto;
     opacity: 1;
-    animation: esri-fade-in 375ms ease-out;
     font-family: inherit;
     font-size: 14px;
     margin: 0!important;
@@ -264,6 +260,9 @@ $toggle-list-anim-duration: 0.2s;
     font-family: myriad-pro;
     color: #fff;
     padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 300px;
 }
 
 .map-popup-disc {
@@ -272,4 +271,25 @@ $toggle-list-anim-duration: 0.2s;
     font-size: calc(.9375rem * .8);
     line-height: calc(.9375rem * 1.1);
     font-style: italic;
+}
+
+.popup-content::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #036;
+    border-radius: 20px;
+}
+
+.popup-content::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #036;
+}
+
+.popup-content::-webkit-scrollbar-thumb
+{
+    background-color: rgb(190, 190, 190);
+    border: 2px solid #036;
+    border-radius: 20px;
 }

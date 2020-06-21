@@ -1,0 +1,27 @@
+<div class="popup-container">
+  <header class="popup-header">
+    <h5>{{project.name}}</h5>
+    <a role="button" tabindex="0" (click)="zoomToProject()"><i class="material-icons">zoom_in</i></a>
+  </header>
+  <article class="popup-content">
+    <div class="map-popup-content">
+      <ul class="map-popup-meta">
+        <li>
+          <span class="meta-name">Type:</span>
+          <span class="meta-value">{{project.type}}</span>
+        </li>
+      </ul>
+      <div class="map-popup-desc">{{project.description}}</div>
+      <div class="map-popup-btns">
+        <a class="btn btn-sm slide-r-btn" title="View additional information about {{project.name}}" href="/p/{{project.code}}">
+          <span>Go to Project Details</span><i class="material-icons">arrow_forward</i>
+        </a>
+        <div class="map-popup-disc">The Province has reviewed the geospatial information but makes
+                                    no guarantee or warranties whatsoever, either expressed or implied, with
+                                    respect to the accuracy or quality of information, content, or materials,
+                                    and disclaims all responsibility for the accuracy or completeness contained herein.
+        </div>
+     </div>
+    </div>
+  </article>
+</div>
