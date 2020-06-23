@@ -92,15 +92,22 @@ export class ProjectService {
   }
 
   private addCollection(collectionsList: CollectionsList, collection: Collection) {
+    // ensure the collection hasn't already been added before adding again.
     switch (collection.parentType) {
       case 'Authorizations':
-        collectionsList.authorizations[collection.agency].add(collection);
+        if (!collectionsList.authorizations[collection.agency].items.some(existing => existing._id === collection._id)) {
+          collectionsList.authorizations[collection.agency].add(collection);
+        }
         break;
       case 'Compliance and Enforcement':
-        collectionsList.compliance.add(collection);
+        if (!collectionsList.compliance.items.some(existing => existing._id === collection._id)) {
+          collectionsList.compliance.add(collection);
+        }
         break;
       case 'Other':
-        collectionsList.documents.add(collection);
+        if (!collectionsList.documents.items.some(existing => existing._id === collection._id)) {
+          collectionsList.documents.add(collection);
+        }
         break;
     }
   }
