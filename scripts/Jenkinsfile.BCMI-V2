@@ -74,8 +74,8 @@ node('master') {
         openshiftBuild bldCfg: 'mem-mmti-public-angular-v2', showBuildLogs: 'true'
         echo "Build done"
 
-        echo "Building: mem-mmti-public-v2"
-        openshiftBuild bldCfg: 'mem-mmti-public-v2', showBuildLogs: 'true'
+        echo "Building: mem-mmti-public-v2-build"
+        openshiftBuild bldCfg: 'mem-mmti-public-v2-build', showBuildLogs: 'true'
         echo "Build done"
 
         echo "Tagging image..."
