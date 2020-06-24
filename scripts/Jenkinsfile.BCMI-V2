@@ -147,7 +147,7 @@ node('master'){
         echo "Deploying to v2..."
         openshiftTag destStream: 'mem-mmti-public-v2', verbose: 'false', destTag: 'v2', srcStream: 'mem-mmti-public-v2', srcTag: "${IMAGE_HASH}"
         sleep 5
-        openshiftVerifyDeployment depCfg: 'mem-mmti-public', namespace: 'mem-mmt-v2', replicaCount: 1, verbose: 'false', verifyReplicaCount: 'false', waitTime: 600000
+        openshiftVerifyDeployment depCfg: 'mem-mmti-public-v2', namespace: 'mem-mmt-dev', replicaCount: 1, verbose: 'false', verifyReplicaCount: 'false', waitTime: 600000
         echo ">>>> Deployment Complete"
 
         notifyRocketChat(
