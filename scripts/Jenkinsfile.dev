@@ -100,7 +100,7 @@ node('master') {
 podTemplate(label: 'sonarqube-maven', name: 'sonarqube-maven', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
   containerTemplate(
     name: 'jnlp',
-    image: 'registry.access.redhat.com/openshift3/jenkins-agent-nodejs-8-rhel7',
+    image: 'registry.access.redhat.com/openshift3/jenkins-slave-maven-rhel7',
     resourceRequestCpu: '500m',
     resourceLimitCpu: '1000m',
     resourceRequestMemory: '1Gi',
