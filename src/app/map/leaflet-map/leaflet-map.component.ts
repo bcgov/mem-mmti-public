@@ -152,6 +152,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // bind popup to marker so it automatically closes when marker is removed
     marker.bindPopup(popup).openPopup();
+
+    setTimeout(() => {
+      this.map.setView(marker.getLatLng(), this.map.getZoom());
+    }, 500);
   }
 
   @HostListener('unloaded')
