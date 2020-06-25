@@ -219,14 +219,14 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private fitBounds(bounds: L.LatLngBounds = null) {
-    if (bounds && bounds.isValid()) {
-      this.map.fitBounds(bounds);
-    } else {
-      this.map.fitBounds(this.defaultBounds);
-    }
-
     setTimeout(() => {
+      if (bounds && bounds.isValid()) {
+        this.map.fitBounds(bounds);
+      } else {
+        this.map.fitBounds(this.defaultBounds);
+      }
+
       this.map.invalidateSize();
-    }, 100);
+    }, 500);
   }
 }
