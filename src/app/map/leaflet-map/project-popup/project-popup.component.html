@@ -1,7 +1,8 @@
 <div class="popup-container">
   <header class="popup-header">
     <h5>{{project.name}}</h5>
-    <a role="button" tabindex="0" (click)="zoomToProject()"><i class="material-icons">zoom_in</i></a>
+    <a class="popup-close-button" role="button" tabindex="0" (click)="zoomToProject()"><i class="material-icons">zoom_in</i></a>
+    <a class="popup-zoom-button" role="button" tabindex="0" (click)="closePopups()"><i class="material-icons">close</i></a>
   </header>
   <article class="popup-content">
     <div class="map-popup-content">

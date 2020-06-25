@@ -20,6 +20,10 @@ export class ProjectPopupComponent implements OnInit, OnDestroy {
     this.parentMap.setView(new LatLng(this.project.latitude, this.project.longitude), 10);
   }
 
+  closePopups() {
+    this.parentMap.closePopup();
+  }
+
   ngOnInit() {
   }
 

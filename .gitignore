@@ -41,4 +41,3 @@ Thumbs.db
 /sonar-runner/build
 
 functional-tests/\.java-version
-package-lock.json
