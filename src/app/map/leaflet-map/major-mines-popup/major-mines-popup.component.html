@@ -1,0 +1,55 @@
+<div class="popup-container">
+  <header class="popup-header">
+    <h5>{{mine.MINE_NAME}}</h5>
+    <a class="popup-close-button" role="button" tabindex="0" (click)="zoomToProject()"><i class="material-icons">zoom_in</i></a>
+    <a class="popup-zoom-button" role="button" tabindex="0" (click)="closePopups()"><i class="material-icons">close</i></a>
+  </header>
+  <article class="popup-content">
+    <div class="map-popup-content">
+      <ul class="map-popup-meta">
+        <li>
+          <span class="meta-name">Mine Number:</span>
+          <span class="meta-value">{{mine.MINE_NUMBER}}</span>
+        </li>
+        <li>
+          <span class="meta-name">Region Code:</span>
+          <span class="meta-value">{{mine.MINE_REGION_CODE}}</span>
+        </li>
+        <li>
+          <span class="meta-name">PMA Status:</span>
+          <span class="meta-value">{{mine.OP_STATUS_DESC}}</span>
+        </li>
+        <li>
+          <span class="meta-name">PMA Issue Date:</span>
+          <span class="meta-value">{{mine.ISSUE_DATE}}</span>
+        </li>
+        <li>
+          <span class="meta-name">Operating Status:</span>
+          <span class="meta-value">{{mine.OP_STATUS_TYPE}}</span>
+        </li>
+        <li>
+          <span class="meta-name">Operating Status Date:</span>
+          <span class="meta-value">{{mine.OP_STATUS_DATE}}</span>
+        </li>
+        <li>
+          <span class="meta-name">Permit Number:</span>
+          <span class="meta-value">{{mine.PERMIT_NO}}</span>
+        </li>
+        <li>
+          <span class="meta-name">Permitee:</span>
+          <span class="meta-value">{{mine.PERMITTEE_NAME}}</span>
+        </li>
+      </ul>
+      <div class="map-popup-btns">
+        <a class="btn btn-sm slide-r-btn" title="View additional information about {{mine.MINE_NAME}}" href="{{mine.MINE_INFO_URL}}">
+          <span>Go to Project Details</span><i class="material-icons">arrow_forward</i>
+        </a>
+        <div class="map-popup-disc">The Province has reviewed the geospatial information but makes
+                                    no guarantee or warranties whatsoever, either expressed or implied, with
+                                    respect to the accuracy or quality of information, content, or materials,
+                                    and disclaims all responsibility for the accuracy or completeness contained herein.
+        </div>
+     </div>
+    </div>
+  </article>
+</div>
