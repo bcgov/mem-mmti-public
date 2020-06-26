@@ -8,7 +8,6 @@
     "types": [
       "jasmine",
       "node",
-      "arcgis-js-api"
     ]
   },
   "files": [

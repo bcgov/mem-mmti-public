@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-import { EsriMapComponent } from 'app/map/esri-map/esri-map.component';
+import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
-import { ProjectMapComponent } from 'app/map/project-map/project-map.component';
-import { WidgetBuilder } from 'app/map/widgets/widget-builder';
-import { MapLoaderService, MapConfigService, EsriModuleProvider } from 'app/map/core';
+import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
 
 @NgModule({
   imports: [
@@ -14,20 +11,18 @@ import { MapLoaderService, MapConfigService, EsriModuleProvider } from 'app/map/
     RouterModule
   ],
   declarations: [
-    EsriMapComponent,
     MainMapComponent,
-    ProjectMapComponent
+    LeafletMapComponent,
+    ProjectPopupComponent
   ],
   exports: [
-    EsriMapComponent,
     MainMapComponent,
-    ProjectMapComponent
+    LeafletMapComponent
+  ],
+  entryComponents: [
+    ProjectPopupComponent
   ],
   providers: [
-    MapConfigService,
-    MapLoaderService,
-    WidgetBuilder,
-    EsriModuleProvider
   ]
 })
 export class MapModule { }

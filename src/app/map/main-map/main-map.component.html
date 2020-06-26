@@ -1,24 +1,3 @@
 <div class="map-container">
-  <esri-map [webMapProperties]="webMapProperties" [mapViewProperties]="mapViewProperties" [suppressPopupActions]="true" (mapInit)="onMapInit($event)"></esri-map>
-  <button class="toggle-boundary-btn btn btn-default" (click)="toggle()">{{ boundariesButtonText }}</button>
-  <!-- Modal -->
-  <ng-template #modal let-closeDialog="close">
-    <div class="modal-header">
-      <h5 class="modal-title" id="mapModalLabel">Disclaimer</h5>
-      <button type="button" class="close" (click)="goToHomePage()" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>The Province has reviewed the geospatial information but makes no guarantee or warranties whatsoever,
-        either expressed or implied, with respect to the accuracy or quality of information,
-        content, or materials, and disclaims all responsibility for the accuracy or completeness
-        contained herein.
-      </p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-link" (click)="goToHomePage()">Disagree</button>
-      <button type="button" class="btn content-btn-alt" (click)="closeDialog('accept')">I accept the terms and conditions</button>
-    </div>
-  </ng-template>
+  <leaflet-map></leaflet-map>
 </div>
