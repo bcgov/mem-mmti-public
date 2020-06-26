@@ -5,7 +5,7 @@ import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
 import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
 import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/major-mines-popup.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import 'leaflet.markercluster';
 import * as L from 'leaflet';
 
