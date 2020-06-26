@@ -236,10 +236,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       let wmsGetInfoUrl = `${LeafletMapUtils.LAYERS.VERIFIED_MINES_URL}?service=WMS&version=1.1.1&request=GetFeatureInfo&query_layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&bbox=${bbox}&feature_count=1&height=${height}&width=${width}&info_format=application%2Fjson&srs=EPSG%3A4326&x=${x}&y=${y}`;
 
-      const headers = new HttpHeaders().set('Content-Type', 'application/json');
-      this.http.get(wmsGetInfoUrl, {
-        headers: headers
-      })
+      this.http.get(wmsGetInfoUrl)
       .subscribe(data => {
 
         if (data && data['features'] && data['features'].length === 1) {
