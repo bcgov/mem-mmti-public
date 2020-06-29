@@ -1,48 +1,69 @@
 import * as _ from 'lodash';
 import { CollectionsList } from 'app/models/collection';
 
+/**
+ * Link schema-field specification.
+ *
+ * Note: This is not itself a schema.  This is a field of existing schema(s).
+ *
+ * @export
+ * @class Link
+ */
+ export class Link {
+  title: string;
+  url: string;
+
+  constructor(obj?: any) {
+    this.title = (obj && obj.title) || '';
+    this.url = (obj && obj.url) || '';
+  }
+}
 export class Project {
-  _id: string;
+  _id:                  string;
+  _schemaName:          string;
+  _sourceRefId:         string;
+  read:                 string[];
+  write:                string[];
+  // attributes
+  name:                 string;
+  permitNumber:         string;
+  status:               string;
+  type:                 string;
+  commodities:          string[];
+  tailingsImpoundments: number;
+  region:               string;
+  location:             object;
+  permittee:            string;
+  summary:              string;
+  description:          string;
+  links:                Link[];
+  // metadata boilerplate
+  dateAdded:            Date;
+  dateUpdated:          Date;
+  datePublished:        Date;
+  addedBy:              string;
+  updatedBy:            string;
+  publishedBy:          string;
+  sourceDateAdded:      Date;
+  sourceDateUpdated:    Date;
+  sourceSystemRef:      string;
+
+  // old mem model
   code: string;
-  name: string;
-  description: string;
   subtitle: string;
-  type: string;
-  status: string;
   operator: string;
   memPermitID: string;
-  tailingsImpoundments: number;
-  commodities: string[];
-  commodity: string;
-  longitude: number;
-  latitude: number;
   morePermitsLinkYear: string;
   morePermitsLink: string;
   moreInspectionsLink: string;
   moreInspectionsLinkYear: string;
   epicProjectCodes: string[];
-
   collections: CollectionsList;
-
-  ownershipData: {
-    sharePercent: number;
-    organization: string;
-  };
-
   content: {
     type: string;
     page: string;
     html: string;
   }[];
-
-  intake: {
-    constructionjobs: number;
-    constructionjobsNotes: string;
-    investment: number;
-    investmentNotes: string;
-    operatingjobs: number;
-    operatingjobsNotes: string;
-  };
 
   // same as `activities` but sorted by display order
   sortedActivities: {
@@ -50,13 +71,6 @@ export class Project {
     status: string;
     name: string;
     cssClass?: string;
-  }[];
-
-  // same as `externalLinks` but without duplicate links and sorted by `order`
-  sortedLinks: {
-    link: string;
-    title: string;
-    order: number;
   }[];
 
   private _activities: {
@@ -79,63 +93,75 @@ export class Project {
     }
   }
 
-  private _externalLinks: {
-    link: string;
-    title: string;
-    order: number;
-  }[];
-  get externalLinks() {
-    return this._externalLinks;
-  }
-  set externalLinks(newValue) {
-    this._externalLinks = newValue;
-
-    // filter out duplicate links
-    if (newValue) {
-      this.sortedLinks = _.uniqBy(newValue, 'link').sort((a, b) => a.order - b.order);
-    } else {
-      this.sortedLinks = [];
-    }
-  }
-
   constructor(obj?: any) {
-    this._id                     = obj && obj._id                     || null;
-    this.code                    = obj && obj.code                    || null;
-    this.commodity               = obj && obj.commodity               || null;
-    this.commodities             = obj && obj.commodities             || null;
-    this.memPermitID             = obj && obj.memPermitID             || null;
-    this.name                    = obj && obj.name                    || null;
-    this.description             = obj && obj.description             || null;
-    this.subtitle                = obj && obj.subtitle                || null;
-    this.type                    = obj && obj.type                    || null;
-    this.status                  = obj && obj.currentPhaseName        || null;
-    this.tailingsImpoundments    = obj && obj.tailingsImpoundments    || 0;
-    this.longitude               = obj && obj.lon                     || 0;
-    this.latitude                = obj && obj.lat                     || 0;
-    this.morePermitsLinkYear     = obj && obj.morePermitsLinkYear     || null;
-    this.morePermitsLink         = obj && obj.morePermitsLink         || null;
-    this.moreInspectionsLink     = obj && obj.moreInspectionsLink     || null;
-    this.moreInspectionsLinkYear = obj && obj.moreInspectionsLinkYear || null;
-    this.epicProjectCodes        = obj && obj.epicProjectCodes        || [];
-    this.content                 = obj && obj.content                 || [];
-    this.externalLinks           = obj && obj.externalLinks           || [];
-    this.ownershipData           = obj && obj.ownershipData           || [];
-    this.collections             = obj && obj.collections             || null;
-    this.intake                  = obj && obj.intake                  || null;
+    this._id                  = (obj && obj._id)                  || null;
+    this._schemaName          = (obj && obj._schemaName)          || 'Mine';
+    this._sourceRefId         = (obj && obj._sourceRefId)         || '';
+    this.read                 = (obj && obj.read)                 || null;
+    this.write                = (obj && obj.write)                || null;
+    // attributes
+    this.name                 = (obj && obj.name)                 || '';
+    this.permitNumber         = (obj && obj.permitNumber )        || '';
+    this.status               = (obj && obj.status)               || '';
+    this.type                 = (obj && obj.type)                 || '';
+    this.commodities          = (obj && obj.commodities)          || [];
+    this.tailingsImpoundments = (obj && obj.tailingsImpoundments) || 0;
+    this.region               = (obj && obj.region)               || '';
+    this.location             = (obj && obj.location)             || null;
+    this.permittee            = (obj && obj.permittee)            || '';
+    this.summary              = (obj && obj.summary)              || '';
+    this.description          = (obj && obj.description)          || '';
+    this.links                = (obj && obj.links && obj.links.length && obj.links.map(link => new Link(link))) || null;
 
-    // Get the operator from the proponent.
+    // metadata boilerplate
+    this.dateAdded            = (obj && obj.dateAdded)            || null;
+    this.dateUpdated          = (obj && obj.dateUpdated)          || null;
+    this.datePublished        = (obj && obj.datePublished)        || null;
+    this.addedBy              = (obj && obj.addedBy)              || '';
+    this.updatedBy            = (obj && obj.updatedBy)            || '';
+    this.publishedBy          = (obj && obj.publishedBy)          || '';
+    this.sourceDateAdded      = (obj && obj.sourceDateAdded)      || null;
+    this.sourceDateUpdated    = (obj && obj.sourceDateUpdated)    || null;
+    this.sourceSystemRef      = (obj && obj.sourceSystemRef)      || '';
+    // original project model
+    this.code                    = this.name.replace(/\W+/g, '-').toLowerCase();
+    this.memPermitID             = obj && obj.memPermitID              || null;
+    this.subtitle                = obj && obj.subtitle                 || null;
+    this.morePermitsLinkYear     = obj && obj.morePermitsLinkYear      || null;
+    this.morePermitsLink         = obj && obj.morePermitsLink          || null;
+    this.moreInspectionsLink     = obj && obj.moreInspectionsLink      || null;
+    this.moreInspectionsLinkYear = obj && obj.moreInspectionsLinkYear  || null;
+    this.epicProjectCodes        = obj && obj.epicProjectCodes         || [];
+    this.collections             = obj && obj.collections              || null;
+
+    // create the "content" pages
+    this.content = [
+      {
+        type: 'Intro',
+        page: 'Mines',
+        html: this.summary
+      },
+      {
+        type: 'Intro',
+        page: 'Auth',
+        html: ''
+      },
+      {
+        type: 'Intro',
+        page: 'Comp',
+        html: ''
+      },
+      {
+        type: 'Intro',
+        page: 'Other',
+        html: ''
+      }
+    ];
+
+    // Get the operator from the proponent. (Do we have this in NRPTI or just use the permitee?)
     this.operator = obj && obj.proponent ? obj.proponent.name : '';
 
-    // If there are no commodities then look in commodity (old field)
-    if (!this.commodities) {
-      this.commodities = this.commodity ? (<string>this.commodity).split(',').map(x => {
-        const y = x.trim();
-        const commodity = y[0].toUpperCase() + y.substr(1).toLowerCase();
-        return commodity;
-      }) : [];
-    }
-
-    // process incoming activity objects
+    // process incoming activity objects (Do we have these in Mines NRPTI?)
     this.activities = obj && obj.activities ? obj.activities.map(x => this.parseActivity(x)) : [];
   }
 

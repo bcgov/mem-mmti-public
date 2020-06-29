@@ -17,7 +17,9 @@ export class ProjectPopupComponent implements OnInit, OnDestroy {
   ) { }
 
   zoomToProject() {
-    this.parentMap.setView(new LatLng(this.project.latitude, this.project.longitude), 10);
+    if (this.project.location) {
+      this.parentMap.setView(new LatLng(this.project.location['coordinates'][1], this.project.location['coordinates'][0]), 10);
+    }
   }
 
   closePopups() {

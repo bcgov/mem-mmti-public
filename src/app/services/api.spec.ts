@@ -15,9 +15,9 @@ describe('Api', () => {
   describe('getHostName()', () => {
     describe('localhost', () => {
       it(
-        'should return http://localhost:4000',
+        'should return http://localhost:3000',
         inject([Api], (api) => {
-          expect(api.getHostName('localhost').hostnameMEM).toBe('http://localhost:4000');
+          expect(api.getHostName('localhost').hostnameMEM).toBe('http://localhost:3000');
         })
       );
     });
@@ -26,7 +26,7 @@ describe('Api', () => {
         'should return http://localhost:4000',
         inject([Api], (api) => {
           expect(api.getHostName('www-mem-mmt-dev.pathfinder.gov.bc.ca').hostnameMEM).toBe(
-            'https://mem-mmt-dev.pathfinder.gov.bc.ca'
+            'https://nrpti-dev.pathfinder.gov.bc.ca'
           );
         })
       );
@@ -36,7 +36,7 @@ describe('Api', () => {
         'should return https://mem-mmt-test.pathfinder.gov.bc.ca',
         inject([Api], (api) => {
           expect(api.getHostName('www-mem-mmt-test.pathfinder.gov.bc.ca').hostnameMEM).toBe(
-            'https://mem-mmt-test.pathfinder.gov.bc.ca'
+            'https://nrpti-test.pathfinder.gov.bc.ca'
           );
         })
       );
@@ -45,7 +45,7 @@ describe('Api', () => {
       it(
         'should return https://mem-mmt-test.pathfinder.gov.bc.ca',
         inject([Api], (api) => {
-          expect(api.getHostName('mines.nrs.gov.bc.ca/').hostnameMEM).toBe('https://mines.empr.gov.bc.ca');
+          expect(api.getHostName('mines.nrs.gov.bc.ca/').hostnameMEM).toBe('https://nrpti-prod.pathfinder.gov.bc.ca');
         })
       );
     });

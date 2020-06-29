@@ -35,23 +35,23 @@ describe('ProjectStatusFilterPipe', () => {
   });
   describe('given a valid response', () => {
     it('returns 1 item', () => {
-      value = [new Project({currentPhaseName: 'In Progress'})];
-      expectedResponse = [new Project({currentPhaseName: 'In Progress'})];
+      value = [new Project({status: 'In Progress'})];
+      expectedResponse = [new Project({status: 'In Progress'})];
 
       expect(pipe.transform(value, string).length).toBe(expectedResponse.length);
     });
     it('returns n items', () => {
       value = [
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'})
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'})
       ];
       expectedResponse = [
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'})
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'})
       ];
 
       expect(pipe.transform(value, string).length).toBe(expectedResponse.length);
@@ -60,14 +60,14 @@ describe('ProjectStatusFilterPipe', () => {
   describe('given a mix of different statuss', () => {
     beforeEach(() => {
       value = [
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'Certificate Not Required'}),
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'Certificate Not Required'})
+        new Project({status: 'In Progress'}),
+        new Project({status: 'Certificate Not Required'}),
+        new Project({status: 'In Progress'}),
+        new Project({status: 'Certificate Not Required'})
       ];
       expectedResponse = [
-        new Project({currentPhaseName: 'In Progress'}),
-        new Project({currentPhaseName: 'In Progress'}),
+        new Project({status: 'In Progress'}),
+        new Project({status: 'In Progress'}),
       ];
     });
     it('returns two items', () => {

@@ -114,12 +114,6 @@
                   <div class="project-table__project-details">
                     <div class="project-table__project-details--description pt-0" [innerHTML]="item.description"></div>
                     <ul class="project-table__project-details--list list-group">
-                      <li class="list-group-item p-0">
-                        <span class="name">Ownership:</span>
-                        <span *ngFor="let org of item.ownershipData | orderBy : {property: 'sharePercent', direction: -1}">
-                          <label class="value">{{org.sharePercent}}% - {{org.organization.name}}</label>
-                        </span>
-                      </li>
                       <li  class="list-group-item p-0">
                         <span class="name">Commodities:</span>
                         <span class="value">{{item.commodities ? item.commodities.join(', ') : ''}}</span>
