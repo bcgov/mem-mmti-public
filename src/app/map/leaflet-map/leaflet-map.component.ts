@@ -209,6 +209,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.fitBounds();
     } else {
+      // activate major mines layer
+      LeafletMapUtils.LAYERS.VERIFIED_MINES.addTo(this.map);
       // zoom to the project bounds
       this.map.setView(new L.LatLng(this.project.latitude, this.project.longitude), 10);
     }
