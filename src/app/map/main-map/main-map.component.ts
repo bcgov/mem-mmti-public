@@ -1,7 +1,7 @@
 import { Component, Input, HostBinding, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-main-map',
@@ -16,14 +16,14 @@ export class MainMapComponent implements OnInit, OnDestroy {
 
   @Input() animate = true;
   @Input() showBoundaries = true;
-  @Input() showDisclaimer = false;  // Enable this here to start using the on-map-load disclaimer again.
   @HostBinding('class.full-screen') fullScreen = true;
 
   // private fields
   private sub: Subscription;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -39,4 +39,11 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
+  showDisclaimer() {
+    this.modalRef = this.modalService.open(this.modal, { keyboard: false, backdrop: 'static' });
+  }
+
+  closeDialog() {
+    this.modalRef.dismiss();
+  }
 }
