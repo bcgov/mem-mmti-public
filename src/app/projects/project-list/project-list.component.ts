@@ -55,11 +55,11 @@ export class ProjectListComponent implements OnInit {
   getOperators(projects) {
     const names = [];
     projects.forEach(project => {
-      if (!project.operator) {
-        project.operator = '';
-      } else if (project.operator && names.indexOf(project.operator) === -1) {
-        names.push(project.operator);
-        this.operators.push(project.operator);
+      if (!project.permittee) {
+        project.permittee = '';
+      } else if (project.permittee && names.indexOf(project.permittee) === -1) {
+        names.push(project.permittee);
+        this.operators.push(project.permittee);
       }
     });
   }

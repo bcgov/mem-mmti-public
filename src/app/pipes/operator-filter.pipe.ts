@@ -10,7 +10,6 @@ export class OperatorFilterPipe implements PipeTransform {
     if (!q) {
         return value;
     }
-    return value.filter(item => -1 < item.operator.toLowerCase().indexOf(q.toLowerCase()));
-}
-
+    return value.filter(item => -1 < item.permittee.toLowerCase().indexOf(q.toLowerCase()));
+  }
 }

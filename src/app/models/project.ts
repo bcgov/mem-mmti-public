@@ -65,34 +65,6 @@ export class Project {
     html: string;
   }[];
 
-  // same as `activities` but sorted by display order
-  sortedActivities: {
-    order: number;
-    status: string;
-    name: string;
-    cssClass?: string;
-  }[];
-
-  private _activities: {
-    order: number;  // display order, not any business rules order
-    status: string;  // one of: 'Active', 'Inactive', 'Pending', 'Complete', 'Suspended', 'N/A', ''
-    name: string;
-    cssClass?: string;
-  }[];
-  get activities() {
-    return this._activities;
-  }
-  set activities(newValue) {
-    this._activities = newValue;
-
-    // sort by display order, make sure the original array is left unmodified
-    if (newValue) {
-      this.sortedActivities = newValue.slice().sort((a, b) => a.order - b.order);
-    } else {
-      this.sortedActivities = [];
-    }
-  }
-
   constructor(obj?: any) {
     this._id                  = (obj && obj._id)                  || null;
     this._schemaName          = (obj && obj._schemaName)          || 'Mine';
@@ -157,33 +129,12 @@ export class Project {
         html: ''
       }
     ];
-
-    // Get the operator from the proponent. (Do we have this in NRPTI or just use the permitee?)
-    this.operator = obj && obj.proponent ? obj.proponent.name : '';
-
-    // process incoming activity objects (Do we have these in Mines NRPTI?)
-    this.activities = obj && obj.activities ? obj.activities.map(x => this.parseActivity(x)) : [];
   }
 
   getContent(page: string, type: string): string {
     try {
       const entry = this.content.find(x => x.type === type && x.page === page);
       return entry.html;
-    } catch (e) {
-      return '';
-    }
-  }
-
-  // add display fields; e.g. cssClass
-  private parseActivity(activity): any {
-    activity.cssClass = this.cssClass(activity);
-    return activity;
-  }
-
-  private cssClass(activity): string {
-    try {
-      const value = (<string>activity.status || 'N/A').replace('N/A', 'NA').toLowerCase();
-      return value;
     } catch (e) {
       return '';
     }
