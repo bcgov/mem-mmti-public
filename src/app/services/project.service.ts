@@ -31,8 +31,7 @@ export class ProjectService {
     // Grab the project data first
     return this.api.getProjectByCode(code).pipe(
       map((res: HttpResponse<any>) => {
-        console.log(res);
-        return res && res[0]['searchResults'] && res[0]['searchResults'].length > 0 ? new Project(res[0]['searchResults'][0]) : null;
+        return res && res[0] && res[0]['searchResults'] && res[0]['searchResults'].length > 0 ? new Project(res[0]['searchResults'][0]) : null;
       }),
       map((project: Project) => {
         if (!project) { return observableThrowError(new Error('Project not found!')); }
