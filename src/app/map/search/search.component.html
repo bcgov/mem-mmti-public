@@ -1,0 +1,16 @@
+<div class="app-filters__container d-flex flex-column">
+  <div class="search-container" id="applist-filters">
+    <div class="additional-filters">
+      <label class="header-label" for="applicantInput">Search BC Mine Projects</label>
+      <div class="search-box">
+        <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing A Mine Name or Permit" id="searchInput"
+        [(ngModel)]="_mineFilter"
+        [ngbTypeahead]="mineSearch" [focusFirst]="false">
+        <button type="button" class="btn btn-primary" title="Search" id="searchButton" (click)="search();"
+            [disabled]="loading">
+          <i class="material-icons">search</i>Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
