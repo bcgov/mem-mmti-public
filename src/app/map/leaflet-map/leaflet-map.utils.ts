@@ -41,6 +41,8 @@ export class LeafletMapUtils {
   };
 
   public static readonly LAYERS = {
+    VERIFIED_MINES_URL: 'https://openmaps.gov.bc.ca/geo/pub/WHSE_MINERAL_TENURE.HSP_MJR_MINES_PERMTTD_AREAS_SP/ows',
+    VERIFIED_MINES_LAYER: 'pub:WHSE_MINERAL_TENURE.HSP_MJR_MINES_PERMTTD_AREAS_SP',
     VERIFIED_MINES: L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_MINERAL_TENURE.HSP_MJR_MINES_PERMTTD_AREAS_SP/ows', {
       layers: 'pub:WHSE_MINERAL_TENURE.HSP_MJR_MINES_PERMTTD_AREAS_SP',
       styles: '7738_7739',

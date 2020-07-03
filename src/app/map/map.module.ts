@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
 import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
+import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/major-mines-popup.component';
 
 @NgModule({
   imports: [
@@ -13,14 +14,16 @@ import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project
   declarations: [
     MainMapComponent,
     LeafletMapComponent,
-    ProjectPopupComponent
+    ProjectPopupComponent,
+    MajorMinesPopupComponent
   ],
   exports: [
     MainMapComponent,
     LeafletMapComponent
   ],
   entryComponents: [
-    ProjectPopupComponent
+    ProjectPopupComponent,
+    MajorMinesPopupComponent
   ],
   providers: [
   ]
