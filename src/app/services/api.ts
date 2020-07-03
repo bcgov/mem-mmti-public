@@ -58,7 +58,7 @@ export class Api {
   // Projects
 
   getProjects() {
-    return this.getNRPTI(`public/search?dataset=Mine&pageNum=0&pageSize=1000&sortBy=-dateIssued`);
+    return this.getNRPTI(`public/search?dataset=MineBCMI&pageNum=0&pageSize=1000&sortBy=-dateIssued`);
   }
 
 // get by id? `record/${model}/${recordId}`
@@ -78,7 +78,7 @@ export class Api {
                         .map(name => name.charAt(0).toUpperCase() + name.slice(1))
                         .join(' ');
 
-    return this.getNRPTI(`public/search?dataset=Mine&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score`);
+    return this.getNRPTI(`public/search?dataset=MineBCMI&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score`);
   }
 
   // may be ignorable if fetched as a populate=true from projectByCode
@@ -89,7 +89,7 @@ export class Api {
                         .map(name => name.charAt(0).toUpperCase() + name.slice(1))
                         .join(' ');
 
-    return this.getNRPTI(`public/search?dataset=Mine&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score&populate=true`);
+    return this.getNRPTI(`public/search?dataset=MineBCMI&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score&populate=true`);
   }
 
   // Proponents
