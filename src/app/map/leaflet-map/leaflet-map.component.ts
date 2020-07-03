@@ -87,7 +87,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
               // if so, zoom to the icon and open the popup
               if (routerProjId && routerProjId === proj._id) {
                 this.selectedProject = proj;
-                
+
                 setTimeout(() => {
                   this.createMarkerPopup(proj, marker, 10);
                 }, 500);
