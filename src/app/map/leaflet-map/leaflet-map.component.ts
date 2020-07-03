@@ -4,7 +4,8 @@ import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
 import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
-
+import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/major-mines-popup.component';
+import { HttpClient } from '@angular/common/http';
 import 'leaflet.markercluster';
 import * as L from 'leaflet';
 
@@ -49,13 +50,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
     showCoverageOnHover: false,
     maxClusterRadius: 40, // 0 disables
   });
-
+  private baseLayers;
+  private overlays;
   constructor(
     private projectService: ProjectService,
     private router: ActivatedRoute,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -84,11 +87,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
               // if so, zoom to the icon and open the popup
               if (routerProjId && routerProjId === proj._id) {
                 this.selectedProject = proj;
-                this.map.setView(new L.LatLng(proj.latitude, proj.longitude), 10);
-
                 setTimeout(() => {
-                  this.createMarkerPopup(proj, marker);
-                }, 1000);
+                  this.createMarkerPopup(proj, marker, 10);
+                }, 500);
               }
             }
           });
@@ -109,10 +110,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
     const proj = args[0] as Project;
     const marker = args[1].target as L.Marker;
 
-    this.createMarkerPopup(proj, marker);
+    this.createMarkerPopup(proj, marker, this.map.getZoom());
   }
 
-  createMarkerPopup(proj: Project, marker: L.Marker) {
+  createMarkerPopup(proj: Project, marker: L.Marker, zoom: number) {
     // if there's already a popup, delete it
     let popup = marker.getPopup();
 
@@ -154,8 +155,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
     marker.bindPopup(popup).openPopup();
 
     setTimeout(() => {
-      this.map.setView(marker.getLatLng(), this.map.getZoom());
-    }, 500);
+      this.map.setView(marker.getLatLng(), zoom);
+    }, 100);
   }
 
   @HostListener('unloaded')
@@ -182,21 +183,21 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map = L.map('map', mapOptions);
 
     // add base maps layers control
-    const baseLayers = {
+    this.baseLayers = {
       'Ocean Base': LeafletMapUtils.BASEMAPS.ESRI_OCEAN,
       'Nat Geo World Map': LeafletMapUtils.BASEMAPS.ESRI_NATGEO,
       'World Topographic': LeafletMapUtils.BASEMAPS.ESRI_TOPO,
       'World Imagery': LeafletMapUtils.BASEMAPS.ERI_IMAGERY
     };
 
-    const overlays = {
+    this.overlays = {
       'Projects': this.markerClusterGroup,
       'Major Mine Permitted Areas': LeafletMapUtils.LAYERS.VERIFIED_MINES
     };
 
     // layer control
     if (!this.thumbnail) {
-      L.control.layers(baseLayers, overlays, { position: 'topright' }).addTo(this.map);
+      L.control.layers(this.baseLayers, this.overlays, { position: 'topright' }).addTo(this.map);
       // map attribution
       L.control.attribution({position: 'bottomright'}).addTo(this.map);
       // add scale control
@@ -219,9 +220,66 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
     LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
     this.markerClusterGroup.addTo(this.map);
 
+    // Creating map onClick listener for identifying WMS layers
+    this.map.addEventListener('click', L.Util.bind(this.identifyWmsLayers, this));
+
     setTimeout(() => {
       this.map.invalidateSize();
     }, 100);
+  }
+
+  identifyWmsLayers(e) {
+    if (this.map.hasLayer(this.overlays['Verified Mines'])) {
+      let bbox   = e.sourceTarget.getBounds().toBBoxString();
+      let width  = e.sourceTarget.getSize().x;
+      let height = e.sourceTarget.getSize().y;
+      let x      = Math.floor(e.sourceTarget.layerPointToContainerPoint(e.layerPoint).x);
+      let y      = Math.floor(e.sourceTarget.layerPointToContainerPoint(e.layerPoint).y);
+
+      let wmsGetInfoUrl = `${LeafletMapUtils.LAYERS.VERIFIED_MINES_URL}?service=WMS&version=1.1.1&request=GetFeatureInfo&query_layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&bbox=${bbox}&feature_count=1&height=${height}&width=${width}&info_format=application%2Fjson&srs=EPSG%3A4326&x=${x}&y=${y}`;
+
+      this.http.get(wmsGetInfoUrl)
+      .subscribe(data => {
+
+        if (data && data['features'] && data['features'].length === 1) {
+          let minesFeature = data['features'][0];
+
+          const compFactory = this.resolver.resolveComponentFactory(MajorMinesPopupComponent);
+          const compRef = compFactory.create(this.injector);
+          compRef.instance.mine = minesFeature.properties;
+          compRef.instance.parentMap = this.map;
+          compRef.instance.mineLocation = e.latlng;
+          this.appRef.attachView(compRef.hostView);
+          compRef.onDestroy(() => this.appRef.detachView(compRef.hostView));
+          const div = document.createElement('div').appendChild(compRef.location.nativeElement);
+
+          let popupOptions = {};
+          if (this.map.getSize().y < 800) {
+            popupOptions = {
+              className: 'map-popup-content',
+              autoPanPaddingTopLeft: L.point(2, 100),
+              autoPanPaddingBottomRight: L.point(2, 30)
+            };
+          } else {
+            popupOptions = {
+              className: 'map-popup-content',
+              autoPanPaddingTopLeft: L.point(80, 200),
+              autoPanPaddingBottomRight: L.point(80, 30)
+            };
+          }
+
+          let popup = L.popup(popupOptions)
+                       .setLatLng(e.latlng)
+                       .setContent(div);
+
+          this.map.openPopup(popup);
+
+          setTimeout(() => {
+            this.map.setView(e.latlng, this.map.getZoom());
+          }, 100);
+        }
+      });
+    }
   }
 
   private fitBounds(bounds: L.LatLngBounds = null) {

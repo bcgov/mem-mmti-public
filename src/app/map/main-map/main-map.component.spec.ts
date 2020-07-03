@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
@@ -27,6 +28,8 @@ describe('MainMapComponent', () => {
         CookieService,
         NgbModule,
         LeafletMapComponent,
+        HttpClient,
+        HttpHandler,
         { provide: ProjectService, useValue: ProjectServiceStub }
       ],
       declarations: [
