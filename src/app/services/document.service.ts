@@ -1,12 +1,9 @@
-import {forkJoin as observableForkJoin } from 'rxjs';
-
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
 import { Api } from 'app/services/api';
-
-import {  SearchArray, SearchTerms } from 'app/models/search';
+import { SearchArray, SearchTerms } from 'app/models/search';
 import { Project } from 'app/models/project';
 import { Proponent } from 'app/models/proponent';
 
@@ -124,31 +121,16 @@ export class DocumentService {
 
     // Field selection
     query += '&fields=_id project displayName documentDate description datePosted documentCategories collections keywords inspectionReport';
-    const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`).pipe(
+    const mem = this.api.getNRPTI(`v2/${query}${memProjectQuery}`).pipe(
     map((res: HttpResponse<any>) => {
       const data = res.body.text() ? res.body.json() : { count: 0, results: [] };
       if (data.results) {
         data.results.forEach(i => {
-          i.hostname = this.api.hostnameMEM;
+          i.hostname = this.api.hostnameNRPTI;
         });
       }
       return data;
     }));
-
-    if (epicProjectQuery) {
-      const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`).pipe(
-      map((res: HttpResponse<any>) => {
-        const data = res.body.text() ? res.body.json() : { count: 0, results: [] };
-        if (data.results) {
-          data.results.forEach(i => {
-            i.hostname = this.api.hostnameEPIC;
-          });
-        }
-        return data;
-      }));
-
-      return observableForkJoin([mem, epic]);
-    }
 
     return mem;
   }

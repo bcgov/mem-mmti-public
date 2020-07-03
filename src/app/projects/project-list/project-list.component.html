@@ -20,7 +20,7 @@
       <div class="filter-bar">
         <div class="filter-input-row filters-basic">
           <div class="form-group">
-            <input class="form-control" placeholder="Type a Project Name" type="text" [(ngModel)]="filter">
+            <input class="form-control" placeholder="Type a Mine Name" type="text" [(ngModel)]="filter">
           </div>
           <button class="toggle-filter-btn btn btn-default btn-sm"
             [ngClass]="{'show-filters': showFilters}"
@@ -31,7 +31,7 @@
         </div>
         <div class="filter-input-row filters-advanced" *ngIf="showFilters">
           <div class="col-md-4 form-group">
-            <label>Operator</label>
+            <label>Permittee</label>
             <select class="form-control" name="selectoperator" [(ngModel)]="operatorListFilter" (ngModelChange)="applyOperatorFilter()">
               <option value="" selected>All</option>
               <option *ngFor="let o of operators" [ngValue]="o">{{o}}</option>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="col-md-4 form-group">
-            <label>Type</label>
+            <label>Mine Type</label>
 
             <select class="form-control" [(ngModel)]="typefilter">
               <option value="" selected>All</option>
@@ -51,7 +51,7 @@
           </div>
 
           <div class="col-md-4 form-group">
-            <label>Status</label>
+            <label>Mine Status</label>
 
             <select class="form-control" [(ngModel)]="statusfilter">
               <option value="" selected>All</option>
@@ -73,22 +73,22 @@
       <table class="table project-table" id="tableTop">
         <thead class="project-table__sort-header">
           <tr>
-            <th class="project-table__name-col sortable" (click)="sort('name')">Name
+            <th class="project-table__name-col sortable" (click)="sort('name')">Mine Name
               <i class="sort"
                 [ngClass]="{'sort-asc': (column == 'name' && isDesc), 'sort-desc': (column == 'name' && !isDesc) }"
                 aria-hidden="true"></i>
             </th>
-            <th class="project-table__operator-col sortable" (click)="sort('operator')">Operator
+            <th class="project-table__operator-col sortable" (click)="sort('permittee')">Permittee
               <i class="sort"
-                [ngClass]="{'sort-asc': (column == 'operator' && isDesc), 'sort-desc': (column == 'operator' && !isDesc) }"
+                [ngClass]="{'sort-asc': (column == 'permittee' && isDesc), 'sort-desc': (column == 'permittee' && !isDesc) }"
                 aria-hidden="true"></i>
             </th>
-            <th class="project-table__type-col sortable" (click)="sort('type')">Type
+            <th class="project-table__type-col sortable" (click)="sort('type')">Mine Type
               <i class="sort"
                 [ngClass]="{'sort-asc': (column == 'type' && isDesc), 'sort-desc': (column == 'type' && !isDesc) }"
                 aria-hidden="true"></i>
             </th>
-            <th class="project-table__status-col sortable" (click)="sort('status')">Status
+            <th class="project-table__status-col sortable" (click)="sort('status')">Operating Status
                 <i class="sort"
                   [ngClass]="{'sort-asc': (column == 'status' && isDesc), 'sort-desc': (column == 'status' && !isDesc) }"
                   aria-hidden="true"></i>
@@ -105,7 +105,7 @@
                 </a>
                 <span class="accordion__collapse-header--column project-table__project-col">
                   <a [routerLink]="['/p', item.code]">{{item.name}}</a></span>
-                <span class="accordion__collapse-header--column project-table__operator-col"><span class="inside-td">{{item.operator}}</span></span>
+                <span class="accordion__collapse-header--column project-table__operator-col"><span class="inside-td">{{item.permittee}}</span></span>
                 <span class="accordion__collapse-header--column project-table__type-col" ><span class="inside-td">{{item.type}}</span></span>
                 <span class="accordion__collapse-header--column project-table__status-col" ><span class="inside-td">{{item.status}}</span></span>
               </div>
@@ -114,12 +114,6 @@
                   <div class="project-table__project-details">
                     <div class="project-table__project-details--description pt-0" [innerHTML]="item.description"></div>
                     <ul class="project-table__project-details--list list-group">
-                      <li class="list-group-item p-0">
-                        <span class="name">Ownership:</span>
-                        <span *ngFor="let org of item.ownershipData | orderBy : {property: 'sharePercent', direction: -1}">
-                          <label class="value">{{org.sharePercent}}% - {{org.organization.name}}</label>
-                        </span>
-                      </li>
                       <li  class="list-group-item p-0">
                         <span class="name">Commodities:</span>
                         <span class="value">{{item.commodities ? item.commodities.join(', ') : ''}}</span>

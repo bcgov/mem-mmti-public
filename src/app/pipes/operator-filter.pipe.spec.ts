@@ -11,23 +11,23 @@ describe('OperatorFilterPipe', () => {
 
   describe('given a valid response', () => {
     it('returns 1 item', () => {
-      value = [new Project({proponent: {name: 'Energy-Electricity'}})];
-      expectedResponse = [new Project({proponent: {name: 'Energy-Electricity'}})];
+      value = [new Project({permittee: 'Energy-Electricity'})];
+      expectedResponse = [new Project({permittee: 'Energy-Electricity'})];
 
       expect(pipe.transform(value, string).length).toBe(expectedResponse.length);
     });
     it('returns n items', () => {
       value = [
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}})
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'})
       ];
       expectedResponse = [
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}})
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'})
       ];
 
       expect(pipe.transform(value, string).length).toBe(expectedResponse.length);
@@ -36,24 +36,24 @@ describe('OperatorFilterPipe', () => {
   describe('given a mix of different types', () => {
     beforeEach(() => {
       value = [
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Industrial'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Industrial'}})
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Industrial'}),
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Industrial'})
       ];
       expectedResponse = [
-        new Project({proponent: {name: 'Energy-Electricity'}}),
-        new Project({proponent: {name: 'Energy-Electricity'}})
+        new Project({permittee: 'Energy-Electricity'}),
+        new Project({permittee: 'Energy-Electricity'})
       ];
     });
     it('returns two items', () => {
       expect(pipe.transform(value, string).length).toBe(expectedResponse.length);
     });
     it('returns Project with same type value as value passed in', () => {
-      expect(JSON.stringify(pipe.transform(value, string)[0].operator))
-        .toBe(JSON.stringify(expectedResponse[0].operator));
-      expect(JSON.stringify(pipe.transform(value, string)[1].operator))
-      .toBe(JSON.stringify(expectedResponse[1].operator));
+      expect(JSON.stringify(pipe.transform(value, string)[0].permittee))
+        .toBe(JSON.stringify(expectedResponse[0].permittee));
+      expect(JSON.stringify(pipe.transform(value, string)[1].permittee))
+      .toBe(JSON.stringify(expectedResponse[1].permittee));
     });
   });
 });

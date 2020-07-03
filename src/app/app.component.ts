@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private cookieService: CookieService,
               private api: Api) {
     // Used for sharing links.
-    this.hostname = this.api.hostnameMEM;
+    this.hostname = this.api.hostnameNRPTI;
   }
 
   ngOnInit() {

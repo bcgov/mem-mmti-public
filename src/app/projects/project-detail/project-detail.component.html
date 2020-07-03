@@ -36,44 +36,32 @@
         </div>
         <ul class="nv-list mine-details-list">
           <li>
-            <span class="name">Operator</span>
-            <span class="value">{{project?.operator}}</span>
+            <span class="name">Permittee</span>
+            <span class="value">{{project?.permittee}}</span>
           </li>
           <li>
-            <span class="name">Ownership</span>
-            <span class="value">
-              <span *ngFor="let org of project?.ownershipData | orderBy : {property: 'sharePercent', direction: -1}">
-                <label class="name">{{org.sharePercent}}% - {{org.organization.name}}</label>
-              </span>
-            </span>
+            <span class="name">Mine Type</span>
+            <span class="value">{{project?.type}}</span>
           </li>
           <li>
             <span class="name">Commodities</span>
             <span class="value">{{project.commodities ? project.commodities.join(', ') : ''}}</span>
           </li>
           <li>
-            <span class="name">Tailings Impoundments</span>
+            <span class="name">Tailing Storage Facilities</span>
             <span class="value">{{project?.tailingsImpoundments}}</span>
           </li>
           <li>
-            <span class="name">Status</span>
+            <span class="name">Operating Status</span>
             <span class="value">{{project?.status}}</span>
-          </li>
-          <li>
-            <span class="name" *ngIf="project && project.intake && project.intake.operatingjobs">Employment</span>
-            <span class="value">{{project?.intake?.operatingjobs}}</span>
           </li>
         </ul>
       </section>
-      <section class="card">
-        <h4 class="card-header">Site Activities</h4>
-        <app-site-activities [activities]="project?.sortedActivities"></app-site-activities>
-      </section>
-      <section class="card" *ngIf="project?.sortedLinks.length > 0">
+      <section class="card" *ngIf="project?.links?.length > 0">
         <h4 class="card-header">External Links &amp; Resources</h4>
         <ul class="nv-list">
-          <li *ngFor="let l of project?.sortedLinks">
-            <a target="_blank" href="{{l.link}}">{{l.title}}</a>
+          <li *ngFor="let l of project?.links">
+            <a target="_blank" href="{{l.url}}">{{l.title}}</a>
           </li>
         </ul>
       </section>

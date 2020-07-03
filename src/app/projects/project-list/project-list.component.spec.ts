@@ -94,7 +94,7 @@ describe('ProjectComponent', () => {
         expect(data.length).toBe(1);
       });
       it('should set project.proponent.name to undefined', () => {
-        expect(data[0].operator).toBe('');
+        expect(data[0].permittee).toBe('');
       });
       it('should not add project.proponent.name to proponents', () => {
         expect(component.operators.length).toBe(0);
@@ -104,7 +104,7 @@ describe('ProjectComponent', () => {
     describe('given a non-empty data array', () => {
       beforeEach(() => {
         data = [{
-          operator: 'test'
+          permittee: 'test'
         }];
         component.getOperators(data);
       });

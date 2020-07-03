@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
       data => { this.numProjects = data ? data.length : 0; },
       error => console.log(error)
     );
-    this.hostname = this.api.hostnameMEM;
+    this.hostname = this.api.hostnameNRPTI;
     window.scrollTo(0, 0);
   }
 }

@@ -6,7 +6,7 @@ function scroll_style() {
     if (div_top.length) {
         var anchorPoint = div_top.offset().top;
 
-        if (window_top > anchorPoint - 100) {
+        if (window_top > anchorPoint - 50) {
             $("#header").addClass("dark");
         } else {
             $("#header").removeClass("dark");
@@ -31,7 +31,7 @@ $(document).on('click','.navbar-collapse.show',function(e) {
 });
 
 // Collapse main navigation drop menus on click
-$(function(){ 
+$(function(){
     $('.dropdown-item').click(function() {
         $('#mainNav').collapse('hide');
     });

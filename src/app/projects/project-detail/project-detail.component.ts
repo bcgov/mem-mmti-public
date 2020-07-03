@@ -48,9 +48,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   parseData(data: {project: Project}): void {
     this.loading = false;
       this.project = data.project;
-
       // project not found --> navigate back to project list
-      if (!this.project || !this.project.code) {
+      if (!this.project) {
         this.gotoProjectList();
       }
   }

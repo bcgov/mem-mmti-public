@@ -73,9 +73,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
           // add data to projects layer
           this.projects.forEach((proj, index) => {
-            if (proj.latitude && proj.longitude) {
+            if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
               const title = `Project: ${proj.name}`;
-              const marker = L.marker(L.latLng(proj.latitude, proj.longitude), { title: title })
+              const marker = L.marker(L.latLng(proj.location['coordinates'][1], proj.location['coordinates'][0]), { title: title })
               .setIcon(markerIconYellow)
               .on('click', L.Util.bind(this.onMarkerClick, this, proj));
 
@@ -87,6 +87,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
               // if so, zoom to the icon and open the popup
               if (routerProjId && routerProjId === proj._id) {
                 this.selectedProject = proj;
+
                 setTimeout(() => {
                   this.createMarkerPopup(proj, marker, 10);
                 }, 500);
@@ -96,9 +97,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     } else {
-      if (this.project.latitude && this.project.longitude) {
+      if (this.project.location && this.project.location['coordinates'][1] && this.project.location['coordinates'][0]) {
         const title = `Project: ${this.project.name}`;
-        const marker = L.marker(L.latLng(this.project.latitude, this.project.longitude), { title: title }).setIcon(markerIconYellow);
+        const marker = L.marker(L.latLng(this.project.location['coordinates'][1], this.project.location['coordinates'][0]), { title: title }).setIcon(markerIconYellow);
         marker.projectId = 0;
         this.markerList.push(marker); // save to list
         this.markerClusterGroup.addLayer(marker); // save to marker clusters group
@@ -213,7 +214,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
       // activate major mines layer
       LeafletMapUtils.LAYERS.VERIFIED_MINES.addTo(this.map);
       // zoom to the project bounds
-      this.map.setView(new L.LatLng(this.project.latitude, this.project.longitude), 10);
+      if (this.project.location) {
+        this.map.setView(new L.LatLng(this.project.location['coordinates'][1], this.project.location['coordinates'][0]), 10);
+      }
     }
 
     // set the default basemap, turn on the marker layer
