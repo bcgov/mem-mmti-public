@@ -191,7 +191,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const overlays = {
       'Projects': this.markerClusterGroup,
-      'Verified Mines': LeafletMapUtils.LAYERS.VERIFIED_MINES
+      'Major Mine Permitted Areas': LeafletMapUtils.LAYERS.VERIFIED_MINES
     };
 
     // layer control
