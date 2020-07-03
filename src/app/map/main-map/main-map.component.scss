@@ -14,7 +14,7 @@
     }
 }
 
-.toggle-boundary-btn {
+.toggle-disclaimer-btn {
     font-size: 0.9375rem;
     cursor: pointer;
 }
@@ -27,10 +27,10 @@
         @include fill-parent(absolute);
     }
 
-    .toggle-boundary-btn {
+    .toggle-disclaimer-btn {
         position: absolute;
-        bottom: 2rem;
-        left: 1rem;
+        bottom: 3rem;
+        left: 6px;
         z-index: 1000;
         background: #eee;
     }
