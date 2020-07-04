@@ -1,18 +1,39 @@
 // Base
 @import "~assets/styles/base.scss";
 
-:host {
+// :host {
+//     @include flex-box;
+//     @include flex-direction(column);
+//     @include fill-parent(fixed);
+//     margin-top: 55px;
+// }
+
+// @media (min-width: 1200px) {
+//     :host {
+//         margin-top: 66px;
+//     }
+// }
+
+app-main-map:host {
     @include flex-box;
     @include flex-direction(column);
     @include fill-parent(fixed);
     margin-top: 55px;
 }
 
-@media (min-width: 1200px) {
-    :host {
+@media (min-width: 768px) {
+    app-main-map:host {
         margin-top: 66px;
     }
 }
+
+// Project Filters
+.map-search {
+    @include flex(0 0 auto);
+    display: block;
+    z-index: 1004;
+    box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.15);
+  }
 
 .toggle-disclaimer-btn {
     font-size: 0.9375rem;
@@ -20,12 +41,18 @@
 }
 
 .map-container {
-    @include flex(1 1 auto);
-    position: relative;
+    @include flex-box();
+    @include flex-flow(column nowrap);
+    position: absolute;
+    width: 100%;
+    height: 100%;
 
-    esri-map {
-        @include fill-parent(absolute);
-    }
+    // @include flex(1 1 auto);
+    // position: relative;
+
+    // esri-map {
+    //     @include fill-parent(absolute);
+    // }
 
     .toggle-disclaimer-btn {
         position: absolute;

@@ -1,12 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnDestroy, OnChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Project } from 'app/models/project';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 
+export interface FiltersType {
+  mineFilter: string;
+  permitFilter: string;
+}
+
 @Component({
-  selector: 'app-search',
+  selector: 'map-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
@@ -15,14 +24,22 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   @Input() projects: Array<Project> = [];
   @Output() updateMatching = new EventEmitter();
 
-  private mineKeys: Array<string> = [];
-  private permitKeys: Array<string> = [];
-
+  public loading = false;
   public mineFilter: string = null;
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
   public _permitFilter: string = null; // temporary filters for Cancel feaure     is this necessary?
 
+  private mineKeys: Array<string> = [];
+  private permitKeys: Array<string> = [];
+
+  private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
+
+  constructor(
+    private location: Location,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   // (arrow) functions to return type-ahead results
   // ref: https://ng-bootstrap.github.io/#/components/typeahead/api
@@ -33,7 +50,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       .distinctUntilChanged()
       .map(term => term.length < 1 ? []
         : this.mineKeys.filter(key => key.indexOf(this._mineFilter.toUpperCase()) > -1) // .slice(0, 10)
-      );
+      )
 
   public permitSearch = (text$: Observable<string>) =>
     text$
@@ -41,16 +58,18 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       .distinctUntilChanged()
       .map(term => term.length < 1 ? []
         : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1) // .slice(0, 10)
-      );
+      )
 
-  constructor(
-    private location: Location,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {}
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   ngOnInit(): void {
   }
+
+  public onLoadStart() { this.loading = true; }
+  public onLoadEnd() { this.loading = false; }
 
   // called when apps list changes
   public ngOnChanges(changes: SimpleChanges) {
@@ -64,13 +83,13 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public applyFilters() {
-    this.mineFilter = {...this._mineFilter};
-    this.permitFilter = {...this.permitFilter};
-    this.internalApplyAllFilters(true);
+    this.mineFilter = this._mineFilter;
+    this.permitFilter = this._permitFilter;
+    this.internalApplyFilters(true);
   }
 
   private internalApplyFilters(doSave: boolean) {
-    this.projects.forEach(mine => mine.isMatches = this.showMine(mine));
+    this.projects.forEach(mine => this.showThisMine(mine));
     this.updateMatching.emit();
     // todo necessary if only text based search?
     if (doSave) {
@@ -78,7 +97,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private showMine(item: Project): boolean {
+  private showThisMine(item: Project): boolean {
     let retVal = true;
 
     const mineFilter = this.mineFilter && this.mineFilter.trim(); // returns null or empty
@@ -113,9 +132,6 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
+
 
 }
