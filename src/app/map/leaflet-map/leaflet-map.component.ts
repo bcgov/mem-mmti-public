@@ -232,7 +232,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   identifyWmsLayers(e) {
-    if (this.map.hasLayer(this.overlays['Verified Mines'])) {
+    if (this.map.hasLayer(this.overlays['Major Mine Permitted Areas'])) {
       let bbox   = e.sourceTarget.getBounds().toBBoxString();
       let width  = e.sourceTarget.getSize().x;
       let height = e.sourceTarget.getSize().y;
