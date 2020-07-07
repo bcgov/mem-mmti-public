@@ -69,6 +69,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public onLoadStart() { this.loading = true; }
+
   public onLoadEnd() { this.loading = false; }
 
   // called when apps list changes

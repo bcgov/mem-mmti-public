@@ -285,6 +285,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  public resetMap() {
+    this.fitBounds(); // use default bounds
+  }
+
   private fitBounds(bounds: L.LatLngBounds = null) {
     setTimeout(() => {
       if (bounds && bounds.isValid()) {
