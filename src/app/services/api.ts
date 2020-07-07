@@ -41,7 +41,11 @@ export class Api {
         hostnameNRPTI  = 'https://nrpti-test.pathfinder.gov.bc.ca';
         env = 'test';
         break;
-
+      case 'www-mem-mmt-dev-v2.pathfinder.gov.bc.ca':
+        // Test for v2 Feature Branch (temporary)
+        hostnameNRPTI  = 'https://nrpti-test.pathfinder.gov.bc.ca';
+        env = 'test';
+        break;
       default:
         // Prod
         hostnameNRPTI  = 'https://nrpti-prod.pathfinder.gov.bc.ca';
