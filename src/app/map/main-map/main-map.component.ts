@@ -102,12 +102,5 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  /**
-   * Event handler called when map component updates list of visible apps.
-   */
-  // public updateVisible() {
-  //   // list component gets visible apps
-  //   this.listApps = this.mapApps.filter(a => a.isVisible);
-  //   // NB: OnChanges event will update the list
-  // }
+
 }
