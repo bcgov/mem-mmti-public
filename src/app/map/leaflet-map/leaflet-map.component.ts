@@ -1,13 +1,13 @@
-import { Component, AfterViewInit, OnDestroy, Input, OnInit, HostListener, ApplicationRef, Injector, ComponentFactoryResolver } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Input, OnInit, HostListener, ApplicationRef, Injector, ComponentFactoryResolver, SimpleChanges, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from 'app/models/project';
-import { ProjectService } from 'app/services/project.service';
 import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
 import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/major-mines-popup.component';
 import { HttpClient } from '@angular/common/http';
 import 'leaflet.markercluster';
 import * as L from 'leaflet';
+import * as _ from 'lodash';
 
 declare module 'leaflet' {
   export interface FeatureGroup<P = any> {
@@ -33,16 +33,21 @@ const markerIconYellow = L.icon({
   styleUrls: ['./leaflet-map.component.scss']
 })
 
-export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @Input() project: Project;
+  @Input() projects: Array<Project> = []; // from main map component
+  @Input() mapApps; // from main map component
+  @Input() filterApps; // from main map component
   @Input() zoom = 6;
   @Input() thumbnail = false;
+  @Output() updateVisible = new EventEmitter(); // to projects component
+
 
   public loading = false;
   readonly defaultBounds = L.latLngBounds([48, -139], [60, -114]); // all of BC
   readonly maxBounds = L.latLngBounds([40, -150], [70, -110]); // all of BC
-  public projects: Array<Project> = [];
+  // public projects: Array<Project> = [];
   public selectedProject: Project = null;
   private map: L.Map = null;
   private markerList: Array<L.Marker> = [];
@@ -53,7 +58,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
   private baseLayers;
   private overlays;
   constructor(
-    private projectService: ProjectService,
     private router: ActivatedRoute,
     private appRef: ApplicationRef,
     private injector: Injector,
@@ -63,48 +67,42 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     // Load the projects. If this is a thumbnail with a project set, ignore
-    if (!this.thumbnail) {
+    // if (!this.thumbnail) {
 
-      let routerProjId = this.router.snapshot.paramMap.get('project');
+    //   let routerProjId = this.router.snapshot.paramMap.get('project');
 
-      this.projectService.getAll().subscribe(results => {
-        if (results && results.length > 0) {
-          this.projects = results;
+    //   // add data to projects layer
+    //   this.projects.forEach((proj, index) => {
+    //     if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
+    //       const title = `Project: ${proj.name}`;
+    //       const marker = L.marker(L.latLng(proj.location['coordinates'][1], proj.location['coordinates'][0]), { title: title })
+    //       .setIcon(markerIconYellow)
+    //       .on('click', L.Util.bind(this.onMarkerClick, this, proj));
 
-          // add data to projects layer
-          this.projects.forEach((proj, index) => {
-            if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
-              const title = `Project: ${proj.name}`;
-              const marker = L.marker(L.latLng(proj.location['coordinates'][1], proj.location['coordinates'][0]), { title: title })
-              .setIcon(markerIconYellow)
-              .on('click', L.Util.bind(this.onMarkerClick, this, proj));
+    //       marker.projectId = index;
+    //       this.markerList.push(marker); // save to list
+    //       this.markerClusterGroup.addLayer(marker); // save to marker clusters group
 
-              marker.projectId = index;
-              this.markerList.push(marker); // save to list
-              this.markerClusterGroup.addLayer(marker); // save to marker clusters group
+    //       // did we navigate to the map with a poject defined?
+    //       // if so, zoom to the icon and open the popup
+    //       if (routerProjId && routerProjId === proj._id) {
+    //         this.selectedProject = proj;
 
-              // did we navigate to the map with a poject defined?
-              // if so, zoom to the icon and open the popup
-              if (routerProjId && routerProjId === proj._id) {
-                this.selectedProject = proj;
-
-                setTimeout(() => {
-                  this.createMarkerPopup(proj, marker, 10);
-                }, 500);
-              }
-            }
-          });
-        }
-      });
-    } else {
-      if (this.project.location && this.project.location['coordinates'][1] && this.project.location['coordinates'][0]) {
-        const title = `Project: ${this.project.name}`;
-        const marker = L.marker(L.latLng(this.project.location['coordinates'][1], this.project.location['coordinates'][0]), { title: title }).setIcon(markerIconYellow);
-        marker.projectId = 0;
-        this.markerList.push(marker); // save to list
-        this.markerClusterGroup.addLayer(marker); // save to marker clusters group
-      }
-    }
+    //         setTimeout(() => {
+    //           this.createMarkerPopup(proj, marker, 10);
+    //         }, 500);
+    //       }
+    //     }
+    //   });
+    // } else {
+    //   if (this.project.location && this.project.location['coordinates'][1] && this.project.location['coordinates'][0]) {
+    //     const title = `Project: ${this.project.name}`;
+    //     const marker = L.marker(L.latLng(this.project.location['coordinates'][1], this.project.location['coordinates'][0]), { title: title }).setIcon(markerIconYellow);
+    //     marker.projectId = 0;
+    //     this.markerList.push(marker); // save to list
+    //     this.markerClusterGroup.addLayer(marker); // save to marker clusters group
+    //   }
+    // }
   }
 
   onMarkerClick(...args: any[]) {
@@ -163,6 +161,19 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('unloaded')
   ngOnDestroy(): void {
     this.map.remove();
+  }
+
+
+  // called when apps list changes
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.projects && !changes.projects.firstChange && changes.projects.currentValue) {
+
+      const deletedApps = changes.projects.previousValue.filter(x => !changes.projects.currentValue.includes(x)) as Array<Project>;
+      const addedApps = changes.projects.currentValue.filter(x => !changes.projects.previousValue.includes(x)) as Array<Project>;
+
+      // (re)draw the matching apps
+      this.drawMap(deletedApps, addedApps);
+    }
   }
 
   ngAfterViewInit() {
@@ -287,6 +298,99 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public resetMap() {
     this.fitBounds(); // use default bounds
+  }
+
+  public onLoadStart() { this.loading = true; }
+
+  public onLoadEnd() { this.loading = false; }
+
+  /**
+  * Removes deleted / draws added projects.
+  */
+  private drawMap(deletedApps: Project[], addedApps: Project[]) {
+    console.log('drawing map');
+    console.log('deleted =', deletedApps);
+    console.log('added =', addedApps);
+    let routerProjId = this.router.snapshot.paramMap.get('project');
+
+    // remove deleted apps from list and map
+    deletedApps.forEach((proj, index) => {
+      const markerIndex = _.findIndex(this.markerList, { projectId: proj._id });
+      // let markerIndex = this.markerList.filter(oldMarker => oldMarker.projectId === index ? proj : oldMarker);
+      if (markerIndex) {
+        // const markers = this.markerList.splice(markerIndex, 1);
+        // this.markerClusterGroup.removeLayer(markers[0]);
+        console.log('markerindex: ', markerIndex);
+      }
+    });
+
+    // draw added apps
+    addedApps.forEach((proj, index) => {
+      if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
+        const title = `Project: ${proj.name}`;
+        const marker = L.marker(L.latLng(proj.location['coordinates'][1], proj.location['coordinates'][0]), { title: title })
+        .setIcon(markerIconYellow)
+        .on('click', L.Util.bind(this.onMarkerClick, this, proj));
+
+        marker.projectId = index;
+        this.markerList.push(marker); // save to list
+        this.markerClusterGroup.addLayer(marker); // save to marker clusters group
+
+        // did we navigate to the map with a poject defined?
+        // if so, zoom to the icon and open the popup
+        if (routerProjId && routerProjId === proj._id) {
+          this.selectedProject = proj;
+
+          setTimeout(() => {
+            this.createMarkerPopup(proj, marker, 10);
+          }, 500);
+        }
+      }
+    });
+
+    // set visible apps
+    this.setVisibleDebounced();
+  }
+
+  /**
+   * Sets which apps are currently visible.
+   * Actual function executes no more than once every 250ms.
+   */
+  // tslint:disable-next-line:member-ordering
+  private setVisibleDebounced = _.debounce(this.setVisible, 250);
+
+  // todo Is it worth the hassle of setting visible? or can we throw it out and just zoom to search results?
+  private setVisible() {
+    // console.log('setting visible');
+    const mapBounds = this.map.getBounds();
+
+    // update visibility for apps with markers only
+    // ie, leave apps without markers 'visible' (as initialized)
+    for (const marker of this.markerList) {
+      const app = _.find(this.projects, { _id: marker.projectId });
+      // let app2 = this.projects.filter(proj => proj._id == marker.projectId)
+      if (app) {
+        const markerLatLng = marker.getLatLng();
+        // app is visible if map contains its marker
+        app.isVisible = mapBounds.contains(markerLatLng);
+
+        // If there is only one result from the filter
+        // force the popup to auto-display
+        if (this.markerList.length === 1) {
+          if (marker.getPopup()) {
+            marker.openPopup();
+          } else {
+            // create the popup
+            // this.createMarkerPopup(app, marker, this.map.getZoom());
+            marker.openPopup();
+          }
+        }
+
+      }
+    }
+
+    // notify list component
+    this.updateVisible.emit();
   }
 
   private fitBounds(bounds: L.LatLngBounds = null) {

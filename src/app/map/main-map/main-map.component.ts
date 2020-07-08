@@ -17,7 +17,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
   // this is needed to auto-open the map disclaimer modal on page load
   @ViewChild('modal') modal: ElementRef;
   @ViewChild('mineMap', {static: true}) mineMap;
-  @ViewChild('mapsearch', {static: true}) mapSearch;
+  @ViewChild('mapSearch', {static: true}) mapSearch;
   modalRef: NgbModalRef;
 
   @Input() animate = true;
@@ -29,8 +29,10 @@ export class MainMapComponent implements OnInit, OnDestroy {
     this._loading = val;
     if (val) {
       this.mapSearch.onLoadStart();
+      this.mineMap.onLoadStart();
     } else {
       this.mapSearch.onLoadEnd();
+      this.mineMap.onLoadEnd();
     }
   }
 
@@ -80,8 +82,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
    */
   public updateMatching() {
     // map component gets filtered apps
-    // todo figure out replacement for isMatches that epic uses
-    this.mapApps = this.filterApps.filter(a => a.name);
+    this.mapApps = this.filterApps.filter(a => a.isMatch);
     // NB: OnChanges event will update the map
     this.mineMap.resetMap();
   }

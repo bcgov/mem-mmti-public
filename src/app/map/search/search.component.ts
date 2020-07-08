@@ -90,7 +90,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private internalApplyFilters(doSave: boolean) {
-    this.projects.forEach(mine => this.showThisMine(mine));
+    this.projects.forEach(mine => mine.isMatch = this.showThisMine(mine));
     this.updateMatching.emit();
     // todo necessary if only text based search?
     if (doSave) {
