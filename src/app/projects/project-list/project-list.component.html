@@ -30,7 +30,7 @@
           </button>
         </div>
         <div class="filter-input-row filters-advanced" *ngIf="showFilters">
-          <div class="col-md-4 form-group">
+          <div class="col-md-6 form-group">
             <label>Permittee</label>
             <select class="form-control" name="selectoperator" [(ngModel)]="operatorListFilter" (ngModelChange)="applyOperatorFilter()">
               <option value="" selected>All</option>
@@ -38,7 +38,7 @@
             </select>
           </div>
 
-          <div class="col-md-4 form-group">
+          <div class="col-md-6 form-group">
             <label>Mine Type</label>
 
             <select class="form-control" [(ngModel)]="typefilter">
@@ -47,19 +47,6 @@
               <option value="Coal">Coal</option>
               <option value="Industrial Mineral">Industrial Mineral</option>
               <option value="Sand & Gravel">Sand & Gravel</option>
-            </select>
-          </div>
-
-          <div class="col-md-4 form-group">
-            <label>Mine Status</label>
-
-            <select class="form-control" [(ngModel)]="statusfilter">
-              <option value="" selected>All</option>
-              <option value="Pre-Application">Pre-Application</option>
-              <option value="Under Construction">Under Construction</option>
-              <option value="Operating">Operating</option>
-              <option value="Care & Maintenance">Care & Maintenance</option>
-              <option value="Closed">Closed</option>
             </select>
           </div>
         </div>
