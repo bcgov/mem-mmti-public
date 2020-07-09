@@ -21,7 +21,7 @@ $app-search-font-lg: 0.9375rem;
   }
 
   .search-container {
-    padding: .75rem 1.4rem .2rem;
+    padding: .75rem 1.4rem .4rem;
     color: #036;
     position: relative;
     font-weight: 700;
@@ -29,7 +29,7 @@ $app-search-font-lg: 0.9375rem;
     background: rgba(255,255,255,1);
 
     @media (max-width: 768px) {
-      padding: .75rem .75rem .2rem;
+      padding: .75rem .75rem .4rem;
     }
 
     .header-label {
@@ -140,92 +140,6 @@ $app-search-font-lg: 0.9375rem;
   }
 }
 
-// Filter Actions Bar
-.filter-actions-bar {
-  position: relative;
-  z-index: 1002;
-
-  .form-control {
-    padding: 0.5rem;
-  }
-
-  .dropdown-toggle {
-    padding: 0.5rem;
-  }
-
-  .dropdown-menu {
-    width: 14rem;
-    padding: 0.75rem;
-  }
-
-  .filter-control {
-    + .filter-control {
-      margin-left: 0.25rem;
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .filter-action-bar {
-    .dropdown-toggle {
-      padding: 0.5rem 0.75rem;
-    }
-
-    .form-control {
-      padding: 0.75rem;
-    }
-  }
-}
-
-// Filter Actions Bar Controls
-.filter-control {
-  .dropdown-menu {
-    .form-check-label {
-      vertical-align: top;
-      line-height: 1rem;
-      font-size: $app-search-font-sm;
-
-      .form-check-input {
-        margin-top: 0.1rem;
-      }
-    }
-  }
-
-  .dropdown-button-bar {
-    text-align: right;
-  }
-}
-
-@media (min-width: 768px) {
-  .filter-control {
-    .dropdown-menu {
-      .form-check-label {
-        line-height: 1.25rem;
-        font-size: $app-search-font-lg;
-
-        input {
-          margin-top: 0.25rem;
-        }
-      }
-    }
-  }
-}
-
-.all-filter-actions {
-  display: inline-block;
-  margin-left: 0.25rem;
-  padding-left: 0.25rem;
-  border-left: 1px solid #ddd;
-}
-
-.additional-filters {
-  font-size: $app-search-font-lg;
-
-  label {
-    font-weight: bold;
-  }
-}
-
 // Typahead Input
 .typeahead-container {
   position: relative; // Need this here to ensure the typeaheads are bound to their parent
@@ -239,17 +153,6 @@ $app-search-font-lg: 0.9375rem;
   }
 }
 
-// Toggle Filters Button
-.toggle-filter-btn {
-  padding-top: 0.2rem;
-  padding-right: 0;
-  padding-left: 0;
-  width: 2.5rem;
-  height: 2.3rem;
-  font-size: 24px !important;
-
-}
-
 // EAO Projects Input
 .clf-input {
   width: 18rem;
@@ -258,37 +161,6 @@ $app-search-font-lg: 0.9375rem;
 @media (max-width: 768px) {
   .clf-input {
     display: none;
-  }
-}
-
-// Date Range
-.date-range {
-  @include flex-box();
-  @include clearfix();
-
-  .form-group {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  .spacer {
-    margin-top: 0.75rem;
-    display: inline-block;
-    width: 3rem;
-    text-align: center;
-    font-weight: 700;
-  }
-}
-
-@media (max-width: 768px){
-  .date-range {
-    @include flex-direction(column);
-
-    .spacer {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-      width: 100%;
-    }
   }
 }
 

@@ -1,18 +1,8 @@
 // Base
 @import "~assets/styles/base.scss";
 
-// :host {
-//     @include flex-box;
-//     @include flex-direction(column);
-//     @include fill-parent(fixed);
-//     margin-top: 55px;
-// }
-
-// @media (min-width: 1200px) {
-//     :host {
-//         margin-top: 66px;
-//     }
-// }
+$toggle-list-anim-duration: 0.2s;
+$map-component-shadow: 0.1rem 0.1rem 0.5rem rgba(0,0,0,0.25);
 
 app-main-map:host {
     @include flex-box;
@@ -33,7 +23,19 @@ app-main-map:host {
     display: block;
     z-index: 1004;
     box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.15);
-  }
+
+ }
+
+ @media (min-width: 1200px) {
+    .map-search {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48rem;
+        box-shadow: $map-component-shadow;
+        transition: left ease-out $toggle-list-anim-duration;
+    }
+}
 
 .toggle-disclaimer-btn {
     font-size: 0.9375rem;
@@ -46,13 +48,6 @@ app-main-map:host {
     position: absolute;
     width: 100%;
     height: 100%;
-
-    // @include flex(1 1 auto);
-    // position: relative;
-
-    // esri-map {
-    //     @include fill-parent(absolute);
-    // }
 
     .toggle-disclaimer-btn {
         position: absolute;
