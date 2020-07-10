@@ -21,7 +21,7 @@ $app-search-font-lg: 0.9375rem;
   }
 
   .search-container {
-    padding: .75rem 1.4rem .4rem;
+    padding: .75rem 1.2rem .4rem;
     color: #036;
     position: relative;
     font-weight: 700;
@@ -45,40 +45,45 @@ $app-search-font-lg: 0.9375rem;
         text-align: center;
       }
     }
+    .search-box {
+        display: flex;;
+        align-items: center;
 
-    .gtm-filter-applicant {
-      padding: .7rem;
-      padding-right: 85px;
-      border-radius: 2px;
-      box-shadow: none;
-      -webkit-appearance: none;
-      border: 2px solid #c6d0da;
-      font-size: 1rem;
-      font-weight: 400;
-      height: 50px;
-      &:focus {
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        border-color: #5091cd;
-      }
-    }
+        .gtm-filter-applicant {
+            padding: .7rem;
+            padding-right: 85px;
+            border-radius: 2px;
+            box-shadow: none;
+            -webkit-appearance: none;
+            border: 2px solid #c6d0da;
+            font-size: 1rem;
+            font-weight: 400;
+            height: 50px;
+            width: 30rem;
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+                border-color: #5091cd;
+            }
+        }
 
-    .btn {
-      border-radius: 0 4px 4px 0;
-      font-size: 1rem;
-      min-width: 140px;
-      height: 50px;
-      background: #fcba18;
-      color: #003367;
-      border: none;
-      font-weight: bold;
-      padding: .5rem 1.4rem .6rem;
+        .btn {
+            border-radius: 0 4px 4px 0;
+            font-size: 1rem;
+            min-width: 140px;
+            height: 50px;
+            background: #fcba18;
+            color: #003367;
+            border: none;
+            font-weight: bold;
+            padding: .5rem 1.4rem .6rem;
 
-      i {
-        vertical-align: top;
-        margin-top: 2px;
-        margin-right: 4px;
-        font-size: 20px;
-      }
+            i {
+                vertical-align: top;
+                margin-top: 2px;
+                margin-right: 4px;
+                font-size: 20px;
+            }
+        }
     }
   }
 
@@ -164,7 +169,22 @@ $app-search-font-lg: 0.9375rem;
   }
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
+.form-check label {
+    padding-left: 0.25rem;
+    font-size: 1rem;
+  }
+
+.search-radio {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+}
+
+.search-radio-btn {
+    margin: 5px;
+}
+
+::ng-deep .mat-radio-container .mat-radio-outer-circle {
+    border: none;
+    width: 0;
 }

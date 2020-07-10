@@ -8,13 +8,15 @@ import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    MatRadioModule
   ],
   declarations: [
     MainMapComponent,

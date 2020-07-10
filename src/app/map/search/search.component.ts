@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnDestroy, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges, OnDestroy, OnChanges, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -22,6 +22,7 @@ export interface FiltersType {
 export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() projects: Array<Project> = [];
+  @Input() selected: string;
   @Output() updateMatching = new EventEmitter();
 
   public loading = false;
@@ -29,7 +30,11 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
   public _permitFilter: string = null; // temporary filters for Cancel feaure     is this necessary?
+  public typeahead: Observable<string> = null;
 
+  public radioSel: string;
+  // public radioSel= 'Mine Name';
+  public radioOptions: string[] = ['Mine Name', 'Permit Number'];
   private mineKeys: Array<string> = [];
   private permitKeys: Array<string> = [];
 
@@ -60,12 +65,13 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
         : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1) // .slice(0, 10)
       )
 
+  ngOnInit(): void {
+    this.radioSel = 'Mine Name';
+  }
+
   public ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-  }
-
-  ngOnInit(): void {
   }
 
   public onLoadStart() { this.loading = true; }
@@ -77,13 +83,24 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.projects && !changes.projects.firstChange && changes.projects.currentValue) {
 
       this.mineKeys = _.sortedUniq(_.compact(this.projects.map(app => app.name ? app.name.toUpperCase() : null)).sort());
+      this.permitKeys = _.sortedUniq(_.compact(this.projects.map(app => app.permitNumber ? app.permitNumber.toUpperCase() : null)).sort());
 
       // (re)apply filtering
       this.internalApplyFilters(false);
     }
   }
 
+  public handleRadioChange(value) {
+    this.radioSel = value;
+  }
+
   public applyFilters() {
+    // clear previous search terms
+    if (this.radioSel === 'Mine Name' ) {
+      this._permitFilter = null;
+    } else {
+      this._mineFilter = null;
+    }
     this.mineFilter = this._mineFilter;
     this.permitFilter = this._permitFilter;
     this.internalApplyFilters(true);
@@ -92,7 +109,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   private internalApplyFilters(doSave: boolean) {
     this.projects.forEach(mine => mine.isMatch = this.showThisMine(mine));
     this.updateMatching.emit();
-    // todo necessary if only text based search?
+
     if (doSave) {
       this.saveFilters();
     }
@@ -109,8 +126,8 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
     const permitFilter = this.permitFilter && this.permitFilter.trim(); // returns null or empty
     retVal = retVal && (
-      !this.permitFilter || !item.name ||
-      item.name.toUpperCase().indexOf(permitFilter.toUpperCase()) > -1
+      !this.permitFilter || !item.permitNumber ||
+      item.permitNumber.toUpperCase().indexOf(permitFilter.toUpperCase()) > -1
     );
 
     return retVal;
@@ -132,7 +149,4 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     this.location.go(this.router.createUrlTree([], { relativeTo: this.route, queryParams: params }).toString());
 
   }
-
-
-
 }

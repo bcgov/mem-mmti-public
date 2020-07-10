@@ -31,7 +31,7 @@ app-main-map:host {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: 48rem;
+        width: 41rem;
         box-shadow: $map-component-shadow;
         transition: left ease-out $toggle-list-anim-duration;
     }
