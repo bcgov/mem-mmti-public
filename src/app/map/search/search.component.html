@@ -21,5 +21,10 @@
           <i class="material-icons">search</i>Search
         </button>
       </div>
+      <div>
+        <p class="search-result" *ngIf="ranSearch && !loading && resultsCount == 0">
+          No results found.
+        </p>
+      </div>
   </div>
 </div>

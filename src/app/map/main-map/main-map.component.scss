@@ -29,8 +29,6 @@ app-main-map:host {
  @media (min-width: 1200px) {
     .map-search {
         position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
         width: 41rem;
         box-shadow: $map-component-shadow;
         transition: left ease-out $toggle-list-anim-duration;

@@ -26,14 +26,15 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   @Output() updateMatching = new EventEmitter();
 
   public loading = false;
+  public ranSearch = false;
   public mineFilter: string = null;
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
   public _permitFilter: string = null; // temporary filters for Cancel feaure     is this necessary?
   public typeahead: Observable<string> = null;
+  public resultsCount = 0;
 
   public radioSel: string;
-  // public radioSel= 'Mine Name';
   public radioOptions: string[] = ['Mine Name', 'Permit Number'];
   private mineKeys: Array<string> = [];
   private permitKeys: Array<string> = [];
@@ -103,11 +104,14 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.mineFilter = this._mineFilter;
     this.permitFilter = this._permitFilter;
+    this.ranSearch = true;
     this.internalApplyFilters(true);
   }
 
   private internalApplyFilters(doSave: boolean) {
     this.projects.forEach(mine => mine.isMatch = this.showThisMine(mine));
+    let projCount = this.projects.filter(mine => mine.isMatch);
+    this.resultsCount = projCount.length;
     this.updateMatching.emit();
 
     if (doSave) {

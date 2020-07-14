@@ -330,7 +330,7 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
             marker.openPopup();
           } else {
             // create the popup
-            this.createMarkerPopup(app[0], marker, 10);
+            this.createMarkerPopup(app[0], marker, 9);
             marker.openPopup();
           }
         }
