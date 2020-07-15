@@ -108,6 +108,10 @@ export class Api {
     return this.get(this.pathNRPTI, apiRoute, options);
   }
 
+  lookupAddress(requestUrl: string, options?: Object) {
+    return this.http.get(requestUrl, options || []);
+  }
+
   handleError(error: any) {
     const reason = error.message ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
     console.log(reason);

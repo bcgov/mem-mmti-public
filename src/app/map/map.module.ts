@@ -9,6 +9,7 @@ import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatRadioModule } from '@angular/material/radio';
+import { GeocoderService } from 'app/services/geocoder.service';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MajorMinesPopupComponent
   ],
   providers: [
+    GeocoderService
   ]
 })
 export class MapModule { }

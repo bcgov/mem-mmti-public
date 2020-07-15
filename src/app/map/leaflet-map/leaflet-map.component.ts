@@ -55,6 +55,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     showCoverageOnHover: false,
     maxClusterRadius: 40, // 0 disables
   });
+  private   markerPlaces = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    maxClusterRadius: 40, // 0 disables
+  });
   private baseLayers;
   private overlays;
   constructor(
@@ -307,6 +311,20 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   public onLoadStart() { this.loading = true; }
 
   public onLoadEnd() { this.loading = false; }
+
+  public drawPlace(places) {
+    if (places) {
+      places.array.forEach(place => {
+        const title = `Place: ${place.fullAddress}`;
+        const marker = L.marker(L.latLng(place.geometry['coordinates'][1], place.geometry['coordinates'][0]), { title: title })
+        .setIcon(markerIconYellow)
+        .on('click', L.Util.bind(this.onMarkerClick, this, place));
+        this.markerPlaces.addLayer(marker);
+      });
+      this.markerPlaces.addTo(this.map);
+    }
+  }
+
 
   /**
   * Removes deleted / draws added projects.

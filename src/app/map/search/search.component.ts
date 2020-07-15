@@ -9,6 +9,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 
+import { GeocoderService } from 'app/services/geocoder.service';
+
 export interface FiltersType {
   mineFilter: string;
   permitFilter: string;
@@ -24,24 +26,28 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   @Input() projects: Array<Project> = [];
   @Input() selected: string;
   @Output() updateMatching = new EventEmitter();
+  @Output() showPlace = new EventEmitter();
 
   public loading = false;
   public ranSearch = false;
   public mineFilter: string = null;
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
-  public _permitFilter: string = null; // temporary filters for Cancel feaure
+  public _permitFilter: string = null; // temporary filters for Cancel feaure     is this necessary?
+  public _geoFilter: string = null;
   public typeahead: Observable<string> = null;
   public resultsCount = 0;
 
   public radioSel: string;
-  public radioOptions: string[] = ['Mine Name', 'Permit Number'];
+  public radioOptions: string[] = ['Mine Name', 'Permit Number', 'Address Lookup'];
   private mineKeys: Array<string> = [];
   private permitKeys: Array<string> = [];
+  private geoResults: Array<any> = [];
 
   private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
   constructor(
+    private geoService: GeocoderService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
@@ -66,6 +72,15 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
         : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1)
       )
 
+  public geocodeSearch = (text$: Observable<string>) =>
+    text$
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .map(term => term.length < 1 ? []
+        : this.geocode(this._geoFilter.toUpperCase())
+  )
+
+  // this.geoResults.filter(key => key.indexOf(this._geoFilter.toUpperCase()) > -1 )
   ngOnInit(): void {
     this.radioSel = 'Mine Name';
   }
@@ -93,6 +108,16 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   public handleRadioChange(value) {
     this.radioSel = value;
+  }
+
+  public geocode(address: string) {
+    this.geoResults = [];
+    this.geoService.lookupAdress(address).subscribe(results => {
+      if (results && results.features) {
+        this.geoResults.push(results.features);
+        this.showPlace.emit(this.geoResults);
+      }
+    });
   }
 
   public applyFilters() {
