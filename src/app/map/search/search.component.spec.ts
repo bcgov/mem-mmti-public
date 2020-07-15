@@ -70,7 +70,7 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('search by mine name should return result', () => {
+  it('should return single result when search by mine name ', () => {
     spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Mine Name';
     component._mineFilter = 'Gold Tigers, NA';
@@ -80,7 +80,7 @@ describe('SearchComponent', () => {
     expect(component.updateMatching.emit).toHaveBeenCalled();
   });
 
-  it('search by permit number should return result', async () => {
+  it('should return single result when search by permit number ', async () => {
     spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Permit Number';
     component._permitFilter = 'C-456';
@@ -91,7 +91,7 @@ describe('SearchComponent', () => {
     expect(component.mineFilter).toBeFalsy();
   });
 
-  it('search with on non existent mine name should return no results', () => {
+  it('should return no results when search with non existent mine name ', () => {
     spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Mine Name';
     component._mineFilter = 'Not a mine';
@@ -102,7 +102,7 @@ describe('SearchComponent', () => {
     expect(component.permitFilter).toBeFalsy();
   });
 
-  it('search with on non existent permit number should return no results', () => {
+  it('should return no results when search with non existent permit number ', () => {
     spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Permit Number';
     component._permitFilter = 'fake-111';
