@@ -30,7 +30,7 @@
           </button>
         </div>
         <div class="filter-input-row filters-advanced" *ngIf="showFilters">
-          <div class="col-md-4 form-group">
+          <div class="col-md-6 form-group">
             <label>Permittee</label>
             <select class="form-control" name="selectoperator" [(ngModel)]="operatorListFilter" (ngModelChange)="applyOperatorFilter()">
               <option value="" selected>All</option>
@@ -38,7 +38,7 @@
             </select>
           </div>
 
-          <div class="col-md-4 form-group">
+          <div class="col-md-6 form-group">
             <label>Mine Type</label>
 
             <select class="form-control" [(ngModel)]="typefilter">
@@ -49,21 +49,8 @@
               <option value="Sand & Gravel">Sand & Gravel</option>
             </select>
           </div>
-
-          <div class="col-md-4 form-group">
-            <label>Mine Status</label>
-
-            <select class="form-control" [(ngModel)]="statusfilter">
-              <option value="" selected>All</option>
-              <option value="Pre-Application">Pre-Application</option>
-              <option value="Under Construction">Under Construction</option>
-              <option value="Operating">Operating</option>
-              <option value="Care & Maintenance">Care & Maintenance</option>
-              <option value="Closed">Closed</option>
-            </select>
-          </div>
         </div>
-        <div class="button-row" *ngIf="filter || operatorListFilter || typefilter || statusfilter">
+        <div class="button-row" *ngIf="filter || operatorListFilter || typefilter">
           <button class="btn content-btn-alt" (click)="clearAllProjectFilters()">
             Clear Filters
           </button>
@@ -96,7 +83,7 @@
         </tr>
         </thead>
         <tbody class="project-table__content">
-          <tr *ngFor="let item of projects | objectFilter: filter | operatorFilter: operatorfilter | projectTypeFilter: typefilter | projectStatusFilter: statusfilter | orderBy: {property: column, direction: direction} | paginate: config">
+          <tr *ngFor="let item of projects | objectFilter: filter | operatorFilter: operatorfilter | projectTypeFilter: typefilter | orderBy: {property: column, direction: direction} | paginate: config">
             <td class="accordion__collapse-item p-0" colspan="4">
               <div class="accordion__collapse-header" id="accordHead" role="tab">
                 <a class="accordion__collapse-header--column toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item.code}}">
