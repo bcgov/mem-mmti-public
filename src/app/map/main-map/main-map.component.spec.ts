@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
-// import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
 import { ProjectService } from 'app/services/project.service';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
 import { Project } from 'app/models/project';
