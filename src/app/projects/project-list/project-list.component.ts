@@ -18,8 +18,6 @@ export class ProjectListComponent implements OnInit {
   public operatorListFilter: '';
   public typefilter: '';
   public projectTypeFilter: '';
-  public statusfilter: '';
-  public projectStatusFilter: '';
   public isDesc: boolean;
   public column: string;
   public direction: number;
@@ -80,7 +78,5 @@ export class ProjectListComponent implements OnInit {
     this.typefilter = undefined;
     this.operatorListFilter = undefined;
     this.operatorfilter = undefined;
-    this.projectStatusFilter = undefined;
-    this.statusfilter = undefined;
   }
 }

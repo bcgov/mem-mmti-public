@@ -50,7 +50,7 @@
             </select>
           </div>
         </div>
-        <div class="button-row" *ngIf="filter || operatorListFilter || typefilter || statusfilter">
+        <div class="button-row" *ngIf="filter || operatorListFilter || typefilter">
           <button class="btn content-btn-alt" (click)="clearAllProjectFilters()">
             Clear Filters
           </button>
@@ -83,7 +83,7 @@
         </tr>
         </thead>
         <tbody class="project-table__content">
-          <tr *ngFor="let item of projects | objectFilter: filter | operatorFilter: operatorfilter | projectTypeFilter: typefilter | projectStatusFilter: statusfilter | orderBy: {property: column, direction: direction} | paginate: config">
+          <tr *ngFor="let item of projects | objectFilter: filter | operatorFilter: operatorfilter | projectTypeFilter: typefilter | orderBy: {property: column, direction: direction} | paginate: config">
             <td class="accordion__collapse-item p-0" colspan="4">
               <div class="accordion__collapse-header" id="accordHead" role="tab">
                 <a class="accordion__collapse-header--column toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item.code}}">

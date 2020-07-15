@@ -191,15 +191,5 @@ describe('ProjectComponent', () => {
       component.clearAllProjectFilters();
       expect(component.operatorfilter).toBeFalsy();
     });
-    it('should set projectStatusFilter to be undefined', () => {
-      component.projectStatusFilter = '';
-      component.clearAllProjectFilters();
-      expect(component.projectStatusFilter).toBeFalsy();
-    });
-    it('should set statusfilter to be undefined', () => {
-      component.statusfilter = '';
-      component.clearAllProjectFilters();
-      expect(component.statusfilter).toBeFalsy();
-    });
   });
 });
