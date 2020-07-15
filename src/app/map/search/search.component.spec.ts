@@ -1,46 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SearchComponent } from './search.component';
-import { Project } from 'app/models/project';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { SearchComponent } from './search.component';
+import { TestConstants } from 'app/shared/test-constants';
+
+
+
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
-
-  let project1 =  new Project({
-     _schemaName: 'MineBCMI',
-      read: ['public', 'sysadmin'],
-      write: ['sysadmin'],
-      name: 'Gold Tigers, NA',
-      permittee: 'Tiger Lord',
-      type: 'Gold',
-      status: 'Hissing' ,
-      region: 'Caribou',
-      permitNumber: 'C-123',
-      location: { 'type': 'Point', 'coordinates': [-122.76, 53.931] },
-      commodities: ['Gold', 'Gold Tigers'],
-      summary: 'I like goooooold',
-      isMatch: false
-  });
-  let project2 = new Project({
-       _schemaName: 'MineBCMI',
-      read: ['public', 'sysadmin'],
-      write: ['sysadmin'],
-      name: 'Silver R Us, NA',
-      permittee: 'Long Jonh Silver',
-      type: 'Silver',
-      status: 'Flourishing' ,
-      region: 'Kootenay',
-      permitNumber: 'C-456',
-      location: { 'type': 'Point', 'coordinates': [-123.5123, 49.2911] },
-      commodities: ['Silver', 'Silver Boots'],
-      summary: 'Silver or Bust',
-      isMatch: false
-    });
 
   beforeEach(async(() => {
 
@@ -59,11 +30,7 @@ describe('SearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
-    let projects = [
-      project1,
-      project2
-    ];
-    component.projects = projects;
+    component.projects = TestConstants.testProjects;
   });
 
   it('should create', () => {

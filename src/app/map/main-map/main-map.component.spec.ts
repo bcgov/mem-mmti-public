@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LeafletMapComponent } from '../leaflet-map/leaflet-map.component';
+import { TestConstants } from 'app/shared/test-constants';
 
 @Component({
   selector: 'leaflet-map',
@@ -39,49 +40,13 @@ describe('MainMapComponent', () => {
   let fixture: ComponentFixture<MainMapComponent>;
   let ProjectServiceStub;
 
-  let project1 =  new Project({
-    _schemaName: 'MineBCMI',
-     read: ['public', 'sysadmin'],
-     write: ['sysadmin'],
-     name: 'Gold Tigers, NA',
-     permittee: 'Tiger Lord',
-     type: 'Gold',
-     status: 'Hissing' ,
-     region: 'Caribou',
-     permitNumber: 'C-123',
-     location: { 'type': 'Point', 'coordinates': [-122.76, 53.931] },
-     commodities: ['Gold', 'Gold Tigers'],
-     summary: 'Tigers of gold',
-     isMatch: false
- });
- let project2 = new Project({
-      _schemaName: 'MineBCMI',
-     read: ['public', 'sysadmin'],
-     write: ['sysadmin'],
-     name: 'Silver R Us, NA',
-     permittee: 'Long Jonh Silver',
-     type: 'Silver',
-     status: 'Flourishing' ,
-     region: 'Kootenay',
-     permitNumber: 'C-456',
-     location: { 'type': 'Point', 'coordinates': [-123.5123, 49.2911] },
-     commodities: ['Silver', 'Silver Boots'],
-     summary: 'Silver or Bust',
-     isMatch: false
-   });
-
-   let projectsData = [
-    project1,
-    project2
-  ];
-
 
   beforeEach(async(() => {
 
     ProjectServiceStub = {
       getAll: jasmine.createSpy().and.returnValue({
         subscribe: function(fn) {
-          fn(projectsData);
+          fn(TestConstants.testProjects);
         }
       })
     };
