@@ -21,12 +21,12 @@ $app-search-font-lg: 0.9375rem;
   }
 
   .search-container {
-    padding: .75rem 1.2rem .4rem;
+    padding: .75rem 1.0rem .4rem;
     color: #036;
     position: relative;
     font-weight: 700;
     border-radius: 0px;
-    background: rgba(255,255,255,1);
+    background: rgba(255,255,255,0.8);
 
     @media (max-width: 768px) {
       padding: .75rem .75rem .4rem;
@@ -59,7 +59,7 @@ $app-search-font-lg: 0.9375rem;
             font-size: 1rem;
             font-weight: 400;
             height: 50px;
-            width: 30rem;
+            width: 315px;
             &:focus {
                 box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
                 border-color: #5091cd;
@@ -158,17 +158,6 @@ $app-search-font-lg: 0.9375rem;
   }
 }
 
-// EAO Projects Input
-.clf-input {
-  width: 18rem;
-}
-
-@media (max-width: 768px) {
-  .clf-input {
-    display: none;
-  }
-}
-
 .form-check label {
     padding-left: 0.25rem;
     font-size: 1rem;
@@ -177,7 +166,6 @@ $app-search-font-lg: 0.9375rem;
 .search-radio {
     display: flex;
     flex-direction: row;
-    margin: 5px 0;
 }
 
 .search-radio-btn {

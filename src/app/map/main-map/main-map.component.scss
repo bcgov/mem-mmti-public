@@ -23,13 +23,14 @@ app-main-map:host {
     display: block;
     z-index: 1004;
     box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.15);
+    width: 30rem;
 
  }
 
  @media (min-width: 1200px) {
     .map-search {
         position: absolute;
-        width: 41rem;
+        width: 30rem;
         box-shadow: $map-component-shadow;
         transition: left ease-out $toggle-list-anim-duration;
     }
