@@ -71,6 +71,12 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.createMarkerPopup(proj, marker, this.map.getZoom());
   }
 
+  /**
+   * Creates a Leaflet popup
+   * proj: Project associated with the popup's marker
+   * marker: Leaflet Marker (has minimal project data associated with it due to limitations on marker properties)
+   * zoom: the zoom level the map should be set to when the popup opens scales from 0 (global) - 18 (local)
+   */
   createMarkerPopup(proj: Project, marker: L.Marker, zoom: number) {
     // if there's already a popup, delete it
     let popup = marker.getPopup();
@@ -281,6 +287,7 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
     addedApps.forEach((proj) => {
       if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
         const title = `Project: ${proj.name}`;
+        // marker object has limited attributes, cannot bind directly to project
         const marker = L.marker(L.latLng(proj.location['coordinates'][1], proj.location['coordinates'][0]), { title: title })
         .setIcon(markerIconYellow)
         .on('click', L.Util.bind(this.onMarkerClick, this, proj));
@@ -294,6 +301,7 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
           this.selectedProject = proj;
 
           setTimeout(() => {
+            // popup requires: projectData, marker object, map zoom level
             this.createMarkerPopup(proj, marker, 10);
           }, 500);
         }
@@ -329,7 +337,7 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
           if (marker.getPopup()) {
             marker.openPopup();
           } else {
-            // create the popup
+            // create the popup, projectData, marker object, map zoom level
             this.createMarkerPopup(app[0], marker, 9);
             marker.openPopup();
           }

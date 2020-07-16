@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length < 1 ? []
-        : this.mineKeys.filter(key => key.indexOf(this._mineFilter.toUpperCase()) > -1) // .slice(0, 10)
+        : this.mineKeys.filter(key => key.indexOf(this._mineFilter.toUpperCase()) > -1)
       )
 
   public permitSearch = (text$: Observable<string>) =>
@@ -63,7 +63,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length < 1 ? []
-        : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1) // .slice(0, 10)
+        : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1)
       )
 
   ngOnInit(): void {

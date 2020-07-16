@@ -4,7 +4,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SearchComponent } from './search.component';
+import { SearchComponent } from 'app/map/search/search.component';
 import { TestConstants } from 'app/shared/test-constants';
 
 

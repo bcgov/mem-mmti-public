@@ -25,7 +25,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
   @HostBinding('class.full-screen') fullScreen = true;
 
   public _loading = false;
-  set isLoading(val: boolean) {
+  set loading(val: boolean) {
     this._loading = val;
     if (val) {
       this.mapSearch.onLoadStart();
@@ -55,7 +55,6 @@ export class MainMapComponent implements OnInit, OnDestroy {
     L.DomEvent.disableClickPropagation(map_search);
     L.DomEvent.disableScrollPropagation(map_search);
 
-    // let routerProjId = this.router.snapshot.paramMap.get('project');
     this.getProjects();
   }
 
@@ -88,7 +87,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
   }
 
   private getProjects() {
-    this.isLoading = true;
+    this.loading = true;
     this.projects = []; // empty the list
 
     this.projectService.getAll().subscribe(results => {
@@ -99,7 +98,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.isLoading = false;
+    this.loading = false;
   }
 
 
