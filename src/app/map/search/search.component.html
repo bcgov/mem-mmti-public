@@ -8,12 +8,12 @@
         <div *ngIf="radioSel === 'Mine Name'">
           <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing a Mine Name" id="searchInput"
           [(ngModel)]="_mineFilter"
-          [ngbTypeahead]="mineSearch" [focusFirst]="false">
+          [ngbTypeahead]="mineSearch" [focusFirst]="false" (keyup.enter)="applyFilters()">
         </div>
         <div *ngIf="radioSel === 'Permit Number'">
           <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing a Permit Number" id="searchInput"
           [(ngModel)]="_permitFilter"
-          [ngbTypeahead]="permitSearch" [focusFirst]="false">
+          [ngbTypeahead]="permitSearch" [focusFirst]="false" (keyup.enter)="applyFilters()">
         </div>
         <button type="button" class="btn btn-primary" title="Search" id="searchButton" (click)="applyFilters();"
             [disabled]="loading">
