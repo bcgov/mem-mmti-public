@@ -120,10 +120,10 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private showThisMine(item: Project): boolean {
-    let retVal = true;
+    let retVal;
 
     const mineFilter = this.mineFilter && this.mineFilter.trim(); // returns null or empty
-    retVal = retVal && (
+    retVal = (
       !this.mineFilter || !item.name ||
       item.name.toUpperCase().indexOf(mineFilter.toUpperCase()) > -1
     );
