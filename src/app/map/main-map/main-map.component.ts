@@ -49,13 +49,11 @@ export class MainMapComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
+    this.getProjects();
     // prevent underlying map actions for search compoonent
     const map_search = <HTMLElement>document.getElementById('map-search');
     L.DomEvent.disableClickPropagation(map_search);
     L.DomEvent.disableScrollPropagation(map_search);
-
-    this.getProjects();
   }
 
   ngOnDestroy(): void {

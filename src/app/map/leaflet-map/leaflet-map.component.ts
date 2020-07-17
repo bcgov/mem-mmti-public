@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, Input, HostListener, ApplicationRef, Injector, ComponentFactoryResolver, SimpleChanges, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnDestroy, Input, HostListener, ApplicationRef, Injector, ComponentFactoryResolver, SimpleChanges, Output, EventEmitter, OnChanges, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from 'app/models/project';
@@ -33,7 +33,7 @@ const markerIconYellow = L.icon({
   styleUrls: ['./leaflet-map.component.scss']
 })
 
-export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @Input() project: Project;
   @Input() projects: Array<Project> = []; // from main map component
@@ -45,6 +45,7 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
 
 
   public loading = false;
+  readonly defaultCenter = new L.LatLng(53.7267, -127.6476 );
   readonly defaultBounds = L.latLngBounds([48, -139], [60, -114]); // all of BC
   readonly maxBounds = L.latLngBounds([40, -150], [70, -110]); // all of BC
   public selectedProject: Project = null;
@@ -63,6 +64,42 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
     private resolver: ComponentFactoryResolver,
     private http: HttpClient
   ) { }
+
+  ngOnInit() {
+    if (!this.thumbnail) {
+      let routerProjId = this.router.snapshot.paramMap.get('project');
+      this.projects.forEach((proj, index) => {
+        if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
+          const title = `Project: ${proj.name}`;
+          const marker = L.marker(L.latLng(proj.location['coordinates'][1], proj.location['coordinates'][0]), { title: title })
+          .setIcon(markerIconYellow)
+          .on('click', L.Util.bind(this.onMarkerClick, this, proj));
+
+          marker.projectId = index;
+          this.markers.set(proj._id, marker); // save to map obj with id as key
+          this.markerClusterGroup.addLayer(marker); // save to marker clusters group
+
+          // did we navigate to the map with a poject defined?
+          // if so, zoom to the icon and open the popup
+          if (routerProjId && routerProjId === proj._id) {
+            this.selectedProject = proj;
+
+            setTimeout(() => {
+              this.createMarkerPopup(proj, marker, 10);
+            }, 500);
+          }
+        }
+      });
+    } else {
+      if (this.project.location && this.project.location['coordinates'][1] && this.project.location['coordinates'][0]) {
+        const title = `Project: ${this.project.name}`;
+        const marker = L.marker(L.latLng(this.project.location['coordinates'][1], this.project.location['coordinates'][0]), { title: title }).setIcon(markerIconYellow);
+        marker.projectId = 0;
+        this.markers.set(this.project._id, marker); // save to map obj with id as key
+        this.markerClusterGroup.addLayer(marker); // save to marker clusters group
+      }
+    }
+  }
 
   onMarkerClick(...args: any[]) {
     const proj = args[0] as Project;
@@ -145,6 +182,8 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
     let mapOptions = {
       maxZoom: 17,
       zoomControl: false, // will be added manually below
+      zoom: this.zoom,
+      center: this.defaultCenter,
       maxBounds: this.maxBounds,
       zoomSnap: 0.1, // for greater granularity when fitting bounds
       attributionControl: false,
@@ -154,7 +193,6 @@ export class LeafletMapComponent implements AfterViewInit, OnChanges, OnDestroy 
 
     if (this.thumbnail) {
       mapOptions['dragging'] = false;
-      mapOptions['zoom'] = false;
     }
 
     this.map = L.map('map', mapOptions);
