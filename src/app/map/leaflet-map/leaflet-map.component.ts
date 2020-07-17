@@ -300,6 +300,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   }
 
   public resetMap() {
+    this.map.closePopup();
     this.fitBounds(); // use default bounds
   }
 
@@ -371,7 +372,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
         // If there is only one result from the filter
         // force the popup to auto-display
-        if (this.markers.size === 1 && app[0].isVisible) {
+        if (this.markers.size === 1) {
           if (marker.getPopup()) {
             marker.openPopup();
           } else {

@@ -81,7 +81,9 @@ export class MainMapComponent implements OnInit, OnDestroy {
     // map component gets filtered apps
     this.mapApps = this.filterApps.filter(a => a.isMatch);
     // NB: OnChanges event will update the map
-    this.mineMap.resetMap();
+    if (this.mapApps.length !== 1) {
+      this.mineMap.resetMap();
+    }
   }
 
   private getProjects() {
