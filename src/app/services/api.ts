@@ -62,7 +62,7 @@ export class Api {
   // Projects
 
   getProjects() {
-    return this.getNRPTI(`public/search?dataset=MineBCMI&pageNum=0&pageSize=1000&sortBy=-dateIssued`);
+    return this.getNRPTI(`public/search?dataset=MineBCMI&pageNum=0&pageSize=1000&sortBy=+name`);
   }
 
 // get by id? `record/${model}/${recordId}`
