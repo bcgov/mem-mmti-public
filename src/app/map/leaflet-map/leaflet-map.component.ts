@@ -168,7 +168,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
   // called when apps list changes
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.projects && !changes.projects.firstChange && changes.projects.currentValue) {
+    if (changes.projects && !changes.projects.firstChange && changes.projects.currentValue && changes.projects.previousValue) {
 
       const deletedApps = changes.projects.previousValue.filter(x => !changes.projects.currentValue.includes(x)) as Array<Project>;
       const addedApps = changes.projects.currentValue.filter(x => !changes.projects.previousValue.includes(x)) as Array<Project>;
