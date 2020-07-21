@@ -67,7 +67,6 @@ export class Project {
 
   // search helpers
   isMatch?: Boolean = true;
-  isVisible?: Boolean = true;
 
   constructor(obj?: any) {
     this._id                  = (obj && obj._id)                  || null;

@@ -348,7 +348,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     });
 
     // set visible apps
-    this.setVisibleDebounced();
+    this.openPopupDebounced();
   }
 
   /**
@@ -356,23 +356,16 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
    * Actual function executes no more than once every 250ms.
    */
   // tslint:disable-next-line:member-ordering
-  private setVisibleDebounced = _.debounce(this.setVisible, 250);
+  private openPopupDebounced = _.debounce(this.openPopup, 250);
 
-  private setVisible() {
-    const mapBounds = this.map.getBounds();
-
-    // update visibility for apps with markers only
-    // ie, leave apps without markers 'visible' (as initialized)
+  private openPopup() {
     this.markers.forEach((marker, key) => {
       const app = this.projects.filter(proj => proj._id === key);
       if (app[0]) {
-        const markerLatLng = marker.getLatLng();
-        // app is visible if map contains its marker
-        app[0].isVisible = mapBounds.contains(markerLatLng);
-
         // If there is only one result from the filter
         // force the popup to auto-display
         if (this.markers.size === 1) {
+          this.map.panTo(marker.getLatLng());
           if (marker.getPopup()) {
             marker.openPopup();
           } else {
@@ -381,7 +374,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
             marker.openPopup();
           }
         }
-
       }
     });
   }
