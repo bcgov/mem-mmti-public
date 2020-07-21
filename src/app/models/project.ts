@@ -65,6 +65,9 @@ export class Project {
     html: string;
   }[];
 
+  // search helpers
+  isMatch?: Boolean = true;
+
   constructor(obj?: any) {
     this._id                  = (obj && obj._id)                  || null;
     this._schemaName          = (obj && obj._schemaName)          || 'MineBCMI';

@@ -20,4 +20,10 @@
     margin: 0;
     background: #244278;
   }
+
+  .leaflet-top {
+    @media (max-width: 550px) {
+        top: 20%;
+    }
+  }
 }

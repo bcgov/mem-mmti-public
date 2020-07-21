@@ -1,0 +1,29 @@
+<div class="app-search__container d-flex flex-column">
+  <div class="search-container" id="map-search">
+      <mat-radio-group class="search-radio" aria-label="Select an field to search on" [(ngModel)]="radioSel">
+        <mat-radio-button class="search-radio-btn" *ngFor="let sel of radioOptions" [value]="sel"
+        >{{sel}}</mat-radio-button>
+      </mat-radio-group>
+      <div class="search-box">
+        <div *ngIf="radioSel === 'Mine Name'">
+          <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing a Mine Name" id="searchInput"
+          [(ngModel)]="_mineFilter"
+          [ngbTypeahead]="mineSearch" [focusFirst]="false" (keyup.enter)="applyFilters()">
+        </div>
+        <div *ngIf="radioSel === 'Permit Number'">
+          <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing a Permit Number" id="searchInput"
+          [(ngModel)]="_permitFilter"
+          [ngbTypeahead]="permitSearch" [focusFirst]="false" (keyup.enter)="applyFilters()">
+        </div>
+        <button type="button" class="btn btn-primary" title="Search" id="searchButton" (click)="applyFilters();"
+            [disabled]="loading">
+          <i class="material-icons">search</i>Search
+        </button>
+      </div>
+      <div>
+        <p class="search-result" *ngIf="ranSearch && !loading && resultsCount == 0">
+          No results found.
+        </p>
+      </div>
+  </div>
+</div>

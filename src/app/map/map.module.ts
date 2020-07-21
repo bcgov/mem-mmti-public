@@ -5,17 +5,25 @@ import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
 import { MainMapComponent } from 'app/map/main-map/main-map.component';
 import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
 import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/major-mines-popup.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    NgbModule,
+    MatRadioModule
   ],
   declarations: [
     MainMapComponent,
     LeafletMapComponent,
     ProjectPopupComponent,
-    MajorMinesPopupComponent
+    MajorMinesPopupComponent,
+    SearchComponent
   ],
   exports: [
     MainMapComponent,
