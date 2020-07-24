@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatRadioModule } from '@angular/material/radio';
 import { GeocoderService } from 'app/services/geocoder.service';
+import { GeoCodePopupComponent } from './leaflet-map/geocode-popup/geocode-popup.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { GeocoderService } from 'app/services/geocoder.service';
     LeafletMapComponent,
     ProjectPopupComponent,
     MajorMinesPopupComponent,
+    GeoCodePopupComponent,
     SearchComponent
   ],
   exports: [
@@ -32,7 +34,8 @@ import { GeocoderService } from 'app/services/geocoder.service';
   ],
   entryComponents: [
     ProjectPopupComponent,
-    MajorMinesPopupComponent
+    MajorMinesPopupComponent,
+    GeoCodePopupComponent
   ],
   providers: [
     GeocoderService

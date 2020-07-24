@@ -1,0 +1,24 @@
+<div class="popup-container">
+  <header class="popup-header">
+    <h5>{{layer.properties.fullAddress}}</h5>
+    <button class="popup-zoom-button" (click)="zoomToProject()"><i class="material-icons">zoom_in</i></button>
+    <button class="popup-close-button" (click)="closePopups()"><i class="material-icons">close</i></button>
+  </header>
+  <article class="popup-content">
+    <div class="map-popup-content">
+      <ul class="map-popup-meta">
+        <li>
+          <span class="meta-name">Type:</span>
+          <span class="meta-value">{{layer.properties.localityType}}</span>
+        </li>
+      </ul>
+      <div class="map-popup-btns">
+        <div class="map-popup-disc">The Province has reviewed the geospatial information but makes
+                                    no guarantee or warranties whatsoever, either expressed or implied, with
+                                    respect to the accuracy or quality of information, content, or materials,
+                                    and disclaims all responsibility for the accuracy or completeness contained herein.
+        </div>
+     </div>
+    </div>
+  </article>
+</div>
