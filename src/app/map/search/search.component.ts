@@ -80,7 +80,6 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
         : this.geocode(this._geoFilter.toUpperCase())
   )
 
-  // this.geoResults.filter(key => key.indexOf(this._geoFilter.toUpperCase()) > -1 )
   ngOnInit(): void {
     this.radioSel = 'Mine Name';
   }
@@ -113,8 +112,8 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public geocode(address: string) {
     this.geoResults = [];
     this.geoService.lookupAdress(address).subscribe(results => {
-      if (results && results.features) {
-        this.geoResults.push(results.features);
+      if (results) {
+        this.geoResults.push(results);
         this.showPlace.emit(this.geoResults);
       }
     });
