@@ -1,6 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LatLng } from 'leaflet';
 
+declare module 'leaflet' {
+  export interface Layer<P = any> {
+    properties: any;
+  }
+}
+
 
 @Component({
   selector: 'geocode-popup',
