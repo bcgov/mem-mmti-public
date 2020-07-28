@@ -15,13 +15,22 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
+  let GeocoderServiceStub;
 
   beforeEach(async(() => {
+
+    GeocoderServiceStub = {
+      lookupAddress: jasmine.createSpy().and.returnValue({
+        subscribe: function(fn) {
+          fn({'some': 'results'});
+        }
+      })
+    };
 
     TestBed.configureTestingModule({
       declarations: [ SearchComponent ],
       providers: [
-        GeocoderService,
+        {provide: GeocoderService, useValue: GeocoderServiceStub },
         Api,
         HttpClient,
         HttpHandler
@@ -86,5 +95,13 @@ describe('SearchComponent', () => {
     expect(component.resultsCount).toEqual(0);
     expect(component.updateMatching.emit).toHaveBeenCalled();
     expect(component.mineFilter).toBeFalsy();
+  });
+
+  it('should emit geocode results', () => {
+    spyOn(component.showPlace, 'emit');
+    component.radioSel = 'Address Lookup';
+    component._geoFilter = 'foo st';
+    component.geocode();
+    expect(component.showPlace.emit).toHaveBeenCalled();
   });
 });

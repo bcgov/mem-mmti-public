@@ -371,6 +371,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     setTimeout(() => {
       // open popup to 1st feature it is always the highest score for search results
       if (layers && layers[0]) {
+        // (coords, zoom level)
         this.map.setView(layers[0].getLatLng(), 13);
         layers[0].openPopup();
       } else {
@@ -388,6 +389,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
   public onLoadEnd() { this.loading = false; }
 
+  // draw featurecollection returned by geocoder
   public drawPlace(places) {
     if (this.placeLayer) {
       // remove previous layer

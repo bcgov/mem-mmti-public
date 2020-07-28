@@ -103,7 +103,8 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   public geocode() {
     this.geoResults = [];
-    this.geoService.lookupAdress(this._geoFilter).subscribe(results => {
+    // lookup address and emit results to leaflet map component
+    this.geoService.lookupAddress(this._geoFilter).subscribe(results => {
       if (results) {
         this.geoResults.push(results);
         this.showPlace.emit(this.geoResults);

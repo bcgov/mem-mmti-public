@@ -8,11 +8,12 @@ import { Api } from './api';
 export class GeocoderService {
 
   private maxLocations = 5;
+  // minimum search score tuning
   private minScore = 50;
 
   constructor(private api: Api) { }
 
-  lookupAdress(address: string) {
+  lookupAddress(address: string) {
     const requestUrl = createRequestBuilder()
     .setOutputFormat('json')
     .setAddress(address)
