@@ -25,9 +25,7 @@
           <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
           placeholder="Start Typing an address in B.C."
           [(ngModel)]="_geoFilter"
-          [ngbTypeahead]="geocodeSearch"
-          [focusFirst]="false"
-          (keyup.enter)="geocodeSearch()">
+          (keyup.enter)="geocode()">
         </div>
         <div *ngIf="radioSel !== 'Address Lookup'; else elseBlock">
           <button type="button" class="btn btn-primary" title="Search" id="searchButton"
@@ -38,7 +36,7 @@
         </div>
         <ng-template #elseBlock>
           <button type="button" class="btn btn-primary" title="Search" id="searchButton"
-              (click)="geocodeSearch();"
+              (click)="geocode();"
               [disabled]="loading">
             <i class="material-icons">search</i>Search
           </button>

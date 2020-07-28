@@ -72,14 +72,6 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
         : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1)
       )
 
-  public geocodeSearch = (text$: Observable<string>) =>
-    text$
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .map(term => term.length < 5 ? []
-        : this.geocode(this._geoFilter.toUpperCase())
-  )
-
   ngOnInit(): void {
     this.radioSel = 'Mine Name';
   }
@@ -109,9 +101,9 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     this.radioSel = value;
   }
 
-  public geocode(address: string) {
+  public geocode() {
     this.geoResults = [];
-    this.geoService.lookupAdress(address).subscribe(results => {
+    this.geoService.lookupAdress(this._geoFilter).subscribe(results => {
       if (results) {
         this.geoResults.push(results);
         this.showPlace.emit(this.geoResults);
