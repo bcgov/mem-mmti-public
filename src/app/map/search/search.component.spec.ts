@@ -6,6 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SearchComponent } from 'app/map/search/search.component';
 import { TestConstants } from 'app/shared/test-constants';
+import { GeocoderService } from 'app/services/geocoder.service';
+import { Api } from 'app/services/api';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 
 
@@ -17,6 +20,12 @@ describe('SearchComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ SearchComponent ],
+      providers: [
+        GeocoderService,
+        Api,
+        HttpClient,
+        HttpHandler
+      ],
       imports: [
         FormsModule,
         MatRadioModule,
