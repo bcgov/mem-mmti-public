@@ -370,8 +370,12 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
     setTimeout(() => {
       // open popup to 1st feature it is always the highest score for search results
-      this.map.setView(layers[0].getLatLng(), 13);
-      layers[0].openPopup();
+      if (layers && layers[0]) {
+        this.map.setView(layers[0].getLatLng(), 13);
+        layers[0].openPopup();
+      } else {
+        this.resetMap();
+      }
     }, 100);
   }
 

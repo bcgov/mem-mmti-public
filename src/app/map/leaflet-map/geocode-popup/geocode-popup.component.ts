@@ -23,7 +23,7 @@ export class GeoCodePopupComponent implements OnInit, OnDestroy {
 
   zoomToProject() {
     if (this.layer) {
-      this.parentMap.setView(new LatLng(this.layer['geometry']['coordinates'][1], this.layer['geometry']['coordinates'][0]), 14);
+      this.parentMap.setView(new LatLng(this.layer['geometry']['coordinates'][1], this.layer['geometry']['coordinates'][0]), 15);
     }
   }
 

@@ -116,8 +116,10 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     // clear previous search terms
     if (this.radioSel === 'Mine Name' ) {
       this._permitFilter = null;
+      this._geoFilter = null;
     } else {
       this._mineFilter = null;
+      this._geoFilter = null;
     }
     this.mineFilter = this._mineFilter;
     this.permitFilter = this._permitFilter;
