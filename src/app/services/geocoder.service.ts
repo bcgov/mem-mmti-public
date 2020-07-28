@@ -7,7 +7,7 @@ import { Api } from './api';
 @Injectable()
 export class GeocoderService {
 
-  private maxLocations = 10;
+  private maxLocations = 5;
   private minScore = 50;
 
   constructor(private api: Api) { }
@@ -16,7 +16,7 @@ export class GeocoderService {
     const requestUrl = createRequestBuilder()
     .setOutputFormat('json')
     .setAddress(address)
-    .setAutoComplete(true)
+    .setAutoComplete(false)
     .setMinScore(this.minScore)
     .setMaxResults(this.maxLocations)
     .setEcho(false)

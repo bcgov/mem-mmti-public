@@ -76,7 +76,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     text$
       .debounceTime(1000)
       .distinctUntilChanged()
-      .map(term => term.length < 1 ? []
+      .map(term => term.length < 5 ? []
         : this.geocode(this._geoFilter.toUpperCase())
   )
 
@@ -118,6 +118,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       }
     });
   }
+
 
   public applyFilters() {
     // clear previous search terms

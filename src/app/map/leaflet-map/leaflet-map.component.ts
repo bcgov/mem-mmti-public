@@ -368,11 +368,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
       this.markerPlaces.addLayer(lyr);
     });
 
-    if (layers.length === 1) {
-      setTimeout(() => {
-        this.map.setView(layers[0].getLatLng(), 8);
-      }, 100);
-    }
+    setTimeout(() => {
+      // open popup to 1st feature it is always the highest score for search results
+      this.map.setView(layers[0].getLatLng(), 13);
+      layers[0].openPopup();
+    }, 100);
   }
 
   public resetMap() {
@@ -388,6 +388,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     if (this.placeLayer) {
       // remove previous layer
       this.map.removeLayer(this.placeLayer);
+      this.markerPlaces.removeLayer(this.placeLayer);
     }
     this.placeLayer = L.geoJSON(places).addTo(this.map);
     this.createGeocodePopup(this.placeLayer);
