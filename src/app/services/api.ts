@@ -2,6 +2,7 @@ import {throwError as observableThrowError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
+import { URLConstants } from 'app/shared/constants';
 
 
 
@@ -26,29 +27,29 @@ export class Api {
     switch (hostname) {
       case 'localhost':
         // Local
-        hostnameNRPTI  = 'http://localhost:3000';
+        hostnameNRPTI  =   URLConstants.localApiHostname;
         env = 'local';
         break;
 
       case 'www-mem-mmt-dev.pathfinder.gov.bc.ca':
         // Dev
-        hostnameNRPTI  = 'https://nrpti-dev.pathfinder.gov.bc.ca';
+        hostnameNRPTI  = URLConstants.devApiHostname;
         env = 'dev';
         break;
 
       case 'www-mem-mmt-test.pathfinder.gov.bc.ca':
         // Test
-        hostnameNRPTI  = 'https://nrpti-test.pathfinder.gov.bc.ca';
+        hostnameNRPTI  = URLConstants.testApiHostname;
         env = 'test';
         break;
       case 'www-mem-mmt-dev-v2.pathfinder.gov.bc.ca':
         // Test for v2 Feature Branch (temporary)
-        hostnameNRPTI  = 'https://nrpti-test.pathfinder.gov.bc.ca';
+        hostnameNRPTI  = URLConstants.testApiHostname;
         env = 'test';
         break;
       default:
         // Prod
-        hostnameNRPTI  = 'https://nrpti-prod.pathfinder.gov.bc.ca';
+        hostnameNRPTI  = URLConstants.prodApiHostname;
         env = 'prod';
     }
 

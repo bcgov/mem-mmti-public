@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public mineFilter: string = null;
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
-  public _permitFilter: string = null; // temporary filters for Cancel feaure     is this necessary?
+  public _permitFilter: string = null; // temporary filters for Cancel feaure
   public _geoFilter: string = null;
   public typeahead: Observable<string> = null;
   public resultsCount = 0;

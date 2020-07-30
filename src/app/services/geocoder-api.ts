@@ -1,3 +1,4 @@
+import { URLConstants } from 'app/shared/constants';
 
 class RequestBuilder {
   // required
@@ -21,7 +22,7 @@ class RequestBuilder {
   private _maxDistance: number;
 
   constructor() {
-    this._baseUrl = 'https://geocoder.api.gov.bc.ca';
+    this._baseUrl = URLConstants.geocoder_api;
     this._outputFormat = 'json';
     this._outputSRS = 4326;  // --> WGS84 (default map projection)
   }
