@@ -177,6 +177,12 @@ $app-search-font-lg: 0.9375rem;
     width: 0;
 }
 
+::ng-deep .mat-radio-label .mat-radio-label-content {
+    position: relative;
+    padding-left: 0px;
+    padding-right: 7px;
+}
+
 .search-result {
     margin-top: 5px;
     margin-bottom: 0;

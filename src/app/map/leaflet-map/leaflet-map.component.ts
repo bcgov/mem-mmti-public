@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import 'leaflet.markercluster';
 import * as L from 'leaflet';
 import * as _ from 'lodash';
+import { GeoCodePopupComponent } from './geocode-popup/geocode-popup.component';
 
 declare module 'leaflet' {
   export interface FeatureGroup<P = any> {
@@ -15,6 +16,10 @@ declare module 'leaflet' {
   }
   export interface Marker<P = any> {
     projectId: number;
+  }
+
+  export interface Layer<P = any> {
+    getLayers();
   }
 }
 
@@ -26,6 +31,15 @@ const markerIconYellow = L.icon({
   iconAnchor: [18, 36],
   tooltipAnchor: [16, -28]
 });
+
+const markerGeocode = L.icon({
+  iconUrl: 'assets/images/marker-icon-blue.svg',
+  iconSize: [36, 36],
+  iconAnchor: [18, 36],
+  tooltipAnchor: [16, -28]
+});
+
+L.Marker.prototype.options.icon = markerGeocode;
 
 @Component({
   selector: 'leaflet-map',
@@ -52,6 +66,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   private map: L.Map = null;
   private markers: Map<String, L.Marker> = new Map();
   private markerClusterGroup = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    maxClusterRadius: 40, // 0 disables
+  });
+  private placeLayer = null;
+  private markerPlaces = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 40, // 0 disables
   });
@@ -207,7 +226,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
     this.overlays = {
       'Projects': this.markerClusterGroup,
-      'Major Mine Permitted Areas': LeafletMapUtils.LAYERS.VERIFIED_MINES
+      'Major Mine Permitted Areas': LeafletMapUtils.LAYERS.VERIFIED_MINES,
+      'Places': this.markerPlaces
     };
 
     // layer control
@@ -236,6 +256,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     // set the default basemap, turn on the marker layer
     LeafletMapUtils.BASEMAPS.ESRI_TOPO.addTo(this.map);
     this.markerClusterGroup.addTo(this.map);
+    this.markerPlaces.addTo(this.map);
 
     // Creating map onClick listener for identifying WMS layers
     this.map.addEventListener('click', L.Util.bind(this.identifyWmsLayers, this));
@@ -299,6 +320,66 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
     }
   }
 
+   /**
+   * Creates a Leaflet popup for places returned by BC Geocoder
+   * layer: A GeoJson layer group containing point locations returned by GeoCoder search
+   */
+   createGeocodePopup(layer: L.Layer) {
+    // if there's already a popup, delete it
+    let popup = layer.getPopup();
+
+    if (popup) {
+      popup.remove();
+      layer.unbindPopup();
+    }
+
+    let popupOptions = {};
+    // Fix for different viewports on scrolling for map display
+    if (this.map.getSize().y < 800) {
+      popupOptions = {
+        className: 'map-popup-content',
+        autoPanPaddingTopLeft: L.point(2, 100),
+        autoPanPaddingBottomRight: L.point(2, 30)
+      };
+    } else {
+      popupOptions = {
+        className: 'map-popup-content',
+        autoPanPaddingTopLeft: L.point(80, 200),
+        autoPanPaddingBottomRight: L.point(80, 30)
+      };
+    }
+
+    let layers = layer.getLayers();
+    layers.forEach(lyr => {
+      // compile marker popup component
+      const compFactory = this.resolver.resolveComponentFactory(GeoCodePopupComponent);
+      const compRef = compFactory.create(this.injector);
+      compRef.instance.layer = lyr['feature'];
+      compRef.instance.parentMap = this.map;
+      this.appRef.attachView(compRef.hostView);
+      compRef.onDestroy(() => this.appRef.detachView(compRef.hostView));
+      const div = document.createElement('div').appendChild(compRef.location.nativeElement);
+
+      popup = L.popup(popupOptions)
+             .setLatLng(lyr.getLatLng())
+             .setContent(div);
+      // bind popup to marker so it automatically closes when marker is removed
+      lyr.bindPopup(popup).openPopup();
+      this.markerPlaces.addLayer(lyr);
+    });
+
+    setTimeout(() => {
+      // open popup to 1st feature it is always the highest score for search results
+      if (layers && layers[0]) {
+        // (coords, zoom level)
+        this.map.setView(layers[0].getLatLng(), 13);
+        layers[0].openPopup();
+      } else {
+        this.resetMap();
+      }
+    }, 100);
+  }
+
   public resetMap() {
     this.map.closePopup();
     this.fitBounds(); // use default bounds
@@ -307,6 +388,18 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   public onLoadStart() { this.loading = true; }
 
   public onLoadEnd() { this.loading = false; }
+
+  // draw featurecollection returned by geocoder
+  public drawPlace(places) {
+    if (this.placeLayer) {
+      // remove previous layer
+      this.map.removeLayer(this.placeLayer);
+      this.markerPlaces.removeLayer(this.placeLayer);
+    }
+    this.placeLayer = L.geoJSON(places).addTo(this.map);
+    this.createGeocodePopup(this.placeLayer);
+  }
+
 
   /**
   * Removes deleted / draws added projects.

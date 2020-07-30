@@ -2,6 +2,7 @@
   <map-search class="map-search" #mapSearch
     [projects]="filterApps"
     (updateMatching)="updateMatching()"
+    (showPlace)="showPlace($event)"
   ></map-search>
   <leaflet-map #mineMap
     [projects]="mapApps"

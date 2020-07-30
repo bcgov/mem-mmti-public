@@ -6,17 +6,35 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SearchComponent } from 'app/map/search/search.component';
 import { TestConstants } from 'app/shared/test-constants';
+import { GeocoderService } from 'app/services/geocoder.service';
+import { Api } from 'app/services/api';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
+  let GeocoderServiceStub;
 
   beforeEach(async(() => {
 
+    GeocoderServiceStub = {
+      lookupAddress: jasmine.createSpy().and.returnValue({
+        subscribe: function(fn) {
+          fn({'some': 'results'});
+        }
+      })
+    };
+
     TestBed.configureTestingModule({
       declarations: [ SearchComponent ],
+      providers: [
+        {provide: GeocoderService, useValue: GeocoderServiceStub },
+        Api,
+        HttpClient,
+        HttpHandler
+      ],
       imports: [
         FormsModule,
         MatRadioModule,
@@ -77,5 +95,13 @@ describe('SearchComponent', () => {
     expect(component.resultsCount).toEqual(0);
     expect(component.updateMatching.emit).toHaveBeenCalled();
     expect(component.mineFilter).toBeFalsy();
+  });
+
+  it('should emit geocode results', () => {
+    spyOn(component.showPlace, 'emit');
+    component.radioSel = 'Address Lookup';
+    component._geoFilter = 'foo st';
+    component.geocode();
+    expect(component.showPlace.emit).toHaveBeenCalled();
   });
 });

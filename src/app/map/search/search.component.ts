@@ -9,6 +9,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 
+import { GeocoderService } from 'app/services/geocoder.service';
+
 export interface FiltersType {
   mineFilter: string;
   permitFilter: string;
@@ -24,6 +26,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   @Input() projects: Array<Project> = [];
   @Input() selected: string;
   @Output() updateMatching = new EventEmitter();
+  @Output() showPlace = new EventEmitter();
 
   public loading = false;
   public ranSearch = false;
@@ -31,17 +34,20 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
   public _permitFilter: string = null; // temporary filters for Cancel feaure
+  public _geoFilter: string = null;
   public typeahead: Observable<string> = null;
   public resultsCount = 0;
 
   public radioSel: string;
-  public radioOptions: string[] = ['Mine Name', 'Permit Number'];
+  public radioOptions: string[] = ['Mine Name', 'Permit Number', 'Address Lookup'];
   private mineKeys: Array<string> = [];
   private permitKeys: Array<string> = [];
+  private geoResults: Array<any> = [];
 
   private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
   constructor(
+    private geoService: GeocoderService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
@@ -95,12 +101,26 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     this.radioSel = value;
   }
 
+  public geocode() {
+    this.geoResults = [];
+    // lookup address and emit results to leaflet map component
+    this.geoService.lookupAddress(this._geoFilter).subscribe(results => {
+      if (results) {
+        this.geoResults.push(results);
+        this.showPlace.emit(this.geoResults);
+      }
+    });
+  }
+
+
   public applyFilters() {
     // clear previous search terms
     if (this.radioSel === 'Mine Name' ) {
       this._permitFilter = null;
+      this._geoFilter = null;
     } else {
       this._mineFilter = null;
+      this._geoFilter = null;
     }
     this.mineFilter = this._mineFilter;
     this.permitFilter = this._permitFilter;

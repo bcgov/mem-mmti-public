@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LeafletMapComponent } from '../leaflet-map/leaflet-map.component';
 import { TestConstants } from 'app/shared/test-constants';
+import { GeocoderService } from 'app/services/geocoder.service';
+import { Api } from 'app/services/api';
 
 @Component({
   selector: 'leaflet-map',
@@ -57,7 +59,9 @@ describe('MainMapComponent', () => {
         { provide: LeafletMapComponent, useValue: LeafletMapStubComponent },
         HttpClient,
         HttpHandler,
-        { provide: ProjectService, useValue: ProjectServiceStub }
+        { provide: ProjectService, useValue: ProjectServiceStub },
+        GeocoderService,
+        Api
       ],
       declarations: [
         MainMapComponent,

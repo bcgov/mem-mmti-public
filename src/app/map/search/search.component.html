@@ -6,19 +6,41 @@
       </mat-radio-group>
       <div class="search-box">
         <div *ngIf="radioSel === 'Mine Name'">
-          <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing a Mine Name" id="searchInput"
+          <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
+          placeholder="Start Typing a Mine Name"
           [(ngModel)]="_mineFilter"
-          [ngbTypeahead]="mineSearch" [focusFirst]="false" (keyup.enter)="applyFilters()">
+          [ngbTypeahead]="mineSearch"
+          [focusFirst]="false"
+          (keyup.enter)="applyFilters()">
         </div>
         <div *ngIf="radioSel === 'Permit Number'">
-          <input type="text" class="form-control gtm-filter-applicant " placeholder="Start Typing a Permit Number" id="searchInput"
+          <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
+          placeholder="Start Typing a Permit Number"
           [(ngModel)]="_permitFilter"
-          [ngbTypeahead]="permitSearch" [focusFirst]="false" (keyup.enter)="applyFilters()">
+          [ngbTypeahead]="permitSearch"
+          [focusFirst]="false"
+          (keyup.enter)="applyFilters()">
         </div>
-        <button type="button" class="btn btn-primary" title="Search" id="searchButton" (click)="applyFilters();"
-            [disabled]="loading">
-          <i class="material-icons">search</i>Search
-        </button>
+        <div *ngIf="radioSel === 'Address Lookup'">
+          <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
+          placeholder="Start Typing an address in B.C."
+          [(ngModel)]="_geoFilter"
+          (keyup.enter)="geocode()">
+        </div>
+        <div *ngIf="radioSel !== 'Address Lookup'; else elseBlock">
+          <button type="button" class="btn btn-primary" title="Search" id="searchButton"
+              (click)="applyFilters();"
+              [disabled]="loading">
+            <i class="material-icons">search</i>Search
+          </button>
+        </div>
+        <ng-template #elseBlock>
+          <button type="button" class="btn btn-primary" title="Search" id="searchButton"
+              (click)="geocode();"
+              [disabled]="loading">
+            <i class="material-icons">search</i>Search
+          </button>
+        </ng-template>
       </div>
       <div>
         <p class="search-result" *ngIf="ranSearch && !loading && resultsCount == 0">

@@ -39,6 +39,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
   public projects: Array<Project> = [];
   public mapApps: Array<Project> = [];
   public filterApps: Array<Project> = [];
+  public places: Array<any> = [];
   // private fields
   private sub: Subscription;
 
@@ -84,6 +85,12 @@ export class MainMapComponent implements OnInit, OnDestroy {
     if (this.mapApps.length !== 1) {
       this.mineMap.resetMap();
     }
+  }
+
+  public showPlace($event) {
+    this.places = $event;
+    this.mineMap.drawPlace(this.places);
+
   }
 
   private getProjects() {
