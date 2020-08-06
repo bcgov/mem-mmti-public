@@ -2,10 +2,12 @@ export class Collection {
   _id: string;
   displayName: string;
   date: Date;
+  datePublished: Date;
   parentType: string;
   type: string;
   status: string;
   agency: string;
+  records: string[];
 
   documents: {
     name: string;
@@ -13,12 +15,15 @@ export class Collection {
     date: Date;
   }[];
 
-  constructor(hostnameEPIC: string, hostnameMEM: string, collection?: any) {
-    this._id         = collection && collection._id         || null;
-    this.displayName = collection && collection.displayName || null;
-    this.parentType  = collection && collection.parentType  || null;
-    this.type        = collection && collection.type        || null;
-    this.status      = collection && collection.status      || null;
+  constructor(collection?: any) {
+    this._id           = collection && collection._id                     || null;
+    this.displayName   = collection && collection.name                    || null;
+    this.type          = collection && collection.type                    || null;
+    this.status        = collection && collection.status                  || null;
+    this.agency        = collection && collection.agency.toLowerCase()    || null;
+    this.date          = collection && new Date(collection.date)          || null;
+    this.datePublished = collection && new Date(collection.datePublished) || null;
+    this.records       = collection && collection.records                 || null;
 
     if (collection) {
       // Make sure parent type is set if it's null
@@ -43,11 +48,10 @@ export class Collection {
           case 'Dam Safety Inspection':
           case 'Letter of Assurance':
           case 'Proponent Self Report':
+          case 'Self Report':
             this.parentType = 'Other';
             break;
-
           default:
-            console.log('Unknown collection type: ' + this.type);
             this.parentType = 'Other';
         }
       }
@@ -57,63 +61,9 @@ export class Collection {
         this.status = (this.type === 'Permit' || this.type === 'Certificate') ? 'Issued' : 'Amended';
       }
 
-      // Set agency
-      if (collection.isForMEM) {
-        this.agency = 'mem';
-      } else if (collection.isForENV) {
-        this.agency = 'env';
-      } else {
-        this.agency = 'eao';
-      }
-
-      // Set date
-      this.date = collection.date ? new Date(collection.date) : null;
-
       // Set documents
       this.documents = [];
-
-      if (this.agency === 'eao' && collection.mainDocument && collection.mainDocument.document) {
-        // EAO main documents are still returned as a single element
-        this.documents.push({
-          name : collection.mainDocument.document.displayName,
-          ref  : this.getURL(collection.mainDocument.document._id, hostnameEPIC, hostnameMEM),
-          date : collection.mainDocument.document.documentDate ? new Date(collection.mainDocument.document.documentDate) : null
-        });
-      } else if (collection.mainDocuments && collection.mainDocuments.length > 0) {
-        // MEM main documents come in an array
-        const mainDocs = collection.mainDocuments.filter((doc) => {
-          return doc.document && doc.document.isPublished;
-        }).sort((a, b) => { return a.sortOrder - b.sortOrder; });
-        mainDocs.forEach(item => this.documents.push({
-          name : item.document.displayName,
-          ref  : this.getURL(item.document._id, hostnameEPIC, hostnameMEM),
-          date : item.document.documentDate ? new Date(item.document.documentDate) : null
-        }));
-      }
-
-      if (collection.otherDocuments && collection.otherDocuments.length > 0) {
-        // Sort them
-        const otherDocs = collection.otherDocuments.filter((doc) => {
-          return doc.document && doc.document.isPublished;
-        }).sort((a, b) => { return a.sortOrder - b.sortOrder; });
-
-        // Add them
-        otherDocs.forEach(otherDoc => {
-          if (otherDoc.document) {
-            this.documents.push({
-              name : otherDoc.document.displayName,
-              ref  : this.getURL(otherDoc.document._id, hostnameEPIC, hostnameMEM),
-              date : otherDoc.document.documentDate ? new Date(otherDoc.document.documentDate) : null
-            });
-          }
-        });
-      }
     }
-  }
-
-  private getURL(id: string, hostnameEPIC: string, hostnameMEM: string) {
-    const host = this.agency === 'eao' ? hostnameEPIC : hostnameMEM;
-    return `${host}/api/document/${id}/fetch`;
   }
 }
 
@@ -148,17 +98,18 @@ export class CollectionsGroup {
   eao: CollectionsArray;
   env: CollectionsArray;
   mem: CollectionsArray;
+  empr: CollectionsArray;
 
   constructor(obj?: any) {
     this.eao = obj && obj.eao || new CollectionsArray();
     this.env = obj && obj.env || new CollectionsArray();
-    this.mem = obj && obj.mem || new CollectionsArray();
+    this.empr = obj && obj.empr || new CollectionsArray();
   }
 
   sort() {
     this.eao.sort();
-    this.mem.sort();
     this.env.sort();
+    this.empr.sort();
   }
 }
 

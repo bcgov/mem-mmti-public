@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
 import { URLConstants } from 'app/shared/constants';
 
-
-
 @Injectable()
 export class Api {
   pathNRPTI: string;
@@ -86,18 +84,18 @@ export class Api {
     return this.getNRPTI(`public/search?dataset=MineBCMI&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score`);
   }
 
-  // may be ignorable if fetched as a populate=true from projectByCode
-  getProjectCollections(projectCode: string) {
-    let nameFromCode = projectCode
-                        .toLowerCase() // should be lowercase already, but just in case
-                        .split('-')
-                        .map(name => name.charAt(0).toUpperCase() + name.slice(1))
-                        .join(' ');
-
-    return this.getNRPTI(`public/search?dataset=MineBCMI&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score&populate=true`);
+  getProjectCollections(projectId: string) {
+    return this.getNRPTI(`public/search?dataset=CollectionBCMI&pageNum=0&pageSize=1000&sortBy=-dateAdded&and[project]=${projectId}&fields=&populate=true`);
   }
 
+  getCollectionRecord(recordId: string) {
+    return this.getNRPTI(`public/search?dataset=Item&_id=${recordId}&populate=true`);
+  }
   // Proponents
+
+  getDocument(documentId: string) {
+    return this.getNRPTI(`public/search?dataset=Item&_schemaName=Document&_id=${documentId}&populate=true`);
+  }
 
   getProponents() {
     return new Observable(); // this.getNRPTI('organization');
@@ -115,7 +113,6 @@ export class Api {
 
   handleError(error: any) {
     const reason = error.message ? error.message : (error.status ? `${error.status} - ${error.statusText}` : 'Server error');
-    console.log(reason);
     return observableThrowError(reason);
   }
 

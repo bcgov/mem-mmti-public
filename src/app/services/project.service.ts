@@ -48,23 +48,67 @@ export class ProjectService {
   }
 
   private getCollections() {
-    return this.api.getProjectCollections(this.project.name.replace(/\W+/g, '-').toLowerCase()).pipe(
-      map((res: any) => this.processCollections(res)),
-      map((collections: any[]) => {
+    return this.api.getProjectCollections(this.project._id).pipe(
+      map((res: any) => this.processCollections(res && res[0] && res[0].searchResults ? res[0].searchResults : null)),
+      map(async (collections: any[]) => {
         // Push them into the project
-        collections.forEach(collection => {
+        await this.loadCollectionRecords(collections);
+
+        collections.filter(c => c.documents.length > 0).forEach(collection => {
           this.addCollection(this.project.collections, collection);
         });
-      }));
+      })
+    );
   }
 
   private processCollections(res: any[]): any[] {
     const collections = res ? res : [];
 
     collections.forEach((collection, index) => {
-      collections[index] = new Collection(this.api.hostnameNRPTI, this.api.hostnameNRPTI, collection);
+      collections[index] = new Collection(collection);
     });
+
     return collections;
+  }
+
+  private async loadCollectionRecords(collectionsList: any[]) {
+    for (const collection of collectionsList) {
+      for (const recordId of collection.records) {
+        // fetch the record from NRPTI
+        const recordResult = await this.api.getCollectionRecord(recordId).toPromise();
+        const loadedRecord = recordResult && recordResult['length'] > 0 ? recordResult[0] : null;
+        // create the record only if this is published to bcmi (either by flag or by flavour) and actually has a document attached
+        // && (loadedRecord.isBcmiPublished || loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI') && f.read.includes('public')))
+        if (loadedRecord) {
+          // get the loaded records document ref URL
+          let document = null;
+          // permit/permitBCMI has amendmentDocument rather than a documents array
+          // this is not populate by populate=true
+          if (loadedRecord._schemaName === 'Permit') {
+            const bcmiFlavour = loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI'));
+            if (bcmiFlavour) {
+              let documentId = bcmiFlavour.amendmentDocument.documentId;
+              const docResult = await this.api.getDocument(documentId).toPromise();
+              document = docResult && docResult['length'] > 0 ? docResult[0] : null;
+            }
+          } else {
+            // has the 'documents' array. BCMI versions should only have one doc so should we assume
+            // the first doc, or just create a row for each, which would most likely be only one anyway?
+            document = loadedRecord.documents && loadedRecord.documents.length > 0 ? loadedRecord.documents[0] : null;
+          }
+
+          if (document) {
+            collection.documents.push({
+              name : loadedRecord['recordName'] || '-',
+              ref  : document.url,
+              date : loadedRecord['date'] || '-'
+            });
+          }
+        }
+      }
+    }
+
+    return collectionsList;
   }
 
   private addCollection(collectionsList: CollectionsList, collection: Collection) {
