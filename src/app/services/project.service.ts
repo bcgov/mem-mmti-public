@@ -78,8 +78,7 @@ export class ProjectService {
         const recordResult = await this.api.getCollectionRecord(recordId).toPromise();
         const loadedRecord = recordResult && recordResult['length'] > 0 ? recordResult[0] : null;
         // create the record only if this is published to bcmi (either by flag or by flavour) and actually has a document attached
-        // && (loadedRecord.isBcmiPublished || loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI') && f.read.includes('public')))
-        if (loadedRecord) {
+        if (loadedRecord && (loadedRecord.isBcmiPublished || loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI') && f.read.includes('public')))) {
           // get the loaded records document ref URL
           let document = null;
           // permit/permitBCMI has amendmentDocument rather than a documents array
