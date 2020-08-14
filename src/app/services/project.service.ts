@@ -94,6 +94,7 @@ export class ProjectService {
                 date : loadedRecord['date'] || '-'
               });
             }
+          }
         }
       }
     }
