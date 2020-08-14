@@ -80,13 +80,12 @@ export class ProjectService {
         // create the record only if this is published to bcmi (either by flag or by flavour) and actually has a document attached
         if (loadedRecord && (loadedRecord.isBcmiPublished || loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI') && f.read.includes('public')))) {
           // get the loaded records document ref URL
-          let document = null;
           // Grab the documents. If the object doesn't have a document attribute
           // or the document array is empty, we should not add a document
-          if (Object.prototype.hasOwnProperty.call(document, 'documents')) {
+          if (Object.prototype.hasOwnProperty.call(loadedRecord, 'documents')) {
             // BCMI versions should only have one doc so should we assume
             // the first doc, or just create a row for each, which would most likely be only one anyway?
-            document = loadedRecord.documents && loadedRecord.documents.length > 0 ? loadedRecord.documents[0] : null;
+            let document = loadedRecord.documents && loadedRecord.documents.length > 0 ? loadedRecord.documents[0] : null;
 
             if (document) {
               collection.documents.push({
@@ -95,7 +94,6 @@ export class ProjectService {
                 date : loadedRecord['date'] || '-'
               });
             }
-          }
         }
       }
     }
