@@ -181,6 +181,7 @@ $toggle-list-anim-duration: 0.2s;
 }
 
 .map-popup-desc {
+    white-space: pre-wrap;
     max-height: 20rem;
     line-height: calc(#{$map-popup-font-size} * 1.5);
 }

@@ -40,6 +40,10 @@
   }
 }
 
+.description {
+  white-space: pre-wrap;
+}
+
 @media (max-width: 567px) {
   .nav {
     margin-bottom: 1.75rem;
