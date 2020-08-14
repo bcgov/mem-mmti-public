@@ -81,27 +81,20 @@ export class ProjectService {
         if (loadedRecord && (loadedRecord.isBcmiPublished || loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI') && f.read.includes('public')))) {
           // get the loaded records document ref URL
           let document = null;
-          // permit/permitBCMI has amendmentDocument rather than a documents array
-          // this is not populate by populate=true
-          if (loadedRecord._schemaName === 'Permit') {
-            const bcmiFlavour = loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI'));
-            if (bcmiFlavour) {
-              let documentId = bcmiFlavour.amendmentDocument.documentId;
-              const docResult = await this.api.getDocument(documentId).toPromise();
-              document = docResult && docResult['length'] > 0 ? docResult[0] : null;
-            }
-          } else {
-            // has the 'documents' array. BCMI versions should only have one doc so should we assume
+          // Grab the documents. If the object doesn't have a document attribute
+          // or the document array is empty, we should not add a document
+          if (Object.prototype.hasOwnProperty.call(document, 'documents')) {
+            // BCMI versions should only have one doc so should we assume
             // the first doc, or just create a row for each, which would most likely be only one anyway?
             document = loadedRecord.documents && loadedRecord.documents.length > 0 ? loadedRecord.documents[0] : null;
-          }
 
-          if (document) {
-            collection.documents.push({
-              name : loadedRecord['recordName'] || '-',
-              ref  : document.url,
-              date : loadedRecord['date'] || '-'
-            });
+            if (document) {
+              collection.documents.push({
+                name : loadedRecord['recordName'] || '-',
+                ref  : document.url,
+                date : loadedRecord['date'] || '-'
+              });
+            }
           }
         }
       }
