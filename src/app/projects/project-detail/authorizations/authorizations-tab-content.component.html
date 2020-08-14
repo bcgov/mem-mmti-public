@@ -64,17 +64,17 @@
     </div>
   </section>
 
-  <section class="auth-section" *ngIf="collections.mem.length > 0">
+  <section class="auth-section" *ngIf="collections.empr.length > 0">
     <h3>Mines Act <span>Ministry of Energy, Mines and Petroleum Resources</span></h3>
     <div class="accordion authorizations-list" id="authorization-MEM" role="tablist" aria-multiselectable="false">
-      <div class="accordion__collapse-item" *ngFor="let c of collections.mem.items">
+      <div class="accordion__collapse-item" *ngFor="let c of collections.empr.items">
         <div class="accordion__collapse-header" role="tab" id="heading-{{c._id}}">
           <a class="accordion__collapse-header--column toggle collapsed" data-ng-if="c.documents" data-toggle="collapse" href="#collapse-{{c._id}}"
             aria-expanded="true" aria-controls="collapseOne">
             <i class="material-icons open-icon">add</i>
             <i class="material-icons close-icon">remove</i>
           </a>
-          <span class="accordion__collapse-header--column authorizations-list__name-col">{{project.memPermitID}} - {{c.displayName}}</span>
+          <span class="accordion__collapse-header--column authorizations-list__name-col">{{project.permitNumber}} - {{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
             <span>Permit {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
