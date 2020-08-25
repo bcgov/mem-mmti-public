@@ -74,7 +74,6 @@ export class ProjectService {
   private async loadCollectionRecords(collectionsList: any[]) {
     for (const collection of collectionsList) {
       const collectionDocuments: any = await this.api.getCollectionDocuments(collection._id).toPromise();
-      console.log(collectionDocuments);
       for (const document of collectionDocuments) {
         collection.documents.push({
           name : document.fileName || '-',
