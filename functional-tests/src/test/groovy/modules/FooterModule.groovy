@@ -7,8 +7,8 @@ import geb.Module
  */
 class FooterModule extends Module {
   static content = {
-    FindProjectsByListLink { $(".app-footer").$("section").has("h4", text:"Navigate").has("h5", text:"FIND MINES IN BRITISH COLUMBIA").$("a", text:"Find Projects by List") }
-    FindProjectsByMapLink { $(".app-footer").$("section").has("h4", text:"Navigate").has("h5", text:"FIND MINES IN BRITISH COLUMBIA").$("a", text:"Find Projects by Map") }
+    FindProjectsByListLink { $(".app-footer").$("section").has("h4", text:"Navigate").has("h5", text:"FIND MINES IN BRITISH COLUMBIA").$("a", text:"Find Mines by List") }
+    FindProjectsByMapLink { $(".app-footer").$("section").has("h4", text:"Navigate").has("h5", text:"FIND MINES IN BRITISH COLUMBIA").$("a", text:"Find Mines by Map") }
 
     TheMiningLifecycleLink { $(".app-footer").$("section").has("h4", text:"Navigate").has("h5", text:"MINING IN BRITISH COLUMBIA").$("a", text:"The Mining Lifecycle") }
     TopicsOfInterstLink { $(".app-footer").$("section").has("h4", text:"Navigate").has("h5", text:"MINING IN BRITISH COLUMBIA").$("a", text:"Topics of Interest") }

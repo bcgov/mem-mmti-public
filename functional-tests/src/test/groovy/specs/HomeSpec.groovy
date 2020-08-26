@@ -32,8 +32,8 @@ class HomeSpec extends GebReportingSpec {
       at AssertPage
     where:
       ItemSelector                        | SubItemSelector                    || AssertPage
-      [ text : "FIND MINES IN BC" ]       | [ text : "Find Projects by List" ] || ProjectsPage
-      [ text : "FIND MINES IN BC" ]       | [ text : "Find Projects by Map" ]  || MapPage
+      [ text : "FIND MINES IN BC" ]       | [ text : "Find Mines by List" ]    || ProjectsPage
+      [ text : "FIND MINES IN BC" ]       | [ text : "Find MInes by Map" ]     || MapPage
 
 
       [ text : "MINING IN BC" ]           | [ text : "The Mining Lifecycle" ]  || LifecyclePage
