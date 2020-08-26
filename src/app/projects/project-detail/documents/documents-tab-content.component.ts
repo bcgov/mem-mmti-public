@@ -47,7 +47,6 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
   }
 
   sort(field: string) {
-    console.log('Called sort!');
     // Reverse order if this is already sort field
     if (this.sortField === field) {
       this.sortAsc = !this.sortAsc;
