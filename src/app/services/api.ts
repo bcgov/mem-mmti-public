@@ -91,6 +91,10 @@ export class Api {
   getCollectionRecord(recordId: string) {
     return this.getNRPTI(`public/search?dataset=Item&_id=${recordId}&populate=true`);
   }
+
+  getCollectionDocuments(collectionId: string) {
+    return this.getNRPTI(`public/search?dataset=CollectionDocuments&_id=${collectionId}`);
+  }
   // Proponents
 
   getDocument(documentId: string) {

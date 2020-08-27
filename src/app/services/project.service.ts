@@ -73,29 +73,13 @@ export class ProjectService {
 
   private async loadCollectionRecords(collectionsList: any[]) {
     for (const collection of collectionsList) {
-      for (const recordId of collection.records) {
-        // fetch the record from NRPTI
-        const recordResult = await this.api.getCollectionRecord(recordId).toPromise();
-        const loadedRecord = recordResult && recordResult['length'] > 0 ? recordResult[0] : null;
-        // create the record only if this is published to bcmi (either by flag or by flavour) and actually has a document attached
-        if (loadedRecord && loadedRecord.flavours.find(f => f._schemaName.endsWith('BCMI') && f.read.includes('public'))) {
-          // get the loaded records document ref URL
-          // Grab the documents. If the object doesn't have a document attribute
-          // or the document array is empty, we should not add a document
-          if (Object.prototype.hasOwnProperty.call(loadedRecord, 'documents')) {
-            // BCMI versions should only have one doc so should we assume
-            // the first doc, or just create a row for each, which would most likely be only one anyway?
-            let document = loadedRecord.documents && loadedRecord.documents.length > 0 ? loadedRecord.documents[0] : null;
-
-            if (document) {
-              collection.documents.push({
-                name : loadedRecord['recordName'] || '-',
-                ref  : document.url,
-                date : loadedRecord['date'] || '-'
-              });
-            }
-          }
-        }
+      const collectionDocuments: any = await this.api.getCollectionDocuments(collection._id).toPromise();
+      for (const document of collectionDocuments) {
+        collection.documents.push({
+          name : document.fileName || '-',
+          ref  : document.url,
+          date : document.dateAdded || '-'
+        });
       }
     }
 
