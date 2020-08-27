@@ -57,6 +57,7 @@ node('master') {
    */
   sh("oc extract secret/rocket-chat-secrets --to=${env.WORKSPACE} --confirm")
   ROCKET_QA_WEBHOOK = sh(script: "cat rocket-qa-webhook", returnStdout: true)
+  ROCKET_DEPLOY_WEBHOOK = sh(script: "cat rocket-deploy-webhook", returnStdout: true)
 
   withEnv(["ROCKET_DEPLOY_WEBHOOK=${ROCKET_DEPLOY_WEBHOOK}"]){
     stage('Build'){
