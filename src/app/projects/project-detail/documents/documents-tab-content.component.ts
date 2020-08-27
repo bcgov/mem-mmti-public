@@ -16,6 +16,10 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
   project: Project;
   collections: CollectionsArray;
 
+  sortField: string;
+  sortAsc: boolean;
+  sortDirection: number;
+
   // private fields
   private sub: Subscription;
 
@@ -34,8 +38,24 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
     if (data.project && data.project.collections) {
       this.project = data.project;
       this.collections = data.project.collections.documents;
-      this.collections.sort();
+
+      // Default sort will be descending by date
+      this.sortField = 'date';
+      this.sortAsc = false;
+      this.sortDirection = -1;
     }
+  }
+
+  sort(field: string) {
+    // Reverse order if this is already sort field
+    if (this.sortField === field) {
+      this.sortAsc = !this.sortAsc;
+    } else {
+      // Ascending sort of the new field
+      this.sortField = field;
+      this.sortAsc = true;
+    }
+    this.sortDirection = this.sortAsc ? 1 : -1;
   }
 
   ngOnDestroy(): void {

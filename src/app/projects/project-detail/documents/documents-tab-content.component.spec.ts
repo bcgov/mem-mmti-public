@@ -4,6 +4,7 @@ import { Project } from 'app/models/project';
 import { CollectionsArray, CollectionsList } from 'app/models/collection';
 
 import { DocumentsTabContentComponent } from 'app/projects/project-detail/documents/documents-tab-content.component';
+import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
 
 describe('DocumentsTabContentComponent', () => {
   let component: DocumentsTabContentComponent;
@@ -27,7 +28,7 @@ describe('DocumentsTabContentComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: ActivatedRouteStub }
       ],
-      declarations: [ DocumentsTabContentComponent ],
+      declarations: [ DocumentsTabContentComponent, OrderByPipe ],
       imports: []
     })
     .compileComponents();
