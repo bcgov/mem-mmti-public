@@ -1,7 +1,10 @@
 <div class="authorizations tab-pane" id="authorizations" role="tabpanel">
   <p class="tab-intro">
-    <span [innerHTML]="project?.getContent('Auth', 'Intro')"></span>
-    <span>Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.</span>
+    <span>
+      Environmental assessment certificates and permits issued under the Mines Act and the Environmental Management Act (EMA)
+       are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations 
+       associated with each of these three acts (as applicable). Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.
+    </span>
   </p>
 
   <section class="auth-section" *ngIf="collections.eao.length > 0">

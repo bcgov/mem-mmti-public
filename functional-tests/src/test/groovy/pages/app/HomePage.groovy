@@ -3,7 +3,7 @@ package pages.app
 import pages.base.BaseAppPage
 
 class HomePage extends BaseAppPage {
-  static at = { pageTitle.startsWith("British Columbia Mine Information") && pageTitle.endsWith("BETA") }
+  static at = { pageTitle.startsWith("British Columbia Mine Information") }
   static url = ""
   static content = {
     header { module(HeaderModule) }
