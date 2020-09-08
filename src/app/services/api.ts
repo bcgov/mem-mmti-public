@@ -85,7 +85,7 @@ export class Api {
   }
 
   getProjectCollections(projectId: string) {
-    return this.getNRPTI(`public/search?dataset=CollectionBCMI&pageNum=0&pageSize=1000&sortBy=-dateAdded&and[project]=${projectId}&fields=&populate=true`);
+    return this.getNRPTI(`public/search?dataset=CollectionBCMI&pageNum=0&pageSize=1000&sortBy=-date&and[project]=${projectId}&fields=&populate=true`);
   }
 
   getCollectionRecord(recordId: string) {
