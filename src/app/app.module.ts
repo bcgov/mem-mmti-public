@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +21,8 @@ import { TailingsManagementComponent } from 'app/static-pages/tailings-managemen
 import { ReclamationComponent } from 'app/static-pages/reclamation/reclamation.component';
 import { NotFoundComponent } from 'app/not-found/not-found.component';
 import { ProponentService } from 'app/services/proponent.service';
+import { ConfigService } from 'app/services/config.service';
+import { GeocoderService } from 'app/services/geocoder.service';
 
 // feature modules
 import { MapModule } from 'app/map/map.module';
@@ -30,6 +32,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
+
+export function initConfig(configService: ConfigService) {
+  return () => configService.init();
+}
 
 @NgModule({
   declarations: [
@@ -66,7 +72,18 @@ import { EnforcementActionsComponent } from 'app/static-pages/enforcement-action
     MapModule,
     SharedModule
   ],
-  providers: [ProponentService, CookieService],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      multi: true,
+      deps: [ConfigService]
+    },
+    ProponentService,
+    CookieService,
+    ConfigService,
+    GeocoderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
