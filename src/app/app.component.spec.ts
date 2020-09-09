@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from 'app/app.component';
 
@@ -11,7 +12,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
-        Api
+        Api,
+        ConfigService
       ],
       declarations: [
         AppComponent

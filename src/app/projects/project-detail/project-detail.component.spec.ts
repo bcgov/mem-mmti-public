@@ -10,6 +10,7 @@ import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
 import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
 import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 
 describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;
@@ -62,7 +63,8 @@ describe('ProjectDetailComponent', () => {
           { provide: ActivatedRoute, useValue: ActivatedRouteStub },
           { provide: Router, useValue: router },
           LeafletMapComponent,
-          { provide: ProjectService, useValue: ProjectServiceStub }
+          { provide: ProjectService, useValue: ProjectServiceStub },
+          ConfigService
         ],
         declarations: [
           ProjectDetailComponent,

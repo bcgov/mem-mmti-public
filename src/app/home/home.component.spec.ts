@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProjectService } from 'app/services/project.service';
+import { ConfigService } from 'app/services/config.service';
 import { Api } from 'app/services/api';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from 'app/home/home.component';
@@ -21,7 +22,7 @@ describe('HomeComponent', () => {
     };
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      providers: [{ provide: ProjectService, useValue: ProjectServiceStub }, Api],
+      providers: [{ provide: ProjectService, useValue: ProjectServiceStub }, Api, ConfigService],
       imports: [RouterTestingModule, HttpClientModule]
     }).compileComponents();
   }));

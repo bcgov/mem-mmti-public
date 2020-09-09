@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 
 describe('Api', () => {
   beforeEach(() => {
@@ -8,46 +9,7 @@ describe('Api', () => {
 
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [Api]
-    });
-  });
-
-  describe('getHostName()', () => {
-    describe('localhost', () => {
-      it(
-        'should return http://localhost:3000',
-        inject([Api], (api) => {
-          expect(api.getHostName('localhost').hostnameMEM).toBe('http://localhost:3000');
-        })
-      );
-    });
-    describe('www-mem-mmt-dev.pathfinder.gov.bc.ca', () => {
-      it(
-        'should return http://localhost:4000',
-        inject([Api], (api) => {
-          expect(api.getHostName('www-mem-mmt-dev.pathfinder.gov.bc.ca').hostnameMEM).toBe(
-            'https://nrpti-dev.pathfinder.gov.bc.ca'
-          );
-        })
-      );
-    });
-    describe('www-mem-mmt-test.pathfinder.gov.bc.ca', () => {
-      it(
-        'should return https://mem-mmt-test.pathfinder.gov.bc.ca',
-        inject([Api], (api) => {
-          expect(api.getHostName('www-mem-mmt-test.pathfinder.gov.bc.ca').hostnameMEM).toBe(
-            'https://nrpti-test.pathfinder.gov.bc.ca'
-          );
-        })
-      );
-    });
-    describe('http://mines.nrs.gov.bc.ca/', () => {
-      it(
-        'should return https://mem-mmt-test.pathfinder.gov.bc.ca',
-        inject([Api], (api) => {
-          expect(api.getHostName('mines.nrs.gov.bc.ca/').hostnameMEM).toBe('https://nrpti-prod.pathfinder.gov.bc.ca');
-        })
-      );
+      providers: [Api, ConfigService]
     });
   });
 
