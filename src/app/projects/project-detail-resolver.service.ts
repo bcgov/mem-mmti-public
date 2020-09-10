@@ -14,7 +14,7 @@ export class ProjectDetailResolver implements Resolve<Project> {
 
   resolve(route: ActivatedRouteSnapshot): Project | Observable<Project> | Promise<Project> {
     const code = route.paramMap.get('code');
-    return this.projectService.getByCode(code).pipe(
+    return this.projectService.getById(code).pipe(
       catchError(err => {
         return observableThrowError(err);
       }));
