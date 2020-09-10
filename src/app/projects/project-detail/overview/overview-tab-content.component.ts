@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Project } from 'app/models/project';
+import { LoggerService } from 'app/services/logger.service';
 
 @Component({
   selector: 'app-overview-tab-content',
@@ -17,13 +18,13 @@ export class OverviewTabContentComponent implements OnInit, OnDestroy {
   // private fields
   private sub: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private logger: LoggerService) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.sub = this.route.parent.data.subscribe(
       (data: { project: Project }) => this.project = data.project,
-      error => console.log(error),
+      error => this.logger.log(error),
       () => this.loading = false
     );
   }

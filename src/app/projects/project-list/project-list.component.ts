@@ -3,6 +3,7 @@ import { PaginationInstance } from 'ngx-pagination';
 
 import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
+import { LoggerService } from 'app/services/logger.service';
 
 @Component({
   selector: 'app-project-list',
@@ -30,14 +31,16 @@ export class ProjectListComponent implements OnInit {
     currentPage: 1
   };
 
-  constructor(private projectService: ProjectService, private _changeDetectionRef: ChangeDetectorRef) { }
+  constructor(private projectService: ProjectService,
+              private _changeDetectionRef: ChangeDetectorRef,
+              private logger: LoggerService) { }
 
   ngOnInit() {
     this.loading = true;
     window.scrollTo(0, 0);
     this.projectService.getAll().subscribe(
       data => this.parseData(data),
-      error => console.log(error)
+      error => this.logger.log(error)
     );
   }
 

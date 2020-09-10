@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Project } from 'app/models/project';
+import { LoggerService } from 'app/services/logger.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -25,7 +26,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private pageYOffset: number;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private logger: LoggerService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -34,13 +37,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     // wait for the resolver to retrieve the project details from back-end
     this.sub = this.route.data.subscribe(
       (data: { project: Project }) => this.parseData(data),
-      error => console.log(error)
+      error => this.logger.log(error)
     );
     // watch for route change events and restore Y scroll position
     this.router.events.subscribe(() => {
       this.restoreYOffset();
     },
-    error => console.log(error));
+    error => this.logger.log(error));
 
     window.scrollTo(0, 0);
   }
