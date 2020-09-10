@@ -69,10 +69,7 @@ export class LoggerService {
   }
 
   private entryToString(logEntry) {
-    return `${logEntry.level <= 1 ? 'DEBUG' :
-              logEntry.level === 2 ? 'INFO' :
-              logEntry.level === 3 ? 'WARN' :
-              logEntry.level === 4 ? 'ERROR' : 'FATAL'}${this.logWithDate ? ' : ' + logEntry.date : ''} : ${logEntry.message}`;
+    return `${LogLevel[logEntry.level]}${this.logWithDate ? ' : ' + logEntry.date : ''} : ${logEntry.message}`;
   }
 
   private shouldLog(level: LogLevel): boolean {
