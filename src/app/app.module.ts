@@ -31,6 +31,9 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
 
+// logger service
+import { LoggerService } from './services/logger.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +69,7 @@ import { EnforcementActionsComponent } from 'app/static-pages/enforcement-action
     MapModule,
     SharedModule
   ],
-  providers: [ProponentService, CookieService],
+  providers: [ProponentService, CookieService, LoggerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
