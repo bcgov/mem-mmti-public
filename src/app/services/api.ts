@@ -64,8 +64,12 @@ export class Api {
     return this.getNRPTI(`public/search?dataset=MineBCMI&pageNum=0&pageSize=1000&sortBy=+name`);
   }
 
-// get by id? `record/${model}/${recordId}`
+  getProjectById(projectId: string) {
+    return this.getNRPTI(`public/search?dataset=Item&_id=${projectId}&_schemaName=MineBCMI`);
+  }
 
+  // Not currently used, but it's highly likely that this will come back at some point in the near
+  // future (business prefers using the code vs guid) so leaving in for now.
   getProjectByCode(projectCode: string) {
     // code is the name lowercased, spaces converted to dashes
     // not on nrpti model, but we can derive the name from it

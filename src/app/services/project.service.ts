@@ -25,13 +25,13 @@ export class ProjectService {
       catchError(this.api.handleError));
   }
 
-  getByCode(code: string): Observable<Project> {
+  getById(code: string): Observable<Project> {
     this.project = null;
 
     // Grab the project data first
-    return this.api.getProjectByCode(code).pipe(
+    return this.api.getProjectById(code).pipe(
       map((res: HttpResponse<any>) => {
-        return res && res[0] && res[0]['searchResults'] && res[0]['searchResults'].length > 0 ? new Project(res[0]['searchResults'][0]) : null;
+        return res && res[0] ? new Project(res[0]) : null;
       }),
       map((project: Project) => {
         if (!project) { return observableThrowError(new Error('Project not found!')); }
