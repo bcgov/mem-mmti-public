@@ -19,7 +19,7 @@
           </a>
           <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
-            <span>Certificate {{c.status}}</span> -
+            <span>{{c.type}} {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
           </span>
         </div>
@@ -49,7 +49,7 @@
           </a>
           <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
-            <span>Permit {{c.status}}</span> -
+            <span>{{c.type}} {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
           </span>
         </div>
@@ -77,9 +77,9 @@
             <i class="material-icons open-icon">add</i>
             <i class="material-icons close-icon">remove</i>
           </a>
-          <span class="accordion__collapse-header--column authorizations-list__name-col">{{project.permitNumber}} - {{c.displayName}}</span>
+          <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
-            <span>Permit {{c.status}}</span> -
+            <span>{{c.type}} {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
           </span>
         </div>
