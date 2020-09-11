@@ -1,15 +1,18 @@
 worker_processes  auto;
+load_module modules/ngx_http_js_module.so;
+
+env CONFIG_ENDPOINT;
 
 error_log  /var/log/nginx/error.log;
 pid        /var/run/nginx.pid;
-
 
 events {
     worker_connections  4096;
 }
 
-
 http {
+    js_include    /tmp/fetch_env.js;
+    js_set        $config_endpoint        fetch_config_endpoint;
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
     server_tokens off;
@@ -17,6 +20,7 @@ http {
     # ip filtering
     %IpFilterRules%
 
+    # logging rules
     geo $loggable {
         default 1;
         %RealIpFrom% 0;
@@ -52,7 +56,66 @@ http {
     #default throttle; not inherited if set in nested level
     limit_req zone=bra5 burst=100;
 
-    client_max_body_size 100m;
+    # HTTP Basic rules
+    auth_basic_user_file /tmp/.htpasswd;
 
-    include /etc/nginx/conf.d/*.conf;
+    server {
+        listen       8080;
+        server_name  localhost;
+
+        # add in most common security headers
+        add_header Content-Security-Policy "default-src * data: blob: filesystem: 'unsafe-inline' 'unsafe-eval'";
+        add_header Strict-Transport-Security "max-age=86400; includeSubDomains";
+        add_header X-Content-Type-Options "nosniff";
+        add_header X-XSS-Protection 1;
+        add_header X-Frame-Options DENY;
+
+        # serve our angular app here
+        location / {
+            root   /tmp/app/dist;
+            index  index.html index.htm;
+            try_files $uri /index.html;
+            gzip            on;
+            gzip_min_length 1000;
+            gzip_types      *;
+
+            # Deploy-time configurable
+            %HTTP_BASIC%
+        }
+
+        # redirect server error pages to the static page /50x.html
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+        
+        # Serve dynamic configuration information such as feature flags, api endpoints, etc
+        # from this apps location:  <http:// | https://><domain>/config
+        location /api/config {
+          proxy_pass $config_endpoint;
+
+          # Ensure HTTP get passed thru
+          proxy_pass_request_headers on;
+        }
+
+        # For status of ngnix service, OpenShift is configured to call this
+        location /nginx_status {
+            # Enable Nginx stats
+            stub_status on;
+
+            # Only allow access from localhost
+            allow 127.0.0.1;
+            
+            #Allowing only 127.0.0.1 leads to error below:
+            #[error]access forbidden by rule, client: 172.51.48.1, server: localhost, request: "GET /nginx_status HTTP/1.1", host: "172.51.49.14:8080"
+            allow 172.51.0.0/16;
+
+            # Other request should be denied
+            deny all;
+
+            # No need to log this request, its just noise
+            access_log off;
+        }
+
+    }
 }

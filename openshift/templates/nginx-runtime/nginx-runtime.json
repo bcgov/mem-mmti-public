@@ -28,18 +28,15 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${GIT_REPO_URL}",
-            "ref": "${GIT_REPO_BRANCH}"
+            "ref": "${GIT_REF}",
+            "uri": "${GIT_REPO_URL}"
           },
-          "contextDir": "openshift/templates/nginx-runtime/"
+          "contextDir": "${SOURCE_CONTEXT_DIR}"
         },
         "strategy": {
           "type": "Docker"
         },
         "triggers": [
-          {
-            "type": "ImageChange"
-          },
           {
             "type": "ConfigChange"
           }
@@ -47,7 +44,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${NAME}:latest"
+            "name": "${NAME}:${OUTPUT_IMAGE_TAG}"
           }
         },
         "resources": {},
@@ -69,16 +66,30 @@
     {
       "name": "GIT_REPO_URL",
       "displayName": "Git Repo URL",
-      "description": "The URL to the customized project copy of the original common angular scaffold project https://github.com/bcgov/angular-scaffold.",
+      "description": "The URL to your customized project copy of the original common angular scaffold project https://github.com/bcgov/angular-scaffold.",
       "required": true,
       "value": "https://github.com/bcgov/mem-mmti-public"
     },
     {
-      "name": "GIT_REPO_BRANCH",
-      "displayName": "Git Repo Branch",
-      "description": "The branch with your GIT repo.",
+      "name": "GIT_REF",
+      "displayName": "Git Reference",
+      "description": "The git reference or branch.",
       "required": true,
       "value": "dev"
+    },
+    {
+      "name": "SOURCE_CONTEXT_DIR",
+      "displayName": "Source Context Directory",
+      "description": "The source context directory.",
+      "required": true,
+      "value": "openshift/templates/nginx-runtime/"
+    },
+    {
+      "name": "OUTPUT_IMAGE_TAG",
+      "displayName": "Output Image Tag",
+      "description": "The tag given to the built image.",
+      "required": true,
+      "value": "latest"
     }
   ]
 }
