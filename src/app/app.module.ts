@@ -23,6 +23,7 @@ import { NotFoundComponent } from 'app/not-found/not-found.component';
 import { ProponentService } from 'app/services/proponent.service';
 import { ConfigService } from 'app/services/config.service';
 import { GeocoderService } from 'app/services/geocoder.service';
+import { LoggerService } from './services/logger.service';
 
 // feature modules
 import { MapModule } from 'app/map/map.module';
@@ -32,6 +33,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
+
 
 export function initConfig(configService: ConfigService) {
   return () => configService.init();
@@ -82,7 +84,8 @@ export function initConfig(configService: ConfigService) {
     ProponentService,
     CookieService,
     ConfigService,
-    GeocoderService
+    GeocoderService,
+    LoggerService
   ],
   bootstrap: [AppComponent]
 })

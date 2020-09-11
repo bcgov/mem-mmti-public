@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Project } from 'app/models/project';
 import { CollectionsArray } from 'app/models/collection';
+import { LoggerService } from 'app/services/logger.service';
 
 @Component({
   selector: 'app-compliance-tab-content',
@@ -23,13 +24,13 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   // private fields
   private sub: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private logger: LoggerService) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.sub = this.route.parent.data.subscribe(
       (data: { project: Project }) => this.parseData(data),
-      error => console.log(error),
+      error => this.logger.log(error),
       () => this.loading = false
     );
   }
