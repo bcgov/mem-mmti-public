@@ -2,7 +2,7 @@ import {throwError as observableThrowError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
-import { URLConstants } from 'app/shared/constants';
+import { ConfigService } from 'app/services/config.service';
 
 @Injectable()
 export class Api {
@@ -11,57 +11,19 @@ export class Api {
   params: Params;
   env: 'local' | 'dev' | 'test' | 'prod';
 
-  constructor(private http: HttpClient) {
-    const host = this.getHostName(window.location.hostname);
-    this.hostnameNRPTI = host.hostnameMEM;
-    this.env = host.env;
-    this.pathNRPTI  = this.getNRPTIPath(this.hostnameNRPTI);
-  }
-
-  getHostName(hostname: string) {
-    let hostnameNRPTI: string;
-    let env: 'local' | 'dev' | 'test' | 'prod';
-
-    switch (hostname) {
-      case 'localhost':
-        // Local
-        hostnameNRPTI  =   URLConstants.localApiHostname;
-        env = 'local';
-        break;
-
-      case 'www-mem-mmt-dev.pathfinder.gov.bc.ca':
-        // Dev
-        hostnameNRPTI  = URLConstants.devApiHostname;
-        env = 'dev';
-        break;
-
-      case 'www-mem-mmt-test.pathfinder.gov.bc.ca':
-        // Test
-        hostnameNRPTI  = URLConstants.testApiHostname;
-        env = 'test';
-        break;
-      case 'www-mem-mmt-dev-v2.pathfinder.gov.bc.ca':
-        // Test for v2 Feature Branch (temporary)
-        hostnameNRPTI  = URLConstants.testApiHostname;
-        env = 'test';
-        break;
-      default:
-        // Prod
-        hostnameNRPTI  = URLConstants.prodApiHostname;
-        env = 'prod';
-    }
-
-    return { hostnameMEM: hostnameNRPTI, env };
-  }
-
-  getNRPTIPath(hostnameMEM) {
-    return `${ hostnameMEM }/api`;
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService
+    ) {
+    this.hostnameNRPTI = this.configService.config['API_LOCATION'];
+    this.env = this.configService.config['ENVIRONMENT'];
+    this.pathNRPTI = this.configService.config['API_LOCATION'] + this.configService.config['API_PUBLIC_PATH'];
   }
 
   // Projects
 
   getProjects() {
-    return this.getNRPTI(`public/search?dataset=MineBCMI&pageNum=0&pageSize=1000&sortBy=+name`);
+    return this.getNRPTI(`search?dataset=MineBCMI&pageNum=0&pageSize=1000&sortBy=+name`);
   }
 
   getProjectById(projectId: string) {
@@ -85,24 +47,24 @@ export class Api {
                         .map(name => name.charAt(0).toUpperCase() + name.slice(1))
                         .join(' ');
 
-    return this.getNRPTI(`public/search?dataset=MineBCMI&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score`);
+    return this.getNRPTI(`search?dataset=MineBCMI&keywords=${nameFromCode}&pageNum=0&pageSize=1&sortBy=-score`);
   }
 
   getProjectCollections(projectId: string) {
-    return this.getNRPTI(`public/search?dataset=CollectionBCMI&pageNum=0&pageSize=1000&sortBy=-date&and[project]=${projectId}&fields=&populate=true`);
+    return this.getNRPTI(`search?dataset=CollectionBCMI&pageNum=0&pageSize=1000&sortBy=-date&and[project]=${projectId}&fields=&populate=true`);
   }
 
   getCollectionRecord(recordId: string) {
-    return this.getNRPTI(`public/search?dataset=Item&_id=${recordId}&populate=true`);
+    return this.getNRPTI(`search?dataset=Item&_id=${recordId}&populate=true`);
   }
 
   getCollectionDocuments(collectionId: string) {
-    return this.getNRPTI(`public/search?dataset=CollectionDocuments&_id=${collectionId}`);
+    return this.getNRPTI(`search?dataset=CollectionDocuments&_id=${collectionId}`);
   }
   // Proponents
 
   getDocument(documentId: string) {
-    return this.getNRPTI(`public/search?dataset=Item&_schemaName=Document&_id=${documentId}&populate=true`);
+    return this.getNRPTI(`search?dataset=Item&_schemaName=Document&_id=${documentId}&populate=true`);
   }
 
   getProponents() {
@@ -115,8 +77,8 @@ export class Api {
     return this.get(this.pathNRPTI, apiRoute, options);
   }
 
-  lookupAddress(requestUrl: string, options?: Object) {
-    return this.http.get(requestUrl, options || []);
+  lookupAddress(addressUrl: string, options?: Object) {
+    return this.get(this.hostnameNRPTI, addressUrl, options || []);
   }
 
   handleError(error: any) {

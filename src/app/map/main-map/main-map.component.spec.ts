@@ -14,6 +14,7 @@ import { LeafletMapComponent } from '../leaflet-map/leaflet-map.component';
 import { TestConstants } from 'app/shared/test-constants';
 import { GeocoderService } from 'app/services/geocoder.service';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 
 @Component({
   selector: 'leaflet-map',
@@ -61,7 +62,8 @@ describe('MainMapComponent', () => {
         HttpHandler,
         { provide: ProjectService, useValue: ProjectServiceStub },
         GeocoderService,
-        Api
+        Api,
+        ConfigService
       ],
       declarations: [
         MainMapComponent,

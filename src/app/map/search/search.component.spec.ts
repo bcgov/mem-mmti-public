@@ -8,6 +8,7 @@ import { SearchComponent } from 'app/map/search/search.component';
 import { TestConstants } from 'app/shared/test-constants';
 import { GeocoderService } from 'app/services/geocoder.service';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
 
@@ -32,6 +33,7 @@ describe('SearchComponent', () => {
       providers: [
         {provide: GeocoderService, useValue: GeocoderServiceStub },
         Api,
+        ConfigService,
         HttpClient,
         HttpHandler
       ],

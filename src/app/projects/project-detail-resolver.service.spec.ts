@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProjectDetailResolver } from 'app/projects/project-detail-resolver.service';
 import { ProjectService } from 'app/services/project.service';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('ProjectDetailResolverService', () => {
@@ -12,7 +13,8 @@ describe('ProjectDetailResolverService', () => {
       providers: [
         ProjectService,
         ProjectDetailResolver,
-        Api
+        Api,
+        ConfigService
       ],
       declarations: [],
       imports: [

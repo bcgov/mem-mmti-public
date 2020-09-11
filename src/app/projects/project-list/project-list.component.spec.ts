@@ -13,6 +13,7 @@ import { OperatorFilterPipe } from 'app/pipes/operator-filter.pipe';
 import { ObjectFilterPipe } from 'app/pipes/object-filter.pipe';
 import { ProjectService } from 'app/services/project.service';
 import { Api } from 'app/services/api';
+import { ConfigService } from 'app/services/config.service';
 
 describe('ProjectComponent', () => {
   let component: ProjectListComponent;
@@ -32,7 +33,8 @@ describe('ProjectComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         {provide: ProjectService, useValue: ProjectServiceStub},
-        Api
+        Api,
+        ConfigService,
       ],
       declarations: [
         ProjectListComponent,

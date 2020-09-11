@@ -1,8 +1,5 @@
-import { URLConstants } from 'app/shared/constants';
-
 class RequestBuilder {
   // required
-  private _baseUrl: string;
   private _outputFormat: string;
   private _addressString: string;
 
@@ -22,7 +19,6 @@ class RequestBuilder {
   private _maxDistance: number;
 
   constructor() {
-    this._baseUrl = URLConstants.geocoder_api;
     this._outputFormat = 'json';
     this._outputSRS = 4326;  // --> WGS84 (default map projection)
   }
@@ -160,7 +156,7 @@ class RequestBuilder {
    * @returns the URL used to get the results of the geocode request
    */
   build(): string {
-    let url = this._baseUrl + '/addresses';
+    let url = '/addresses';
     if (this._outputFormat) {
       url += '.' + encodeURIComponent(this._outputFormat);
     }
