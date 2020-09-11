@@ -15,6 +15,16 @@ $ff-metric-color-2: #494949;
     }
 }
 
+.update-text {
+    p {
+        color: $gold;
+    }
+    a {
+        color: $gold;
+        text-decoration: underline;
+    }
+}
+
 .fast-facts {
     margin-top: 2rem;
 
