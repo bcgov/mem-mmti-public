@@ -27,7 +27,7 @@ export class Api {
   }
 
   getProjectById(projectId: string) {
-    return this.getNRPTI(`public/search?dataset=Item&_id=${projectId}&_schemaName=MineBCMI`);
+    return this.getNRPTI(`search?dataset=Item&_id=${projectId}&_schemaName=MineBCMI`);
   }
 
   // Not currently used, but it's highly likely that this will come back at some point in the near
