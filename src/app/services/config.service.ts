@@ -15,10 +15,10 @@ export class ConfigService {
    */
   async init() {
     try {
-      this.configuration = await this.httpClient.get('api/config/bcmi')
+      await this.httpClient.get('http://localhost:3000/api/config/bcmi')
         .pipe(
           tap((configuration: any) => this.configuration = configuration),
-          mapTo(undefined),
+          mapTo(undefined)
         ).toPromise();
 
       if (this.configuration['debugMode']) {
