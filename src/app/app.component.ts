@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const today = new Date();
 
-    if ((this.modalMessage.startDate <= today) && (this.modalMessage.endDate > today)) {
+    if ((new Date(this.modalMessage.startDate) <= today) && (new Date(this.modalMessage.endDate ) > today)) {
       return true;
     }
 
