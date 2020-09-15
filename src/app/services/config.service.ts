@@ -15,7 +15,7 @@ export class ConfigService {
    */
   async init() {
     try {
-      await this.httpClient.get('http://localhost:3000/api/config/bcmi')
+      await this.httpClient.get('api/config/bcmi')
         .pipe(
           tap((configuration: any) => this.configuration = configuration),
           mapTo(undefined)
