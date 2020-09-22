@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Project } from 'app/models/project';
 
 import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
+import { RemoveStringValuePipe } from 'app/pipes/remove-string-value.pipe';
 
 import { MapModule } from 'app/map/map.module';
 import { CollectionsGroup, CollectionsList } from 'app/models/collection';
@@ -36,6 +37,7 @@ describe('AuthorizationsTabContentComponent', () => {
       declarations: [
         AuthorizationsTabContentComponent,
         OrderByPipe,
+        RemoveStringValuePipe,
         SiteActivitiesComponent
       ],
       imports: [
