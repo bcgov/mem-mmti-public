@@ -19,7 +19,7 @@
           </a>
           <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
-            <span>{{c.type}} {{c.status}}</span> -
+            <span>{{c.type | removeStringValue: "Amendment"}} {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
           </span>
         </div>
@@ -49,7 +49,7 @@
           </a>
           <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
-            <span>{{c.type}} {{c.status}}</span> -
+            <span>{{c.type | removeStringValue: "Amendment"}} {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
           </span>
         </div>
@@ -79,7 +79,7 @@
           </a>
           <span class="accordion__collapse-header--column authorizations-list__name-col">{{c.displayName}}</span>
           <span class="accordion__collapse-header--column authorizations-list__date-col">
-            <span>{{c.type}} {{c.status}}</span> -
+            <span>{{c.type | removeStringValue: "Amendment"}} {{c.status}}</span> -
             <span>{{c.date | date:'yyyy-MM-dd'}}</span>
           </span>
         </div>
