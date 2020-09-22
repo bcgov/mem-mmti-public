@@ -9,6 +9,6 @@ export class RemoveStringValuePipe implements PipeTransform {
         if (!toRemove || toRemove === '') {
             return value;
         }
-        return value.replace(toRemove, '');
+        return value.replace(toRemove, '').trim();
     }
 }
