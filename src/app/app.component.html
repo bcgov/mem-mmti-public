@@ -215,7 +215,7 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	<div class="modal-body" [innerHtml]="modalMessage.description"></div>
+	<div class="modal-body" [innerHtml]="modalMessage.description | safeHtml"></div>
 	<div class="modal-footer">
 		<button type="button" class="btn content-btn-alt" (click)="dismiss()">OK</button>
 	</div>
