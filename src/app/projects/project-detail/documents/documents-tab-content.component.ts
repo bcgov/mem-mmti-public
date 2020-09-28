@@ -44,6 +44,7 @@ export class DocumentsTabContentComponent implements OnInit, OnDestroy {
       this.sortField = 'date';
       this.sortAsc = false;
       this.sortDirection = -1;
+      this.loading = false;
     }
   }
 

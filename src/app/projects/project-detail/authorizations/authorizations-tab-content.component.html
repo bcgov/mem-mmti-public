@@ -2,10 +2,14 @@
   <p class="tab-intro">
     <span>
       Environmental assessment certificates and permits issued under the Mines Act and the Environmental Management Act (EMA)
-       are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations 
+       are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations
        associated with each of these three acts (as applicable). Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.
     </span>
   </p>
+
+  <div class="spinner-container" *ngIf="loading">
+    <div class="spinner-new rotating"></div>
+  </div>
 
   <ng-container *ngFor="let agency of agencyList">
     <section class="auth-section" *ngIf="collections[agency.id].length > 0">
@@ -40,7 +44,6 @@
   </ng-container>
 
 
- 
 
   <section class="main-footer" *ngIf="project.morePermitsLink">
     <h3>Can't find what you are looking for?</h3>

@@ -57,6 +57,7 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
       this.project = data.project;
       this.collections = data.project.collections.authorizations;
       this.collections.sort();
+      this.loading = false;
     }
   }
 
