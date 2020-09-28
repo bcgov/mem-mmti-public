@@ -6,6 +6,7 @@ import { Api } from 'app/services/api';
 import { ConfigService } from 'app/services/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from 'app/app.component';
+import { SafeHtmlPipe } from 'app/pipes/safe-html.pipe';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,7 +17,8 @@ describe('AppComponent', () => {
         ConfigService
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        SafeHtmlPipe
       ],
       imports: [
         RouterTestingModule,
