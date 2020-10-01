@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Project } from 'app/models/project';
-import { CollectionsGroup } from 'app/models/collection';
+import { CollectionsGroup, Collection } from 'app/models/collection';
 import { LoggerService } from 'app/services/logger.service';
 
 @Component({
@@ -65,5 +65,16 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
     if (this.sub) {
       this.sub.unsubscribe();
     }
+  }
+
+  formatDisplayName(collection: Collection): string {
+    let displayName = '';
+
+    if (collection.agency === 'empr') {
+      displayName = `${this.project.permitNumber} - `;
+    }
+    displayName += collection.displayName;
+
+    return displayName;
   }
 }
