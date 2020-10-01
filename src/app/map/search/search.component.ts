@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public _typeFilter: string = null;
   public typeahead: Observable<string> = null;
   public resultsCount = 0;
-  public showAdvancedSearch = false;
+  public showAdvancedFilters = false;
   // In order to access in the template.
   public minetypeOptions: Array<DropdownOption> = DropdownLists.MineTypeList;
   public radioSel: string;
