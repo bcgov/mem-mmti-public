@@ -187,3 +187,42 @@ $app-search-font-lg: 0.9375rem;
     margin-top: 5px;
     margin-bottom: 0;
 }
+
+.toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 0;
+
+  .toggle-btn {
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+      color: #03509c;
+    }
+  }
+}
+
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.filter-container {
+  margin: 0 5px;
+  font-weight: 700;
+  flex-grow: 1;
+  flex-basis: 33.33%;
+
+  .filter-select {
+    color: black;
+  }
+
+  label {
+    font-size: inherit;
+    margin-bottom: 0;
+  }
+}

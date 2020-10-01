@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 
 import { GeocoderService } from 'app/services/geocoder.service';
+import { DropdownLists, DropdownOption } from 'app/shared/dropdown-lists';
 
 export interface FiltersType {
   mineFilter: string;
@@ -33,17 +34,23 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public mineFilter: string = null;
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
-  public _permitFilter: string = null; // temporary filters for Cancel feaure
+  public _permitFilter: string = null; // temporary filters for Cancel fetaure
   public _geoFilter: string = null;
+  public typeFilter: string = null;
+  public _typeFilter: string = null;
   public typeahead: Observable<string> = null;
   public resultsCount = 0;
-
+  public showAdvancedSearch = false;
+  // In order to access in the template.
+  public minetypeOptions: Array<DropdownOption> = DropdownLists.MineTypeList;
   public radioSel: string;
   public radioOptions: string[] = ['Mine Name', 'Permit Number', 'Address Lookup'];
+  public tailingImpound: string;
+  public tailingImpoundOptions: string[] = [ 'Yes', 'No' ];
+
   private mineKeys: Array<string> = [];
   private permitKeys: Array<string> = [];
   private geoResults: Array<any> = [];
-
   private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -124,6 +131,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.mineFilter = this._mineFilter;
     this.permitFilter = this._permitFilter;
+    this.typeFilter = this._typeFilter;
     this.ranSearch = true;
     this.internalApplyFilters(true);
   }
@@ -154,6 +162,16 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       item.permitNumber.toUpperCase().indexOf(permitFilter.toUpperCase()) > -1
     );
 
+    retVal = retVal && (
+      !this.typeFilter || item.type === this.typeFilter
+    );
+
+    retVal = retVal && (
+      !this.tailingImpound ||
+      (this.tailingImpound === 'No' && item.tailingsImpoundments === 0) ||
+      (this.tailingImpound === 'Yes' && item.tailingsImpoundments > 0)
+    );
+
     return retVal;
   }
 
@@ -170,7 +188,14 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       params['permit'] = permitFilter;
     }
 
-    this.location.go(this.router.createUrlTree([], { relativeTo: this.route, queryParams: params }).toString());
+    if (this.typeFilter) {
+      params['type'] = this.typeFilter;
+    }
 
+    if (this.tailingImpound) {
+      params['tailingImpounds'] = this.tailingImpound === 'Yes' ? true : false;
+    }
+
+    this.location.go(this.router.createUrlTree([], { relativeTo: this.route, queryParams: params }).toString());
   }
 }
