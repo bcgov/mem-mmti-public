@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public mineFilter: string = null;
   public _mineFilter: string = null; // temporary filters for Cancel feature
   public permitFilter: string = null;
-  public _permitFilter: string = null; // temporary filters for Cancel fetaure
+  public _permitFilter: string = null; // temporary filters for Cancel feature
   public _geoFilter: string = null;
   public typeFilter: string = null;
   public _typeFilter: string = null;
