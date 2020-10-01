@@ -13,4 +13,10 @@ export class DropdownLists {
     { value: 'Industrial Mineral', name: Constants.MINE_TYPES.INDUSTRIAL_MINERAL},
     { value: 'Sand & Gravel', name: Constants.MINE_TYPES.SAND_GRAVEL}
   ];
+
+  public static readonly YesNoList: Array<DropdownOption> = [
+    { value: '', name: 'Both' },
+    { value: 'yes', name: 'Yes' },
+    { value: 'no', name: 'No'}
+  ];
 }

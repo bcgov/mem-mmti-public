@@ -63,10 +63,12 @@
           <label for="tailing">
             Tailing Impoundments
           </label>
-          <mat-radio-group class="search-radio" [(ngModel)]="tailingImpound">
-            <mat-radio-button class="search-radio-btn" *ngFor="let option of tailingImpoundOptions" [value]="option">{{option}}</mat-radio-button>
-          </mat-radio-group>
-      </div>
+          <div class="filter-select">
+            <select class="form-control" [(ngModel)]="_tailingImpound">
+              <option *ngFor="let option of tailingOptions" [value]="option.value">{{option.name}}</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div>
         <p class="search-result" *ngIf="ranSearch && !loading && resultsCount == 0">

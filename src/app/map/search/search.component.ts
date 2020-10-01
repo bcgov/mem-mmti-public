@@ -38,15 +38,16 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public _geoFilter: string = null;
   public typeFilter: string = null;
   public _typeFilter: string = null;
+  public tailingImpound: string = null;
+  public _tailingImpound: string = null;
   public typeahead: Observable<string> = null;
   public resultsCount = 0;
   public showAdvancedFilters = false;
   // In order to access in the template.
   public minetypeOptions: Array<DropdownOption> = DropdownLists.MineTypeList;
+  public tailingOptions: Array<DropdownOption> = DropdownLists.YesNoList;
   public radioSel: string;
   public radioOptions: string[] = ['Mine Name', 'Permit Number', 'Address Lookup'];
-  public tailingImpound: string;
-  public tailingImpoundOptions: string[] = [ 'Yes', 'No' ];
 
   private mineKeys: Array<string> = [];
   private permitKeys: Array<string> = [];
@@ -132,6 +133,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     this.mineFilter = this._mineFilter;
     this.permitFilter = this._permitFilter;
     this.typeFilter = this._typeFilter;
+    this.tailingImpound = this._tailingImpound;
     this.ranSearch = true;
     this.internalApplyFilters(true);
   }
@@ -168,8 +170,8 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
     retVal = retVal && (
       !this.tailingImpound ||
-      (this.tailingImpound === 'No' && item.tailingsImpoundments === 0) ||
-      (this.tailingImpound === 'Yes' && item.tailingsImpoundments > 0)
+      (this.tailingImpound === 'no' && item.tailingsImpoundments === 0) ||
+      (this.tailingImpound === 'yes' && item.tailingsImpoundments > 0)
     );
 
     return retVal;
