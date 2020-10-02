@@ -4,6 +4,7 @@ import { PaginationInstance } from 'ngx-pagination';
 import { Project } from 'app/models/project';
 import { ProjectService } from 'app/services/project.service';
 import { LoggerService } from 'app/services/logger.service';
+import { DropdownLists, DropdownOption } from 'app/shared/dropdown-lists';
 
 @Component({
   selector: 'app-project-list',
@@ -30,6 +31,8 @@ export class ProjectListComponent implements OnInit {
     itemsPerPage: 50,
     currentPage: 1
   };
+  // In order to access in the template.
+  public minetypeOptions: Array<DropdownOption> = DropdownLists.MineTypeList;
 
   constructor(private projectService: ProjectService,
               private _changeDetectionRef: ChangeDetectorRef,
