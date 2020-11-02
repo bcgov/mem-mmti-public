@@ -8,6 +8,7 @@ import { ConfigService } from 'app/services/config.service';
 export class Api {
   pathNRPTI: string;
   hostnameNRPTI: string;
+  geocoderAPI: string;
   params: Params;
   env: 'local' | 'dev' | 'test' | 'prod';
 
@@ -16,6 +17,7 @@ export class Api {
     private configService: ConfigService
     ) {
     this.hostnameNRPTI = this.configService.config['API_LOCATION'];
+    this.geocoderAPI = this.configService.config['GEOCODER_API'];
     this.env = this.configService.config['ENVIRONMENT'];
     this.pathNRPTI = this.configService.config['API_LOCATION'] + this.configService.config['API_PUBLIC_PATH'];
   }
@@ -78,7 +80,7 @@ export class Api {
   }
 
   lookupAddress(addressUrl: string, options?: Object) {
-    return this.get(this.hostnameNRPTI, addressUrl, options || []);
+    return this.http.get(`${ this.geocoderAPI }${ addressUrl }`, options || {});
   }
 
   handleError(error: any) {
