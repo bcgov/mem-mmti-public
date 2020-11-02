@@ -11,6 +11,7 @@
   window.__env.API_LOCATION = 'http://localhost:3000';
   window.__env.API_PATH = '/api';
   window.__env.API_PUBLIC_PATH = '/api/public';
+  window.__env.GEOCODER_API = 'https://geocoder.api.gov.bc.ca';
 
   // Add any feature-toggles
   // window.__env.coolFeatureActive = false;
