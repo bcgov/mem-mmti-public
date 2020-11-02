@@ -44,6 +44,10 @@
   </ng-container>
 
 
+  <p *ngIf="!collections.hasItems()">
+    No records have been posted to this page yet. Please let us know if you can’t find what you’re looking for. <a href="mailto:MineInfo@gov.bc.ca">Contact us here.</a>
+  </p>
+
 
   <section class="main-footer" *ngIf="project.morePermitsLink">
     <h3>Can't find what you are looking for?</h3>

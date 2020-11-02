@@ -111,6 +111,17 @@ export class CollectionsGroup {
     this.env.sort();
     this.empr.sort();
   }
+
+  hasItems(): boolean {
+    if ((this.eao && this.eao.length) ||
+        (this.env && this.env.length) ||
+        (this.mem && this.mem.length) ||
+        (this.empr && this.empr.length)) {
+      return true;
+    }
+
+    return false;
+  }
 }
 
 export class CollectionsList {
