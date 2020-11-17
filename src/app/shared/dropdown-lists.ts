@@ -15,7 +15,7 @@ export class DropdownLists {
   ];
 
   public static readonly YesNoList: Array<DropdownOption> = [
-    { value: '', name: 'Both' },
+    { value: '', name: 'Show All' },
     { value: 'yes', name: 'Yes' },
     { value: 'no', name: 'No'}
   ];
