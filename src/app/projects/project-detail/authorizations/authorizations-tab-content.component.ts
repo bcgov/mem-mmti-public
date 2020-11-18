@@ -70,9 +70,13 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
   formatDisplayName(collection: Collection): string {
     let displayName = '';
 
-    if (collection.agency === 'empr') {
+    if (collection.agency === 'empr' &&
+        this.project.showPermitNumber &&
+        ['Permit', 'Permit Amendment'.includes(collection.type)]
+      ) {
       displayName = `${this.project.permitNumber} - `;
     }
+
     displayName += collection.displayName;
 
     return displayName;
