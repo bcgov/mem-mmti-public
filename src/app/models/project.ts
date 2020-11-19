@@ -27,6 +27,7 @@ export class Project {
   // attributes
   name:                 string;
   permitNumber:         string;
+  showPermitNumber:     boolean;
   status:               string;
   type:                 string;
   commodities:          string[];
@@ -77,6 +78,7 @@ export class Project {
     // attributes
     this.name                 = (obj && obj.name)                 || '';
     this.permitNumber         = (obj && obj.permitNumber )        || '';
+    this.showPermitNumber     = (obj && obj.showPermitNumber); // Cannot set default on boolean here.
     this.status               = (obj && obj.status)               || '';
     this.type                 = (obj && obj.type)                 || '';
     this.commodities          = (obj && obj.commodities)          || [];
