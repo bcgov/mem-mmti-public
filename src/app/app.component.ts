@@ -6,6 +6,15 @@ import { DocumentService } from 'app/services/document.service';
 import { ConfigService } from 'app/services/config.service';
 import { Api } from 'app/services/api';
 
+import {
+  Event,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationStart,
+  NavigationError,
+  Router
+} from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,10 +29,33 @@ export class AppComponent implements OnInit, AfterViewInit {
   hostname: String;
   modalMessage: any;
 
+  loading: false;
+
   constructor(private cookieService: CookieService,
               private api: Api,
               private modalService: NgbModal,
-              private configService: ConfigService) {
+              private configService: ConfigService,
+              private router: Router) {
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart : {
+          this.loading = true;
+          break;
+        }
+
+        case event instanceof NavigationEnd :
+        case event instanceof NavigationError :
+        case event instanceof NavigationCancel : {
+          this.loading = false;
+          break;
+        }
+        default : {
+          break;
+        }
+
+      }
+
+    });
     // Used for sharing links.
     this.hostname = this.api.hostnameNRPTI;
   }

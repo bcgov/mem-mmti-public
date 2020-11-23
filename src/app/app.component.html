@@ -107,6 +107,10 @@
 	</nav>
 </header>
 
+<div class="spinner-container" *ngIf="loading">
+	<div class="spinner-new rotating"></div>
+</div>
+
 <router-outlet id="scrollTop"></router-outlet>
 
 <footer class="app-footer">
