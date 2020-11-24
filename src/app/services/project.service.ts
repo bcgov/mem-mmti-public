@@ -1,4 +1,4 @@
-import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { throwError as observableThrowError,  Observable, forkJoin } from 'rxjs';
 import {switchMap, catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
@@ -34,7 +34,9 @@ export class ProjectService {
         return res && res[0] ? new Project(res[0]) : null;
       }),
       map((project: Project) => {
-        if (!project) { return observableThrowError(new Error('Project not found!')); }
+        if (!project) {
+          return observableThrowError(new Error('Project not found!'));
+        }
 
         this.project = project;
 
@@ -44,19 +46,30 @@ export class ProjectService {
       // Now grab the MEM collections
       switchMap(() => this.getCollections()),
       map(() => this.project),
-      catchError(this.api.handleError));
+      catchError(this.api.handleError)
+    );
   }
 
   private getCollections() {
     return this.api.getProjectCollections(this.project._id).pipe(
       map((res: any) => this.processCollections(res && res[0] && res[0].searchResults ? res[0].searchResults : null)),
-      map(async (collections: any[]) => {
-        // Push them into the project
-        await this.loadCollectionRecords(collections);
-
-        collections.filter(c => c.documents.length > 0).forEach(collection => {
-          this.addCollection(this.project.collections, collection);
-        });
+      switchMap((collections: any[]) => {
+        // Send all getCollectionDocuments API requests concurrently and combine the results as a single array
+        return forkJoin(collections.map(collection => this.api.getCollectionDocuments(collection._id))).pipe(
+          map((res: any[]) => {
+            for (let i = 0; i < collections.length; i++) {
+              this.loadCollectionRecords(collections[i], res[i]);
+            }
+            return collections;
+          })
+        );
+      }),
+      map((collections: any[]) => {
+        collections
+          .filter(c => c.documents.length > 0)
+          .forEach(collection => {
+            this.addCollection(this.project.collections, collection);
+          });
       })
     );
   }
@@ -71,26 +84,23 @@ export class ProjectService {
     return collections;
   }
 
-  private async loadCollectionRecords(collectionsList: any[]) {
-    for (const collection of collectionsList) {
-      const collectionDocuments: any = await this.api.getCollectionDocuments(collection._id).toPromise();
-      for (const document of collectionDocuments) {
-        collection.documents.push({
-          name : document.fileName || '-',
-          ref  : document.url,
-          date : document.dateAdded || '-'
-        });
-      }
+  private loadCollectionRecords(collection: any, collectionDocuments: any[]) {
+    for (const document of collectionDocuments) {
+      collection.documents.push({
+        name: document.fileName || '-',
+        ref: document.url,
+        date: document.dateAdded || '-'
+      });
     }
-
-    return collectionsList;
   }
 
   private addCollection(collectionsList: CollectionsList, collection: Collection) {
     // ensure the collection hasn't already been added before adding again.
     switch (collection.parentType) {
       case 'Authorizations':
-        if (!collectionsList.authorizations[collection.agency].items.some(existing => existing._id === collection._id)) {
+        if (
+          !collectionsList.authorizations[collection.agency].items.some(existing => existing._id === collection._id)
+        ) {
           collectionsList.authorizations[collection.agency].add(collection);
         }
         break;
