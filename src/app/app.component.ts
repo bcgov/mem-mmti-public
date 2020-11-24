@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   hostname: String;
   modalMessage: any;
 
-  loading: false;
+  loading: boolean;
 
   constructor(private cookieService: CookieService,
               private api: Api,
