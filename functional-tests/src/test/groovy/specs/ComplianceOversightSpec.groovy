@@ -25,7 +25,7 @@ class ComplianceOversightSpec extends GebReportingSpec {
       //TODO [tag : "h4", text : "RELATED DOCUMENTS"]          | [text : "Ministry of Environment and Climate Change Strategy Compliance and Enforcement Policy and Procedure"] || new ExternalLinkPage("", "env.gov.bc.ca")
       [tag : "h4", text : "RELATED DOCUMENTS"]          | [text : "Ministry of Environment and Climate Change Strategy Environmental Compliance Inspections Reporting"]  || new ExternalLinkPage("Environmental Compliance Inspections Reporting - Province of British Columbia", "gov.bc.ca")
 
-      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Mining Compliance & Enforcement (Ministry of Energy, Mines and Petroleum Resources)"]                 || new ExternalLinkPage("Mining Compliance & Enforcement - Province of British Columbia", "gov.bc.ca")
+      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Mining Compliance & Enforcement (Ministry of Energy, Mines, and Low Carbon Innovation)"]                 || new ExternalLinkPage("Mining Compliance & Enforcement - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Environmental Assessment Office Compliance & Enforcement"]                                            || new ExternalLinkPage("Environmental Assessments - Province of British Columbia", "www2.gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Environmental Enforcement Reporting (Ministry of Environment and Climate Change Strategy)"]           || new ExternalLinkPage("Environmental Enforcement Reporting - Province of British Columbia", "gov.bc.ca")
   }
