@@ -20,11 +20,11 @@ class ReclamationSpec extends GebReportingSpec {
       at AssertPage
     where:
       SectionSelector                                   | ItemSelector                                                                                                       || AssertPage
-      //TODO PDF [tag : "h4", text : "RELATED DOCUMENTS"]          | [text : "Ministry of Energy, Mines and Petroleum Resources Annual Reclamation Report Requirements (January 2017)"] || new ExternalLinkPage("2017_01_23_annual_Reclamation_report_requirements.pdf", "gov.bc.ca")
+      //TODO PDF [tag : "h4", text : "RELATED DOCUMENTS"]          | [text : "Ministry of Energy, Mines, and Low Carbon Innovation Annual Reclamation Report Requirements (January 2017)"] || new ExternalLinkPage("2017_01_23_annual_Reclamation_report_requirements.pdf", "gov.bc.ca")
       //TODO PDF [tag : "h4", text : "RELATED DOCUMENTS"]          | [text : "Mine Reclamation Security in British Columbia Fact Sheet (November 2016)"]                                || new ExternalLinkPage("DRAFT", "gov.bc.ca")
 
-      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Reclamation & Closure (Ministry of Energy, Mines and Petroleum Resources)"]                               || new ExternalLinkPage("Reclamation & Closure - Province of British Columbia", "gov.bc.ca")
-      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Securities (Ministry of Energy, Mines and Petroleum Resources)"]                                          || new ExternalLinkPage("Securities - Province of British Columbia", "gov.bc.ca")
+      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Reclamation & Closure (Ministry of Energy, Mines, and Low Carbon Innovation)"]                               || new ExternalLinkPage("Reclamation & Closure - Province of British Columbia", "gov.bc.ca")
+      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Securities (Ministry of Energy, Mines, and Low Carbon Innovation)"]                                          || new ExternalLinkPage("Securities - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "British Columbia Technical and Research Committee on Reclamation"]                                        || new ExternalLinkPage("February 26, 2018 TRCR | BC Technical and Research Committee on Reclamation", "trcr.bc.ca")
   }
   @Unroll

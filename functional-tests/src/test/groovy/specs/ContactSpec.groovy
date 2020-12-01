@@ -19,7 +19,7 @@ class ContactSpec extends GebReportingSpec {
       at AssertPage
     where:
       SectionSelector                                   | ItemSelector                                                   || AssertPage
-      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Ministry of Energy, Mines and Petroleum Resources"]   || new ExternalLinkPage("Ministry of Energy, Mines & Petroleum Resources - Province of British Columbia", "gov.bc.ca")
+      [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Ministry of Energy, Mines, and Low Carbon Innovation"]   || new ExternalLinkPage("Ministry of Energy, Mines & Petroleum Resources - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Ministry of Environment and Climate Change Strategy"] || new ExternalLinkPage("Ministry of Environment & Climate Change Strategy - Province of British Columbia", "gov.bc.ca")
       [tag : "h4", text : "EXTERNAL LINKS & RESOURCES"] | [text : "Environmental Assessment Office"]                     || new ExternalLinkPage("Environmental Assessment Office", "gov.bc.ca")
   }

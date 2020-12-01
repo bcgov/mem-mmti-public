@@ -32,7 +32,7 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
     },
     {
       id: 'empr',
-      name: 'Ministry of Energy, Mines and Petroleum Resources',
+      name: 'Ministry of Energy, Mines, and Low Carbon Innovation',
       act: 'Mines Act',
       htmlId: 'authorization-MEM'
     }
