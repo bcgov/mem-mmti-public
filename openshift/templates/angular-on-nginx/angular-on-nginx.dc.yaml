@@ -1,0 +1,166 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: ${NAME}
+objects:
+  - apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    metadata:
+      labels:
+        app: ${GROUP_NAME}
+        role: ${ROLE_NAME}-${GROUP_NAME}
+      name: ${NAME}
+    spec:
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        app: ${GROUP_NAME}
+        deploymentconfig: ${NAME}
+      strategy:
+        activeDeadlineSeconds: 21600
+        resources: {}
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            app: ${GROUP_NAME}
+            deploymentconfig: ${NAME}
+        spec:
+          containers:
+            - env:
+                - name: RealIpFrom
+                  value: 172.51.0.0/16
+                - name: AdditionalRealIpFromRules
+                - name: IpFilterRules
+                  value: "#allow all; deny all;"
+                - name: DEPLOYMENT_ENVIRONMENT
+                  value: prod
+                - name: BANNER_COLOUR
+                - name: REMOTE_API_PATH
+                  value: https://nrpti-dev.apps.silver.devops.gov.bc.ca/api
+                - name: REMOTE_ADMIN_PATH
+                  value: https://nrpti-dev.apps.silver.devops.gov.bc.ca/admin
+                - name: CONFIG_ENDPOINT
+                  value: ${CONFIG_ENDPOINT}
+              image: image-registry.openshift-image-registry.svc:5000/${TOOLS_NAMESPACE}/${NAME}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              name: ${NAME}
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              resources:
+                limits:
+                  cpu: 150m
+                  memory: 250Mi
+                requests:
+                  cpu: 75m
+                  memory: 100Mi
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+      test: false
+      triggers:
+        - type: ConfigChange
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${NAME}
+            from:
+              kind: ImageStreamTag
+              name: ${NAME}:latest
+              namespace: ${TOOLS_NAMESPACE}
+          type: ImageChange
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        app: ${GROUP_NAME}
+    spec:
+      ports:
+        - name: 8080-tcp
+          protocol: TCP
+          port: 8080
+          targetPort: 8080
+      selector:
+        app: ${GROUP_NAME}
+        deploymentconfig: ${NAME}
+      type: ClusterIP
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: ${NAME}
+      labels:
+        app: ${GROUP_NAME}
+    spec:
+      host: ${HOST}
+      to:
+        kind: Service
+        name: ${NAME}
+        weight: 100
+      port:
+        targetPort: 8080-tcp
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
+      wildcardPolicy: None
+parameters:
+  - description: A name used for all objects
+    displayName: Name
+    name: NAME
+    required: true
+    value: bcmi
+  - description: A name used for all objects in the build or deploy group
+    displayName: Group name
+    name: GROUP_NAME
+    required: true
+    value: nrpti
+  - name: ROLE_NAME
+    displayName: Role Name
+    description: The name of the 'role' label for the deployment
+    value: frontend
+  - name: BUILDER_IMAGE_NAME
+    required: true
+    value: nginx-runtime
+  - name: IMAGE_TAG
+    required: true
+    value: latest
+  - name: TOOLS_NAMESPACE
+    required: true
+    value: f00029-tools
+  - name: CONFIG_ENDPOINT
+    description: Config service API endpoint
+    required: true
+    value: http://10.98.162.93:3000
+  - name: HOST
+    value: bcmi-f00029-dev.apps.silver.devops.gov.bc.ca
