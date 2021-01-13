@@ -31,7 +31,7 @@ objects:
         requests:
           cpu: "1"
           memory: 1Gi
-      runPolicy: Parallel
+      runPolicy: Serial
       source:
         dockerfile: |-
           FROM ${NAME}-angular:latest
