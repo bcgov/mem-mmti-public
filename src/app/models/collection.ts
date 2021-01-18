@@ -98,25 +98,25 @@ export class CollectionsGroup {
   eao: CollectionsArray;
   env: CollectionsArray;
   mem: CollectionsArray;
-  empr: CollectionsArray;
+  emli: CollectionsArray;
 
   constructor(obj?: any) {
     this.eao = obj && obj.eao || new CollectionsArray();
     this.env = obj && obj.env || new CollectionsArray();
-    this.empr = obj && obj.empr || new CollectionsArray();
+    this.emli = obj && obj.emli || new CollectionsArray();
   }
 
   sort() {
     this.eao.sort();
     this.env.sort();
-    this.empr.sort();
+    this.emli.sort();
   }
 
   hasItems(): boolean {
     if ((this.eao && this.eao.length) ||
         (this.env && this.env.length) ||
         (this.mem && this.mem.length) ||
-        (this.empr && this.empr.length)) {
+        (this.emli && this.emli.length)) {
       return true;
     }
 
