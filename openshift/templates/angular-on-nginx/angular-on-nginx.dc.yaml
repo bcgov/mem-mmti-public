@@ -8,7 +8,7 @@ objects:
     metadata:
       labels:
         app: ${GROUP_NAME}
-        role: ${ROLE_NAME}-${GROUP_NAME}
+        role: ${ROLE_NAME}
       name: ${NAME}
     spec:
       replicas: 1
@@ -30,6 +30,7 @@ objects:
         metadata:
           labels:
             app: ${GROUP_NAME}
+            role: ${ROLE_NAME}
             deploymentconfig: ${NAME}
         spec:
           containers:
@@ -46,8 +47,10 @@ objects:
                   value: https://nrpti-dev.apps.silver.devops.gov.bc.ca/api
                 - name: REMOTE_ADMIN_PATH
                   value: https://nrpti-dev.apps.silver.devops.gov.bc.ca/admin
-                - name: CONFIG_ENDPOINT
-                  value: ${CONFIG_ENDPOINT}
+                - name: CONFIG_ENDPOINT_HOST
+                  value: API_SERVICE_HOST
+                - name: CONFIG_ENDPOINT_PORT
+                  value: API_SERVICE_PORT
               image: image-registry.openshift-image-registry.svc:5000/${TOOLS_NAMESPACE}/${NAME}:${IMAGE_TAG}
               imagePullPolicy: Always
               livenessProbe:
@@ -158,9 +161,13 @@ parameters:
   - name: TOOLS_NAMESPACE
     required: true
     value: f00029-tools
-  - name: CONFIG_ENDPOINT
-    description: Config service API endpoint
+  - name: CONFIG_ENDPOINT_HOST
+    description: Config service API host ENV name
     required: true
-    value: http://10.98.162.93:3000
+    value: API_SERVICE_HOST
+  - name: CONFIG_ENDPOINT_HOST
+    description: Config service API port ENV name
+    required: true
+    value: API_SERVICE_PORT
   - name: HOST
     value: bcmi-f00029-dev.apps.silver.devops.gov.bc.ca
