@@ -31,7 +31,7 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
       htmlId: 'authorization-ENV'
     },
     {
-      id: 'empr',
+      id: 'emli',
       name: 'Ministry of Energy, Mines, and Low Carbon Innovation',
       act: 'Mines Act',
       htmlId: 'authorization-MEM'
@@ -70,7 +70,7 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
   formatDisplayName(collection: Collection): string {
     let displayName = '';
 
-    if (collection.agency === 'empr' &&
+    if (collection.agency === 'emli' &&
         this.project.showPermitNumber &&
         ['Permit', 'Permit Amendment'.includes(collection.type)]
       ) {

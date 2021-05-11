@@ -26,8 +26,8 @@ export class ProjectListComponent implements OnInit {
   public loading: boolean;
   public mineCount: number;
   public operators: Array<String> = [];
-  public config: PaginationInstance = {
-    id: 'custom',
+  public pagination: PaginationInstance = {
+    id: 'project-pagination',
     itemsPerPage: 50,
     currentPage: 1
   };
@@ -84,5 +84,9 @@ export class ProjectListComponent implements OnInit {
     this.typefilter = undefined;
     this.operatorListFilter = undefined;
     this.operatorfilter = undefined;
+  }
+
+  onUpdatePageNumber(pageNum) {
+    this.pagination.currentPage = pageNum;
   }
 }

@@ -1,0 +1,74 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: ${NAME}
+objects:
+  - kind: ImageStream
+    apiVersion: image.openshift.io/v1
+    metadata:
+      labels:
+        app: ${GROUP_NAME}
+      name: ${NAME}
+  - apiVersion: build.openshift.io/v1
+    kind: BuildConfig
+    metadata:
+      labels:
+        app: ${GROUP_NAME}
+      name: ${NAME}-build
+    spec:
+      completionDeadlineSeconds: 1800
+      failedBuildsHistoryLimit: 5
+      nodeSelector: null
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${NAME}:latest
+      postCommit: {}
+      resources:
+        limits:
+          cpu: "2"
+          memory: 2Gi
+        requests:
+          cpu: "1"
+          memory: 1Gi
+      runPolicy: Serial
+      source:
+        dockerfile: |-
+          FROM ${NAME}-angular:latest
+          COPY * /tmp/app/dist/
+          CMD  /usr/libexec/s2i/run
+        images:
+          - from:
+              kind: ImageStreamTag
+              name: ${NAME}-angular:latest
+            paths:
+              - destinationDir: tmp
+                sourcePath: /opt/app-root/src/dist/.
+        type: Dockerfile
+      strategy:
+        dockerStrategy:
+          from:
+            kind: ImageStreamTag
+            name: ${BUILDER_IMAGE_NAME}:${BUILDER_IMAGE_TAG}
+        type: Docker
+      successfulBuildsHistoryLimit: 5
+      triggers:
+        - type: ImageChange
+        - type: ConfigChange
+parameters:
+  - description: A name used for all objects
+    displayName: Name
+    name: NAME
+    required: true
+    value: bcmi
+  - description: A name used for all objects in the build or deploy group
+    displayName: Group name
+    name: GROUP_NAME
+    required: true
+    value: nrpti
+  - name: BUILDER_IMAGE_NAME
+    required: true
+    value: nginx-runtime
+  - name: BUILDER_IMAGE_TAG
+    required: true
+    value: latest
