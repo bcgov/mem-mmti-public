@@ -1,0 +1,80 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: ${NAME}
+objects:
+  - kind: ImageStream
+    apiVersion: image.openshift.io/v1    
+    metadata:
+      labels:
+        app: ${GROUP_NAME}
+      name: ${NAME}-angular
+    spec:
+      lookupPolicy:
+        local: false
+  - apiVersion: build.openshift.io/v1
+    kind: BuildConfig
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ${GROUP_NAME}
+      name: ${NAME}-angular
+    spec:
+      failedBuildsHistoryLimit: 5
+      nodeSelector: null
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${NAME}-angular:latest
+      postCommit: {}
+      resources:
+        limits:
+          cpu: "2"
+          memory: 4Gi
+        requests:
+          cpu: "1"
+          memory: 1Gi
+      runPolicy: Serial
+      source:
+        git:
+          ref: ${SOURCE_REPOSITORY_REF}
+          uri: ${SOURCE_REPOSITORY_URL}
+        type: Git
+      strategy:
+        sourceStrategy:
+          from:
+            kind: ImageStreamTag
+            name: ${BUILDER_IMAGE_NAME}:${BUILDER_IMAGE_TAG}
+            namespace: ${BUILDER_IMAGE_NAMESPACE}
+        type: Source
+      successfulBuildsHistoryLimit: 5
+      triggers:
+        - type: ImageChange
+        - type: ConfigChange
+parameters:
+  - description: A name used for all objects
+    displayName: Name
+    name: NAME
+    required: true
+    value: bcmi
+  - description: A name used for all objects in the build or deploy group
+    displayName: Group name
+    name: GROUP_NAME
+    required: true
+    value: nrpti
+  - name: SOURCE_REPOSITORY_URL
+    required: true
+    value: https://github.com/bcgov/mem-mmti-public
+  - name: SOURCE_REPOSITORY_REF
+    required: true
+    value: BCMI-V2
+  - name: BUILDER_IMAGE_NAME
+    required: true
+    value: nodejs
+  - name: BUILDER_IMAGE_TAG
+    required: true
+    value: "10"
+  - name: BUILDER_IMAGE_NAMESPACE
+    required: true
+    value: openshift
