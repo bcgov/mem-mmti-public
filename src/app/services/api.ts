@@ -73,6 +73,11 @@ export class Api {
     return new Observable(); // this.getNRPTI('organization');
   }
 
+  // Enforcement actions
+  getEnforcementActions() {
+    return this.getNRPTI(`search?dataset=CourtConvictionBCMI,AdministrativePenaltyBCMI&pageNum=0&pageSize=1000&sortBy=-dateIssued&and[issuingAgency]=EMLI&populate=true`);
+  }
+
   // Methods
 
   getNRPTI(apiRoute: string, options?: Object) {
