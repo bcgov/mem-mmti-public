@@ -20,6 +20,7 @@ import { WaterQualityComponent } from 'app/static-pages/water-quality/water-qual
 import { TailingsManagementComponent } from 'app/static-pages/tailings-management/tailings-management.component';
 import { ReclamationComponent } from 'app/static-pages/reclamation/reclamation.component';
 import { NotFoundComponent } from 'app/not-found/not-found.component';
+import { EnforcementActionsModule } from './enforcement-actions/enforcement-actions.module';
 import { ProponentService } from 'app/services/proponent.service';
 import { ConfigService } from 'app/services/config.service';
 import { GeocoderService } from 'app/services/geocoder.service';
@@ -32,8 +33,6 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EnforcementActionsComponent } from 'app/static-pages/enforcement-actions/enforcement-actions.component';
-
 
 export function initConfig(configService: ConfigService) {
   return () => configService.init();
@@ -52,8 +51,7 @@ export function initConfig(configService: ConfigService) {
     WaterQualityComponent,
     TailingsManagementComponent,
     ReclamationComponent,
-    NotFoundComponent,
-    EnforcementActionsComponent,
+    NotFoundComponent
   ],
   imports: [
     TagInputModule,
@@ -61,7 +59,8 @@ export function initConfig(configService: ConfigService) {
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ProjectsModule,  // <-- module import order matters - https://angular.io/guide/router#module-import-order-matters
+    ProjectsModule, // <-- module import order matters - https://angular.io/guide/router#module-import-order-matters
+    EnforcementActionsModule,
     AppRoutingModule,
     NgbModule,
     NgxPaginationModule,
@@ -89,7 +88,7 @@ export function initConfig(configService: ConfigService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 export function Easing(t: number, b: number, c: number, d: number): number {
   // easeInOutExpo easing
   if (t === 0) {
@@ -99,8 +98,8 @@ export function Easing(t: number, b: number, c: number, d: number): number {
     return b + c;
   }
   if ((t /= d / 2) < 1) {
-    return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+    return (c / 2) * Math.pow(2, 10 * (t - 1)) + b;
   }
 
-  return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+  return (c / 2) * (-Math.pow(2, -10 * --t) + 2) + b;
 }

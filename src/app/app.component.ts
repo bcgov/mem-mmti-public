@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loggedIn = this.cookieService.get('loggedIn');
-    if (this.configService.config['COMMUNICATIONS'].data) {
+    if (this.configService.config['COMMUNICATIONS'] && this.configService.config['COMMUNICATIONS'].data) {
       this.modalMessage = this.configService.config['COMMUNICATIONS'].data;
     }
 
