@@ -33,10 +33,16 @@
               <a data-toggle="collapse" href="#accordCollapse{{ item._id }}">{{ item.issuedTo }}</a>
             </span>
             <span class="accordion__collapse-header--column enforcements-table__mine-col">
-              <a *ngIf="item.mineGuid" class="inside-td" [routerLink]="['/p', getMineFromGuid(item.mineGuid)._id]">
+              <a
+                *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)"
+                class="inside-td"
+                [routerLink]="['/p', getMineFromGuid(item.mineGuid)._id]"
+              >
                 {{ getMineFromGuid(item.mineGuid).name }}
               </a>
-              <span *ngIf="!item.mineGuid" class="inside-td">{{ item.unlistedMine ? item.unlistedMine : 'N/A' }}</span>
+              <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="inside-td">
+                {{ item.unlistedMine ? item.unlistedMine : 'N/A' }}
+              </span>
             </span>
             <span class="accordion__collapse-header--column enforcements-table__date-col">
               <span class="inside-td">{{ item.dateIssued | date: 'yyyy-MM-dd' }}</span>
@@ -52,10 +58,10 @@
                   </div>
                   <div class="col-sm-6">
                     <strong class="name">Mine Type:</strong>
-                    <span *ngIf="item.mineGuid" class="value">
+                    <span *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)" class="value">
                       {{ getMineFromGuid(item.mineGuid).type }}
                     </span>
-                    <span *ngIf="!item.mineGuid" class="value">
+                    <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
                       {{ item.unlistedMineType ? item.unlistedMineType : 'N/A' }}
                     </span>
                   </div>
@@ -63,10 +69,14 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <strong class="name">Mine Name:</strong>
-                    <a *ngIf="item.mineGuid" class="value" [routerLink]="['/p', getMineFromGuid(item.mineGuid)._id]">
+                    <a
+                      *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)"
+                      class="value"
+                      [routerLink]="['/p', getMineFromGuid(item.mineGuid)._id]"
+                    >
                       {{ getMineFromGuid(item.mineGuid).name }}
                     </a>
-                    <span *ngIf="!item.mineGuid" class="value">
+                    <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
                       {{ item.unlistedMine ? item.unlistedMine : 'N/A' }}
                     </span>
                   </div>
