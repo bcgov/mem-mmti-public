@@ -26,10 +26,12 @@
   &__enforcement-details {
     font-size: 0.8rem;
 
-    .name,
+    .name {
+      margin: 0.5rem 0.25rem 0.5rem -0.25rem;
+    }
+
     .value {
-      margin: 0;
-      padding: 0.5rem 0.25rem;
+      margin: 0.5rem 0.25rem;
     }
   }
 }
@@ -38,7 +40,7 @@
   .tab-intro {
     margin-top: 1rem;
   }
-  
+
   .enforcements-table {
     thead {
       display: none;
