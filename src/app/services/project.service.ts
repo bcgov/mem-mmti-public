@@ -1,5 +1,5 @@
-import { throwError as observableThrowError,  Observable, forkJoin } from 'rxjs';
-import {switchMap, catchError, map} from 'rxjs/operators';
+import { throwError as observableThrowError, Observable, forkJoin } from 'rxjs';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
@@ -11,18 +11,19 @@ import { Collection, CollectionsList } from 'app/models/collection';
 export class ProjectService {
   project: Project;
 
-  constructor(private api: Api) { }
+  constructor(private api: Api) {}
 
   getAll() {
     return this.api.getProjects().pipe(
       map((res: any[]) => {
-        let projects = res && res.length > 0 &&  res[0]['searchResults'] ? res[0]['searchResults'] : [];
+        let projects = res && res.length > 0 && res[0]['searchResults'] ? res[0]['searchResults'] : [];
 
         projects = projects.map(proj => new Project(proj));
 
         return projects;
       }),
-      catchError(this.api.handleError));
+      catchError(this.api.handleError)
+    );
   }
 
   getById(code: string): Observable<Project> {
@@ -55,7 +56,12 @@ export class ProjectService {
       map((res: any) => this.processCollections(res && res[0] && res[0].searchResults ? res[0].searchResults : null)),
       switchMap((collections: any[]) => {
         // Send all getCollectionDocuments API requests concurrently and combine the results as a single array
-        return forkJoin(collections.map(collection => this.api.getCollectionDocuments(collection._id))).pipe(
+        return forkJoin(
+          collections.map(collection => {
+            collection.agency = this.convertToAgencyAcronym(collection.agency);
+            return this.api.getCollectionDocuments(collection._id);
+          })
+        ).pipe(
           map((res: any[]) => {
             for (let i = 0; i < collections.length; i++) {
               this.loadCollectionRecords(collections[i], res[i]);
@@ -114,6 +120,19 @@ export class ProjectService {
           collectionsList.documents.add(collection);
         }
         break;
+    }
+  }
+
+  private convertToAgencyAcronym(agency: string): string {
+    switch (agency.toLowerCase()) {
+      case 'ministry of environment and climate change strategy':
+        return 'env';
+      case 'environmental assessment office':
+        return 'eao';
+      case 'ministry of energy mines and low carbon innovation':
+        return 'emli';
+      default:
+        return agency;
     }
   }
 }

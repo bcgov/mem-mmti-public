@@ -5,7 +5,7 @@ export class CourtConviction {
   _id: string;
   issuedTo: string;
   dateIssued: string;
-  legislation: Legislation;
+  legislations: Legislation[];
   penalties: Penalty[];
   penaltiesString: string;
   location: string;
@@ -18,7 +18,12 @@ export class CourtConviction {
   constructor(obj?: any) {
     this._id = (obj && obj._id) || null;
     this.dateIssued = (obj && obj.dateIssued) || null;
-    this.legislation = (obj && obj.legislation && new Legislation(obj.legislation)) || null;
+    this.legislations =
+      (obj &&
+        obj.legislation &&
+        obj.legislation.length &&
+        obj.legislation.map(legislation => new Legislation(legislation))) ||
+      null;
     this.penalties =
       (obj && obj.penalties && obj.penalties.length && obj.penalties.map(penalty => new Penalty(penalty))) || null;
     this.penaltiesString =
