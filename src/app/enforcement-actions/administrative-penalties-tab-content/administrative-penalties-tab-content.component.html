@@ -59,13 +59,8 @@
                     <span class="value">{{ item.issuedTo ? item.issuedTo : 'N/A' }}</span>
                   </div>
                   <div class="col-sm-6">
-                    <strong class="name">Mine Type:</strong>
-                    <span *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)" class="value">
-                      {{ getMineFromGuid(item.mineGuid).type }}
-                    </span>
-                    <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
-                      {{ item.unlistedMineType ? item.unlistedMineType : 'N/A' }}
-                    </span>
+                    <strong class="name">Location:</strong>
+                    <span class="value">{{ item.location ? item.location : 'N/A' }}</span>
                   </div>
                 </div>
                 <div class="row">
@@ -83,8 +78,23 @@
                     </span>
                   </div>
                   <div class="col-sm-6">
-                    <strong class="name">Location:</strong>
-                    <span class="value">{{ item.location ? item.location : 'N/A' }}</span>
+                    <strong class="name">Mine Type:</strong>
+                    <span *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)" class="value">
+                      {{ getMineFromGuid(item.mineGuid).type }}
+                    </span>
+                    <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
+                      {{ item.unlistedMineType ? item.unlistedMineType : 'N/A' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <strong class="name">Penalty:</strong>
+                    <span class="value">{{ item.penaltiesString ? item.penaltiesString : 'N/A' }}</span>                    
+                  </div>
+                  <div class="col-sm-6">
+                    <strong class="name">Date of Determination:</strong>
+                    <span class="value">{{ item.dateIssued | date: 'yyyy-MM-dd' }}</span>
                   </div>
                 </div>
                 <div class="row">
@@ -97,28 +107,12 @@
                     <span class="value" *ngIf="!item.legislations?.length">N/A</span>
                   </div>
                   <div class="col-sm-6">
-                    <strong class="name">Date of Determination:</strong>
-                    <span class="value">{{ item.dateIssued | date: 'yyyy-MM-dd' }}</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <strong class="name">Amount of Administrative Penalty:</strong>
-                    <span class="value">{{ item.penaltiesString ? item.penaltiesString : 'N/A' }}</span>
-                  </div>
-                  <div class="col-sm-6">
                     <strong class="name">Document:</strong>
-                    <a
-                      *ngIf="item.documents && item.documents[0]; else noDocument"
-                      class="value"
-                      href="{{ item.documents[0].url }}"
-                      target="_blank"
-                    >
-                      {{ item.documents[0].fileName }}
+                    <a *ngFor="let document of item.documents" class="value" href="{{ document.url }}" target="_blank">
+                      {{ document.fileName }}
+                      <br />
                     </a>
-                    <ng-template #noDocument>
-                      <span class="value">N/A</span>
-                    </ng-template>
+                    <span class="value" *ngIf="!item.documents?.length">N/A</span>
                   </div>
                 </div>
               </div>
