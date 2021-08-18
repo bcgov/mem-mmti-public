@@ -61,8 +61,8 @@
                     <span class="value">{{ item.issuedTo ? item.issuedTo : 'N/A' }}</span>
                   </div>
                   <div class="col-sm-6">
-                    <strong class="name">Penalties:</strong>
-                    <span class="value">{{ item.penaltiesString ? item.penaltiesString : 'N/A' }}</span>
+                    <strong class="name">Location:</strong>
+                    <span class="value">{{ item.location ? item.location : 'N/A' }}</span>
                   </div>
                 </div>
                 <div class="row">
@@ -80,12 +80,6 @@
                     </span>
                   </div>
                   <div class="col-sm-6">
-                    <strong class="name">Location:</strong>
-                    <span class="value">{{ item.location ? item.location : 'N/A' }}</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
                     <strong class="name">Mine Type:</strong>
                     <span *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)" class="value">
                       {{ getMineFromGuid(item.mineGuid).type }}
@@ -93,6 +87,12 @@
                     <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
                       {{ item.unlistedMineType ? item.unlistedMineType : 'N/A' }}
                     </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <strong class="name">Fine:</strong>
+                    <span class="value">{{ item.penaltiesString ? item.penaltiesString : 'N/A' }}</span>
                   </div>
                   <div class="col-sm-6">
                     <strong class="name">Date of Judgement:</strong>
@@ -103,24 +103,18 @@
                   <div class="col-sm-6">
                     <strong class="name">Offence:</strong>
                     <span class="value" *ngFor="let legislation of item.legislations">
-                      {{ legislation.toString() }}
+                      {{ legislation.toString() ? legislation.toString() : 'N/A' }}
                       <br />
                     </span>
-                    <span class="value" *ngIf="item.legislations.length === 0">N/A</span>
+                    <span class="value" *ngIf="!item.legislations?.length">N/A</span>
                   </div>
                   <div class="col-sm-6">
                     <strong class="name">Link to Information:</strong>
-                    <a
-                      *ngIf="!item.description && item.documents && item.documents[0]; else noDocument"
-                      class="value"
-                      href="{{ item.documents[0].url }}"
-                      target="_blank"
-                    >
-                      {{ item.documents[0].fileName }}
+                    <a *ngFor="let document of item.documents" class="value" href="{{ document.url }}" target="_blank">
+                      {{ document.fileName }}
+                      <br />
                     </a>
-                    <ng-template #noDocument>
-                      <span class="value">N/A</span>
-                    </ng-template>
+                    <span class="value" *ngIf="!item.documents?.length">N/A</span>
                   </div>
                 </div>
                 <div class="row" *ngIf="item.description">
