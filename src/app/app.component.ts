@@ -32,24 +32,24 @@ export class AppComponent implements OnInit, AfterViewInit {
   loading: boolean;
 
   constructor(private cookieService: CookieService,
-              private api: Api,
-              private modalService: NgbModal,
-              private configService: ConfigService,
-              private router: Router) {
+    private api: Api,
+    private modalService: NgbModal,
+    private configService: ConfigService,
+    private router: Router) {
     this.router.events.subscribe((event: Event) => {
       switch (true) {
-        case event instanceof NavigationStart : {
+        case event instanceof NavigationStart: {
           this.loading = true;
           break;
         }
 
-        case event instanceof NavigationEnd :
-        case event instanceof NavigationError :
-        case event instanceof NavigationCancel : {
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationError:
+        case event instanceof NavigationCancel: {
           this.loading = false;
           break;
         }
-        default : {
+        default: {
           break;
         }
 
@@ -62,7 +62,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loggedIn = this.cookieService.get('loggedIn');
-    this.modalMessage = this.configService.config['COMMUNICATIONS'];
+    if (this.configService.config['COMMUNICATIONS'] && this.configService.config['COMMUNICATIONS'].data) {
+      this.modalMessage = this.configService.config['COMMUNICATIONS'].data;
+    }
 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -85,7 +87,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const today = new Date();
 
-    if ((new Date(this.modalMessage.startDate) <= today) && (new Date(this.modalMessage.endDate ) > today)) {
+    if ((new Date(this.modalMessage.startDate) <= today) && (new Date(this.modalMessage.endDate) > today)) {
       return true;
     }
 
