@@ -34,7 +34,7 @@
     "jquery": "3.5.1",
     "leaflet": "1.6.0",
     "leaflet.markercluster": "~1.4.1",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "mygovbc-bootstrap-theme": "0.4.1",
     "ngx-chips": "2.1.0",
     "ngx-cookie-service": "1.0.10",
