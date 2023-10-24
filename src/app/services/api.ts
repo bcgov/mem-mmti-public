@@ -76,7 +76,7 @@ export class Api {
   // Enforcement actions
   getEnforcementActions() {
     return this.getNRPTI(
-      `search?dataset=CourtConvictionBCMI,AdministrativePenaltyBCMI&pageNum=0&pageSize=1000&sortBy=-dateIssued&and[issuingAgency]=Ministry%20of%20Energy%20Mines%20and%20Low%20Carbon%20Innovation&populate=true`
+      `search?dataset=CourtConvictionBCMI,AdministrativePenaltyBCMI&pageNum=0&pageSize=1000&sortBy=-dateIssued&and[issuingAgency]=AGENCY_EMLI&populate=true`
     );
   }
 
