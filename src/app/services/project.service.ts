@@ -125,11 +125,11 @@ export class ProjectService {
 
   private convertToAgencyAcronym(agency: string): string {
     switch (agency.toLowerCase()) {
-      case 'ministry of environment and climate change strategy':
+      case 'agency_env':
         return 'env';
-      case 'environmental assessment office':
+      case 'agency_eao':
         return 'eao';
-      case 'ministry of energy mines and low carbon innovation':
+      case 'agency_emli':
         return 'emli';
       default:
         return agency;
