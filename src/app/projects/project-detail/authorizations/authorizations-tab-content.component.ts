@@ -20,19 +20,19 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
   agencyList = [
     {
       id: 'eao',
-      name: 'Environmental Assessment Office',
+      name: 'AGENCY_EAO',
       act: 'Environmental Assessment Act',
       htmlId: 'authorization-EAO'
     },
     {
       id: 'env',
-      name: 'Ministry of Environment and Climate Change Strategy',
+      name: 'AGENCY_ENV',
       act: 'Environmental Management Act',
       htmlId: 'authorization-ENV'
     },
     {
       id: 'emli',
-      name: 'Ministry of Energy, Mines, and Low Carbon Innovation',
+      name: 'AGENCY_EMLI',
       act: 'Mines Act',
       htmlId: 'authorization-MEM'
     }
