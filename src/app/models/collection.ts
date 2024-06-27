@@ -32,6 +32,7 @@ export class Collection {
         switch (this.type) {
           case 'Permit':
           case 'Certificate':
+          case 'Amalgamated Permit':
           case 'Permit Amendment':
           case 'Certificate Amendment':
             this.parentType = 'Authorizations';
@@ -58,7 +59,17 @@ export class Collection {
 
       // Check status next
       if (this.parentType === 'Authorizations' && !this.status) {
-        this.status = (this.type === 'Permit' || this.type === 'Certificate') ? 'Issued' : 'Amended';
+        switch (this.type) {
+          case 'Permit':
+          case 'Certificate':
+            this.status = 'Issued';
+            break;
+          case 'Amalgamated Permit':
+            this.status = 'Amalgamated';
+            break;
+          default:
+            this.status = 'Amended';
+        }
       }
 
       // Set documents
