@@ -2,7 +2,6 @@ import { RemoveStringValuePipe } from 'app/pipes/remove-string-value.pipe';
 
 describe('RemoveStringValuePipe', () => {
 
-  const toReplace = ' Amendment';
   let value: string;
   let expectedResponse: string;
 
@@ -13,7 +12,16 @@ describe('RemoveStringValuePipe', () => {
       value = 'Permit Amendment Amended';
       expectedResponse = 'Permit Amended';
 
-      expect(pipe.transform(value, toReplace)).toBe(expectedResponse);
+      expect(pipe.transform(value, ' Amendment')).toBe(expectedResponse);
+    });
+  });
+
+  describe('given input with duplicate string value match first instance', () => {
+    it('returns expected output', () => {
+      value = 'Amalgamated Permit Amalgamated';
+      expectedResponse = 'Permit Amalgamated';
+
+      expect(pipe.transform(value, 'Amalgamated')).toBe(expectedResponse);
     });
   });
 
@@ -22,7 +30,7 @@ describe('RemoveStringValuePipe', () => {
       value = 'Permit Amended';
       expectedResponse = 'Permit Amended';
 
-      expect(pipe.transform(value, toReplace)).toBe(expectedResponse);
+      expect(pipe.transform(value, ' Amendment')).toBe(expectedResponse);
     });
   });
 });
