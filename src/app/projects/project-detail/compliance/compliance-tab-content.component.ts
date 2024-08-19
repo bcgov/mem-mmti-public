@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Project } from 'app/models/project';
 import { CollectionsArray } from 'app/models/collection';
 import { LoggerService } from 'app/services/logger.service';
+import { ConfigService } from 'app/services/config.service';
 
 @Component({
   selector: 'app-compliance-tab-content',
@@ -24,7 +25,7 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   // private fields
   private sub: Subscription;
 
-  constructor(private route: ActivatedRoute, private logger: LoggerService) { }
+  constructor(private route: ActivatedRoute, private logger: LoggerService, private configService: ConfigService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -36,6 +37,7 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   }
 
   parseData(data: {project: Project}): void {
+    console.log(data);
     if (data.project && data.project.collections) {
       this.project = data.project;
       this.collections = data.project.collections.compliance;
@@ -46,6 +48,10 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
       this.sortDirection = -1;
       this.loading = false;
     }
+  }
+
+  openNRCED(){
+    window.open(this.configService.config['NRCED_LOCATION']+'/records;project='+encodeURIComponent(this.project.name),'_blank');
   }
 
   ngOnDestroy(): void {

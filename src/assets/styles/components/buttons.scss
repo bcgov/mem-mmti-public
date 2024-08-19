@@ -41,6 +41,21 @@
     &:disabled {
         pointer-events: none;
     }
+
+    &.fixed-r-btn {
+        padding: 0.25rem 0.5rem;
+        margin-right: 0.25rem;
+    
+        i{
+            margin-left: 0.25rem;
+        }
+
+        div.center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 }
 
 .btn-inverted {
@@ -56,7 +71,6 @@ main {
         padding: 0.5rem;
     }
 }
-
 
 // Slide Buttons
 .slide-r-btn,
