@@ -37,7 +37,6 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   }
 
   parseData(data: {project: Project}): void {
-    console.log(data);
     if (data.project && data.project.collections) {
       this.project = data.project;
       this.collections = data.project.collections.compliance;
