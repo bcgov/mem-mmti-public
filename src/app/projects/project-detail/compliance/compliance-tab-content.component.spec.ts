@@ -7,9 +7,11 @@ import { ProjectTypeFilterPipe } from 'app/pipes/project-type-filter.pipe';
 import { Project } from 'app/models/project';
 import { CollectionsArray, CollectionsList } from 'app/models/collection';
 import { ActivatedRoute } from '@angular/router';
+import { ConfigService } from 'app/services/config.service';
 
 import { ComplianceTabContentComponent } from 'app/projects/project-detail/compliance//compliance-tab-content.component';
 import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ComplianceTabContentComponent', () => {
   let component: ComplianceTabContentComponent;
@@ -30,7 +32,8 @@ describe('ComplianceTabContentComponent', () => {
     };
     TestBed.configureTestingModule({
       providers: [
-        { provide: ActivatedRoute, useValue: ActivatedRouteStub }
+        { provide: ActivatedRoute, useValue: ActivatedRouteStub },
+        ConfigService
       ],
       declarations: [
         ComplianceTabContentComponent,
@@ -41,7 +44,8 @@ describe('ComplianceTabContentComponent', () => {
         OrderByPipe
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule
       ]
     })
     .compileComponents();
