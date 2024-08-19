@@ -10,12 +10,21 @@
     <div class="spinner-new rotating"></div>
   </div>
 
+  <h3>Inspections &amp; Orders</h3>
+  <p>
+    <a class="btn hero-btn content-btn-alt fixed-r-btn" (click)="openNRCED()">
+      <div class="center">
+        <span>NRCED</span><i class="material-icons">link</i>
+      </div>
+    </a> 
+      More records for {{project?.name}} are available on the Natural Resource Compliance and Enforcement Database (NRCED).
+  </p>
+  
   <div *ngIf="collections.length; then table else emptyMessage"></div>
 
   <ng-template #table>
     <section class="ce-section">
-      <h3>Inspections &amp; Orders</h3>
-
+      
       <div class="inspections-list" id="complianceList" role="tablist" aria-multiselectable="false">
 
         <table class="table mb-0">
