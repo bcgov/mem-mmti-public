@@ -50,7 +50,7 @@ export class ComplianceTabContentComponent implements OnInit, OnDestroy {
   }
 
   openNRCED() {
-    window.open(this.configService.config['NRCED_LOCATION'] + '/records;project=' + encodeURIComponent(this.project.name), '_blank');
+    window.open(this.configService.getNRCEDURL() + '/records;project=' + encodeURIComponent(this.project.name), '_blank');
   }
 
   ngOnDestroy(): void {
