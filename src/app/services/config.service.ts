@@ -20,7 +20,7 @@ export class ConfigService {
     try {
       // Attempt to get application via this.httpClient. This uses the url of the application that you are running it from
       // This will not work for local because it will try and get localhost:4200/api instead of 3000/api...
-      this.configuration = await this.httpClient.get(`api/config/${application}`).toPromise();
+      this.configuration = await this.httpClient.get(`http://localhost:3000/api/config/${application}`).toPromise();
 
       console.log('Configuration:', this.configuration);
       if (this.configuration['debugMode']) {
@@ -48,6 +48,13 @@ export class ConfigService {
 
   get config(): any {
     return this.configuration;
+  }
+
+  public getNRCEDURL() {
+    if (this.configuration['APPLICATION_URLS'] && this.configuration['ENVIRONMENT']) {
+      return this.configuration['APPLICATION_URLS']['nrced'][this.configuration['ENVIRONMENT']];
+    }
+    return this.configuration['NRCED_LOCATION'];
   }
 
   public createConfigData(configData, application, pathAPI: string) {
