@@ -59,7 +59,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "base-app2:build",
-            "port": 4300
+            "port": 3200
           },
           "configurations": {
             "production": {
