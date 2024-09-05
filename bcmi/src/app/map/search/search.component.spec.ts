@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
   let GeocoderServiceStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     GeocoderServiceStub = {
       lookupAddress: jasmine.createSpy().and.returnValue({

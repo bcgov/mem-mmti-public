@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Project } from 'app/models/project';
@@ -21,7 +21,7 @@ describe('ProjectDetailComponent', () => {
   const ni = new NavigationEnd(1, '', '');
 
   beforeEach(
-    async(() => {
+    waitForAsync(() => {
 
       ProjectServiceStub = {
         getAll: jasmine.createSpy().and.returnValue({

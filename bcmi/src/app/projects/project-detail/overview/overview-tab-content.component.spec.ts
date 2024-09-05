@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
 import { OverviewTabContentComponent } from 'app/projects/project-detail/overview/overview-tab-content.component';
@@ -8,7 +8,7 @@ describe('OverviewTabContentComponent', () => {
   let fixture: ComponentFixture<OverviewTabContentComponent>;
   let ActivatedRouteStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // stub activated route
     ActivatedRouteStub = {
       parent: {

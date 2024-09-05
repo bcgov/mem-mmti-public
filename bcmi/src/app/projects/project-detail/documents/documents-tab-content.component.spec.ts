@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'app/models/project';
 import { CollectionsArray, CollectionsList } from 'app/models/collection';
@@ -12,7 +12,7 @@ describe('DocumentsTabContentComponent', () => {
   let ActivatedRouteStub;
   const project: Project = new Project({ collections: { documents: { sort: () => {} } } });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // stub activated route
     ActivatedRouteStub = {
       parent: {

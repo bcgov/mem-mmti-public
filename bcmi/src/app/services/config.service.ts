@@ -11,6 +11,10 @@ export class ConfigService {
     public http: HttpClient
   ) { }
 
+  get config(): any {
+    return this.configuration;
+  }
+
   /**
    * Initialize the Config Service.  Get configuration data from front-end build, or back-end if nginx
    * is configured to pass the /config endpoint to a dynamic service that returns JSON.
@@ -44,10 +48,6 @@ export class ConfigService {
       }
     }
     return Promise.resolve();
-  }
-
-  get config(): any {
-    return this.configuration;
   }
 
   public getNRCEDURL() {

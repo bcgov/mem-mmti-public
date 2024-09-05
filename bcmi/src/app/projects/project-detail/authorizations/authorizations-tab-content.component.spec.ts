@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
@@ -18,7 +18,7 @@ describe('AuthorizationsTabContentComponent', () => {
   let fixture: ComponentFixture<AuthorizationsTabContentComponent>;
   let ActivatedRouteStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // stub activated route
     ActivatedRouteStub = {
       parent: {

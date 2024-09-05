@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Project } from 'app/models/project';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ describe('ProjectComponent', () => {
   let fixture: ComponentFixture<ProjectListComponent>;
   let ProjectServiceStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // stub project service
     // mock service
     ProjectServiceStub = {

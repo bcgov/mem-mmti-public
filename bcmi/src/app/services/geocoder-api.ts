@@ -23,6 +23,47 @@ class RequestBuilder {
     this._outputSRS = 4326;  // --> WGS84 (default map projection)
   }
 
+  get outputFormat(): string {
+    return this._outputFormat;
+  }
+
+  get address(): string {
+    return this._addressString;
+  }
+
+  get minScore(): number {
+    return this._minScore;
+  }
+
+  get maxResults(): number {
+    return this._maxResults;
+  }
+
+  get outputSRS(): number {
+    return this._outputSRS;
+  }
+
+  get echo(): boolean {
+    return this._echo;
+  }
+
+  get maxDistance(): number {
+    return this._maxDistance;
+  }
+
+  get autoComplete(): boolean {
+    return this._autoComplete;
+  }
+
+  get bbox(): string {
+    return this._bbox;
+  }
+
+  get centre(): string {
+    return this._centre;
+  }
+
+
   /**
    * Specifies the format of the return geocoding results.
    * Valid outputFormat parameters are: csv, json, geojson, gml, kml, shpz, xhtml
@@ -31,9 +72,6 @@ class RequestBuilder {
     this._outputFormat = value;
     return this;
   }
-  get outputFormat(): string {
-    return this._outputFormat;
-  }
 
   /**
    * Specifies the address to be geocoded as a single string
@@ -41,9 +79,6 @@ class RequestBuilder {
   setAddress(address: string): RequestBuilder {
     this._addressString = address;
     return this;
-  }
-  get address(): string {
-    return this._addressString;
   }
 
   /**
@@ -54,9 +89,6 @@ class RequestBuilder {
   setMinScore(value: number): RequestBuilder {
     this._minScore = value;
     return this;
-  }
-  get minScore(): number {
-    return this._minScore;
   }
 
   /**
@@ -69,9 +101,6 @@ class RequestBuilder {
     this._maxResults = value;
     return this;
   }
-  get maxResults(): number {
-    return this._maxResults;
-  }
 
   /**
    * Specifies the Spatial Referencing System (SRS) to use for the locations in the results.
@@ -83,9 +112,6 @@ class RequestBuilder {
     this._outputSRS = value;
     return this;
   }
-  get outputSRS(): number {
-    return this._outputSRS;
-  }
 
   /**
    * Specifies whether to echo back unmatched address information in the results.
@@ -96,9 +122,6 @@ class RequestBuilder {
     this._echo = value;
     return this;
   }
-  get echo(): boolean {
-    return this._echo;
-  }
 
   /**
    * If `true`, addressString is expected to contain a partial address that requires completion.
@@ -107,9 +130,6 @@ class RequestBuilder {
   setAutoComplete(value: boolean): RequestBuilder {
     this._autoComplete = value;
     return this;
-  }
-  get autoComplete(): boolean {
-    return this._autoComplete;
   }
 
   /**
@@ -122,9 +142,6 @@ class RequestBuilder {
     this._bbox = bbox;
     return this;
   }
-  get bbox(): string {
-    return this._bbox;
-  }
 
   /**
    * Specifies the coordinates of a centre point (x,y) used to define a bounding circle
@@ -134,9 +151,6 @@ class RequestBuilder {
     this._centre = point;
     return this;
   }
-  get centre(): string {
-    return this._centre;
-  }
 
   /**
    * Specifies the maximum distance (in metres) to search from the given point.
@@ -145,9 +159,6 @@ class RequestBuilder {
   setMaxDistance(value: number): RequestBuilder {
     this._maxDistance = value;
     return this;
-  }
-  get maxDistance(): number {
-    return this._maxDistance;
   }
 
   /**

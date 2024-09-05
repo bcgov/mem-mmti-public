@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -43,7 +43,7 @@ describe('MainMapComponent', () => {
   let ProjectServiceStub;
 
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     ProjectServiceStub = {
       getAll: jasmine.createSpy().and.returnValue({

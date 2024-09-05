@@ -1,4 +1,4 @@
-import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -23,7 +23,7 @@ describe('AuthorizationsComponent', () => {
     url: 'test.test.com'
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
         { provide: Router, useValue: routerStub }

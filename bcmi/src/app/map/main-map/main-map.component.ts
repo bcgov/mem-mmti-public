@@ -25,17 +25,6 @@ export class MainMapComponent implements OnInit, OnDestroy {
   @HostBinding('class.full-screen') fullScreen = true;
 
   public _loading = false;
-  set loading(val: boolean) {
-    this._loading = val;
-    if (val) {
-      this.mapSearch.onLoadStart();
-      this.mineMap.onLoadStart();
-    } else {
-      this.mapSearch.onLoadEnd();
-      this.mineMap.onLoadEnd();
-    }
-  }
-
   public projects: Array<Project> = [];
   public mapApps: Array<Project> = [];
   public filterApps: Array<Project> = [];
@@ -48,6 +37,17 @@ export class MainMapComponent implements OnInit, OnDestroy {
     private router: Router,
     private modalService: NgbModal
   ) { }
+
+  set loading(val: boolean) {
+    this._loading = val;
+    if (val) {
+      this.mapSearch.onLoadStart();
+      this.mineMap.onLoadStart();
+    } else {
+      this.mapSearch.onLoadEnd();
+      this.mineMap.onLoadEnd();
+    }
+  }
 
   ngOnInit() {
     this.getProjects();

@@ -85,6 +85,10 @@ export class CollectionsArray {
     this.items = obj && obj.items || [];
   }
 
+  get length() {
+    return this.items.length;
+  }
+
   sort() {
     // Sort collections by descending date, i.e. most recent.
     this.items.sort(function(a: Collection, b: Collection) {
@@ -92,10 +96,6 @@ export class CollectionsArray {
       const bDate = b.date ? b.date.getTime() : 0;
       return bDate - aDate;
     });
-  }
-
-  get length() {
-    return this.items.length;
   }
 
   add(collection?: Collection) {

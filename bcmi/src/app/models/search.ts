@@ -32,16 +32,16 @@ export class SearchArray {
     this.items = obj && obj.items || [];
   }
 
+  get length() {
+    return this.items.length;
+  }
+
   sort() {
     this.items.sort(function(a: Search, b: Search) {
       const aDate = a && a.date ? new Date(a.date).getTime() : 0;
       const bDate = b && b.date ? new Date(b.date).getTime() : 0;
       return bDate - aDate;
     });
-  }
-
-  get length() {
-    return this.items.length;
   }
 
   add(search?: Search) {
