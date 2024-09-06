@@ -24,6 +24,14 @@ aside {
     .card-body {
         background: $aside-bg;
     }
+
+    a {
+        text-decoration: none;
+    }
+    
+    a:hover{
+        text-decoration: underline;
+    }
 }
 
 @media (min-width: 992px) {

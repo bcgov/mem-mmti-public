@@ -4,6 +4,10 @@ body {
     overflow-y: scroll;
 }
 
+html {
+    scroll-behavior: auto !important;
+}
+
 // Container
 .container {
     margin: 0 auto;
@@ -115,6 +119,14 @@ main {
         a {
             color: $gold;
         }
+    }
+
+    a {
+        text-decoration: none;
+    }
+    
+    a:hover{
+        text-decoration: underline;
     }
 }
 

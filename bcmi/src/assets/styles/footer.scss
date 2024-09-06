@@ -69,9 +69,11 @@ footer {
 
         a {
             color: #FFF;
+            text-decoration: none;
 
             &:focus,
             &:hover {
+                text-decoration: underline;
                 color: $gold;
             }
         }
