@@ -1,16 +1,16 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ObjectFilterPipe } from 'app/pipes/object-filter.pipe';
-import { OperatorFilterPipe } from 'app/pipes/operator-filter.pipe';
-import { ProjectStatusFilterPipe } from 'app/pipes/project-status-filter.pipe';
-import { ProjectTypeFilterPipe } from 'app/pipes/project-type-filter.pipe';
-import { Project } from 'app/models/project';
-import { CollectionsArray, CollectionsList } from 'app/models/collection';
+import { ObjectFilterPipe } from '@pipes/object-filter.pipe';
+import { OperatorFilterPipe } from '@pipes/operator-filter.pipe';
+import { ProjectStatusFilterPipe } from '@pipes/project-status-filter.pipe';
+import { ProjectTypeFilterPipe } from '@pipes/project-type-filter.pipe';
+import { Project } from '@models/project';
+import { CollectionsArray, CollectionsList } from '@models/collection';
 import { ActivatedRoute } from '@angular/router';
-import { ConfigService } from 'app/services/config.service';
+import { ConfigService } from '@services/config.service';
 
-import { ComplianceTabContentComponent } from 'app/projects/project-detail/compliance//compliance-tab-content.component';
-import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
+import { ComplianceTabContentComponent } from '@projects/project-detail/compliance//compliance-tab-content.component';
+import { OrderByPipe } from '@pipes/filters/order-by.pipe';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('ComplianceTabContentComponent', () => {

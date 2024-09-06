@@ -1,10 +1,10 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from 'app/models/project';
-import { CollectionsArray, CollectionsList } from 'app/models/collection';
+import { Project } from '@models/project';
+import { CollectionsArray, CollectionsList } from '@models/collection';
 
-import { DocumentsTabContentComponent } from 'app/projects/project-detail/documents/documents-tab-content.component';
-import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
+import { DocumentsTabContentComponent } from '@projects/project-detail/documents/documents-tab-content.component';
+import { OrderByPipe } from '@pipes/filters/order-by.pipe';
 
 describe('DocumentsTabContentComponent', () => {
   let component: DocumentsTabContentComponent;

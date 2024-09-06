@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 
-import { Project } from 'app/models/project';
-import { ProjectService } from 'app/services/project.service';
-import { LoggerService } from 'app/services/logger.service';
-import { DropdownLists, DropdownOption } from 'app/shared/dropdown-lists';
+import { Project } from  '@models/project';
+import { ProjectService } from '@services/project.service';
+import { LoggerService } from '@services/logger.service';
+import { DropdownLists, DropdownOption } from '../../shared/dropdown-lists';
 
 @Component({
   selector: 'app-project-list',
@@ -13,7 +13,7 @@ import { DropdownLists, DropdownOption } from 'app/shared/dropdown-lists';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectListComponent implements OnInit {
-  projects: Array<Project>;
+  projects: Project[];
   public filter = '';
   public showFilters: boolean;
   public operatorfilter: '';
@@ -25,14 +25,14 @@ export class ProjectListComponent implements OnInit {
   public direction: number;
   public loading: boolean;
   public mineCount: number;
-  public operators: Array<String> = [];
+  public operators: string[] = [];
   public pagination: PaginationInstance = {
     id: 'project-pagination',
     itemsPerPage: 50,
     currentPage: 1
   };
   // In order to access in the template.
-  public minetypeOptions: Array<DropdownOption> = DropdownLists.MineTypeList;
+  public minetypeOptions: DropdownOption[] = DropdownLists.MineTypeList;
 
   constructor(private projectService: ProjectService,
               private _changeDetectionRef: ChangeDetectorRef,
@@ -47,7 +47,7 @@ export class ProjectListComponent implements OnInit {
     );
   }
 
-  parseData(data: Array<Project>): void {
+  parseData(data: Project[]): void {
     this.projects = data;
     this.getOperators(data);
     this.mineCount = data ? data.length : 0;

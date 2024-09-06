@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from 'app/services/project.service';
-import { Api } from 'app/services/api';
-import { LoggerService } from 'app/services/logger.service';
+import { ProjectService } from '@services/project.service';
+import { Api } from '@services/api';
+import { LoggerService } from '@services/logger.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +9,8 @@ import { LoggerService } from 'app/services/logger.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  numProjects: Number;
-  hostname: String;
+  numProjects: number;
+  hostname: string;
   constructor( private projectService: ProjectService,
                private api: Api,
                private logger: LoggerService) { }
@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
       error => this.logger.log(error)
     );
     this.hostname = this.api.hostnameNRPTI;
+  }
+
+  afterNextRender(){
     window.scrollTo(0, 0);
   }
 }

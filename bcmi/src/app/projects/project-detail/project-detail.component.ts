@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Project } from 'app/models/project';
-import { LoggerService } from 'app/services/logger.service';
+import { Project } from '@models/project';
+import { LoggerService } from '@services/logger.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -45,6 +45,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     },
     error => this.logger.log(error));
 
+  }
+
+  afterNextRender(){
     window.scrollTo(0, 0);
   }
 
@@ -77,6 +80,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   /**
    * Keeps track of pageYOffset when the window is scrolled
    */
+
+  /*
   @HostListener('window:scroll')
   persistYOffset() {
     this.pageYOffset = window.pageYOffset;
@@ -87,4 +92,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       window.scroll(0, this.pageYOffset);
     }
   }
+    */
+
+  restoreYOffset(): void{}
 }

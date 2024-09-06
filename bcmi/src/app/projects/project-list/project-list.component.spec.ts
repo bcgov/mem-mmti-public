@@ -1,19 +1,19 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Project } from 'app/models/project';
+import { Project } from '@models/project';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ProjectListComponent } from 'app/projects/project-list/project-list.component';
-import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
-import { ProjectStatusFilterPipe } from 'app/pipes/project-status-filter.pipe';
-import { ProjectTypeFilterPipe } from 'app/pipes/project-type-filter.pipe';
-import { OperatorFilterPipe } from 'app/pipes/operator-filter.pipe';
-import { ObjectFilterPipe } from 'app/pipes/object-filter.pipe';
-import { ProjectService } from 'app/services/project.service';
-import { Api } from 'app/services/api';
-import { ConfigService } from 'app/services/config.service';
+import { ProjectListComponent } from '@projects/project-list/project-list.component';
+import { OrderByPipe } from '@pipes/filters/order-by.pipe';
+import { ProjectStatusFilterPipe } from '@pipes/project-status-filter.pipe';
+import { ProjectTypeFilterPipe } from '@pipes/project-type-filter.pipe';
+import { OperatorFilterPipe } from '@pipes/operator-filter.pipe';
+import { ObjectFilterPipe } from '@pipes/object-filter.pipe';
+import { ProjectService } from '@services/project.service';
+import { Api } from '@services/api';
+import { ConfigService } from '@services/config.service';
 
 describe('ProjectComponent', () => {
   let component: ProjectListComponent;

@@ -2,9 +2,9 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { DocumentService } from 'app/services/document.service';
-import { ConfigService } from 'app/services/config.service';
-import { Api } from 'app/services/api';
+import { DocumentService } from '@services/document.service';
+import { ConfigService } from '@services/config.service';
+import { Api } from '@services/api';
 
 import {
   Event,
@@ -25,8 +25,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('informationModal') modal: ElementRef;
   modalRef: NgbModalRef;
 
-  loggedIn: String;
-  hostname: String;
+  loggedIn: string;
+  hostname: string;
   modalMessage: any;
 
   loading: boolean;

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Project } from 'app/models/project';
-import { CourtConviction } from 'app/models/court-conviction';
-import { LoggerService } from 'app/services/logger.service';
+import { Project } from '@models/project';
+import { CourtConviction } from '@models/court-conviction';
+import { LoggerService } from '@services/logger.service';
 
 @Component({
   selector: 'app-offence-prosecutions-tab-content',
@@ -19,8 +19,8 @@ export class OffenceProsecutionsTabContentComponent implements OnInit {
   ngOnInit(): void {
     this.route.parent.data.subscribe(
       res => {
-        this.projects = res.data.projects;
-        this.courtConvictions = res.data.actions.courtConvictions;
+        this.projects = res['data'].projects;
+        this.courtConvictions = res['data'].actions.courtConvictions;
       },
       error => this.logger.log(error)
     );

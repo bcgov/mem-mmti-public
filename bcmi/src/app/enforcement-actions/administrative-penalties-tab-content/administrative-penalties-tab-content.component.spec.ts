@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 
 import { AdministrativePenaltiesTabContentComponent } from './administrative-penalties-tab-content.component';
-import { Project } from 'app/models/project';
-import { AdministrativePentalty } from 'app/models/administrative-penalty';
+import { Project } from '@models/project';
+import { AdministrativePentalty } from '@models/administrative-penalty';
 
 describe('AdministrativePenaltiesTabContentComponent', () => {
   let component: AdministrativePenaltiesTabContentComponent;

@@ -1,6 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
+import { SiteActivitiesComponent } from '@projects/site-activities/site-activities.component';
 
 describe('SiteActivitiesComponent', () => {
   let component: SiteActivitiesComponent;

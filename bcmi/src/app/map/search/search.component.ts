@@ -1,16 +1,13 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges, OnDestroy, OnChanges, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable , map,distinctUntilChanged,debounceTime} from 'rxjs';
+import { Subject } from 'rxjs';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Project } from 'app/models/project';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/map';
+import { Project } from '@models/project';
 import * as _ from 'lodash';
 
-import { GeocoderService } from 'app/services/geocoder.service';
-import { DropdownLists, DropdownOption } from 'app/shared/dropdown-lists';
+import { GeocoderService } from '@services/geocoder.service';
+import { DropdownLists, DropdownOption } from '../../shared/dropdown-lists';
 
 export interface FiltersType {
   mineFilter: string;
@@ -24,7 +21,7 @@ export interface FiltersType {
 })
 export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() projects: Array<Project> = [];
+  @Input() projects: Project[] = [];
   @Input() selected: string;
   @Output() updateMatching = new EventEmitter();
   @Output() showPlace = new EventEmitter();
@@ -44,15 +41,15 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   public resultsCount = 0;
   public showAdvancedFilters = false;
   // In order to access in the template.
-  public minetypeOptions: Array<DropdownOption> = DropdownLists.MineTypeList;
-  public tailingOptions: Array<DropdownOption> = DropdownLists.YesNoList;
+  public minetypeOptions: DropdownOption[] = DropdownLists.MineTypeList;
+  public tailingOptions: DropdownOption[] = DropdownLists.YesNoList;
   public radioSel: string;
   public radioOptions: string[] = ['Mine Name', 'Permit Number', 'Address Lookup'];
 
-  private mineKeys: Array<string> = [];
-  private permitKeys: Array<string> = [];
-  private geoResults: Array<any> = [];
-  private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
+  private mineKeys: string[] = [];
+  private permitKeys: string[] = [];
+  private geoResults: any[] = [];
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
     private geoService: GeocoderService,
@@ -66,19 +63,19 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   //
   public mineSearch = (text$: Observable<string>) =>
     text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(term => term.length < 1 ? []
+      .pipe(debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1 ? []
         : this.mineKeys.filter(key => key.indexOf(this._mineFilter.toUpperCase()) > -1)
-      )
+      ))
 
   public permitSearch = (text$: Observable<string>) =>
     text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(term => term.length < 1 ? []
+      .pipe(debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 1 ? []
         : this.permitKeys.filter(key => key.indexOf(this._permitFilter.toUpperCase()) > -1)
-      )
+      ))
 
   ngOnInit(): void {
     this.radioSel = 'Mine Name';
@@ -95,7 +92,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   // called when apps list changes
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes.projects && !changes.projects.firstChange && changes.projects.currentValue) {
+    if (changes['projects'] && !changes['projects'].firstChange && changes['projects'].currentValue) {
 
       this.mineKeys = _.sortedUniq(_.compact(this.projects.map(app => app.name ? app.name.toUpperCase() : null)).sort());
       this.permitKeys = _.sortedUniq(_.compact(this.projects.map(app => app.permitNumber ? app.permitNumber.toUpperCase() : null)).sort());
@@ -140,7 +137,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   private internalApplyFilters(doSave: boolean) {
     this.projects.forEach(mine => mine.isMatch = this.showThisMine(mine));
-    let projCount = this.projects.filter(mine => mine.isMatch);
+    const projCount = this.projects.filter(mine => mine.isMatch);
     this.resultsCount = projCount.length;
     this.updateMatching.emit();
 

@@ -1,5 +1,5 @@
-import { Project } from 'app/models/project';
-import { Proponent } from 'app/models/proponent';
+import { Project } from '@models/project';
+import { Proponent } from '@models/proponent';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Search {
@@ -53,9 +53,9 @@ export class SearchArray {
 
 export class SearchTerms {
   keywords: string;
-  projects: Array<Project>;
-  proponents: Array<Proponent>;
-  ownerships: Array<Proponent>;
+  projects: Project[];
+  proponents: Proponent[];
+  ownerships: Proponent[];
   dateStart: NgbDateStruct;
   dateEnd: NgbDateStruct;
 

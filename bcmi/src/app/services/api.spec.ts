@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { Api } from 'app/services/api';
-import { ConfigService } from 'app/services/config.service';
+import { Api } from '@services/api';
+import { ConfigService } from '@services/config.service';
 
 describe('Api', () => {
   beforeEach(() => {

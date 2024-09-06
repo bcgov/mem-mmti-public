@@ -2,8 +2,8 @@ import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
-import { Api } from 'app/services/api';
-import { Proponent } from 'app/models/proponent';
+import { Api } from '@services/api';
+import { Proponent } from '@models/proponent';
 
 @Injectable()
 export class ProponentService {

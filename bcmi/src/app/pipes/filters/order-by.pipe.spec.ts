@@ -1,4 +1,4 @@
-import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
+import { OrderByPipe } from '@pipes/filters/order-by.pipe';
 
 describe('OrderByPipe', () => {
   let records;

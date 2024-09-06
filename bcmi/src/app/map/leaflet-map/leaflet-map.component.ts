@@ -1,9 +1,9 @@
 import { Component, OnDestroy, Input, HostListener, ApplicationRef, Injector, ComponentFactoryResolver, SimpleChanges, Output, EventEmitter, OnChanges, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeafletMapUtils } from './leaflet-map.utils';
-import { Project } from 'app/models/project';
-import { ProjectPopupComponent } from 'app/map/leaflet-map/project-popup/project-popup.component';
-import { MajorMinesPopupComponent } from 'app/map/leaflet-map/major-mines-popup/major-mines-popup.component';
+import { Project } from '@models/project';
+import { ProjectPopupComponent } from './project-popup/project-popup.component';
+import { MajorMinesPopupComponent } from './major-mines-popup/major-mines-popup.component';
 import { HttpClient } from '@angular/common/http';
 import 'leaflet.markercluster';
 import * as L from 'leaflet';
@@ -50,7 +50,7 @@ L.Marker.prototype.options.icon = markerGeocode;
 export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @Input() project: Project;
-  @Input() projects: Array<Project> = []; // from main map component
+  @Input() projects: Project[] = []; // from main map component
   @Input() mapApps; // from main map component
   @Input() filterApps; // from main map component
   @Input() zoom = 6;
@@ -64,7 +64,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   readonly maxBounds = L.latLngBounds([40, -150], [70, -110]); // all of BC
   public selectedProject: Project = null;
   private map: L.Map = null;
-  private markers: Map<String, L.Marker> = new Map();
+  private markers = new Map<string, L.Marker>();
   private markerClusterGroup = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 40, // 0 disables
@@ -86,7 +86,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
   ngOnInit() {
     if (!this.thumbnail) {
-      let routerProjId = this.router.snapshot.paramMap.get('project');
+      const routerProjId = this.router.snapshot.paramMap.get('project');
       this.projects.forEach((proj, index) => {
         if (proj.location && proj.location['coordinates'][1] && proj.location['coordinates'][0]) {
           const title = `Project: ${proj.name}`;
@@ -187,10 +187,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
   // called when apps list changes
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.projects && !changes.projects.firstChange && changes.projects.currentValue && changes.projects.previousValue) {
+    if (changes['projects'] && !changes['projects'].firstChange && changes['projects'].currentValue && changes['projects'].previousValue) {
 
-      const deletedApps = changes.projects.previousValue.filter(x => !changes.projects.currentValue.includes(x)) as Array<Project>;
-      const addedApps = changes.projects.currentValue.filter(x => !changes.projects.previousValue.includes(x)) as Array<Project>;
+      const deletedApps = changes['projects'].previousValue.filter(x => !changes['projects'].currentValue.includes(x)) as Project[];
+      const addedApps = changes['projects'].currentValue.filter(x => !changes['projects'].previousValue.includes(x)) as Project[];
 
       // (re)draw the matching apps
       this.drawMap(deletedApps, addedApps);
@@ -198,7 +198,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   }
 
   ngAfterViewInit() {
-    let mapOptions = {
+    const mapOptions = {
       maxZoom: 17,
       zoomControl: false, // will be added manually below
       zoom: this.zoom,
@@ -268,19 +268,19 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
 
   identifyWmsLayers(e) {
     if (this.map.hasLayer(this.overlays['Major Mine Permitted Areas'])) {
-      let bbox   = e.sourceTarget.getBounds().toBBoxString();
-      let width  = e.sourceTarget.getSize().x;
-      let height = e.sourceTarget.getSize().y;
-      let x      = Math.floor(e.sourceTarget.layerPointToContainerPoint(e.layerPoint).x);
-      let y      = Math.floor(e.sourceTarget.layerPointToContainerPoint(e.layerPoint).y);
+      const bbox   = e.sourceTarget.getBounds().toBBoxString();
+      const width  = e.sourceTarget.getSize().x;
+      const height = e.sourceTarget.getSize().y;
+      const x      = Math.floor(e.sourceTarget.layerPointToContainerPoint(e.layerPoint).x);
+      const y      = Math.floor(e.sourceTarget.layerPointToContainerPoint(e.layerPoint).y);
 
-      let wmsGetInfoUrl = `${LeafletMapUtils.LAYERS.VERIFIED_MINES_URL}?service=WMS&version=1.1.1&request=GetFeatureInfo&query_layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&bbox=${bbox}&feature_count=1&height=${height}&width=${width}&info_format=application%2Fjson&srs=EPSG%3A4326&x=${x}&y=${y}`;
+      const wmsGetInfoUrl = `${LeafletMapUtils.LAYERS.VERIFIED_MINES_URL}?service=WMS&version=1.1.1&request=GetFeatureInfo&query_layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&layers=${LeafletMapUtils.LAYERS.VERIFIED_MINES_LAYER}&bbox=${bbox}&feature_count=1&height=${height}&width=${width}&info_format=application%2Fjson&srs=EPSG%3A4326&x=${x}&y=${y}`;
 
       this.http.get(wmsGetInfoUrl)
       .subscribe(data => {
 
         if (data && data['features'] && data['features'].length === 1) {
-          let minesFeature = data['features'][0];
+          const minesFeature = data['features'][0];
 
           const compFactory = this.resolver.resolveComponentFactory(MajorMinesPopupComponent);
           const compRef = compFactory.create(this.injector);
@@ -306,7 +306,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
             };
           }
 
-          let popup = L.popup(popupOptions)
+          const popup = L.popup(popupOptions)
                        .setLatLng(e.latlng)
                        .setContent(div);
 
@@ -349,7 +349,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
       };
     }
 
-    let layers = layer.getLayers();
+    const layers = layer.getLayers();
     layers.forEach(lyr => {
       // compile marker popup component
       const compFactory = this.resolver.resolveComponentFactory(GeoCodePopupComponent);
@@ -405,7 +405,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
   * Removes deleted / draws added projects.
   */
   private drawMap(deletedApps: Project[], addedApps: Project[]) {
-    let routerProjId = this.router.snapshot.paramMap.get('project');
+    const routerProjId = this.router.snapshot.paramMap.get('project');
 
     // remove deleted apps from list and map
     deletedApps.forEach(proj => {
@@ -448,8 +448,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges, On
    * Sets which apps are currently visible.
    * Actual function executes no more than once every 250ms.
    */
-  // tslint:disable-next-line:member-ordering
-  private openPopupDebounced = _.debounce(this.openPopup, 250);
+   private openPopupDebounced = _.debounce(this.openPopup, 250);
 
   private openPopup() {
     this.markers.forEach((marker, key) => {

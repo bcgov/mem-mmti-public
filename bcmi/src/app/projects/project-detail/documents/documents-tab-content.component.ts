@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Project } from 'app/models/project';
-import { CollectionsArray } from 'app/models/collection';
-import { LoggerService } from 'app/services/logger.service';
+import { Project } from '@models/project';
+import { CollectionsArray } from '@models/collection';
+import { LoggerService } from '@services/logger.service';
 
 @Component({
   selector: 'app-documents-tab-content',

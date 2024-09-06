@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 
-import { OverviewTabContentComponent } from 'app/projects/project-detail/overview/overview-tab-content.component';
-import { AuthorizationsTabContentComponent } from 'app/projects/project-detail/authorizations/authorizations-tab-content.component';
-import { ComplianceTabContentComponent } from 'app/projects/project-detail/compliance/compliance-tab-content.component';
-import { DocumentsTabContentComponent } from 'app/projects/project-detail/documents/documents-tab-content.component';
+import { OverviewTabContentComponent } from '@projects/project-detail/overview/overview-tab-content.component';
+import { AuthorizationsTabContentComponent } from '@projects/project-detail/authorizations/authorizations-tab-content.component';
+import { ComplianceTabContentComponent } from '@projects/project-detail/compliance/compliance-tab-content.component';
+import { DocumentsTabContentComponent } from '@projects/project-detail/documents/documents-tab-content.component';
 
 export const TAB_NAV_ROUTES: Routes = [
   { path: '', redirectTo: 'overview', pathMatch: 'full' },

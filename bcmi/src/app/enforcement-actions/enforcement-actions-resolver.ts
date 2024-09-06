@@ -4,8 +4,8 @@ import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
-import { ProjectService } from 'app/services/project.service';
-import { EnforcementActionsService } from 'app/services/enforcement-actions.service';
+import { ProjectService } from '@services/project.service';
+import { EnforcementActionsService } from '@services/enforcement-actions.service';
 
 @Injectable()
 export class EnforcementActionsResolver implements Resolve<Observable<object>> {

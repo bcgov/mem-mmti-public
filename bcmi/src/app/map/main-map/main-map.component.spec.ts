@@ -3,18 +3,18 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
-import { ProjectService } from 'app/services/project.service';
-import { MainMapComponent } from 'app/map/main-map/main-map.component';
-import { Project } from 'app/models/project';
+import { ProjectService } from '@services/project.service';
+import { MainMapComponent } from './map/main-map/main-map.component';
+import { Project } from '@models/project';
 import { SearchComponent } from '../search/search.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LeafletMapComponent } from '../leaflet-map/leaflet-map.component';
-import { TestConstants } from 'app/shared/test-constants';
-import { GeocoderService } from 'app/services/geocoder.service';
-import { Api } from 'app/services/api';
-import { ConfigService } from 'app/services/config.service';
+import { TestConstants } from './shared/test-constants';
+import { GeocoderService } from '@services/geocoder.service';
+import { Api } from '@services/api';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'leaflet-map',
@@ -23,7 +23,7 @@ import { ConfigService } from 'app/services/config.service';
 
 class LeafletMapStubComponent {
   @Input() project: Project;
-  @Input() projects: Array<Project> = []; // from main map component
+  @Input() projects: Project[] = []; // from main map component
   @Input() mapApps; // from main map component
   @Input() filterApps; // from main map component
   @Input() zoom = 6;

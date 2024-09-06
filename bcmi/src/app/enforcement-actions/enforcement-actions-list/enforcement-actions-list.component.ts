@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ConfigService } from 'app/services/config.service';
-import { LoggerService } from 'app/services/logger.service';
+import { ConfigService } from '@services/config.service';
+import { LoggerService } from '@services/logger.service';
 
 @Component({
   selector: 'app-enforcement-actions-list',

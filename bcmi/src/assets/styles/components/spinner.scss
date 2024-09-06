@@ -1,4 +1,4 @@
-@import "~assets/styles/base.scss";
+@import "../../../assets/styles/base.scss";
 
 .spinner-new {
     position: absolute;
@@ -8,7 +8,7 @@
     height: 50px;
     margin-top: calc(-#{$spinner-width} / 1.5);
     margin-left: calc(-#{$spinner-width} / 2);
-    background-image: url("assets/images/spinner.png")
+    background-image: url("../../../assets/images/spinner.png")
 }
 
 .spinner-container {
@@ -27,7 +27,7 @@
         background: $spinner-invert-bg;
 
         .spinner-new {
-            background-image: url("assets/images/spinner.png")
+            background-image: url("../../../assets/images/spinner.png")
         }
     }
 

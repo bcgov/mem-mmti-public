@@ -1,10 +1,10 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ProjectDetailResolver } from 'app/projects/project-detail-resolver.service';
-import { ProjectService } from 'app/services/project.service';
-import { Api } from 'app/services/api';
-import { ConfigService } from 'app/services/config.service';
+import { ProjectDetailResolver } from '@projects/project-detail-resolver.service';
+import { ProjectService } from '@services/project.service';
+import { Api } from '@services/api';
+import { ConfigService } from '@services/config.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('ProjectDetailResolverService', () => {

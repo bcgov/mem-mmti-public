@@ -1,29 +1,44 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "importHelpers": true,
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "strict": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@models/*": ["app/models/*"],
+      "@assets/*": ["assets/*"],
+      "@pipes/*": ["app/pipes/*"],
+      "@projects/*": ["app/projects/*"],
+      "@services/*": ["app/services/*"],
+    },
+    "noImplicitOverride": true,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "strictNullChecks": false,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
     "lib": [
-      "es2016",
+      "ES2022",
       "dom"
-    ],
-    "module": "es2015",
-     /* replaces deprecated no-use-before-declare */
-     "noUnusedLocals": true,     /* Report errors on unused locals. */
-     "noUnusedParameters": true  /* Report errors on unused parameters. */
+    ]
   },
   "angularCompilerOptions": {
-    "enableIvy": false
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

@@ -1,4 +1,4 @@
-import { Project } from 'app/models/project';
+import { Project } from '@models/project';
 
 export class TestConstants {
   public static readonly testProjects = [

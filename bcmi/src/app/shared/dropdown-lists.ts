@@ -6,7 +6,7 @@ export interface DropdownOption {
 }
 
 export class DropdownLists {
-  public static readonly MineTypeList: Array<DropdownOption> = [
+  public static readonly MineTypeList: DropdownOption[] = [
     { value: '', name: 'All'},
     { value: 'Metal', name: Constants.MINE_TYPES.METAL},
     { value: 'Coal', name: Constants.MINE_TYPES.COAL},
@@ -14,7 +14,7 @@ export class DropdownLists {
     { value: 'Sand & Gravel', name: Constants.MINE_TYPES.SAND_GRAVEL}
   ];
 
-  public static readonly YesNoList: Array<DropdownOption> = [
+  public static readonly YesNoList: DropdownOption[] = [
     { value: '', name: 'Show All' },
     { value: 'yes', name: 'Yes' },
     { value: 'no', name: 'No'}

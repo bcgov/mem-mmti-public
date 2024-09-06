@@ -2,7 +2,7 @@ import {throwError as observableThrowError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
-import { ConfigService } from 'app/services/config.service';
+import { ConfigService } from '@services/config.service';
 
 @Injectable()
 export class Api {
@@ -43,7 +43,7 @@ export class Api {
     }
 
     // codes need to be converted into the project name
-    let nameFromCode = projectCode
+    const nameFromCode = projectCode
                         .toLowerCase() // should be lowercase already, but just in case
                         .split('-')
                         .map(name => name.charAt(0).toUpperCase() + name.slice(1))
@@ -82,11 +82,11 @@ export class Api {
 
   // Methods
 
-  getNRPTI(apiRoute: string, options?: Object) {
+  getNRPTI(apiRoute: string, options?: object) {
     return this.get(this.pathNRPTI, apiRoute, options);
   }
 
-  lookupAddress(addressUrl: string, options?: Object) {
+  lookupAddress(addressUrl: string, options?: object) {
     return this.http.get(`${ this.geocoderAPI }${ addressUrl }`, options || {});
   }
 
@@ -97,7 +97,7 @@ export class Api {
 
   // Private
 
-  private get(apiPath: string, apiRoute: string, options?: Object) {
+  private get(apiPath: string, apiRoute: string, options?: object) {
     return this.http.get(`${ apiPath }/${ apiRoute }`, options || {});
   }
 }

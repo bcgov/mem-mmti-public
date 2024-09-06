@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 
-import { Api } from 'app/services/api';
-import { AdministrativePentalty } from 'app/models/administrative-penalty';
-import { CourtConviction } from 'app/models/court-conviction';
+import { Api } from '@services/api';
+import { AdministrativePentalty } from '@models/administrative-penalty';
+import { CourtConviction } from '@models/court-conviction';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class EnforcementActionsService {
   public getAll() {
     return this.api.getEnforcementActions().pipe(
       map((res: any[]) => {
-        let enforcements = res && res.length > 0 && res[0]['searchResults'] ? res[0]['searchResults'] : [];
+        const enforcements = res && res.length > 0 && res[0]['searchResults'] ? res[0]['searchResults'] : [];
 
         const courtConvictions = enforcements
           .filter(enforcement => enforcement._schemaName === 'CourtConvictionBCMI')

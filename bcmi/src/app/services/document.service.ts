@@ -2,10 +2,10 @@ import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
-import { Api } from 'app/services/api';
-import { SearchArray, SearchTerms } from 'app/models/search';
-import { Project } from 'app/models/project';
-import { Proponent } from 'app/models/proponent';
+import { Api } from '@services/api';
+import { SearchArray, SearchTerms } from '@models/search';
+import { Project } from '@models/project';
+import { Proponent } from '@models/proponent';
 
 @Injectable()
 export class DocumentService {
@@ -13,7 +13,7 @@ export class DocumentService {
 
   constructor(private api: Api) { }
 
-  get(terms: SearchTerms, projects: Array<Project>, proponents: Array<Proponent>, page: number, limit: number) {
+  get(terms: SearchTerms, projects: Project[], proponents: Proponent[], page: number, limit: number) {
     this.searchResult = new SearchArray();
 
     let query = 'search?types=document';

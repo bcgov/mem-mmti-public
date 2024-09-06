@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Project } from 'app/models/project';
+import { Project } from '@models/project';
 import { LatLng } from 'leaflet';
 
 

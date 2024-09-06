@@ -2,7 +2,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TopicsOfInterestComponent } from 'app/static-pages/topics-of-interest/topics-of-interest.component';
+import { TopicsOfInterestComponent } from './static-pages/topics-of-interest/topics-of-interest.component';
 
 describe('TopicsOfInterestComponent', () => {
   let component: TopicsOfInterestComponent;

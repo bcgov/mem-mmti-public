@@ -1,4 +1,4 @@
-import { RemoveStringValuePipe } from 'app/pipes/remove-string-value.pipe';
+import { RemoveStringValuePipe } from '@pipes/remove-string-value.pipe';
 
 describe('RemoveStringValuePipe', () => {
 

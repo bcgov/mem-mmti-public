@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { CollectionsList } from 'app/models/collection';
+import { CollectionsList } from '@models/collection';
 
 /**
  * Link schema-field specification.
@@ -67,7 +67,7 @@ export class Project {
   }[];
 
   // search helpers
-  isMatch?: Boolean = true;
+  isMatch?: boolean = true;
 
   constructor(obj?: any) {
     this._id                  = (obj && obj._id)                  || null;

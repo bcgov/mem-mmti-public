@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { EnforcementActionsListComponent } from './enforcement-actions-list.component';
-import { ConfigService } from 'app/services/config.service';
+import { ConfigService } from '@services/config.service';
 
 describe('EnforcementActionsListComponent', () => {
   let component: EnforcementActionsListComponent;

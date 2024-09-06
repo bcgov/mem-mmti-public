@@ -2,8 +2,8 @@ import { Component, Input, HostBinding, OnInit, OnDestroy, ViewChild, ElementRef
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Project } from 'app/models/project';
-import { ProjectService } from 'app/services/project.service';
+import { Project } from '@models/project';
+import { ProjectService } from '@services/project.service';
 import * as L from 'leaflet';
 
 
@@ -25,10 +25,10 @@ export class MainMapComponent implements OnInit, OnDestroy {
   @HostBinding('class.full-screen') fullScreen = true;
 
   public _loading = false;
-  public projects: Array<Project> = [];
-  public mapApps: Array<Project> = [];
-  public filterApps: Array<Project> = [];
-  public places: Array<any> = [];
+  public projects: Project[] = [];
+  public mapApps: Project[] = [];
+  public filterApps: Project[] = [];
+  public places: any[] = [];
   // private fields
   private sub: Subscription;
 
@@ -52,7 +52,7 @@ export class MainMapComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProjects();
     // prevent underlying map actions for search compoonent
-    const map_search = <HTMLElement>document.getElementById('map-search');
+    const map_search = document.getElementById('map-search') as HTMLElement;
     L.DomEvent.disableClickPropagation(map_search);
     L.DomEvent.disableScrollPropagation(map_search);
   }

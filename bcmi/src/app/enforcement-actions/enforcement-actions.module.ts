@@ -7,9 +7,10 @@ import { AdministrativePenaltiesTabContentComponent } from './administrative-pen
 import { EnforcementActionsListComponent } from './enforcement-actions-list/enforcement-actions-list.component';
 
 // services
-import { Api } from 'app/services/api';
-import { EnforcementActionsService } from 'app/services/enforcement-actions.service';
-import { SharedModule } from 'app/shared/shared.module';
+import { Api } from '@services/api';
+import { EnforcementActionsService } from '@services/enforcement-actions.service';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     OffenceProsecutionsTabContentComponent,
@@ -17,6 +18,6 @@ import { SharedModule } from 'app/shared/shared.module';
     EnforcementActionsListComponent
   ],
   providers: [Api, EnforcementActionsService],
-  imports: [CommonModule, EnforcementActionsRoutingModule, SharedModule]
+  imports: [CommonModule, EnforcementActionsRoutingModule, SharedModule, RouterModule]
 })
 export class EnforcementActionsModule {}

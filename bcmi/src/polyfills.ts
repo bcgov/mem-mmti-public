@@ -74,4 +74,4 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 // import 'intl';  // Run `npm install --save intl`.
 
 // global is not defined fix (https://github.com/Leonidas-from-XIV/node-xml2js/issues/538)
-(window as any)['global'] = window;
+//(window as any)['global'] = window;

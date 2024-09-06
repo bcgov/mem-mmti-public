@@ -1,5 +1,5 @@
-import { OperatorFilterPipe } from 'app/pipes/operator-filter.pipe';
-import { Project } from 'app/models/project';
+import { OperatorFilterPipe } from '@pipes/operator-filter.pipe';
+import { Project } from '@models/project';
 
 describe('OperatorFilterPipe', () => {
 

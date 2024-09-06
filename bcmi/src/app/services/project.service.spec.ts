@@ -5,8 +5,8 @@
 /*import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule, HttpResponse } from '@angular/common/http';
 
-import { ProjectService } from 'app/services/project.service';
-import { Api } from 'app/services/api';
+import { ProjectService } from '@services/project.service';
+import { Api } from '@services/api';
 
 describe('ProjectService', () => {
   let HttpResponseItem;

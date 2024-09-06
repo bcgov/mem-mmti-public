@@ -5,8 +5,8 @@
 /*import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule, HttpResponse } from '@angular/common/http';
 
-import { ProponentService } from 'app/services/proponent.service';
-import { Api } from 'app/services/api';
+import { ProponentService } from '@services/proponent.service';
+import { Api } from '@services/api';
 
 describe('ProponentService', () => {
   function createProponentItem(id: string) {

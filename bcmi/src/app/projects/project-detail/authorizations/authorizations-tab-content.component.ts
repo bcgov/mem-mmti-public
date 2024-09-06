@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Project } from 'app/models/project';
-import { CollectionsGroup, Collection } from 'app/models/collection';
-import { LoggerService } from 'app/services/logger.service';
+import { Project } from '@models/project';
+import { CollectionsGroup, Collection } from '@models/collection';
+import { LoggerService } from '@services/logger.service';
 
 @Component({
   selector: 'app-authorizations-tab-content',
-  templateUrl: './authorizations-tab-content.component.html',
+  templateUrl: 'authorizations-tab-content.component.html',
   styleUrls: ['./authorizations-tab-content.component.scss']
 })
 export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {

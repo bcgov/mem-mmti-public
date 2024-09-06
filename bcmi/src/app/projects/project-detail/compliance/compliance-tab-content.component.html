@@ -32,17 +32,17 @@
             <tr>
               <th class="inspections-list__name-col sortable" (click)="sort('displayName')">Name
                 <i class="sort"
-                  [ngClass]="{'sort-asc': (sortField == 'displayName' && sortAsc), 'sort-desc': (sortField == 'displayName' && !sortAsc) }"
+                  [ngClass]="{'sort-asc': (sortField === 'displayName' && sortAsc), 'sort-desc': (sortField === 'displayName' && !sortAsc) }"
                   aria-hidden="true"></i>
               </th>
               <th class="inspections-list__agency-col sortable" (click)="sort('agency')">Agency
                 <i class="sort"
-                  [ngClass]="{'sort-asc': (sortField == 'agency' && sortAsc), 'sort-desc': (sortField == 'agency' && !sortAsc) }"
+                  [ngClass]="{'sort-asc': (sortField === 'agency' && sortAsc), 'sort-desc': (sortField === 'agency' && !sortAsc) }"
                   aria-hidden="true"></i>
               </th>
               <th class="inspections-list__date-col sortable" (click)="sort('date')">Date
                 <i class="sort"
-                  [ngClass]="{'sort-asc': (sortField == 'date' && sortAsc), 'sort-desc': (sortField == 'date' && !sortAsc) }"
+                  [ngClass]="{'sort-asc': (sortField === 'date' && sortAsc), 'sort-desc': (sortField === 'date' && !sortAsc) }"
                   aria-hidden="true"></i>
               </th>
             </tr>

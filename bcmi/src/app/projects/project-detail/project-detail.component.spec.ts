@@ -1,16 +1,16 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Project } from 'app/models/project';
-import { ProjectService } from 'app/services/project.service';
-import { MapModule } from 'app/map/map.module';
+import { Project } from '@models/project';
+import { ProjectService } from '@services/project.service';
+import { MapModule } from './map/map.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ProjectDetailComponent } from 'app/projects/project-detail/project-detail.component';
-import { LeafletMapComponent } from 'app/map/leaflet-map/leaflet-map.component';
-import { OrderByPipe } from 'app/pipes/filters/order-by.pipe';
-import { SiteActivitiesComponent } from 'app/projects/site-activities/site-activities.component';
-import { Api } from 'app/services/api';
-import { ConfigService } from 'app/services/config.service';
+import { ProjectDetailComponent } from '@projects/project-detail/project-detail.component';
+import { LeafletMapComponent } from './map/leaflet-map/leaflet-map.component';
+import { OrderByPipe } from '@pipes/filters/order-by.pipe';
+import { SiteActivitiesComponent } from '@projects/site-activities/site-activities.component';
+import { Api } from '@services/api';
+import { ConfigService } from '@services/config.service';
 
 describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;

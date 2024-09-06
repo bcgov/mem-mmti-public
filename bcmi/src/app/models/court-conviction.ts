@@ -1,5 +1,5 @@
-import { Legislation } from 'app/models/legislation';
-import { Penalty } from 'app/models/penalty';
+import { Legislation } from '@models/legislation';
+import { Penalty } from '@models/penalty';
 
 export class CourtConviction {
   _id: string;
@@ -12,7 +12,10 @@ export class CourtConviction {
   mineGuid: string;
   unlistedMine: string;
   unlistedMineType: string;
-  documents: object[];
+  documents: {
+    fileName: string;
+    url: string;
+  }[];
   description: string;
 
   constructor(obj?: any) {

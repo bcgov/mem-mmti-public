@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 
 import { OffenceProsecutionsTabContentComponent } from './offence-prosecutions-tab-content.component';
-import { Project } from 'app/models/project';
-import { CourtConviction } from 'app/models/court-conviction';
+import { Project } from '@models/project';
+import { CourtConviction } from '@models/court-conviction';
 
 describe('OffenceProsecutionsTabContentComponent', () => {
   let component: OffenceProsecutionsTabContentComponent;
