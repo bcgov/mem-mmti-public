@@ -21,9 +21,6 @@ export class HomeComponent implements OnInit {
       error => this.logger.log(error)
     );
     this.hostname = this.api.hostnameNRPTI;
-  }
-
-  afterNextRender(){
     window.scrollTo(0, 0);
   }
 }

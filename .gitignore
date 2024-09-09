@@ -4,6 +4,8 @@
 /dist
 /tmp
 /out-tsc
+/cms/dist
+/cms/.tmp
 
 # dependencies
 /node_modules
@@ -23,7 +25,7 @@
 .vscode/*
 
 # misc
-/.angular/cache
+/bcmi/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage

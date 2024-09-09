@@ -1,5 +1,5 @@
 {
-  "name": "test-strapi",
+  "name": "strap-2",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -12,11 +12,11 @@
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^2.1.3",
-    "@strapi/strapi": "4.25.10",
-    "@strapi/plugin-users-permissions": "4.25.10",
-    "@strapi/plugin-i18n": "4.25.10",
     "@strapi/plugin-cloud": "4.25.10",
-    "better-sqlite3": "8.6.0",
+    "@strapi/plugin-i18n": "4.25.10",
+    "@strapi/plugin-users-permissions": "4.25.10",
+    "@strapi/strapi": "4.25.10",
+    "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
@@ -26,7 +26,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "1dd7428a-aa1e-4477-9958-e101376b102b"
+    "uuid": "d95006a9-3795-408c-a274-47bbf9574f1a"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",

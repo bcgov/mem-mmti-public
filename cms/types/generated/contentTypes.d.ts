@@ -362,36 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiTestTest extends Schema.CollectionType {
-  collectionName: 'tests';
-  info: {
-    singularName: 'test';
-    pluralName: 'tests';
-    displayName: 'Test';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Content: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'toolbar';
-        }
-      >;
-    Description: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::test.test', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::test.test', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -620,13 +590,13 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
-export interface PluginStrapiPluginSsoRoles extends Schema.CollectionType {
-  collectionName: 'strapi-plugin-sso_roles';
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
   info: {
-    singularName: 'roles';
-    pluralName: 'sso-roles';
-    collectionName: 'sso-roles';
-    displayName: 'sso-role';
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
     description: '';
   };
   options: {
@@ -641,18 +611,25 @@ export interface PluginStrapiPluginSsoRoles extends Schema.CollectionType {
     };
   };
   attributes: {
-    oauth_type: Attribute.String & Attribute.Required;
-    roles: Attribute.JSON;
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'plugin::strapi-plugin-sso.roles',
+      'plugin::i18n.locale',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'plugin::strapi-plugin-sso.roles',
+      'plugin::i18n.locale',
       'oneToOne',
       'admin::user'
     > &
@@ -821,12 +798,11 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::test.test': ApiTestTest;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
-      'plugin::strapi-plugin-sso.roles': PluginStrapiPluginSsoRoles;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;

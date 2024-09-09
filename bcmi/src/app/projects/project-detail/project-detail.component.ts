@@ -44,10 +44,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       this.restoreYOffset();
     },
     error => this.logger.log(error));
-
-  }
-
-  afterNextRender(){
     window.scrollTo(0, 0);
   }
 
