@@ -1,8 +1,8 @@
 {
-  "name": "strap-2",
+  "name": "bcmi-cms",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "description": "Strapi CMS for BCMI",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
@@ -23,7 +23,7 @@
     "styled-components": "5.3.3"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Sustainment team"
   },
   "strapi": {
     "uuid": "d95006a9-3795-408c-a274-47bbf9574f1a"

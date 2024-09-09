@@ -1,6 +1,7 @@
 export default {
   config: {
     locales: [
+      'en'
       // 'ar',
       // 'fr',
       // 'cs',
@@ -28,6 +29,11 @@ export default {
       // 'zh-Hans',
       // 'zh',
     ],
+  },
+  translations: {
+    en: {
+      "app.components.LeftMenu.navbrand.title": "BCMI Dashboard",
+    }
   },
   bootstrap(app) {
     console.log(app);
