@@ -1,14 +1,14 @@
 <div class="map-container">
-  <map-search class="map-search" #mapSearch
+  <app-map-search class="map-search" #mapSearch
     [projects]="filterApps"
     (updateMatching)="updateMatching()"
     (showPlace)="showPlace($event)"
-  ></map-search>
-  <leaflet-map #mineMap
+  ></app-map-search>
+  <app-leaflet-map #mineMap
     [projects]="mapApps"
     [mapApps]="mapApps"
     [filterApps]="filterApps"
-  ></leaflet-map>
+  ></app-leaflet-map>
   <button class="toggle-disclaimer-btn btn btn-default" (click)="showDisclaimer()">Disclaimer</button>
   <!-- Modal -->
   <ng-template #modal let-closeDialog="close">

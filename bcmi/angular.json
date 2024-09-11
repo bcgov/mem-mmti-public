@@ -19,6 +19,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": ["lodash","leaflet","leaflet.markercluster"],
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -82,7 +83,8 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [

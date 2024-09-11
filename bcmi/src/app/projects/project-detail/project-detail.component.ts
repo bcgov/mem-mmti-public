@@ -70,6 +70,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     // pass along the id of the current project if available
     // so that the map component can show the popup for it.
     const projectId = this.project ? this.project._id : null;
+    console.log(projectId);
     this.router.navigate(['/map', { project: projectId }]);
   }
 

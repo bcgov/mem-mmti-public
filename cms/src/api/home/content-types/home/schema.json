@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "singularName": "home",
+    "pluralName": "homes",
+    "displayName": "Home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "About": {
+      "type": "richtext"
+    },
+    "Mining_blocks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page.feature-block"
+    },
+    "Processes_blocks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page.feature-block"
+    }
+  }
+}

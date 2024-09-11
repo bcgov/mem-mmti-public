@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LegislationComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit() {
     window.scrollTo(0, 0);
   }

@@ -1,5 +1,5 @@
-import * as _ from 'lodash';
 import { CollectionsList } from '@models/collection';
+import { LatLng, latLng } from 'leaflet';
 
 /**
  * Link schema-field specification.
@@ -140,8 +140,16 @@ export class Project {
     try {
       const entry = this.content.find(x => x.type === type && x.page === page);
       return entry.html;
-    } catch (e) {
+    } catch (e) {// eslint-disable-line @typescript-eslint/no-unused-vars
       return '';
     }
+  }
+
+  hasCoordinates(): boolean{
+    return this.location && this.location['coordinates'][1] && this.location['coordinates'][0];
+  }
+
+  getCoordinates(): LatLng{
+    return latLng(this.location['coordinates'][1], this.location['coordinates'][0]);
   }
 }

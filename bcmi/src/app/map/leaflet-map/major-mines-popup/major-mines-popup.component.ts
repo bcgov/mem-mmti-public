@@ -1,20 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component} from '@angular/core';
 import { LatLng } from 'leaflet';
 
 
 @Component({
-  selector: 'major-mines-popup',
+  selector: 'app-major-mines-popup',
   templateUrl: './major-mines-popup.component.html',
   styleUrls: ['./major-mines-popup.component.scss']
 })
 
-export class MajorMinesPopupComponent implements OnInit, OnDestroy {
+export class MajorMinesPopupComponent {
   public mine: any = null;
   public mineLocation: LatLng = null;
   public parentMap: L.Map;
-
-  constructor(
-  ) { }
 
   zoomToProject() {
     this.parentMap.setView(this.mineLocation, 10);
@@ -24,9 +21,4 @@ export class MajorMinesPopupComponent implements OnInit, OnDestroy {
     this.parentMap.closePopup();
   }
 
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
 }

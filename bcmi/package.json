@@ -4,7 +4,6 @@
   "license": "Apache-2.0",
   "scripts": {
     "lint": "ng lint",
-
     "start": "ng serve -o",
     "prebuild": "npm run lint",
     "build": "ng build ----configuration production",
@@ -28,6 +27,7 @@
     "@angular/platform-browser-dynamic": "18.2.0",
     "@angular/platform-server": "18.2.0",
     "@angular/router": "18.2.0",
+    "@bluehalo/ngx-leaflet": "^18.0.2",
     "@ng-bootstrap/ng-bootstrap": "17.0.1",
     "bootstrap": "5.3.3",
     "core-js": "3.38.1",
@@ -55,7 +55,7 @@
     "@angular/compiler-cli": "^18.2.0",
     "@types/geojson": "7946.0.14",
     "@types/jasmine": "5.1.4",
-    "@types/leaflet": "1.9.12",
+    "@types/leaflet": "^1.9.12",
     "@types/leaflet.markercluster": "1.5.4",
     "@types/lodash": "4.17.7",
     "@types/node": "22.5.4",

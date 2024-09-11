@@ -54,7 +54,7 @@
             Mine Type
           </label>
           <div class="filter-select">
-            <select class="form-control" [(ngModel)]="_typeFilter">
+            <select class="form-control" [(ngModel)]="_typeFilter" id="type">
               <option *ngFor="let option of minetypeOptions" [value]="option.value">{{option.name}}</option>
             </select>
           </div>
@@ -64,14 +64,14 @@
             Tailing Impoundments
           </label>
           <div class="filter-select">
-            <select class="form-control" [(ngModel)]="_tailingImpound">
+            <select class="form-control" [(ngModel)]="_tailingImpound" id="tailing">
               <option *ngFor="let option of tailingOptions" [value]="option.value">{{option.name}}</option>
             </select>
           </div>
         </div>
       </div>
       <div>
-        <p class="search-result" *ngIf="ranSearch && !loading && resultsCount == 0">
+        <p class="search-result" *ngIf="ranSearch && !loading && resultsCount === 0">
           No results found.
         </p>
       </div>

@@ -15,7 +15,7 @@ export interface FiltersType {
 }
 
 @Component({
-  selector: 'map-search',
+  selector: 'app-map-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })

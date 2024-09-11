@@ -12,6 +12,4 @@ export class SiteActivitiesComponent {
     name: string;
     cssClass?: string;
   }[] = [];
-
-  constructor() { }
 }

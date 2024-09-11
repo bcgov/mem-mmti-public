@@ -4,20 +4,20 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 import { ProjectService } from '@services/project.service';
-import { MainMapComponent } from './map/main-map/main-map.component';
+import { MainMapComponent } from '@map/main-map/main-map.component';
 import { Project } from '@models/project';
 import { SearchComponent } from '../search/search.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LeafletMapComponent } from '../leaflet-map/leaflet-map.component';
-import { TestConstants } from './shared/test-constants';
+import { TestConstants } from '@shared/test-constants';
 import { GeocoderService } from '@services/geocoder.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
 
 @Component({
-  selector: 'leaflet-map',
+  selector: 'app-leaflet-map',
   template: ''
 })
 
@@ -34,7 +34,6 @@ class LeafletMapStubComponent {
   public onLoadStart() { this.loading = true; }
   public onLoadEnd() { this.loading = false; }
 
-  public resetMap() {}
 }
 
 describe('MainMapComponent', () => {

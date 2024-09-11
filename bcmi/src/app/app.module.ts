@@ -34,6 +34,7 @@ import { SharedModule } from './shared/shared.module';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
 
 export function initConfig(configService: ConfigService) {
   return () => configService.init();
@@ -73,7 +74,8 @@ export function initConfig(configService: ConfigService) {
     }),
     MapModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    LeafletModule
   ],
   providers: [
     {

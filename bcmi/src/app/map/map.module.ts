@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatRadioModule } from '@angular/material/radio';
 import { GeocoderService } from '@services/geocoder.service';
 import { GeoCodePopupComponent } from './leaflet-map/geocode-popup/geocode-popup.component';
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { GeoCodePopupComponent } from './leaflet-map/geocode-popup/geocode-popup
     RouterModule,
     FormsModule,
     NgbModule,
-    MatRadioModule
+    MatRadioModule,
+    LeafletModule
   ],
   declarations: [
     MainMapComponent,

@@ -1,20 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component} from '@angular/core';
 import { Project } from '@models/project';
 import { LatLng } from 'leaflet';
+import {Map as LeafletMap} from 'leaflet';
 
 
 @Component({
-  selector: 'project-popup',
+  selector: 'app-project-popup',
   templateUrl: './project-popup.component.html',
   styleUrls: ['./project-popup.component.scss']
 })
 
-export class ProjectPopupComponent implements OnInit, OnDestroy {
+export class ProjectPopupComponent {
   public project: Project = null;
-  public parentMap: L.Map;
+  public parentMap: LeafletMap;
 
-  constructor(
-  ) { }
 
   zoomToProject() {
     if (this.project.location) {
@@ -26,9 +25,4 @@ export class ProjectPopupComponent implements OnInit, OnDestroy {
     this.parentMap.closePopup();
   }
 
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
 }

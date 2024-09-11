@@ -187,14 +187,17 @@ main {
     bottom: 1rem;
     right: 1rem;
     padding: 0.5rem;
+    display: none;
     opacity: 0;
     border-color: $gold;
     background: $gold;
     transform: translateY(1rem);
     transition: all ease-out 0.2s;
+    transition-behavior: allow-discrete;
 
     &.visible {
         opacity: 1;
+        display: block;
         transform: translateY(0);
     }
 }

@@ -9,10 +9,12 @@
     "paths": {
       "@app/*": ["app/*"],
       "@models/*": ["app/models/*"],
+      "@map/*": ["app/map/*"],
       "@assets/*": ["assets/*"],
       "@pipes/*": ["app/pipes/*"],
       "@projects/*": ["app/projects/*"],
       "@services/*": ["app/services/*"],
+      "@shared/*": ["app/shared/*"],
     },
     "noImplicitOverride": true,
     "noImplicitAny": false,

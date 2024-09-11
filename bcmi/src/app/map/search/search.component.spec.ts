@@ -4,8 +4,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SearchComponent } from './map/search/search.component';
-import { TestConstants } from './shared/test-constants';
+import { SearchComponent } from './search.component';
+import { TestConstants } from '@shared/test-constants';
 import { GeocoderService } from '@services/geocoder.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';

@@ -27,8 +27,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   loggedIn: string;
   hostname: string;
-  modalMessage: any;
-
+  modalMessage: {
+    startDate: string,
+    endDate: string,
+    description: string,
+    _id: string,
+    title: string
+  };
   loading: boolean;
 
   constructor(private cookieService: CookieService,

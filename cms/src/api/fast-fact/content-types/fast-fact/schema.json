@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fast_facts",
+  "info": {
+    "singularName": "fast-fact",
+    "pluralName": "fast-facts",
+    "displayName": "Fast Facts"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}
