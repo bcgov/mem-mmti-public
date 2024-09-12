@@ -54,7 +54,6 @@ describe('ProjectDetailComponent', () => {
             return jasmine.createSpyObj('Subscription', ['unsubscribe']);
           }
         },
-        createUrlTree: () => {},
         serializeUrl: () => ''
       };
       TestBed.configureTestingModule({

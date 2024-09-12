@@ -10,7 +10,7 @@ describe('DocumentsTabContentComponent', () => {
   let component: DocumentsTabContentComponent;
   let fixture: ComponentFixture<DocumentsTabContentComponent>;
   let ActivatedRouteStub;
-  const project: Project = new Project({ collections: { documents: { sort: () => {} } } });
+  const project: Project = new Project({ collections: { documents: {} } });
 
   beforeEach(waitForAsync(() => {
     // stub activated route

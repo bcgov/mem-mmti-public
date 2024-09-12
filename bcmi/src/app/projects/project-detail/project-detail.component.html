@@ -30,7 +30,7 @@
       <section class="card">
         <h4 class="card-header">Project Details</h4>
         <div class="map-section">
-          <div class="map-section__thumbnail" (click)="gotoMap()" (keydown)="gotoMap()">
+          <div class="map-section__thumbnail" tabindex={0} (click)="gotoMap()" (keydown)="gotoMap()">
             <app-leaflet-map [thumbnail]="true" [project]="project" [zoom]="4"></app-leaflet-map>
           </div>
         </div>

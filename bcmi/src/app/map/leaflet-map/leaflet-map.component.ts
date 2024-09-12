@@ -1,4 +1,4 @@
-import { Component, Input, ApplicationRef, Injector, ComponentFactoryResolver, SimpleChanges, Output, EventEmitter, OnChanges, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ApplicationRef, Injector, ComponentFactoryResolver, SimpleChanges, Output, EventEmitter, OnChanges, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeafletMapUtils } from './leaflet-map.utils';
 import { Project } from '@models/project';
@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import 'leaflet.markercluster';
 import * as _ from 'lodash';
 import { GeoCodePopupComponent } from './geocode-popup/geocode-popup.component';
-import { Control, circle,marker, latLng, tileLayer, Map as LeafletMap, control, Layer, popup, markerClusterGroup, Util, Marker, latLngBounds, icon, point, CRS, geoJSON, MapOptions, LatLng, LatLngBounds, LayersObject } from 'leaflet';
+import { marker, latLng, Map as LeafletMap, control, popup, markerClusterGroup, Util, Marker, latLngBounds, icon, point, CRS, geoJSON, MapOptions, LatLng, LatLngBounds, LayersObject } from 'leaflet';
 
 declare module 'leaflet' {
   export interface FeatureGroup {
@@ -114,7 +114,7 @@ export class LeafletMapComponent implements OnInit, OnChanges {
       zoomControl: false,
       center: this.defaultCenter,
       maxBoundsViscosity: 0.9,
-      crs: CRS.EPSG3857,
+      crs: CRS.EPSG3857, //Co-ordinate system
       dragging: this.thumbnail? false : true
     }
   }
@@ -217,14 +217,14 @@ export class LeafletMapComponent implements OnInit, OnChanges {
           }
         }
       });
-      //this.map.addEventListener('click', Util.bind(this.identifyWmsLayers, this));
+      this.map.addEventListener('click', Util.bind(this.identifyWmsLayers, this));
       this.checkBounds();
     } else {
       if (this.project.hasCoordinates()) {
         console.log('Has coordinates');
         const title = `Project: ${this.project.name}`;
         const m = marker(this.project.getCoordinates(), { title: title }).setIcon(markerIconYellow);
-        this.map.setView(m.getLatLng(),10);   
+        this.map.setView(m.getLatLng(),9);   
         m.projectId = 0;
         this.markers.set(this.project._id, m); // save to map obj with id as key
         this.markerClusterGroup.addLayer(m); // save to marker clusters group
@@ -233,7 +233,7 @@ export class LeafletMapComponent implements OnInit, OnChanges {
 
     this.markerClusterGroup.addTo(this.map);
     this.markerPlaces.addTo(this.map);
-    this.overlays['Major Mine Permitted Areas'].addTo(this.map)
+    //this.overlays['Major Mine Permitted Areas'].addTo(this.map)
   }
 
   
@@ -333,7 +333,7 @@ export class LeafletMapComponent implements OnInit, OnChanges {
              .setLatLng(lyr.getLatLng())
              .setContent(div);
       // bind popup to marker so it automatically closes when marker is removed
-      lyr.bindPopup(popup).openPopup();
+      lyr.bindPopup(pop).openPopup();
       this.markerPlaces.addLayer(lyr);
     });
 
@@ -440,7 +440,7 @@ export class LeafletMapComponent implements OnInit, OnChanges {
     });
   }
 
-  private checkBounds(bounds: L.LatLngBounds = null) {
+  private checkBounds(bounds: LatLngBounds = null) {
       if (bounds && bounds.isValid()) {
         this.fitBounds = bounds;
       } else {

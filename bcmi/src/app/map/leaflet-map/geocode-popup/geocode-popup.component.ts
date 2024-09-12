@@ -1,13 +1,11 @@
 import { Component} from '@angular/core';
-import { LatLng } from 'leaflet';
-
+import { AddressResponse } from '@app/models/geolocation/address-response';
+import { LatLng, Map, Layer } from 'leaflet';
 declare module 'leaflet' {
   export interface Layer {
-    properties: any;
+    properties: AddressResponse["properties"];
   }
 }
-
-
 @Component({
   selector: 'app-geocode-popup',
   templateUrl: './geocode-popup.component.html',
@@ -15,10 +13,11 @@ declare module 'leaflet' {
 })
 
 export class GeoCodePopupComponent {
-  public parentMap: L.Map;
-  public layer: L.Layer;
+  public parentMap: Map;
+  public layer: Layer;
 
   zoomToProject() {
+    console.log(this.layer);
     if (this.layer) {
       this.parentMap.setView(new LatLng(this.layer['geometry']['coordinates'][1], this.layer['geometry']['coordinates'][0]), 15);
     }

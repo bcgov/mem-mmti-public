@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { VerifiedMinesFeature } from '@app/models/geolocation/verified-mines-feature';
 import { LatLng } from 'leaflet';
 
 
@@ -9,7 +10,7 @@ import { LatLng } from 'leaflet';
 })
 
 export class MajorMinesPopupComponent {
-  public mine: any = null;
+  public mine: VerifiedMinesFeature["properties"] = null;
   public mineLocation: LatLng = null;
   public parentMap: L.Map;
 

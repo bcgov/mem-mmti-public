@@ -27,26 +27,6 @@ export class LoggerService {
     }
   }
 
-  debug(msg: any) {
-    this.log(msg, LogLevel.Debug);
-  }
-
-  info(msg: any) {
-    this.log(msg, LogLevel.Info);
-  }
-
-  warn(msg: any) {
-    this.log(msg, LogLevel.Warn);
-  }
-
-  error(msg: any) {
-    this.log(msg, LogLevel.Error);
-  }
-
-  fatal(msg: any) {
-    this.log(msg, LogLevel.Fatal);
-  }
-
   log(msg: any, level: LogLevel = LogLevel.Debug) {
     if (this.shouldLog(level)) {
 

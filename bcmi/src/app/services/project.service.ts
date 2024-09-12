@@ -70,7 +70,7 @@ export class ProjectService {
           })
         );
       }),
-      map((collections: any[]) => {
+      map((collections: Collection[]) => {
         collections
           .filter(c => c.documents.length > 0)
           .forEach(collection => {
