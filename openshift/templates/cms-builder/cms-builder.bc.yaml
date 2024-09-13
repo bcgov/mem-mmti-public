@@ -9,7 +9,7 @@ objects:
     metadata:
       labels:
         app: ${GROUP_NAME}
-      name: ${NAME}-angular
+      name: ${NAME}-build
     spec:
       lookupPolicy:
         local: false
@@ -19,14 +19,14 @@ objects:
       creationTimestamp: null
       labels:
         app: ${GROUP_NAME}
-      name: ${NAME}-angular
+      name: ${NAME}-build
     spec:
       failedBuildsHistoryLimit: 5
       nodeSelector: null
       output:
         to:
           kind: ImageStreamTag
-          name: ${NAME}-angular:latest
+          name: ${NAME}-build:latest
       postCommit: {}
       resources:
         limits:
@@ -41,7 +41,7 @@ objects:
           ref: ${SOURCE_REPOSITORY_REF}
           uri: ${SOURCE_REPOSITORY_URL}
         type: Git
-        contextDir: bcmi
+        contextDir: cms
       strategy:
         sourceStrategy:
           from:
@@ -58,7 +58,7 @@ parameters:
     displayName: Name
     name: NAME
     required: true
-    value: bcmi
+    value: cms
   - description: A name used for all objects in the build or deploy group
     displayName: Group name
     name: GROUP_NAME
