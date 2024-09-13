@@ -8,8 +8,8 @@
     "prebuild": "npm run lint",
     "build": "ng build ----configuration production",
     "pretest": "npm run lint",
-    "test": "ng test --watch=false",
-    "test-ci": "ng test --watch=false",
+    "test": "ng test",
+    "test-ci": "ng test",
     "e2e": "node e2e.ts"
   },
   "private": true,

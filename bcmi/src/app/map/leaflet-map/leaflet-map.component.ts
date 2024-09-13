@@ -432,7 +432,7 @@ export class LeafletMapComponent implements OnInit, OnChanges {
             marker.openPopup();
           } else {
             // create the popup, projectData, marker object, map zoom level
-            //this.createMarkerPopup(app[0], marker, 9);
+            this.createMarkerPopup(app[0], marker, 9);
             marker.openPopup();
           }
         }

@@ -63,22 +63,22 @@
       <table class="table project-table" id="tableTop">
         <thead class="project-table__sort-header">
           <tr>
-            <th class="project-table__name-col sortable" (click)="sort('name')">Mine Name
+            <th class="project-table__name-col sortable" (click)="sort('name')" (keydown)="sort('name')" >Mine Name
               <i class="sort"
                 [ngClass]="{'sort-asc': (column === 'name' && isDesc), 'sort-desc': (column === 'name' && !isDesc) }"
                 aria-hidden="true"></i>
             </th>
-            <th class="project-table__operator-col sortable" (click)="sort('permittee')">Permittee
+            <th class="project-table__operator-col sortable" (click)="sort('permittee')" (keydown)="sort('permittee')">Permittee
               <i class="sort"
                 [ngClass]="{'sort-asc': (column === 'permittee' && isDesc), 'sort-desc': (column === 'permittee' && !isDesc) }"
                 aria-hidden="true"></i>
             </th>
-            <th class="project-table__type-col sortable" (click)="sort('type')">Mine Type
+            <th class="project-table__type-col sortable" (click)="sort('type')" (keydown)="sort('type')">Mine Type
               <i class="sort"
                 [ngClass]="{'sort-asc': (column === 'type' && isDesc), 'sort-desc': (column === 'type' && !isDesc) }"
                 aria-hidden="true"></i>
             </th>
-            <th class="project-table__status-col sortable" (click)="sort('status')">Operating Status
+            <th class="project-table__status-col sortable" (click)="sort('status')"  (keydown)="sort('status')">Operating Status
                 <i class="sort"
                   [ngClass]="{'sort-asc': (column === 'status' && isDesc), 'sort-desc': (column === 'status' && !isDesc) }"
                   aria-hidden="true"></i>

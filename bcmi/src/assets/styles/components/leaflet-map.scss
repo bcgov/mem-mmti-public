@@ -226,7 +226,7 @@ $toggle-list-anim-duration: 0.2s;
 .popup-container {
     max-height: 300px;
     background: #244278;
-    font-family: myriad-pro;
+    font-family: myriad-pro, system-ui, sans-serif;
     color: #fff;
     width: 400px;
     outline: none;
@@ -258,7 +258,7 @@ $toggle-list-anim-duration: 0.2s;
 .popup-content {
     box-sizing: inherit;
     background: #244278;
-    font-family: myriad-pro;
+    font-family: myriad-pro, system-ui, sans-serif;
     color: #fff;
     padding: 20px;
     overflow-y: auto;
