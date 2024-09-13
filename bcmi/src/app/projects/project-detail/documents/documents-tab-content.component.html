@@ -51,7 +51,7 @@
               <div class="inspections-list__related-documents card" *ngIf="item.documents.length > 0">
                 <div class="card-header">Related Documents</div>
                 <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let doc of item.documents"><a href="{{doc.ref}}" target="_blank">{{doc.name}}</a></li>
+                  <li class="list-group-item" *ngFor="let doc of item.documents"><a href="{{doc.ref}}" target="_blank" rel="noopener">{{doc.name}}</a></li>
                 </ul>
               </div>
             </div>

@@ -33,7 +33,7 @@
               <div class="authorizations-list__related-documents card" *ngIf="c.documents.length > 0">
                 <div class="card-header">Related Documents</div>
                 <ul class="authorizations-list__related-documents-list list-group">
-                  <li class="list-group-item" *ngFor="let d of c.documents"><a href="{{d.ref}}" target="_blank">{{d.name}}</a></li>
+                  <li class="list-group-item" *ngFor="let d of c.documents"><a href="{{d.ref}}" target="_blank" rel="noopener">{{d.name}}</a></li>
                 </ul>
               </div>
             </div>
@@ -52,7 +52,7 @@
   <section class="main-footer" *ngIf="project.morePermitsLink">
     <h3>Can't find what you are looking for?</h3>
     <p class="mb-0">Mines Act permits issued for {{project.name}} prior to {{project.morePermitsLinkYear}} can be accessed <a href="{{project.morePermitsLink}}"
-        target="_blank">here</a>.</p>
+        target="_blank" rel="noopener">here</a>.</p>
   </section>
 
 </div>

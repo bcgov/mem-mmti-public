@@ -110,7 +110,7 @@
                   </div>
                   <div class="col-sm-6">
                     <strong class="name">Link to Information:</strong>
-                    <a *ngFor="let document of item.documents" class="value" href="{{ document.url }}" target="_blank">
+                    <a *ngFor="let document of item.documents" class="value" href="{{ document.url }}" target="_blank" rel="noopener">
                       {{ document.fileName }}
                       <br />
                     </a>
