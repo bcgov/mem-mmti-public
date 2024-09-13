@@ -12,6 +12,7 @@ import { ConfigService } from '@services/config.service';
 import { ComplianceTabContentComponent } from '@projects/project-detail/compliance//compliance-tab-content.component';
 import { OrderByPipe } from '@pipes/filters/order-by.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 describe('ComplianceTabContentComponent', () => {
   let component: ComplianceTabContentComponent;
@@ -25,7 +26,9 @@ describe('ComplianceTabContentComponent', () => {
         data: {
           subscribe: (next: (value) => void) => {
             next({project: Project});
-            return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+            let sub = new Subscription();
+            sub.unsubscribe = jest.fn();
+            return sub;
           }
         }
       }

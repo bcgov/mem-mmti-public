@@ -2,7 +2,9 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { LegislationComponent } from './static-pages/legislation/legislation.component';
+import { LegislationComponent } from './legislation.component';
+
+window.scrollTo = jest.fn();
 
 describe('LegislationComponent', () => {
   let component: LegislationComponent;

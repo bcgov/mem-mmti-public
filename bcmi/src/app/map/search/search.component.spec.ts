@@ -21,7 +21,7 @@ describe('SearchComponent', () => {
   beforeEach(waitForAsync(() => {
 
     GeocoderServiceStub = {
-      lookupAddress: jasmine.createSpy().and.returnValue({
+      lookupAddress: jest.fn().mockReturnValue({
         subscribe: function(fn) {
           fn({'some': 'results'});
         }
@@ -58,7 +58,7 @@ describe('SearchComponent', () => {
   });
 
   it('should return single result when search by mine name ', () => {
-    spyOn(component.updateMatching, 'emit');
+    jest.spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Mine Name';
     component._mineFilter = 'Gold Tigers, NA';
     fixture.detectChanges();
@@ -68,7 +68,7 @@ describe('SearchComponent', () => {
   });
 
   it('should return single result when search by permit number ', async () => {
-    spyOn(component.updateMatching, 'emit');
+    jest.spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Permit Number';
     component._permitFilter = 'C-456';
     await fixture.whenStable();
@@ -79,7 +79,7 @@ describe('SearchComponent', () => {
   });
 
   it('should return no results when search with non existent mine name ', () => {
-    spyOn(component.updateMatching, 'emit');
+    jest.spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Mine Name';
     component._mineFilter = 'Not a mine';
     component.applyFilters();
@@ -90,7 +90,7 @@ describe('SearchComponent', () => {
   });
 
   it('should return no results when search with non existent permit number ', () => {
-    spyOn(component.updateMatching, 'emit');
+    jest.spyOn(component.updateMatching, 'emit');
     component.radioSel = 'Permit Number';
     component._permitFilter = 'fake-111';
     component.applyFilters();
@@ -100,7 +100,7 @@ describe('SearchComponent', () => {
   });
 
   it('should emit geocode results', () => {
-    spyOn(component.showPlace, 'emit');
+    jest.spyOn(component.showPlace, 'emit');
     component.radioSel = 'Address Lookup';
     component._geoFilter = 'foo st';
     component.geocode();

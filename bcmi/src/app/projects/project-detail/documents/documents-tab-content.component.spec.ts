@@ -5,6 +5,7 @@ import { CollectionsArray, CollectionsList } from '@models/collection';
 
 import { DocumentsTabContentComponent } from '@projects/project-detail/documents/documents-tab-content.component';
 import { OrderByPipe } from '@pipes/filters/order-by.pipe';
+import { Subscription } from 'rxjs';
 
 describe('DocumentsTabContentComponent', () => {
   let component: DocumentsTabContentComponent;
@@ -19,7 +20,9 @@ describe('DocumentsTabContentComponent', () => {
         data: {
           subscribe: (next: (value) => void) => {
             next({project});
-            return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+            let sub = new Subscription();
+            sub.unsubscribe = jest.fn();
+            return sub;
           }
         }
       }

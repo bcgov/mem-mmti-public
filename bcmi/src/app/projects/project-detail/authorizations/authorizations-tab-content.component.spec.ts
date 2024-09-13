@@ -12,6 +12,7 @@ import { RemoveStringValuePipe } from '@pipes/remove-string-value.pipe';
 
 import { MapModule } from '../../../map/map.module';
 import { CollectionsGroup, CollectionsList } from '@models/collection';
+import { Subscription } from 'rxjs';
 
 describe('AuthorizationsTabContentComponent', () => {
   let component: AuthorizationsTabContentComponent;
@@ -25,7 +26,9 @@ describe('AuthorizationsTabContentComponent', () => {
         data: {
           subscribe: (next: (value) => void) => {
             next({project: Project});
-            return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+            let sub = new Subscription();
+            sub.unsubscribe = jest.fn();
+            return sub;
           }
         }
       }

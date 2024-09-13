@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from '../home/home.component';
 import { Project } from '@models/project';
 
+window.scrollTo = jest.fn();
+
 describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let ProjectServiceStub;
@@ -14,7 +16,7 @@ describe('HomeComponent', () => {
   beforeEach(waitForAsync(() => {
     // stub project service
     ProjectServiceStub = {
-      getAll: jasmine.createSpy().and.returnValue({
+      getAll: jest.fn().mockReturnValue({
         subscribe: function(fn) {
           fn(Array<Project>());
         }

@@ -1,7 +1,9 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ComplianceOversightComponent } from './static-pages/compliance-oversight/compliance-oversight.component';
+import { ComplianceOversightComponent } from './compliance-oversight.component';
+
+window.scrollTo = jest.fn();
 
 describe('ComplianceOversightComponent', () => {
   let component: ComplianceOversightComponent;

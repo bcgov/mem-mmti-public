@@ -2,7 +2,9 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { WaterQualityComponent } from './static-pages/water-quality/water-quality.component';
+import { WaterQualityComponent } from './water-quality.component';
+
+window.scrollTo = jest.fn();
 
 describe('WaterQualityComponent', () => {
   let component: WaterQualityComponent;

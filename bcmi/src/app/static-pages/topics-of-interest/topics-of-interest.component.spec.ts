@@ -2,7 +2,9 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TopicsOfInterestComponent } from './static-pages/topics-of-interest/topics-of-interest.component';
+import { TopicsOfInterestComponent } from './topics-of-interest.component';
+
+window.scrollTo = jest.fn();
 
 describe('TopicsOfInterestComponent', () => {
   let component: TopicsOfInterestComponent;

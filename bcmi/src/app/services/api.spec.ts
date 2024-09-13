@@ -5,8 +5,6 @@ import { ConfigService } from '@services/config.service';
 
 describe('Api', () => {
   beforeEach(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 9000;
-
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
       providers: [Api, ConfigService]

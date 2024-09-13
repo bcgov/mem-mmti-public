@@ -1,3 +1,28 @@
+import {TestBed } from '@angular/core/testing';
+
+import { ProjectService } from '@services/project.service';
+import { HttpClientModule, HttpResponse } from '@angular/common/http';
+
+import { Api } from '@services/api';
+
+describe('ProjectService', () => {
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [
+        Api,
+        ProjectService
+      ]
+    });
+  });
+
+  it('Project Service needs tests written', () => {
+    expect(true).toBeTruthy();
+  });
+});
+
+
 // Tests fail on some seeds, suggesting order of tests is changing
 // expected results. Will need to rebuild all tests that rely on
 // data from previously run tests.

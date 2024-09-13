@@ -15,6 +15,8 @@ import { ProjectService } from '@services/project.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
 
+window.scrollTo = jest.fn();
+
 describe('ProjectComponent', () => {
   let component: ProjectListComponent;
   let fixture: ComponentFixture<ProjectListComponent>;
@@ -24,7 +26,7 @@ describe('ProjectComponent', () => {
     // stub project service
     // mock service
     ProjectServiceStub = {
-      getAll: jasmine.createSpy().and.returnValue({
+      getAll: jest.fn().mockReturnValue({
         subscribe: function(fn) {
           fn(Array<Project>());
         }

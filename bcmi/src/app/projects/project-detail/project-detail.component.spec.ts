@@ -11,6 +11,9 @@ import { OrderByPipe } from '@pipes/filters/order-by.pipe';
 import { SiteActivitiesComponent } from '@projects/site-activities/site-activities.component';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
+import { Subscription } from 'rxjs';
+
+window.scrollTo = jest.fn();
 
 describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;
@@ -24,7 +27,7 @@ describe('ProjectDetailComponent', () => {
     waitForAsync(() => {
 
       ProjectServiceStub = {
-        getAll: jasmine.createSpy().and.returnValue({
+        getAll: jest.fn().mockReturnValue({
           subscribe: function(fn) {
             fn(Array<Project>());
           }
@@ -47,11 +50,14 @@ describe('ProjectDetailComponent', () => {
 
       // Router Stub
       router = {
-        navigate: jasmine.createSpy('navigate'),
+        navigate: jest.fn(),
+        createUrlTree: (commands, navExtras = {}) => {},
         events: {
           subscribe: (next: (value) => void) => {
             next(ni);
-            return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+            let sub = new Subscription();
+            sub.unsubscribe = jest.fn();
+            return sub;
           }
         },
         serializeUrl: () => ''

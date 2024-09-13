@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/bcmi/dist
 /tmp
 /out-tsc
 /cms/dist

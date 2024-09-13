@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OffenceProsecutionsTabContentComponent } from './offence-prosecutions-tab-content.component';
 import { Project } from '@models/project';
 import { CourtConviction } from '@models/court-conviction';
+import { Subscription } from 'rxjs';
 
 describe('OffenceProsecutionsTabContentComponent', () => {
   let component: OffenceProsecutionsTabContentComponent;
@@ -19,7 +20,9 @@ describe('OffenceProsecutionsTabContentComponent', () => {
         data: {
           subscribe: (next: (value) => void) => {
             next({ data: { projects: [Project], actions: [CourtConviction] } });
-            return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+            let sub = new Subscription();
+            sub.unsubscribe = jest.fn();
+            return sub;
           }
         }
       }

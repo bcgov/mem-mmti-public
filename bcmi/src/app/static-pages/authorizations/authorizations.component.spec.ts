@@ -3,6 +3,9 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { AuthorizationsComponent } from './authorizations.component';
+import { Subscription } from 'rxjs';
+
+window.scrollTo = jest.fn();
 
 describe('AuthorizationsComponent', () => {
   let component: AuthorizationsComponent;
@@ -12,7 +15,9 @@ describe('AuthorizationsComponent', () => {
     events: {
       subscribe: (next: (value: any) => void) => {
         next(navigationInstance);
-        return jasmine.createSpyObj('Subscription', ['unsubscribe']);
+        let sub = new Subscription();
+            sub.unsubscribe = jest.fn();
+            return sub;
       }
     },
     parseUrl: () => {

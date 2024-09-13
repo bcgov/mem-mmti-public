@@ -16,6 +16,9 @@
       "@services/*": ["app/services/*"],
       "@shared/*": ["app/shared/*"],
     },
+    "types": [
+      "jest"
+    ],
     "noImplicitOverride": true,
     "noImplicitAny": false,
     "strictPropertyInitialization": false,

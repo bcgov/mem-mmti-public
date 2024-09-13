@@ -1,6 +1,8 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContactComponent } from './static-pages/contact/contact.component';
+import { ContactComponent } from './contact.component';
+
+window.scrollTo = jest.fn();
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
