@@ -17,17 +17,17 @@
         <table class="table mb-0" aria-describedby="Other documents table header">
           <thead class="inspections-list__sort-header">
             <tr>
-              <th id="hdr-name" class="inspections-list__name-col sortable" (click)="sort('displayName')">Name
+              <th id="hdr-name" class="inspections-list__name-col sortable" (click)="sort('displayName')" (keydown)="sort('displayName')">Name
                 <i class="sort"
                   [ngClass]="{'sort-asc': (sortField === 'displayName' && sortAsc), 'sort-desc': (sortField === 'displayName' && !sortAsc) }"
                   aria-hidden="true"></i>
               </th>
-              <th id="hdr-agency" class="inspections-list__agency-col sortable" (click)="sort('agency')">Agency
+              <th id="hdr-agency" class="inspections-list__agency-col sortable" (click)="sort('agency')" (keydown)="sort('agency')">Agency
                 <i class="sort"
                   [ngClass]="{'sort-asc': (sortField === 'agency' && sortAsc), 'sort-desc': (sortField === 'agency' && !sortAsc) }"
                   aria-hidden="true"></i>
               </th>
-              <th id="hdr-date" class="inspections-list__date-col sortable" (click)="sort('date')">Date
+              <th id="hdr-date" class="inspections-list__date-col sortable" (click)="sort('date')" (keydown)="sort('date')" >Date
                 <i class="sort"
                   [ngClass]="{'sort-asc': (sortField === 'date' && sortAsc), 'sort-desc': (sortField === 'date' && !sortAsc) }"
                   aria-hidden="true"></i>
