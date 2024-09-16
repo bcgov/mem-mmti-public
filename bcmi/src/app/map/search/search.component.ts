@@ -48,7 +48,6 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   private mineKeys: string[] = [];
   private permitKeys: string[] = [];
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
   private geoResults: any[] = []; 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -173,6 +172,10 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
     );
 
     return retVal;
+  }
+
+  toggleAdvancedFilters() {
+    this.showAdvancedFilters = !this.showAdvancedFilters;
   }
 
   private saveFilters() {

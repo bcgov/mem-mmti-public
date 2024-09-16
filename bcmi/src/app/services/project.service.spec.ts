@@ -1,7 +1,7 @@
 import {TestBed } from '@angular/core/testing';
 
 import { ProjectService } from '@services/project.service';
-import { HttpClientModule, HttpResponse } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { Api } from '@services/api';
 

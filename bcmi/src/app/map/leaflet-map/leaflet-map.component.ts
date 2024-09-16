@@ -22,9 +22,8 @@ declare module 'leaflet' {
     getLayers();
   }
 
-  interface LayersObject {
-    [name: string]: Layer;
-}
+  type LayersObject = Record<string,Layer>;
+
 }
 
 const markerIconYellow = icon({

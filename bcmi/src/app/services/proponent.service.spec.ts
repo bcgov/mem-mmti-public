@@ -1,5 +1,5 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientModule, HttpResponse } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ProponentService } from '@services/proponent.service';
 import { Api } from '@services/api';

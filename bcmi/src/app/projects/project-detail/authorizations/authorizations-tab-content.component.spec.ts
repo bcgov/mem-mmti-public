@@ -26,7 +26,7 @@ describe('AuthorizationsTabContentComponent', () => {
         data: {
           subscribe: (next: (value) => void) => {
             next({project: Project});
-            let sub = new Subscription();
+            const sub = new Subscription();
             sub.unsubscribe = jest.fn();
             return sub;
           }

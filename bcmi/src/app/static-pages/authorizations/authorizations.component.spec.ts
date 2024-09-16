@@ -15,9 +15,9 @@ describe('AuthorizationsComponent', () => {
     events: {
       subscribe: (next: (value: any) => void) => {
         next(navigationInstance);
-        let sub = new Subscription();
-            sub.unsubscribe = jest.fn();
-            return sub;
+        const sub = new Subscription();
+        sub.unsubscribe = jest.fn();
+        return sub;
       }
     },
     parseUrl: () => {

@@ -51,11 +51,11 @@ describe('ProjectDetailComponent', () => {
       // Router Stub
       router = {
         navigate: jest.fn(),
-        createUrlTree: (commands, navExtras = {}) => {},
+        createUrlTree: jest.fn(),
         events: {
           subscribe: (next: (value) => void) => {
             next(ni);
-            let sub = new Subscription();
+            const sub = new Subscription();
             sub.unsubscribe = jest.fn();
             return sub;
           }

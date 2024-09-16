@@ -21,7 +21,7 @@ describe('AdministrativePenaltiesTabContentComponent', () => {
           subscribe: (next: (value) => void) => {
             next({ data: { projects: [Project], actions: [AdministrativePentalty] } });
             
-            let sub = new Subscription();
+            const sub = new Subscription();
             sub.unsubscribe = jest.fn();
             return sub;
           }

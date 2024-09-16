@@ -197,10 +197,12 @@ $app-search-font-lg: 0.9375rem;
     font-size: 14px;
     display: inline-flex;
     align-items: center;
+    color: #03509c;
+    border: none;
+    background: none;
 
     &:hover {
       cursor: pointer;
-      color: #03509c;
     }
   }
 }

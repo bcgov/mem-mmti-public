@@ -20,7 +20,7 @@ describe('DocumentsTabContentComponent', () => {
         data: {
           subscribe: (next: (value) => void) => {
             next({project});
-            let sub = new Subscription();
+            const sub = new Subscription();
             sub.unsubscribe = jest.fn();
             return sub;
           }

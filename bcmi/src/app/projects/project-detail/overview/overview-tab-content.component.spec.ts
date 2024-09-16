@@ -16,10 +16,10 @@ describe('OverviewTabContentComponent', () => {
       parent: {
         data: {
           subscribe: (next: (value) => void) => {
-            let proj = new Project();
+            const proj = new Project();
             proj.getContent = jest.fn()
             next({project: proj});
-            let sub = new Subscription();
+            const sub = new Subscription();
             sub.unsubscribe = jest.fn();
             return sub;
           }

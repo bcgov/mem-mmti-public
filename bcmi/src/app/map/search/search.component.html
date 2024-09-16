@@ -43,10 +43,10 @@
         </ng-template>
       </div>
       <div class="toggle-container">
-        <div class="toggle-btn" (click)="showAdvancedFilters = !showAdvancedFilters;">
+        <button class="toggle-btn" (click)="toggleAdvancedFilters()">
           <span>{{ showAdvancedFilters ? 'Hide' : 'Show' }} Advanced Filters</span>
           <i class="material-icons">{{ showAdvancedFilters ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</i>
-        </div>
+        </button>
       </div>
       <div class="filters-container" *ngIf="showAdvancedFilters">
         <div class="filter-container">
