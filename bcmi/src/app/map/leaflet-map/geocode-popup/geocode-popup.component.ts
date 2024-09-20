@@ -17,7 +17,6 @@ export class GeoCodePopupComponent {
   public layer: Layer;
 
   zoomToProject() {
-    console.log(this.layer);
     if (this.layer) {
       this.parentMap.setView(new LatLng(this.layer['geometry']['coordinates'][1], this.layer['geometry']['coordinates'][0]), 15);
     }

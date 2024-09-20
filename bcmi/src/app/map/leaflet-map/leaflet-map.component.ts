@@ -220,7 +220,6 @@ export class LeafletMapComponent implements OnInit, OnChanges {
       this.checkBounds();
     } else {
       if (this.project.hasCoordinates()) {
-        console.log('Has coordinates');
         const title = `Project: ${this.project.name}`;
         const m = marker(this.project.getCoordinates(), { title: title }).setIcon(markerIconYellow);
         this.map.setView(m.getLatLng(),9);   
@@ -400,7 +399,6 @@ export class LeafletMapComponent implements OnInit, OnChanges {
 
           setTimeout(() => {
             // popup requires: projectData, marker object, map zoom level
-            //TODO FIX
             this.createMarkerPopup(proj, m, 10);
           }, 500);
         }
