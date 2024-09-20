@@ -1,0 +1,137 @@
+<div class="hero-banner">
+  <div class="container">
+    <div class="container__inner-container">
+      <div class="hero-banner__content">
+        <h1 id="pgTitle">Find Mines in British Columbia</h1>
+        <p class="mb-2">The BC Mine Information website currently profiles {{mineCount}} metal and coal mines located across the province. <strong>More mines and related documents will be added to this site on an ongoing basis.</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="anchor-point">
+  <main>
+    <section>
+      <h2>Major Mines in British Columbia</h2>
+      <p class="tab-intro">Use the list below to navigate to information on individual mine sites. Click on any mine to go directly
+        to its profile page, or click the ‘+’ sign to expand the list item to see basic information (e.g., operator,
+        ownership, commodity/ies produced) about that mine. You can also use our <a href="/map" [routerLink]="['/map']">interactive map</a>                    to navigate to information on individual mines across British Columbia.</p>
+      <p>Can't find what you're looking for? <a class="italic" href="mailto:MineInfo@gov.bc.ca">Please contact us here.</a></p>
+      <div class="filter-bar">
+        <div class="filter-input-row filters-basic">
+          <div class="form-group">
+            <input class="form-control" placeholder="Type a Mine Name" type="text" [(ngModel)]="filter">
+          </div>
+          <button class="toggle-filter-btn btn btn-default btn-sm"
+            [ngClass]="{'show-filters': showFilters}"
+            (click)="showFilters = !showFilters">
+            <span class="show-filter-txt"><span class="btn-txt">Filter</span><i class="material-icons">keyboard_arrow_down</i></span>
+            <span class="hide-filter-txt"><span class="btn-txt">Filter</span><i class="material-icons">keyboard_arrow_up</i></span>
+          </button>
+        </div>
+        <div class="filter-input-row filters-advanced" *ngIf="showFilters">
+          <div class="col-md-6 form-group">
+            <label for="operator">Permittee</label>
+            <select id="operator" class="form-control" name="selectoperator" [(ngModel)]="operatorListFilter" (ngModelChange)="applyOperatorFilter()">
+              <option value="" selected>All</option>
+              <option *ngFor="let o of operators" [ngValue]="o">{{o}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 form-group">
+            <label for="mineType">Mine Type</label>
+            <select class="form-control" [(ngModel)]="typefilter" id="mineType">
+              <option *ngFor="let option of minetypeOptions" [value]="option.value">{{option.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-row" *ngIf="filter || operatorListFilter || typefilter">
+          <button class="btn content-btn-alt" (click)="clearAllProjectFilters()">
+            Clear Filters
+          </button>
+        </div>
+      </div>
+      <div class="pagination">
+          <pagination-controls
+          (pageChange)="onUpdatePageNumber($event)"
+          (pageBoundsCorrection)="onUpdatePageNumber($event)"
+          id="project-pagination"
+          [autoHide]="true"
+        ></pagination-controls>
+      </div>
+
+      <table class="table project-table" id="tableTop">
+        <thead class="project-table__sort-header">
+          <tr>
+            <th class="project-table__name-col sortable" (click)="sort('name')" (keydown)="sort('name')" >Mine Name
+              <i class="sort"
+                [ngClass]="{'sort-asc': (column === 'name' && isDesc), 'sort-desc': (column === 'name' && !isDesc) }"
+                aria-hidden="true"></i>
+            </th>
+            <th class="project-table__operator-col sortable" (click)="sort('permittee')" (keydown)="sort('permittee')">Permittee
+              <i class="sort"
+                [ngClass]="{'sort-asc': (column === 'permittee' && isDesc), 'sort-desc': (column === 'permittee' && !isDesc) }"
+                aria-hidden="true"></i>
+            </th>
+            <th class="project-table__type-col sortable" (click)="sort('type')" (keydown)="sort('type')">Mine Type
+              <i class="sort"
+                [ngClass]="{'sort-asc': (column === 'type' && isDesc), 'sort-desc': (column === 'type' && !isDesc) }"
+                aria-hidden="true"></i>
+            </th>
+            <th class="project-table__status-col sortable" (click)="sort('status')"  (keydown)="sort('status')">Operating Status
+                <i class="sort"
+                  [ngClass]="{'sort-asc': (column === 'status' && isDesc), 'sort-desc': (column === 'status' && !isDesc) }"
+                  aria-hidden="true"></i>
+              </th>
+        </tr>
+        </thead>
+        <tbody class="project-table__content">
+          <tr *ngFor="let item of projects | objectFilter: filter | operatorFilter: operatorfilter | projectTypeFilter: typefilter | orderBy: {property: column, direction: direction} | paginate: pagination">
+            <td class="accordion__collapse-item p-0" colspan="4">
+              <div class="accordion__collapse-header" id="accordHead" role="tab">
+                <a class="accordion__collapse-header--column toggle collapsed" data-toggle="collapse" href="#accordCollapse{{item._id}}">
+                  <i class="material-icons open-icon">add</i>
+                  <i class="material-icons close-icon">remove</i>
+                </a>
+                <span class="accordion__collapse-header--column project-table__project-col">
+                  <a [routerLink]="['/p', item._id]">{{item.name}}</a></span>
+                <span class="accordion__collapse-header--column project-table__operator-col"><span class="inside-td">{{item.permittee}}</span></span>
+                <span class="accordion__collapse-header--column project-table__type-col" ><span class="inside-td">{{item.type}}</span></span>
+                <span class="accordion__collapse-header--column project-table__status-col" ><span class="inside-td">{{item.status}}</span></span>
+              </div>
+              <div class="collapse" id="accordCollapse{{item._id}}" role="tabpanel">
+                <div class="accordion__collapse-body">
+                  <div class="project-table__project-details">
+                    <div class="project-table__project-details--description pt-0" [innerHTML]="item.description"></div>
+                    <ul class="project-table__project-details--list list-group">
+                      <li  class="list-group-item p-0">
+                        <span class="name">Commodities:</span>
+                        <span class="value">{{item.commodities ? item.commodities.join(', ') : ''}}</span>
+                      </li>
+                      <li  class="list-group-item p-0">
+                        <span class="name">Tailings Impoundments:</span>
+                        <span class="value">{{item.tailingsImpoundments}}</span>
+                      </li>
+                    </ul>
+                    <div class="project-table__project-details--links">
+                      <a class="btn content-btn slide-l-btn btn-sm" [routerLink]="['/p', item._id]"><i class="material-icons">info_outline</i><span>Go to Mine Details</span></a>
+                      <a class="btn content-btn slide-l-btn btn-sm" href="/map" [routerLink]="['/map', { project: item._id }]"><i class="material-icons">location_on</i><span>Show on Map</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <pagination-controls
+        (pageChange)="onUpdatePageNumber($event)"
+        (pageBoundsCorrection)="onUpdatePageNumber($event)"
+        id="project-pagination"
+        [autoHide]="true"
+        ></pagination-controls>
+      </div>
+    </section>
+  </main>
+</div>

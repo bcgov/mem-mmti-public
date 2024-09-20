@@ -2,11 +2,16 @@
 
 # compiled output
 /dist
+/bcmi/dist
 /tmp
 /out-tsc
+/cms/dist
+/cms/.tmp
 
 # dependencies
 /node_modules
+/bcmi/node_modules
+/cms/node_modules
 
 # IDEs and editors
 /.idea
@@ -21,6 +26,7 @@
 .vscode/*
 
 # misc
+/bcmi/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage

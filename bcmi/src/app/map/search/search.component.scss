@@ -1,0 +1,230 @@
+@import "@assets/styles/base.scss";
+
+$app-search-font-sm: 0.75rem;
+$app-search-font-lg: 0.9375rem;
+
+.app-search__container {
+
+  &.open {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1004;
+  }
+
+  .btn,
+  .form-control {
+    height: 2.3rem;
+    font-size: $app-search-font-sm;
+  }
+
+  .search-container {
+    padding: .75rem 1.0rem .4rem;
+    color: #036;
+    position: relative;
+    font-weight: 700;
+    border-radius: 0px;
+    background: rgba(255,255,255,0.8);
+
+    @media (max-width: 768px) {
+      padding: .75rem .75rem .4rem;
+    }
+
+    .header-label {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: .25rem;
+      letter-spacing: -.025em;
+      color: #003367;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+    .search-box {
+        display: flex;;
+        align-items: center;
+
+        .gtm-filter-applicant {
+            padding: .7rem;
+            padding-right: 85px;
+            border-radius: 2px;
+            box-shadow: none;
+            -webkit-appearance: none;
+            border: 2px solid #c6d0da;
+            font-size: 1rem;
+            font-weight: 400;
+            height: 50px;
+            width: 315px;
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+                border-color: #5091cd;
+            }
+        }
+
+        .btn {
+            border-radius: 0 4px 4px 0;
+            font-size: 1rem;
+            min-width: 140px;
+            height: 50px;
+            background: #fcba18;
+            color: #003367;
+            border: none;
+            font-weight: bold;
+            padding: .5rem 1.4rem .6rem;
+
+            i {
+                vertical-align: top;
+                margin-top: 2px;
+                margin-right: 4px;
+                font-size: 20px;
+            }
+        }
+    }
+  }
+
+  legend {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .app-search__container {
+    font-size: 0.9375rem;
+
+    &.open {
+      height: 30rem;
+    }
+
+    .btn,
+    .form-control {
+      height: 2.5rem;
+      font-size: $app-search-font-lg;
+    }
+  }
+}
+
+.app-search__header {
+  @include flex(0 0 auto);
+  padding: 0.75rem;
+}
+
+@media (min-width: 1200px) {
+  .app-search__header {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+.app-search__title {
+  font-size: 1.5rem;
+}
+
+.app-search__body {
+  @include flex(1 1 auto);
+  padding: 1rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border-top: 1px solid #ddd;
+
+  fieldset {
+    + fieldset {
+      margin-top: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #ddd;
+    }
+  }
+
+  .form-check {
+    .form-check-input {
+      margin-top: 0.3rem;
+    }
+  }
+}
+
+// Typahead Input
+.typeahead-container {
+  position: relative; // Need this here to ensure the typeaheads are bound to their parent
+
+  ::ng-deep {
+    .dropdown-menu {
+      right: 0;
+      overflow-y: scroll;
+      max-height: 50vh;
+    }
+  }
+}
+
+.form-check label {
+    padding-left: 0.25rem;
+    font-size: 1rem;
+  }
+
+.search-radio {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-radio-btn {
+    margin: 5px;
+}
+
+::ng-deep .mat-radio-container .mat-radio-outer-circle {
+    border: none;
+    width: 0;
+}
+
+::ng-deep .mat-radio-label .mat-radio-label-content {
+    position: relative;
+    padding-left: 0px;
+    padding-right: 7px;
+}
+
+.search-result {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 0;
+
+  .toggle-btn {
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    color: #03509c;
+    border: none;
+    background: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.filter-container {
+  margin: 0 5px;
+  font-weight: 700;
+  flex-grow: 1;
+  flex-basis: 33.33%;
+
+  .filter-select {
+    color: black;
+  }
+
+  label {
+    font-size: inherit;
+    margin-bottom: 0;
+  }
+}

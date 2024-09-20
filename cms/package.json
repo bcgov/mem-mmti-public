@@ -1,0 +1,36 @@
+{
+  "name": "bcmi-cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Strapi CMS for BCMI",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "deploy": "strapi deploy"
+  },
+  "dependencies": {
+    "@_sh/strapi-plugin-ckeditor": "^2.1.3",
+    "@strapi/plugin-cloud": "4.25.10",
+    "@strapi/plugin-i18n": "4.25.10",
+    "@strapi/plugin-users-permissions": "4.25.10",
+    "@strapi/strapi": "4.25.10",
+    "pg": "8.8.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "5.3.4",
+    "styled-components": "5.3.3"
+  },
+  "author": {
+    "name": "Sustainment team"
+  },
+  "strapi": {
+    "uuid": "d95006a9-3795-408c-a274-47bbf9574f1a"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

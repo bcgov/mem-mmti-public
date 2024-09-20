@@ -1,0 +1,35 @@
+<div class="map-container">
+  <app-map-search class="map-search" #mapSearch
+    [projects]="filterApps"
+    (updateMatching)="updateMatching()"
+    (showPlace)="showPlace($event)"
+  ></app-map-search>
+  <app-leaflet-map #mineMap
+    [projects]="mapApps"
+    [mapApps]="mapApps"
+    [filterApps]="filterApps"
+  ></app-leaflet-map>
+  <button class="toggle-disclaimer-btn btn btn-default" (click)="showDisclaimer()">Disclaimer</button>
+  <!-- Modal -->
+  <ng-template #modal let-closeDialog="close">
+    <div class="modal-header">
+      <h5 class="modal-title" id="mapModalLabel">Disclaimer</h5>
+      <button type="button" class="close" (click)="closeDialog()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>The Province has reviewed the geospatial information but makes no guarantee or warranties whatsoever,
+        either expressed or implied, with respect to the accuracy or quality of information, content, or
+        materials, and disclaims all responsibility for the accuracy or completeness contained herein.</p>
+        <p>The permitted mine spatial area represents areas where mining activity has been approved and a permit
+        has been issued under the Mines Act. Please note that Permitted Mine Areas are not available
+        for every mine site. More information on this dataset can be
+        found <a href="https://catalogue.data.gov.bc.ca/dataset/permitted-mine-areas-major-mine" target="_blank" rel="noopener">here</a>.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn content-btn-alt" (click)="closeDialog()">OK</button>
+    </div>
+  </ng-template>
+</div>

@@ -41,6 +41,7 @@ objects:
           ref: ${SOURCE_REPOSITORY_REF}
           uri: ${SOURCE_REPOSITORY_URL}
         type: Git
+        contextDir: bcmi
       strategy:
         sourceStrategy:
           from:
@@ -74,7 +75,7 @@ parameters:
     value: nodejs
   - name: BUILDER_IMAGE_TAG
     required: true
-    value: "10"
+    value: "20"
   - name: BUILDER_IMAGE_NAMESPACE
     required: true
     value: openshift

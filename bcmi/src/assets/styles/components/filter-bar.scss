@@ -1,0 +1,133 @@
+@import "../../../assets/styles/base.scss";
+
+.filter-bar {
+    margin-bottom: 1.5rem;
+
+    label {
+        text-transform: uppercase;
+        color: $filter-bar-label-color;
+        font-size: 0.875rem;
+        font-weight: 700;
+    }
+
+    .form-group {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        &:focus {
+            border-color: $fc-focus-border-color;
+            z-index: 2;
+        }
+    }
+
+    .button-row {
+        margin-top: 1rem;
+
+        button {
+            font-size: 0.85rem;
+
+            i {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.filter-input-row {
+    margin-bottom: 1rem;
+
+    &.filters-basic {
+        @include flex-box();
+
+        .form-group {
+            @include flex(1 1 auto);
+            margin-bottom: 0;
+
+            .form-control {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        .toggle-filter-btn {
+            @include flex(0 0 auto);
+            height: 2.75rem;
+            margin-left: -1px;
+            padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+            border-radius: 0;
+            border: 1px solid $fc-border-color;
+
+            i {
+                margin: 0;
+            }
+
+            .hide-filter-txt {
+                display: none;
+            }
+
+            .btn-txt {
+                display: none;
+            }
+
+            &:focus {
+                z-index: 2;
+            }
+
+            &.show-filters {
+                .show-filter-txt {
+                    display: none;
+                }
+
+                .hide-filter-txt {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    &.filters-advanced {
+        padding: 1rem 0.75rem 0.5rem 0.75rem;
+        background: #f4f4f4;
+
+        [class^="col-md"] {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+    }
+}
+
+@media (min-width: 760px) {
+    .filter-input-row {
+        position: relative;
+
+        &.filters-basic {
+            .toggle-filter-btn {
+                .btn-txt {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        &.filters-advanced {
+            @include flex-box();
+
+            .form-group {
+                .form-control {
+                    position: relative;
+                    border-radius: 0;
+
+                    &:focus {
+                        z-index: 2;
+                    }
+                }
+            }
+        }
+
+        + .filter-input-row {
+            margin-top: 2rem;
+        }
+    }
+}

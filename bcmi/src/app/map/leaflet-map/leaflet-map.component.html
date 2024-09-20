@@ -1,0 +1,12 @@
+<div class="map-container">
+  <div 
+  id="map"
+  leaflet 
+  [leafletOptions]="options" 
+
+  [leafletFitBounds]="fitBounds"
+  [(leafletCenter)]="center"
+
+  (leafletMapReady)="onMapReady($event)"
+  name="Map of B.C. that displays Mine Projects"></div>
+</div>

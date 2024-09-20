@@ -1,0 +1,195 @@
+@import "@assets/styles/base.scss";
+
+.project-table {
+  tbody {
+  tr {
+    background: transparent;
+
+    .accordion__collapse-header {
+    background: $table-row-bg;
+    }
+
+    &:nth-child(even) {
+    .accordion__collapse-header {
+      background: $table-alt-row-bg;
+    }
+    }
+  }
+  }
+
+  .accordion__collapse-header {
+  background: transparent;
+  }
+
+  &__project-details {
+  &--links {
+    padding-top: 1.5rem;
+  }
+  }
+}
+
+.project-table {
+  &__project-details {
+    font-size: 0.85rem;
+
+    &--description {
+        margin-bottom: 1.25rem;
+
+        &::ng-deep {
+        p {
+            margin: 0;
+            line-height: calc(0.85rem * 1.5);
+            font-size: 0.85rem;
+        }
+        }
+    }
+
+    &--list {
+        li {
+        @include align-items(start);
+
+        + li {
+        border-top: 1px solid #fff;
+        }
+        }
+
+        .name,
+        .value {
+            margin: 0;
+            padding: 0.5rem 0.75rem;
+            width: 50%;
+            }
+    }
+  }
+}
+
+@media (max-width: 760px) {
+
+  .project-table {
+    thead {
+      display: none;
+    }
+
+    .accordion__collapse-header {
+      &--column.toggle {
+        display: none;
+      }
+
+      &--column {
+      display: block;
+      }
+    }
+
+    td {
+      display: block;
+      padding: 1rem;
+      border-top: none;
+
+      &.accordion__collapse-header {
+        display: block;
+      }
+
+      span {
+        &.accordion__collapse-header--column {
+          position: relative;
+          margin: 0 1rem;
+          padding: 0.25rem 0;
+
+          &:before {
+            display: inline-block;
+            width: 40%;
+            }
+
+          &:last-child {
+            padding-bottom: 1.25rem;
+          }
+
+          &.project-table {
+
+            &__project-col {
+              padding-bottom: 0.75rem;
+              font-size: 1.25rem;
+              font-weight: 600;
+            }
+
+            &__operator-col:before {
+              content: 'Operator:';
+            }
+
+            &__type-col:before {
+              content: 'Type:';
+            }
+
+            &__status-col:before {
+              content: 'Status:';
+            }
+
+            &__operator-col,
+            &__type-col,
+            &__status-col {
+              span.inside-td {
+                display: inline-block;
+                vertical-align: top;
+                padding: none;
+                width: 60%;
+              }
+            }
+
+          }
+
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 760px) {
+  .project-table {
+    &__operator-col {
+      width: 38%;
+    }
+
+    &__type-col {
+      width: 17.5%;
+      text-align: left;
+    }
+
+    &__status-col {
+        width: 17.5%;
+        text-align: left;
+      }
+
+    &__project-details {
+      font-size: 0.9375rem;
+
+      &--description {
+        &::ng-deep {
+          p {
+            line-height: calc(0.9375rem * 1.5);
+            font-size: 0.9375rem;
+          }
+        }
+      }
+
+      &--list {
+        list-style-type: none;
+
+        .name {
+          width: 11rem;
+        }
+
+        .value {
+          width: auto;
+        }
+      }
+
+      &--links {
+        .btn {
+          + .btn {
+            margin-left: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}

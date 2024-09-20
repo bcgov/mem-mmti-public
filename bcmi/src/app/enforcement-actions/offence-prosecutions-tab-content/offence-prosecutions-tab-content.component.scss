@@ -1,0 +1,134 @@
+@import '@assets/styles/base.scss';
+
+.enforcements-table {
+  tbody {
+    tr {
+      background: transparent;
+
+      .accordion__collapse-header {
+        background: $table-row-bg;
+      }
+
+      &:nth-child(even) {
+        .accordion__collapse-header {
+          background: $table-alt-row-bg;
+        }
+      }
+    }
+  }
+
+  .accordion__collapse-header {
+    background: transparent;
+  }
+}
+
+.enforcements-table {
+  &__enforcement-details {
+    font-size: 0.8rem;
+
+    .name {
+      margin: 0.5rem 0.25rem 0.5rem -0.25rem;
+    }
+
+    .value {
+      margin: 0.5rem 0.25rem;
+    }
+
+    &--summary {
+      padding: 0.5rem 0.25rem;
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  .tab-intro {
+    margin-top: 1rem;
+  }
+
+  .enforcements-table {
+    thead {
+      display: none;
+    }
+
+    .accordion__collapse-header {
+      &--column.toggle {
+        display: none;
+      }
+
+      &--column {
+        display: block;
+      }
+    }
+
+    td {
+      display: block;
+      padding: 1rem;
+      border-top: none;
+
+      &.accordion__collapse-header {
+        display: block;
+      }
+
+      span {
+        &.accordion__collapse-header--column {
+          position: relative;
+          margin: 0 1rem;
+          padding: 0.25rem 0;
+
+          &:before {
+            display: inline-block;
+            width: 40%;
+          }
+
+          &:last-child {
+            padding-bottom: 1.25rem;
+          }
+
+          &.enforcements-table {
+            &__name-col {
+              padding-bottom: 0.75rem;
+              font-size: 1.25rem;
+              font-weight: 600;
+            }
+
+            &__mine-col:before {
+              content: 'Mine Name:';
+            }
+
+            &__date-col:before {
+              content: 'Date of Judgement:';
+            }
+
+            &__mine-col,
+            &__date-col {
+              span.inside-td {
+                display: inline-block;
+                vertical-align: top;
+                padding: none;
+                width: 60%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 760px) {
+  .enforcements-table {
+    &__mine-col {
+      width: 45%;
+      text-align: left;
+    }
+
+    &__date-col {
+      width: 17.5%;
+      text-align: left;
+    }
+
+    &__enforcement-details {
+      font-size: 0.8rem;
+    }
+  }
+}

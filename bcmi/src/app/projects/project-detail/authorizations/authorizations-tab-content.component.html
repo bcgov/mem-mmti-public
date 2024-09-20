@@ -1,0 +1,58 @@
+<div class="authorizations tab-pane" id="authorizations" role="tabpanel">
+  <p class="tab-intro">
+    <span>
+      Environmental assessment certificates and permits issued under the Mines Act and the Environmental Management Act (EMA)
+       are the primary provincial authorizations for major mine projects in British Columbia. Below you will find a list of authorizations
+       associated with each of these three acts (as applicable). Learn more about Authorizations <a [routerLink]="['/authorizations']">here</a>.
+    </span>
+  </p>
+
+  <div class="spinner-container" *ngIf="loading">
+    <div class="spinner-new rotating"></div>
+  </div>
+
+  <ng-container *ngFor="let agency of agencyList">
+    <section class="auth-section" *ngIf="collections[agency.id].length > 0">
+      <h3>{{agency.act}} <span>{{agency.name}}</span></h3>
+      <div class="accordion authorizations-list" id="{{agency.htmlId}}" role="tablist" aria-multiselectable="false">
+        <div class="accordion__collapse-item" *ngFor="let c of collections[agency.id].items">
+          <div class="accordion__collapse-header" role="tab" id="heading-{{c._id}}">
+            <a class="accordion__collapse-header--column toggle collapsed" data-ng-if="c.documents" data-toggle="collapse" href="#collapse-{{c._id}}"
+              aria-expanded="true" aria-controls="collapseOne">
+              <i class="material-icons open-icon">add</i>
+              <i class="material-icons close-icon">remove</i>
+            </a>
+            <span class="accordion__collapse-header--column authorizations-list__name-col">{{formatDisplayName(c)}}</span>
+            <span class="accordion__collapse-header--column authorizations-list__date-col">
+              <span>{{c.type | removeStringValue: "Amendment" | removeStringValue: "Amalgamated"}} {{c.status}}</span> -
+              <span>{{c.date | date:'yyyy-MM-dd'}}</span>
+            </span>
+          </div>
+          <div class="collapse" role="tabpanel" id="collapse-{{c._id}}" attr.aria-labelledby="heading-{{c._id}}">
+            <div class="accordion__collapse-body">
+              <div class="authorizations-list__related-documents card" *ngIf="c.documents.length > 0">
+                <div class="card-header">Related Documents</div>
+                <ul class="authorizations-list__related-documents-list list-group">
+                  <li class="list-group-item" *ngFor="let d of c.documents"><a href="{{d.ref}}" target="_blank" rel="noopener">{{d.name}}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
+
+  <p *ngIf="!collections.hasItems()">
+    No records have been posted to this page yet. Please let us know if you can’t find what you’re looking for. <a href="mailto:MineInfo@gov.bc.ca">Contact us here.</a>
+  </p>
+
+
+  <section class="main-footer" *ngIf="project.morePermitsLink">
+    <h3>Can't find what you are looking for?</h3>
+    <p class="mb-0">Mines Act permits issued for {{project.name}} prior to {{project.morePermitsLinkYear}} can be accessed <a href="{{project.morePermitsLink}}"
+        target="_blank" rel="noopener">here</a>.</p>
+  </section>
+
+</div>

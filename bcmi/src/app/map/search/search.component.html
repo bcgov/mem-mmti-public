@@ -1,0 +1,79 @@
+<div class="app-search__container d-flex flex-column">
+  <div class="search-container" id="map-search">
+      <mat-radio-group class="search-radio" aria-label="Select a field to search on" [(ngModel)]="radioSel">
+        <mat-radio-button class="search-radio-btn" *ngFor="let sel of radioOptions" [value]="sel"
+        >{{sel}}</mat-radio-button>
+      </mat-radio-group>
+      <div class="search-box">
+        <div *ngIf="radioSel === 'Mine Name'">
+          <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
+          placeholder="Start Typing a Mine Name"
+          [(ngModel)]="_mineFilter"
+          [ngbTypeahead]="mineSearch"
+          [focusFirst]="false"
+          (keyup.enter)="applyFilters()">
+        </div>
+        <div *ngIf="radioSel === 'Permit Number'">
+          <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
+          placeholder="Start Typing a Permit Number"
+          [(ngModel)]="_permitFilter"
+          [ngbTypeahead]="permitSearch"
+          [focusFirst]="false"
+          (keyup.enter)="applyFilters()">
+        </div>
+        <div *ngIf="radioSel === 'Address Lookup'">
+          <input type="text" class="form-control gtm-filter-applicant " id="searchInput"
+          placeholder="Start Typing an address in B.C."
+          [(ngModel)]="_geoFilter"
+          (keyup.enter)="geocode()">
+        </div>
+        <div *ngIf="radioSel !== 'Address Lookup'; else elseBlock">
+          <button type="button" class="btn btn-primary" title="Search" id="searchButton"
+              (click)="applyFilters();"
+              [disabled]="loading">
+            <i class="material-icons">search</i>Search
+          </button>
+        </div>
+        <ng-template #elseBlock>
+          <button type="button" class="btn btn-primary" title="Search" id="searchButton"
+              (click)="geocode();"
+              [disabled]="loading">
+            <i class="material-icons">search</i>Search
+          </button>
+        </ng-template>
+      </div>
+      <div class="toggle-container">
+        <button class="toggle-btn" (click)="toggleAdvancedFilters()">
+          <span>{{ showAdvancedFilters ? 'Hide' : 'Show' }} Advanced Filters</span>
+          <i class="material-icons">{{ showAdvancedFilters ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</i>
+        </button>
+      </div>
+      <div class="filters-container" *ngIf="showAdvancedFilters">
+        <div class="filter-container">
+          <label for="type">
+            Mine Type
+          </label>
+          <div class="filter-select">
+            <select class="form-control" [(ngModel)]="_typeFilter" id="type">
+              <option *ngFor="let option of minetypeOptions" [value]="option.value">{{option.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-container">
+          <label for="tailing">
+            Tailing Impoundments
+          </label>
+          <div class="filter-select">
+            <select class="form-control" [(ngModel)]="_tailingImpound" id="tailing">
+              <option *ngFor="let option of tailingOptions" [value]="option.value">{{option.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="search-result" *ngIf="ranSearch && !loading && resultsCount === 0">
+          No results found.
+        </p>
+      </div>
+  </div>
+</div>

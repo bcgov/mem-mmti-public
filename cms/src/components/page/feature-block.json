@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_page_feature_blocks",
+  "info": {
+    "displayName": "Feature Block",
+    "icon": "grid",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

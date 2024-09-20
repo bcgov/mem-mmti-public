@@ -1,0 +1,132 @@
+<div class="tab-pane" id="offence-prosecutions" role="tabpanel">
+  <p class="tab-intro">
+    Where a person contravenes a provision of the
+    <strong>Mines Act</strong>
+    , the regulations, the
+    <strong>Health, Safety and Reclamation Code</strong>
+    or an
+    <strong>order</strong>
+    , and where the evidence is supportive, charges may be recommended for approval by Crown Counsel. A person convicted
+    of an offence under the Mines Act is liable to a fine of not more than $1,000,000 or to imprisonment for not more
+    than three years or both.
+  </p>
+
+  <table class="table enforcements-table" id="tableTop">
+    <thead class="enforcements-table__sort-header">
+      <tr>
+        <th class="enforcements-table__name-col">Party</th>
+        <th class="enforcements-table__mine-col">Mine Name</th>
+        <th class="enforcements-table__date-col">Date of Judgement</th>
+      </tr>
+    </thead>
+    <tbody class="enforcements-table__content">
+      <tr *ngFor="let item of courtConvictions">
+        <td class="accordion__collapse-item p-0" colspan="3">
+          <div class="accordion__collapse-header" id="accordHead" role="tab">
+            <a
+              class="accordion__collapse-header--column toggle collapsed"
+              data-toggle="collapse"
+              href="#accordCollapse{{ item._id }}"
+            >
+              <i class="material-icons open-icon">add</i>
+              <i class="material-icons close-icon">remove</i>
+            </a>
+            <span class="accordion__collapse-header--column enforcements-table__name-col">
+              <a data-toggle="collapse" href="#accordCollapse{{ item._id }}">
+                {{ item.issuedTo ? item.issuedTo : 'N/A' }}
+              </a>
+            </span>
+            <span class="accordion__collapse-header--column enforcements-table__mine-col">
+              <a
+                *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)"
+                class="inside-td"
+                [routerLink]="['/p', getMineFromGuid(item.mineGuid)._id]"
+              >
+                {{ getMineFromGuid(item.mineGuid).name }}
+              </a>
+              <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="inside-td">
+                {{ item.unlistedMine ? item.unlistedMine : 'N/A' }}
+              </span>
+            </span>
+            <span class="accordion__collapse-header--column enforcements-table__date-col">
+              <span class="inside-td">{{ item.dateIssued | date: 'yyyy-MM-dd' }}</span>
+            </span>
+          </div>
+          <div class="collapse" id="accordCollapse{{ item._id }}" role="tabpanel">
+            <div class="accordion__collapse-body">
+              <div class="enforcements-table__enforcement-details">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <strong class="name">Party:</strong>
+                    <span class="value">{{ item.issuedTo ? item.issuedTo : 'N/A' }}</span>
+                  </div>
+                  <div class="col-sm-6">
+                    <strong class="name">Location:</strong>
+                    <span class="value">{{ item.location ? item.location : 'N/A' }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <strong class="name">Mine Name:</strong>
+                    <a
+                      *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)"
+                      class="value"
+                      [routerLink]="['/p', getMineFromGuid(item.mineGuid)._id]"
+                    >
+                      {{ getMineFromGuid(item.mineGuid).name }}
+                    </a>
+                    <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
+                      {{ item.unlistedMine ? item.unlistedMine : 'N/A' }}
+                    </span>
+                  </div>
+                  <div class="col-sm-6">
+                    <strong class="name">Mine Type:</strong>
+                    <span *ngIf="item.mineGuid && getMineFromGuid(item.mineGuid)" class="value">
+                      {{ getMineFromGuid(item.mineGuid).type }}
+                    </span>
+                    <span *ngIf="!item.mineGuid || !getMineFromGuid(item.mineGuid)" class="value">
+                      {{ item.unlistedMineType ? item.unlistedMineType : 'N/A' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <strong class="name">Fine:</strong>
+                    <span class="value">{{ item.penaltiesString ? item.penaltiesString : 'N/A' }}</span>
+                  </div>
+                  <div class="col-sm-6">
+                    <strong class="name">Date of Judgement:</strong>
+                    <span class="value">{{ item.dateIssued | date: 'yyyy-MM-dd' }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <strong class="name">Offence:</strong>
+                    <span class="value" *ngFor="let legislation of item.legislations">
+                      {{ legislation.toString() ? legislation.toString() : 'N/A' }}
+                      <br />
+                    </span>
+                    <span class="value" *ngIf="!item.legislations?.length">N/A</span>
+                  </div>
+                  <div class="col-sm-6">
+                    <strong class="name">Link to Information:</strong>
+                    <a *ngFor="let document of item.documents" class="value" href="{{ document.url }}" target="_blank" rel="noopener">
+                      {{ document.fileName }}
+                      <br />
+                    </a>
+                    <span class="value" *ngIf="!item.documents?.length">N/A</span>
+                  </div>
+                </div>
+                <div class="row" *ngIf="item.description">
+                  <div class="col-12">
+                    <p class="enforcements-table__enforcement-details--summary">{{ item.description }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

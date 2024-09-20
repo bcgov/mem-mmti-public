@@ -1,0 +1,295 @@
+@import "../../../assets/styles/base.scss";
+
+$toggle-list-anim-duration: 0.2s;
+
+.map-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  #map {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    transition: left ease-out $toggle-list-anim-duration;
+  }
+}
+
+// Map Control Customization
+::ng-deep {
+  .leaflet-container {
+    a.leaflet-popup-close-button {
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.35rem 0;
+      width: 2rem;
+      height: 2rem;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: normal;
+      opacity: 0.5;
+
+      &:hover,
+      &:focus {
+        color: #fff;
+        opacity: 1;
+      }
+    }
+  }
+
+  .leaflet-popup-tip {
+    background: #244278;
+  }
+
+  .leaflet-popup {
+    margin-bottom: 30px; // Offset so we can see the marker
+    background: #244278;
+  }
+
+  .leaflet-popup-content-wrapper {
+    padding: 0;
+    border-radius: 0.2rem;
+    background: #244278;
+  }
+
+  .leaflet-popup-content {
+    width: 400px !important;
+    height: 400px;
+    margin: 0;
+    background: #244278;
+  }
+
+  .leaflet-control-attribution {
+    padding: 0.5rem;
+    height: 3rem;
+    line-height: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .leaflet-bottom.leaflet-left {
+    bottom: 4.25rem;
+  }
+
+  .map-reset-control {
+    margin-right: 12px !important;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 2px;
+    border: none;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+    cursor: pointer;
+
+    &:hover {
+      background: #f4f4f4;
+    }
+  }
+}
+
+@media (min-width: 377px) {
+  ::ng-deep {
+    .leaflet-bottom.leaflet-left {
+      bottom: 3.5rem;
+    }
+
+    .leaflet-control-attribution {
+      height: 3.25rem ;
+    }
+  }
+}
+
+@media (min-width: 570px) {
+  ::ng-deep {
+    .leaflet-bottom.leaflet-left {
+      bottom: 2.75rem;
+    }
+
+    .leaflet-control-attribution {
+      height: 2.5rem;
+    }
+  }
+}
+
+@media (min-width: 1085px){
+  ::ng-deep {
+    .leaflet-bottom.leaflet-left {
+      bottom: 2rem;
+    }
+
+    .leaflet-control-attribution {
+      height: auto;
+    }
+  }
+}
+
+@media (min-width: 1175px) {
+  ::ng-deep {
+    .leaflet-bottom.leaflet-left {
+      bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  ::ng-deep {
+    .leaflet-popup-content {
+      width: 24rem !important;
+    }
+  }
+}
+
+.map-popup-disc {
+    margin-top: 1.1rem;
+    max-height: 20rem;
+    font-size: calc(#{$map-popup-font-size} * 0.8);
+    line-height: calc(#{$map-popup-font-size} * 1.1);
+    font-style: italic;
+}
+
+.map-popup-btns {
+    margin-top: 1.5rem;
+
+    .btn {
+        padding: 0.25rem;
+        color: $map-popup-btn-color;
+        border: 1px solid $map-popup-border-color;
+        background: transparent;
+        font-size: 0.85rem;
+        font-weight: 600;
+
+        &:active,
+        &:focus,
+        &:hover {
+            border-color: $gold;
+            background: $gold;
+        }
+
+        &.slide-r-btn {
+            span {
+                margin-top: 0.25rem;
+            }
+        }
+    }
+}
+
+.map-popup-desc {
+    white-space: pre-wrap;
+    max-height: 20rem;
+    line-height: calc(#{$map-popup-font-size} * 1.5);
+}
+
+.map-popup-meta {
+    list-style-type: none;
+    padding-left: 0 !important;
+
+    li {
+        @include flex-box();
+        font-size: $map-popup-font-size !important;
+
+        .meta-name {
+            @include flex(0 0 auto);
+            padding-right: 0.5rem;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            @include flex(1 1 auto);
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .map {
+        .esri-ui-top-left {
+            right: auto;
+        }
+
+        .esri-search {
+            width: 30rem;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+}
+
+/* Popup style */
+.popup-container {
+    max-height: 300px;
+    background: #244278;
+    font-family: myriad-pro, system-ui, sans-serif;
+    color: #fff;
+    width: 400px;
+    outline: none;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.popup-header {
+    background: #036;
+    position: relative;
+    align-items: flex-start;
+    justify-content: space-between;
+    display: flex;
+    flex: 0 0 auto;
+    opacity: 1;
+    font-family: inherit;
+    font-size: 14px;
+    margin: 0!important;
+    padding: 1rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.popup-content {
+    box-sizing: inherit;
+    background: #244278;
+    font-family: myriad-pro, system-ui, sans-serif;
+    color: #fff;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 300px;
+}
+
+.map-popup-disc {
+    margin-top: 1.1rem;
+    max-height: 20rem;
+    font-size: calc(.9375rem * .8);
+    line-height: calc(.9375rem * 1.1);
+    font-style: italic;
+}
+
+.popup-content::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #036;
+    border-radius: 20px;
+}
+
+.popup-content::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #036;
+}
+
+.popup-content::-webkit-scrollbar-thumb
+{
+    background-color: rgb(190, 190, 190);
+    border: 2px solid #036;
+    border-radius: 20px;
+}
