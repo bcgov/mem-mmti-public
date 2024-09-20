@@ -5,8 +5,7 @@
   "scripts": {
     "lint": "ng lint",
     "start": "ng serve -o",
-    "prebuild": "npm run lint",
-    "build": "ng build ----configuration production",
+    "build": "ng build --configuration production",
     "pretest": "npm run lint",
     "test": "ng test",
     "test-ci": "ng test",
