@@ -1,5 +1,3 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -7,14 +5,30 @@
     "strict": false,
     "baseUrl": "./src",
     "paths": {
-      "@app/*": ["app/*"],
-      "@models/*": ["app/models/*"],
-      "@map/*": ["app/map/*"],
-      "@assets/*": ["assets/*"],
-      "@pipes/*": ["app/pipes/*"],
-      "@projects/*": ["app/projects/*"],
-      "@services/*": ["app/services/*"],
-      "@shared/*": ["app/shared/*"],
+      "@app/*": [
+        "app/*"
+      ],
+      "@models/*": [
+        "app/models/*"
+      ],
+      "@map/*": [
+        "app/map/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@pipes/*": [
+        "app/pipes/*"
+      ],
+      "@projects/*": [
+        "app/projects/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ]
     },
     "types": [
       "jest"
@@ -37,8 +51,10 @@
     "module": "ES2022",
     "lib": [
       "ES2022",
-      "dom"
-    ]
+      "dom",
+      "esnext.asynciterable"
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

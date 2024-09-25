@@ -35,6 +35,8 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
+import { GraphQLModule } from './graphql.module';
+import { PageComponent } from './static-pages/page/page.component';
 
 export function initConfig(configService: ConfigService) {
   return () => configService.init();
@@ -48,6 +50,7 @@ export function initConfig(configService: ConfigService) {
     ComplianceOversightComponent,
     ContactComponent,
     AuthorizationsComponent,
+    PageComponent,
     LifecycleComponent,
     TopicsOfInterestComponent,
     WaterQualityComponent,
@@ -75,7 +78,8 @@ export function initConfig(configService: ConfigService) {
     MapModule,
     SharedModule,
     RouterModule,
-    LeafletModule
+    LeafletModule,
+    GraphQLModule
   ],
   providers: [
     {

@@ -114,7 +114,7 @@ describe('ProjectDetailComponent', () => {
   describe('gotoProjectList()', () => {
     it('should navigate to /map when no project code given', () => {
       component.gotoProjectList();
-      expect(router.navigate).toHaveBeenCalledWith(['/projects']);
+      expect(router.navigate).toHaveBeenCalledWith(['/mines']);
     });
   });
   describe('gotoMap()', () => {

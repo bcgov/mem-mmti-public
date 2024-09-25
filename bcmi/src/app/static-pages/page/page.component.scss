@@ -1,0 +1,40 @@
+// Base
+@import "@assets/styles/base.scss";
+
+// Components
+@import "@assets/styles/components/aside.scss";
+@import "@assets/styles/components/card.scss";
+@import "@assets/styles/components/hero-banner.scss";
+@import "@assets/styles/components/feature-block.scss";
+@import "@assets/styles/components/lists.scss";
+
+
+.card-list {
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            @include clearfix();
+            margin-top: 1px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9375rem;
+            background: $nv-list-bg;
+        }
+
+        span {
+            &.name,
+            &.value {
+                float: left;
+                display: block;
+                width: 50%;
+            }
+
+            &.name {
+                margin-bottom: 0.25rem;
+            }
+        }
+    }
+}
