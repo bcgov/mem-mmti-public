@@ -14,11 +14,12 @@
         <main class="col-lg-8" [innerHTML]="pageData.Content">
         </main>
         <aside class="col-lg-4">
-            <section class="card">
-                <h4 class="card-header">Related Documents</h4>
+            <section class="card" *ngIf="!(pageData.Related_card === null ||  pageData.Related_card === '')">
+              <h4 class="card-header">Related Documents</h4>
                 <div [innerHTML]="pageData.Related_card" class="card-list"></div>
             </section>
-            <section class="card">
+
+            <section class="card" *ngIf="!(pageData.External_card === null ||  pageData.External_card === '')">
                 <h4 class="card-header">External Links &amp; Resources</h4>
                 <div [innerHTML]="pageData.External_card"></div>
             </section>

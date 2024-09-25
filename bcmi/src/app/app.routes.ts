@@ -26,7 +26,11 @@ export const routes: Routes = [
   },
   {
     path: 'contact',
-    component: ContactComponent
+    component: PageComponent,
+    resolve: {
+      pageData: ContentResolver
+    },
+    data: {id:2}
   },
   {
     path: '',
@@ -65,7 +69,8 @@ export const routes: Routes = [
     component: PageComponent,
     resolve: {
       pageData: ContentResolver
-    }
+    },
+    data: {id:1}
   },
   {
     path: '**',

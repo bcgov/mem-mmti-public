@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, catchError, map } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 import { Page } from '@app/models/content/page';
@@ -11,9 +11,11 @@ export class ContentResolver implements Resolve<Page> {
 
     constructor(private readonly apollo: Apollo){}
 
-    private getPage = gql`
+    private getPage = function(id){
+
+    return gql`
     {
-        page(id: 1) {
+        page(id: ${id}) {
         data{
             attributes{
             Title,
@@ -29,13 +31,15 @@ export class ContentResolver implements Resolve<Page> {
         }
     }
     `;
+    }
 
-    resolve(): Observable<Page> {
+    resolve(route: ActivatedRouteSnapshot): Observable<Page> {
     // Return an Observable that represents the API request(s) you want to
     // execute before the route is activated.
+        const id = route.data["id"];
 
         return this.apollo.watchQuery<any>({
-            query: this.getPage
+            query: this.getPage(id)
         })
         .valueChanges.pipe(map(result => result.data?.page.data.attributes as Page),
         catchError(error => {
