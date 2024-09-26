@@ -11,37 +11,34 @@ export class ContentResolver implements Resolve<Page> {
 
     constructor(private readonly apollo: Apollo){}
 
-    private getPage = function(id){
+    private getPage = function(route){
 
     return gql`
     {
-        page(id: ${id}) {
-        data{
-            attributes{
-            Title,
-            Description
-            Content
-            Ongoing_card
-            External_card
-            Related_card
-            route
-            tooltip
+        pageByRoute(route: "${route}") {
+            data{
+                attributes{
+                    Title,
+                    Description
+                    Content
+                    Ongoing_card
+                    External_card
+                    Related_card
+                    route
+                    tooltip
+                }
             }
-        }
         }
     }
     `;
     }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Page> {
-    // Return an Observable that represents the API request(s) you want to
-    // execute before the route is activated.
-        const id = route.data["id"];
-
+    // Return an Observable that represents the GraphQL request to execute before the route is activated.
         return this.apollo.watchQuery<any>({
-            query: this.getPage(id)
+            query: this.getPage(route.routeConfig.path)
         })
-        .valueChanges.pipe(map(result => result.data?.page.data.attributes as Page),
+        .valueChanges.pipe(map(result => result.data?.pageByRoute.data.attributes as Page),
         catchError(error => {
             console.error(error);
             return [];

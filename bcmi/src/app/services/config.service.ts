@@ -1,5 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Route, Router, RouterModule } from '@angular/router';
+import { PageComponent } from '@app/static-pages/page/page.component';
+import { ContentResolver } from './content-resolver';
+import { ContentService } from './content-service';
 
 @Injectable()
 export class ConfigService {
@@ -8,7 +12,9 @@ export class ConfigService {
 
   constructor(
     private httpClient: HttpClient,
-    public http: HttpClient
+    public http: HttpClient,
+    private router: Router,
+    private contentService: ContentService
   ) { }
 
   get config(): any {
@@ -20,6 +26,15 @@ export class ConfigService {
    * is configured to pass the /config endpoint to a dynamic service that returns JSON.
    */
   async init() {
+    //Dynamically build routes based on pages in the CMS
+    let results = await this.contentService.getRoutes();
+    const routes: Route[] = [];
+    results.forEach( (page) => {
+      routes.push({path: page.attributes.route, component: PageComponent, resolve: {pageData: ContentResolver}})
+    })
+    const newRoutes = [...routes, ...this.router.config];
+    this.router.resetConfig(newRoutes);
+    
     const application = 'BCMI';
     try {
       // Attempt to get application via this.httpClient. This uses the url of the application that you are running it from

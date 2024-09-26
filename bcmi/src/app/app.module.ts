@@ -37,6 +37,7 @@ import { RouterModule } from '@angular/router';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { GraphQLModule } from './graphql.module';
 import { PageComponent } from './static-pages/page/page.component';
+import { ContentService } from './services/content-service';
 
 export function initConfig(configService: ConfigService) {
   return () => configService.init();
@@ -86,9 +87,10 @@ export function initConfig(configService: ConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initConfig,
       multi: true,
-      deps: [ConfigService]
+      deps: [ConfigService,ContentService]
     },
     ProponentService,
+    ContentService,
     CookieService,
     ConfigService,
     GeocoderService,

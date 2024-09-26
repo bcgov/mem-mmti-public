@@ -25,14 +25,6 @@ export const routes: Routes = [
     component: ComplianceOversightComponent
   },
   {
-    path: 'contact',
-    component: PageComponent,
-    resolve: {
-      pageData: ContentResolver
-    },
-    data: {id:2}
-  },
-  {
     path: '',
     component: HomeComponent
   },
@@ -63,14 +55,6 @@ export const routes: Routes = [
   {
     path: 'map',
     component: MainMapComponent
-  },
-  {
-    path: 'page',
-    component: PageComponent,
-    resolve: {
-      pageData: ContentResolver
-    },
-    data: {id:1}
   },
   {
     path: '**',
