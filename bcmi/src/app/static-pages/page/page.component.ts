@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Page } from '../../models/content/page';
-import { Apollo, gql } from 'apollo-angular';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
