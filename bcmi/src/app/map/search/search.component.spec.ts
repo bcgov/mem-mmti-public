@@ -10,6 +10,7 @@ import { GeocoderService } from '@services/geocoder.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { ContentService } from '@app/services/content-service';
 
 
 
@@ -34,6 +35,7 @@ describe('SearchComponent', () => {
         {provide: GeocoderService, useValue: GeocoderServiceStub },
         Api,
         ConfigService,
+        ContentService,
         HttpClient,
         HttpHandler
       ],

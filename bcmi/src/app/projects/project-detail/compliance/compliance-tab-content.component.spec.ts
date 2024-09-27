@@ -13,6 +13,8 @@ import { ComplianceTabContentComponent } from '@projects/project-detail/complian
 import { OrderByPipe } from '@pipes/filters/order-by.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { ContentService } from '@app/services/content-service';
+import { Apollo } from 'apollo-angular';
 
 describe('ComplianceTabContentComponent', () => {
   let component: ComplianceTabContentComponent;
@@ -36,7 +38,9 @@ describe('ComplianceTabContentComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ActivatedRoute, useValue: ActivatedRouteStub },
-        ConfigService
+        ConfigService,
+        ContentService,
+        Apollo
       ],
       declarations: [
         ComplianceTabContentComponent,

@@ -2,12 +2,14 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
+import { Apollo } from 'apollo-angular';
+import { ContentService } from './content-service';
 
 describe('Api', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [Api, ConfigService]
+      providers: [Api, ConfigService, ContentService, Apollo]
     });
   });
 

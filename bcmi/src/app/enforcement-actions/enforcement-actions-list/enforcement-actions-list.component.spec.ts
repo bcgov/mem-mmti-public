@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { EnforcementActionsListComponent } from './enforcement-actions-list.component';
 import { ConfigService } from '@services/config.service';
+import { ContentService } from '@app/services/content-service';
+import { Apollo } from 'apollo-angular';
 
 describe('EnforcementActionsListComponent', () => {
   let component: EnforcementActionsListComponent;
@@ -12,7 +14,7 @@ describe('EnforcementActionsListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      providers: [ConfigService],
+      providers: [ConfigService,ContentService, Apollo],
       declarations: [EnforcementActionsListComponent],
       imports: [HttpClientModule, RouterTestingModule]
     }).compileComponents();
