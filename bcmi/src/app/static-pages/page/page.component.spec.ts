@@ -2,7 +2,6 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageComponent } from './page.component';
 import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Page } from '@app/models/content/page';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
