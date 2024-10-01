@@ -12,6 +12,7 @@ import { SiteActivitiesComponent } from '@projects/site-activities/site-activiti
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
 import { Subscription } from 'rxjs';
+import { ContentService } from '@app/services/content-service';
 
 window.scrollTo = jest.fn();
 
@@ -69,7 +70,8 @@ describe('ProjectDetailComponent', () => {
           { provide: Router, useValue: router },
           LeafletMapComponent,
           { provide: ProjectService, useValue: ProjectServiceStub },
-          ConfigService
+          ConfigService,
+          ContentService
         ],
         declarations: [
           ProjectDetailComponent,

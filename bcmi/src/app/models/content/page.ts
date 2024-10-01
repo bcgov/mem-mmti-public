@@ -1,15 +1,11 @@
 export class Page {
-    Title: String
-    Description: String
-    Content: String
-    Ongoing_card: String
-    External_card: String
-    Related_card: String
-    route: String
-    tooltip: String
-  
-    constructor() {
-    
-    }
+    Title: string
+    Description: string
+    Content: string
+    Ongoing_card: string
+    External_card: string
+    Related_card: string
+    route: string
+    tooltip: string
   }
   

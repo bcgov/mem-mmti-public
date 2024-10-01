@@ -6,6 +6,8 @@ import { Api } from '@services/api';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from '../home/home.component';
 import { Project } from '@models/project';
+import { ContentService } from '@app/services/content-service';
+import { Apollo } from 'apollo-angular';
 
 window.scrollTo = jest.fn();
 
@@ -24,7 +26,7 @@ describe('HomeComponent', () => {
     };
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      providers: [{ provide: ProjectService, useValue: ProjectServiceStub }, Api, ConfigService],
+      providers: [{ provide: ProjectService, useValue: ProjectServiceStub }, Api, ConfigService, ContentService, Apollo],
       imports: [RouterTestingModule, HttpClientModule]
     }).compileComponents();
   }));

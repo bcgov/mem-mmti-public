@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DocumentService } from '@services/document.service';
 import { ConfigService } from '@services/config.service';
+import { ContentService } from './content-service';
+import { Apollo } from 'apollo-angular';
 
 describe('DocumentService', () => {
   beforeEach(() => {
@@ -11,6 +13,8 @@ describe('DocumentService', () => {
       providers: [
         DocumentService,
         ConfigService,
+        ContentService,
+        Apollo,
         Api
       ],
       declarations: [],

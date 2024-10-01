@@ -7,6 +7,8 @@ import { ConfigService } from '@services/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SafeHtmlPipe } from '@pipes/safe-html.pipe';
+import { Apollo } from 'apollo-angular';
+import { ContentService } from './services/content-service';
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -14,7 +16,9 @@ describe('AppComponent', () => {
       providers: [
         CookieService,
         Api,
-        ConfigService
+        ConfigService,
+        Apollo,
+        ContentService
       ],
       declarations: [
         AppComponent,

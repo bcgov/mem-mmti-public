@@ -1,7 +1,6 @@
-import {throwError as observableThrowError, Observable, map, catchError, firstValueFrom } from 'rxjs';
+import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { Page } from '@app/models/content/page';
 
 @Injectable()
 export class ContentService {

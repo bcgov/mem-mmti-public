@@ -14,6 +14,7 @@ import { ObjectFilterPipe } from '@pipes/object-filter.pipe';
 import { ProjectService } from '@services/project.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
+import { ContentService } from '@app/services/content-service';
 
 window.scrollTo = jest.fn();
 
@@ -37,6 +38,7 @@ describe('ProjectComponent', () => {
         {provide: ProjectService, useValue: ProjectServiceStub},
         Api,
         ConfigService,
+        ContentService
       ],
       declarations: [
         ProjectListComponent,
