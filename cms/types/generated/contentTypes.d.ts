@@ -922,8 +922,15 @@ export interface ApiPagePage extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
-    route: Attribute.String;
+    route: Attribute.String & Attribute.Required;
     tooltip: Attribute.Text;
+    Enforcement_card: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

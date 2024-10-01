@@ -1,6 +1,6 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Route, Router, RouterModule } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { PageComponent } from '@app/static-pages/page/page.component';
 import { ContentResolver } from './content-resolver';
 import { ContentService } from './content-service';
@@ -27,7 +27,7 @@ export class ConfigService {
    */
   async init() {
     //Dynamically build routes based on pages in the CMS
-    let results = await this.contentService.getRoutes();
+    const results = await this.contentService.getRoutes();
     const routes: Route[] = [];
     results.forEach( (page) => {
       routes.push({path: page.attributes.route, component: PageComponent, resolve: {pageData: ContentResolver}})

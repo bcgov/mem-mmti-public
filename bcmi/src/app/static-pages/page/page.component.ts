@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Page } from '../../models/content/page';
-import { Apollo, gql } from 'apollo-angular';
 import { ActivatedRoute } from '@angular/router';
+import { Page } from '../../models/content/page';
 
 @Component({
   selector: 'app-page',
@@ -12,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PageComponent implements OnInit {
 
   pageData: Page;
+  isTwoColumn: boolean;
 
   constructor(private activatedRoute: ActivatedRoute){};
 
@@ -20,6 +20,8 @@ export class PageComponent implements OnInit {
     this.activatedRoute.data.subscribe((response: any) => {
       this.pageData = response.pageData;
     })
+    // This conditional will need to be changed whenever sidecards are added to the template
+    this.isTwoColumn = !!this.pageData.External_card || !!this.pageData.Ongoing_card || !!this.pageData.Related_card;
     
   }
 
