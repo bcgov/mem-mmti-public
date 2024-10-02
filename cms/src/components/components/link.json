@@ -8,6 +8,11 @@
   "attributes": {
     "link_name": {
       "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     }
   }
 }
