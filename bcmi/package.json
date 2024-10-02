@@ -28,6 +28,7 @@
     "@angular/router": "18.2.4",
     "@bluehalo/ngx-leaflet": "^18.0.2",
     "@ng-bootstrap/ng-bootstrap": "17.0.1",
+    "apollo-angular": "^7.2.0",
     "bootstrap": "5.3.3",
     "core-js": "3.38.1",
     "jquery": "3.7.1",
@@ -46,7 +47,9 @@
     "tether": "2.0.0",
     "tslib": "^2.3.0",
     "typescript": "5.5.4",
-    "zone.js": "~0.14.10"
+    "zone.js": "~0.14.10",
+    "@apollo/client": "^3.0.0",
+    "graphql": "^16"
   },
   "devDependencies": {
     "@angular-builders/jest": "^18.0.0",

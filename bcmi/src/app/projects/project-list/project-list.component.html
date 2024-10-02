@@ -94,7 +94,7 @@
                   <i class="material-icons close-icon">remove</i>
                 </a>
                 <span class="accordion__collapse-header--column project-table__project-col">
-                  <a [routerLink]="['/p', item._id]">{{item.name}}</a></span>
+                  <a [routerLink]="['/mine', item._id]">{{item.name}}</a></span>
                 <span class="accordion__collapse-header--column project-table__operator-col"><span class="inside-td">{{item.permittee}}</span></span>
                 <span class="accordion__collapse-header--column project-table__type-col" ><span class="inside-td">{{item.type}}</span></span>
                 <span class="accordion__collapse-header--column project-table__status-col" ><span class="inside-td">{{item.status}}</span></span>
@@ -114,7 +114,7 @@
                       </li>
                     </ul>
                     <div class="project-table__project-details--links">
-                      <a class="btn content-btn slide-l-btn btn-sm" [routerLink]="['/p', item._id]"><i class="material-icons">info_outline</i><span>Go to Mine Details</span></a>
+                      <a class="btn content-btn slide-l-btn btn-sm" [routerLink]="['/mine', item._id]"><i class="material-icons">info_outline</i><span>Go to Mine Details</span></a>
                       <a class="btn content-btn slide-l-btn btn-sm" href="/map" [routerLink]="['/map', { project: item._id }]"><i class="material-icons">location_on</i><span>Show on Map</span></a>
                     </div>
                   </div>

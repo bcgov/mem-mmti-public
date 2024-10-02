@@ -6,6 +6,8 @@ import { ProjectService } from '@services/project.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ContentService } from '@app/services/content-service';
+import { Apollo } from 'apollo-angular';
 
 describe('ProjectDetailResolverService', () => {
   beforeEach(() => {
@@ -14,7 +16,9 @@ describe('ProjectDetailResolverService', () => {
         ProjectService,
         ProjectDetailResolver,
         Api,
-        ConfigService
+        ConfigService,
+        ContentService,
+        Apollo
       ],
       declarations: [],
       imports: [

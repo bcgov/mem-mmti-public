@@ -4,7 +4,8 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Page"
+    "displayName": "Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -43,6 +44,20 @@
       "customField": "plugin::ckeditor5.CKEditor"
     },
     "Related_card": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "route": {
+      "type": "string",
+      "required": true
+    },
+    "tooltip": {
+      "type": "text"
+    },
+    "Enforcement_card": {
       "type": "customField",
       "options": {
         "preset": "toolbar"

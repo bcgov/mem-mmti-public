@@ -844,12 +844,48 @@ export interface ApiHomeHome extends Schema.SingleType {
   };
 }
 
+export interface ApiNavigationNavigation extends Schema.CollectionType {
+  collectionName: 'navigations';
+  info: {
+    singularName: 'navigation';
+    pluralName: 'navigations';
+    displayName: 'Navigation';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Name: Attribute.String;
+    defaultRoute: Attribute.String;
+    pages: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToMany',
+      'api::page.page'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::navigation.navigation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Schema.CollectionType {
   collectionName: 'pages';
   info: {
     singularName: 'page';
     pluralName: 'pages';
     displayName: 'Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -886,6 +922,15 @@ export interface ApiPagePage extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
+    route: Attribute.String & Attribute.Required;
+    tooltip: Attribute.Text;
+    Enforcement_card: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -916,6 +961,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::fast-fact.fast-fact': ApiFastFactFastFact;
       'api::home.home': ApiHomeHome;
+      'api::navigation.navigation': ApiNavigationNavigation;
       'api::page.page': ApiPagePage;
     }
   }

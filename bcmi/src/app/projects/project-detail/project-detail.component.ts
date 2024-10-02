@@ -63,7 +63,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   gotoProjectList(): void {
-    this.router.navigate(['/projects']);
+    this.router.navigate(['/mines']);
   }
 
   gotoMap(): void {

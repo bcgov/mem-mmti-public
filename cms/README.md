@@ -1,5 +1,19 @@
 # 🚀 Getting started with Strapi
 
+
+brew install postgresql
+brew services run postgresql
+psql postgres
+
+create user strapi with encrypted password 'strapi';
+create database cms owner strapi;
+
+.env file (Warning mac's may remove the .)
+
+Once Strapi is running you will need to enable read permissions on the Content types
+Settings > User & Permissions plugin > Roles > Public > Enable find and findOne for Page and others
+
+
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 
 ### `develop`

@@ -15,6 +15,8 @@ import { TestConstants } from '@shared/test-constants';
 import { GeocoderService } from '@services/geocoder.service';
 import { Api } from '@services/api';
 import { ConfigService } from '@services/config.service';
+import { ContentService } from '@app/services/content-service';
+import { Apollo } from 'apollo-angular';
 
 @Component({
   selector: 'app-leaflet-map',
@@ -62,7 +64,9 @@ describe('MainMapComponent', () => {
         { provide: ProjectService, useValue: ProjectServiceStub },
         GeocoderService,
         Api,
-        ConfigService
+        ConfigService,
+        ContentService,
+        Apollo
       ],
       declarations: [
         MainMapComponent,

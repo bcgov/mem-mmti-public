@@ -8,11 +8,11 @@ import { TAB_NAV_ROUTES } from '@projects/project-detail/routes';
 
 const routes: Routes = [
   {
-    path: 'projects',
+    path: 'mines',
     component: ProjectListComponent
   },
   {
-    path: 'p/:code',
+    path: 'mine/:code',
     component: ProjectDetailComponent,
     resolve: {
       project: ProjectDetailResolver
