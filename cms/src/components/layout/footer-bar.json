@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_layout_footer_bars",
+  "info": {
+    "displayName": "footer_bar"
+  },
+  "options": {},
+  "attributes": {
+    "socials": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.link"
+    }
+  }
+}

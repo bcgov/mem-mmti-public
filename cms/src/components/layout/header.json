@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_layout_headers",
+  "info": {
+    "displayName": "NavLinks",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.link"
+    },
+    "nav_heading": {
+      "type": "string"
+    }
+  }
+}
