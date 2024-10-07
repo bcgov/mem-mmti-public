@@ -6,13 +6,18 @@
   },
   "options": {},
   "attributes": {
-    "link_name": {
+    "url": {
       "type": "string"
     },
-    "page": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::page.page"
+    "social": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }

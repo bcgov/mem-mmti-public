@@ -23,9 +23,6 @@
       "repeatable": true,
       "component": "layout.header"
     },
-    "nav_title": {
-      "type": "string"
-    },
     "footer_bar": {
       "displayName": "footer_bar",
       "type": "component",

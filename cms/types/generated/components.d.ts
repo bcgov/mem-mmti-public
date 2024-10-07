@@ -1,20 +1,14 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface PageFeatureBlock extends Schema.Component {
-  collectionName: 'components_page_feature_blocks';
+export interface ComponentsLink extends Schema.Component {
+  collectionName: 'components_components_links';
   info: {
-    displayName: 'Feature Block';
-    icon: 'grid';
+    displayName: 'Link';
     description: '';
   };
   attributes: {
-    Title: Attribute.String;
-    Description: Attribute.String;
-    page: Attribute.Relation<
-      'page.feature-block',
-      'oneToOne',
-      'api::page.page'
-    >;
+    url: Attribute.String;
+    social: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
   };
 }
 
@@ -34,32 +28,38 @@ export interface LayoutFooterBar extends Schema.Component {
   collectionName: 'components_layout_footer_bars';
   info: {
     displayName: 'footer_bar';
+    description: '';
   };
   attributes: {
-    socials: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
     link: Attribute.Component<'components.link', true>;
   };
 }
 
-export interface ComponentsLink extends Schema.Component {
-  collectionName: 'components_components_links';
+export interface PageFeatureBlock extends Schema.Component {
+  collectionName: 'components_page_feature_blocks';
   info: {
-    displayName: 'Link';
+    displayName: 'Feature Block';
+    icon: 'grid';
     description: '';
   };
   attributes: {
-    link_name: Attribute.String;
-    page: Attribute.Relation<'components.link', 'oneToOne', 'api::page.page'>;
+    Title: Attribute.String;
+    Description: Attribute.String;
+    page: Attribute.Relation<
+      'page.feature-block',
+      'oneToOne',
+      'api::page.page'
+    >;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'page.feature-block': PageFeatureBlock;
+      'components.link': ComponentsLink;
       'layout.header': LayoutHeader;
       'layout.footer-bar': LayoutFooterBar;
-      'components.link': ComponentsLink;
+      'page.feature-block': PageFeatureBlock;
     }
   }
 }

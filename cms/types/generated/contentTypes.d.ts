@@ -833,7 +833,6 @@ export interface ApiFooterFooter extends Schema.SingleType {
     title: Attribute.String;
     description: Attribute.Text;
     navigate: Attribute.Component<'layout.header', true>;
-    nav_title: Attribute.String;
     footer_bar: Attribute.Component<'layout.footer-bar'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
