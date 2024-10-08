@@ -57,7 +57,7 @@
     "tooltip": {
       "type": "text"
     },
-    "Enforcement_card": {
+    "Enforcement_Actions_card": {
       "type": "customField",
       "options": {
         "preset": "toolbar"
