@@ -11,27 +11,27 @@
 
 <div class="container" id="anchor-point">
     <div class="row">
-        <main [ngClass]="{'col-lg-8': isTwoColumn}" [innerHTML]="pageData.Content">
+        <main [ngClass]="{'col-lg-8': isTwoColumn}" content [innerHTML]="pageData.Content">
         </main>
         <aside *ngIf="isTwoColumn" class="col-lg-4">
             <section class="card" *ngIf="!(pageData.Ongoing_card === null ||  pageData.Ongoing_card === '')">
                 <h4 class="card-header">Ongoing Lifecycle Activities</h4>
-                <div [innerHTML]="pageData.Ongoing_card" class="card-body"></div>
+                <div content [innerHTML]="pageData.Ongoing_card" class="card-body"></div>
             </section>
 
             <section class="card" *ngIf="!(pageData.Related_card === null ||  pageData.Related_card === '')">
               <h4 class="card-header">Related Documents</h4>
-                <div [innerHTML]="pageData.Related_card" class="card-list"></div>
+                <div content [innerHTML]="pageData.Related_card" class="card-list"></div>
             </section>
 
             <section class="card" *ngIf="!(pageData.External_card === null ||  pageData.External_card === '')">
                 <h4 class="card-header">External Links &amp; Resources</h4>
-                <div [innerHTML]="pageData.External_card"></div>
+                <div content [innerHTML]="pageData.External_card"></div>
             </section>
 
             <section class="card" *ngIf="!(pageData.Enforcement_Actions_card === null ||  pageData.Enforcement_Actions_card === '')">
               <h4 class="card-header">Enforcement Actions</h4>
-              <div [innerHTML]="pageData.Enforcement_Actions_card"></div>
+              <div content [innerHTML]="pageData.Enforcement_Actions_card"></div>
             </section>
 
         </aside>
