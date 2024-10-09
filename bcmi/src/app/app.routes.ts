@@ -4,6 +4,7 @@ import { ContactComponent } from './static-pages/contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { MainMapComponent } from './map/main-map/main-map.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LifecycleComponent } from './static-pages/lifecycle/lifecycle.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent,
+  },
+  {
+    path: 'lifecycle2',
+    component: LifecycleComponent,
   },
   {
     path: 'map',

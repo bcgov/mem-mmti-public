@@ -11,7 +11,7 @@
 
 <div class="container" id="anchor-point">
     <div class="row">
-        <main [ngClass]="{'col-lg-8': isTwoColumn}" content [innerHTML]="pageData.Content">
+        <main id="page-content" [ngClass]="{'col-lg-8': isTwoColumn}" content [innerHTML]="pageData.Content">
         </main>
         <aside *ngIf="isTwoColumn" class="col-lg-4">
             <section class="card" *ngIf="!(pageData.Ongoing_card === null ||  pageData.Ongoing_card === '')">
