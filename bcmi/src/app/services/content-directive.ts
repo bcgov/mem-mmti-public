@@ -15,7 +15,7 @@ export class ContentDirective {
     ) {}
 
     ngAfterViewInit() {
-        let elements = Array.from(this.ref.nativeElement.getElementsByTagName("a"));
+        const elements = Array.from(this.ref.nativeElement.getElementsByTagName("a"));
         if(elements.length){
             elements.forEach( (link: HTMLAnchorElement) => {
                 if(link.hasAttribute("href") && link.getAttribute("href")[0] == '/'){
@@ -25,9 +25,18 @@ export class ContentDirective {
         }
     }
     private replaceLink(anchor: HTMLAnchorElement, href: string) {
+        let processedHref = href;
         // Create a new component dynamically
         const componentRef = this.viewContainerRef.createComponent(DynamicLinkComponent);
-        componentRef.instance.routerLink = href;
+
+        // Handle fragment if the link has one
+        const hashtagIndex = href.indexOf('#');
+        if (hashtagIndex != -1) {
+            processedHref = href.substring(0, hashtagIndex);
+            componentRef.instance.fragment = href.substring(hashtagIndex + 1);
+        }
+
+        componentRef.instance.routerLink = processedHref;
         componentRef.instance.linkHTML = anchor.innerHTML;
         componentRef.instance.linkClass = anchor.className;
 
