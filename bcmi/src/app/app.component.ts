@@ -14,6 +14,7 @@ import {
   NavigationError,
   Router
 } from '@angular/router';
+import { Footer } from './models/content/footer';
 
 @Component({
   selector: 'app-root',
@@ -35,12 +36,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     title: string
   };
   loading: boolean;
+  footer: Footer;
 
   constructor(private cookieService: CookieService,
     private api: Api,
     private modalService: NgbModal,
     private configService: ConfigService,
     private router: Router) {
+    this.footer = configService.footer()
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {

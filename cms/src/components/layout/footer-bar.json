@@ -6,7 +6,7 @@
   },
   "options": {},
   "attributes": {
-    "link": {
+    "External_link": {
       "type": "component",
       "repeatable": true,
       "component": "components.link"

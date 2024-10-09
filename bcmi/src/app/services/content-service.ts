@@ -25,5 +25,30 @@ export class ContentService {
       }).pipe(map(response => response.data.pages?.data)).toPromise();
     }
 
+    async getFooter(): Promise<any> {
+      return this.apollo.query<any>({
+            query: gql`
+            {
+              footer {
+                data {
+                  attributes {
+                    About_title,
+                    About_description,
+                    Navigate {
+                      Nav_heading,
+                      Footer_link {
+                        Link_name,
+                        Page {data {attributes {route}}}
+                      }
+                    },
+                    Connect_description,
+                    Connect_title,
+                  }
+                }
+              }
+            }
+            `
+        }).pipe(map(response => response.data.footer?.data)).toPromise();
+      }
 }
 

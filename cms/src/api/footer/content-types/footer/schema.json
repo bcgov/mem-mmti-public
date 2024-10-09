@@ -12,22 +12,36 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "About_title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
-    "navigate": {
+    "Navigate": {
       "type": "component",
       "repeatable": true,
       "component": "layout.header"
     },
-    "footer_bar": {
+    "Footer_bar": {
       "displayName": "footer_bar",
       "type": "component",
       "repeatable": false,
       "component": "layout.footer-bar"
+    },
+    "Connect_description": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Connect_title": {
+      "type": "string"
+    },
+    "About_description": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
     }
   }
 }

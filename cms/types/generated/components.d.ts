@@ -1,40 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface ComponentsLink extends Schema.Component {
-  collectionName: 'components_components_links';
-  info: {
-    displayName: 'Link';
-    description: '';
-  };
-  attributes: {
-    url: Attribute.String;
-    social: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
-  };
-}
-
-export interface LayoutHeader extends Schema.Component {
-  collectionName: 'components_layout_headers';
-  info: {
-    displayName: 'NavLinks';
-    description: '';
-  };
-  attributes: {
-    link: Attribute.Component<'components.link', true>;
-    nav_heading: Attribute.String;
-  };
-}
-
-export interface LayoutFooterBar extends Schema.Component {
-  collectionName: 'components_layout_footer_bars';
-  info: {
-    displayName: 'footer_bar';
-    description: '';
-  };
-  attributes: {
-    link: Attribute.Component<'components.link', true>;
-  };
-}
-
 export interface PageFeatureBlock extends Schema.Component {
   collectionName: 'components_page_feature_blocks';
   info: {
@@ -53,13 +18,94 @@ export interface PageFeatureBlock extends Schema.Component {
   };
 }
 
+export interface ComponentsSocialLink extends Schema.Component {
+  collectionName: 'components_components_social_links';
+  info: {
+    displayName: 'SocialLink';
+  };
+  attributes: {
+    Image: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    Url: Attribute.String;
+  };
+}
+
+export interface ComponentsLink extends Schema.Component {
+  collectionName: 'components_components_links';
+  info: {
+    displayName: 'externalLink';
+    description: '';
+  };
+  attributes: {
+    Url_name: Attribute.String;
+    url: Attribute.String;
+  };
+}
+
+export interface ComponentsInternalLink extends Schema.Component {
+  collectionName: 'components_components_internal_links';
+  info: {
+    displayName: 'internalLink';
+    description: '';
+  };
+  attributes: {
+    Link_heading: Attribute.String;
+    Link: Attribute.Relation<
+      'components.internal-link',
+      'oneToOne',
+      'api::page.page'
+    >;
+    Description: Attribute.Text;
+  };
+}
+
+export interface ComponentsFooterLink extends Schema.Component {
+  collectionName: 'components_components_footer_links';
+  info: {
+    displayName: 'FooterLink';
+  };
+  attributes: {
+    Link_name: Attribute.String;
+    Page: Attribute.Relation<
+      'components.footer-link',
+      'oneToOne',
+      'api::page.page'
+    >;
+  };
+}
+
+export interface LayoutHeader extends Schema.Component {
+  collectionName: 'components_layout_headers';
+  info: {
+    displayName: 'NavLinks';
+    description: '';
+  };
+  attributes: {
+    Nav_heading: Attribute.String;
+    Footer_link: Attribute.Component<'components.footer-link', true>;
+  };
+}
+
+export interface LayoutFooterBar extends Schema.Component {
+  collectionName: 'components_layout_footer_bars';
+  info: {
+    displayName: 'footer_bar';
+    description: '';
+  };
+  attributes: {
+    External_link: Attribute.Component<'components.link', true>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'page.feature-block': PageFeatureBlock;
+      'components.social-link': ComponentsSocialLink;
       'components.link': ComponentsLink;
+      'components.internal-link': ComponentsInternalLink;
+      'components.footer-link': ComponentsFooterLink;
       'layout.header': LayoutHeader;
       'layout.footer-bar': LayoutFooterBar;
-      'page.feature-block': PageFeatureBlock;
     }
   }
 }

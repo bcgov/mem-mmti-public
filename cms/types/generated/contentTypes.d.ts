@@ -830,10 +830,24 @@ export interface ApiFooterFooter extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    navigate: Attribute.Component<'layout.header', true>;
-    footer_bar: Attribute.Component<'layout.footer-bar'>;
+    About_title: Attribute.String;
+    Navigate: Attribute.Component<'layout.header', true>;
+    Footer_bar: Attribute.Component<'layout.footer-bar'>;
+    Connect_description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    Connect_title: Attribute.String;
+    About_description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -857,7 +871,7 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   info: {
     singularName: 'global';
     pluralName: 'globals';
-    displayName: 'NavBar';
+    displayName: 'Header';
     description: '';
   };
   options: {
@@ -865,8 +879,6 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
   attributes: {
     Header: Attribute.Component<'layout.header', true>;
-    Logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Name: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

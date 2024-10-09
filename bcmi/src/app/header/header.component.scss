@@ -1,5 +1,6 @@
+// Base
 @import "../../assets/styles/base.scss";
-//TO DO: Techinal Debt, fix banner resizing issues
+
 header {
     &.app-header {
         @include clearfix;

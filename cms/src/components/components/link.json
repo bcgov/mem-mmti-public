@@ -1,23 +1,16 @@
 {
   "collectionName": "components_components_links",
   "info": {
-    "displayName": "Link",
+    "displayName": "externalLink",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "url": {
+    "Url_name": {
       "type": "string"
     },
-    "social": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": true
+    "url": {
+      "type": "string"
     }
   }
 }

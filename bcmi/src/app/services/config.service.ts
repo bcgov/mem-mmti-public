@@ -9,6 +9,7 @@ import { ContentService } from './content-service';
 export class ConfigService {
   // defaults
   private configuration = {};
+  private footerData = null;
 
   constructor(
     private httpClient: HttpClient,
@@ -19,6 +20,10 @@ export class ConfigService {
 
   get config(): any {
     return this.configuration;
+  }
+
+  get footer(): any {
+    return this.footerData;
   }
 
   /**
@@ -34,7 +39,10 @@ export class ConfigService {
     })
     const newRoutes = [...routes, ...this.router.config];
     this.router.resetConfig(newRoutes);
-    
+
+    //fetch footer
+    this.footerData = await this.contentService.getFooter();
+
     const application = 'BCMI';
     try {
       // Attempt to get application via this.httpClient. This uses the url of the application that you are running it from

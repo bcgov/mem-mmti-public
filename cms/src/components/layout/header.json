@@ -6,13 +6,13 @@
   },
   "options": {},
   "attributes": {
-    "link": {
+    "Nav_heading": {
+      "type": "string"
+    },
+    "Footer_link": {
       "type": "component",
       "repeatable": true,
-      "component": "components.link"
-    },
-    "nav_heading": {
-      "type": "string"
+      "component": "components.footer-link"
     }
   }
 }
