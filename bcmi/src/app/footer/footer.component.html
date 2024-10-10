@@ -4,25 +4,27 @@
 			<div class="col-md-4">
 				<section>
 					<h4>{{footerData.About_title}}</h4>
-					<p class="mb-0">{{footerData.About_description}}</p>
+					<div class="mb-0" [innerHTML]="footerData.About_description"></div>
 				</section>
 			</div>
 			<div class="col-md-4">
 				<section>
 					<h4>Navigate</h4>
-					<h5>{{footerData.Nav_heading}}</h5>
-					<ul>
-						<li>
-							<a routerLink]="footerData.Link">{{footerData.Link_heading}}</a>
-						</li>
-					</ul>
+					<div *ngFor="let nav of footerData.Navigate">
+						<h5>{{nav.Nav_heading}}</h5>
+						<ul>
+							<li *ngFor="let link of nav.Footer_link">
+								<a [routerLink]="link.Page.data.attributes.route">{{link.Link_name}}</a>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</div>
 			<div class="col-md-4">
 				<section class="last">
 					<h4>{{footerData.Connect_title}}</h4>
-					<p>{{footerData.Connect_description}}</p>
-					<!-- <a class="btn slide-r-btn inverted submit" href="/contact" [routerLink]="['/contact']"><span>Submit Feedback</span><i class="material-icons">arrow_forward</i></a> -->
+					<div [innerHTML]="footerData.Connect_description"></div>
+					<a class="btn slide-r-btn inverted submit" href="/contact" [routerLink]="['/contact']"><span>Submit Feedback</span><i class="material-icons">arrow_forward</i></a>
 				</section>
 			</div>
 		</div>

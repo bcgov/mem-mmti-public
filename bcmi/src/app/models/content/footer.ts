@@ -1,11 +1,19 @@
 export class Footer {
+  Navigate: FooterLink[];
+  Footer_bar: ExternalLink[];
   About_title: string
   About_description: string
-  Nav_heading: string
-  Link_heading: string
-  Link: string
-  Description: string
-  Footer_bar: object
   Connect_title: string
   Connect_description: string
+}
+
+
+class FooterLink{
+  Nav_heading: string
+  Footer_link: any[];
+}
+
+class ExternalLink{
+
+
 }

@@ -9,7 +9,7 @@ import { ContentService } from './content-service';
 export class ConfigService {
   // defaults
   private configuration = {};
-  private footerData = null;
+  public footer = null;
 
   constructor(
     private httpClient: HttpClient,
@@ -20,10 +20,6 @@ export class ConfigService {
 
   get config(): any {
     return this.configuration;
-  }
-
-  get footer(): any {
-    return this.footerData;
   }
 
   /**
@@ -41,7 +37,7 @@ export class ConfigService {
     this.router.resetConfig(newRoutes);
 
     //fetch footer
-    this.footerData = await this.contentService.getFooter();
+    this.footer = await this.contentService.getFooter();
 
     const application = 'BCMI';
     try {

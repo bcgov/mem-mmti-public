@@ -48,7 +48,7 @@ export class ContentService {
               }
             }
             `
-        }).pipe(map(response => response.data.footer?.data)).toPromise();
+        }).pipe(map(response => response.data.footer?.data.attributes)).toPromise();
       }
 }
 
