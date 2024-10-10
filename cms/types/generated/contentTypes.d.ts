@@ -931,6 +931,7 @@ export interface ApiPagePage extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
+    Header_button: Attribute.Component<'page.scroll-button', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

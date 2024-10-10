@@ -1,5 +1,5 @@
 import { afterRender, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { Page } from '../../models/content/page';
 
 @Component({
@@ -11,18 +11,21 @@ import { Page } from '../../models/content/page';
 export class PageComponent implements OnInit {
 
   pageData: Page;
-  fragment: string | null;
+  routerLink: string;
+  initialFragment: string | null;
   isTwoColumn: boolean;
   handledFragmentFlag: boolean;
 
   constructor(private activatedRoute: ActivatedRoute){
-    this.fragment = null;
+    this.initialFragment = null;
+    this.routerLink = "/" + activatedRoute.snapshot.routeConfig.path;
+
     afterRender(() => {
       // Only need to do this once after our content loaded
       if (this.handledFragmentFlag) { return; }
       const contentHasLoaded = document.getElementById('page-content').hasChildNodes();
-      if (contentHasLoaded && this.fragment) {
-        this.jumpToSection(this.fragment);
+      if (contentHasLoaded && this.initialFragment) {
+        this.jumpToSection(this.initialFragment);
         this.handledFragmentFlag = true;
       }
     });
@@ -34,7 +37,7 @@ export class PageComponent implements OnInit {
       this.pageData = response.pageData;
     });
     this.activatedRoute.fragment.subscribe(fragment => {
-      this.fragment = fragment;
+      this.initialFragment = fragment;
     });
     // This conditional will need to be changed whenever sidecards are added to the template
     this.isTwoColumn = !!this.pageData.External_card || !!this.pageData.Ongoing_card || !!this.pageData.Related_card || !!this.pageData.Enforcement_Actions_card;

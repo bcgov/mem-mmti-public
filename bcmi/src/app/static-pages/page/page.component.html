@@ -4,6 +4,13 @@
             <div class="hero-banner__content">
                 <h1 id="pgTitle">{{pageData.Title}}</h1>
                 <p>{{pageData.Description}}</p>
+                <div class="hero-banner__content--cta-btns" *ngIf="pageData.Header_button !== null && pageData.Header_button !== undefined && pageData.Header_button.length > 0">
+                    <ng-container *ngFor="let button of pageData.Header_button">
+                        <a class="btn hero-btn inverted" [routerLink]="routerLink" [fragment]="button.Section_id">
+                            <span>{{button.Text}}</span>
+                        </a>&nbsp;
+                    </ng-container>
+                </div>
             </div>
         </div>
     </div>

@@ -21,6 +21,10 @@ export class ContentResolver implements Resolve<Page> {
                 attributes{
                     Title,
                     Description
+                    Header_button{
+                      Text
+                      Section_id
+                    }
                     Content
                     Ongoing_card
                     External_card

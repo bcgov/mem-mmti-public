@@ -63,6 +63,11 @@
         "preset": "toolbar"
       },
       "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Header_button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page.scroll-button"
     }
   }
 }
