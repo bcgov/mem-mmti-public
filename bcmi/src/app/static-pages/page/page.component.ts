@@ -1,5 +1,5 @@
 import { afterRender, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Page } from '../../models/content/page';
 
 @Component({

@@ -18,27 +18,27 @@
 
 <div class="container" id="anchor-point">
     <div class="row">
-        <main id="page-content" [ngClass]="{'col-lg-8': isTwoColumn}" content [innerHTML]="pageData.Content | safeHtml">
+        <main id="page-content" [ngClass]="{'col-lg-8': isTwoColumn}" appContent [innerHTML]="pageData.Content | safeHtml">
         </main>
         <aside *ngIf="isTwoColumn" class="col-lg-4">
             <section class="card" *ngIf="!(pageData.Ongoing_card === null ||  pageData.Ongoing_card === '')">
                 <h4 class="card-header">Ongoing Lifecycle Activities</h4>
-                <div content [innerHTML]="pageData.Ongoing_card" class="card-body"></div>
+                <div appContent [innerHTML]="pageData.Ongoing_card" class="card-body"></div>
             </section>
 
             <section class="card" *ngIf="!(pageData.Related_card === null ||  pageData.Related_card === '')">
               <h4 class="card-header">Related Documents</h4>
-                <div content [innerHTML]="pageData.Related_card" class="card-list"></div>
+                <div appContent [innerHTML]="pageData.Related_card" class="card-list"></div>
             </section>
 
             <section class="card" *ngIf="!(pageData.External_card === null ||  pageData.External_card === '')">
                 <h4 class="card-header">External Links &amp; Resources</h4>
-                <div content [innerHTML]="pageData.External_card"></div>
+                <div appContent [innerHTML]="pageData.External_card"></div>
             </section>
 
             <section class="card" *ngIf="!(pageData.Enforcement_Actions_card === null ||  pageData.Enforcement_Actions_card === '')">
               <h4 class="card-header">Enforcement Actions</h4>
-              <div content [innerHTML]="pageData.Enforcement_Actions_card"></div>
+              <div appContent [innerHTML]="pageData.Enforcement_Actions_card"></div>
             </section>
 
         </aside>

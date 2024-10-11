@@ -1,13 +1,13 @@
-import { Directive, ElementRef, Input, Renderer2, ViewContainerRef } from "@angular/core";
+import { Directive, ElementRef, Input, Renderer2, ViewContainerRef, AfterViewInit } from "@angular/core";
 import { DynamicLinkComponent } from "@app/shared/dynamic-link";
 
 @Directive({
-    selector: "[content]",
+    selector: "[appContent]",
 })
 
-export class ContentDirective {
+export class ContentDirective implements AfterViewInit {
     @Input()
-    appStyle: boolean = true;
+    appStyle = true;
     constructor(
         private ref: ElementRef,
         private viewContainerRef: ViewContainerRef,
