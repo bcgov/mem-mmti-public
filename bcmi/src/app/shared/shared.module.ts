@@ -7,6 +7,7 @@ import { ProjectStatusFilterPipe } from '@pipes/project-status-filter.pipe';
 import { RemoveStringValuePipe } from '@pipes/remove-string-value.pipe';
 import { SafeHtmlPipe } from '@pipes/safe-html.pipe';
 import { RouterModule } from '@angular/router';
+import { DynamicLinkComponent } from './dynamic-link';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { RouterModule } from '@angular/router';
     ProjectTypeFilterPipe,
     ProjectStatusFilterPipe,
     RemoveStringValuePipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    DynamicLinkComponent
   ],
   exports: [
     ObjectFilterPipe,

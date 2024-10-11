@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_page_scroll_buttons",
+  "info": {
+    "displayName": "Scroll Button",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "string"
+    },
+    "Section_id": {
+      "type": "string"
+    }
+  }
+}

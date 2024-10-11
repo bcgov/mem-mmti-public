@@ -38,6 +38,7 @@ import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { GraphQLModule } from './graphql.module';
 import { PageComponent } from './static-pages/page/page.component';
 import { ContentService } from './services/content-service';
+import { ContentDirective } from './services/content-directive';
 
 export function initConfig(configService: ConfigService) {
   return () => configService.init();
@@ -57,7 +58,8 @@ export function initConfig(configService: ConfigService) {
     WaterQualityComponent,
     TailingsManagementComponent,
     ReclamationComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ContentDirective
   ],
   imports: [
     TagInputModule,

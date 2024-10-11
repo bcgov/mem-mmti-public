@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SafeHtmlPipe } from '@pipes/safe-html.pipe';
 
 import { PageComponent } from './page.component';
 import { ActivatedRoute } from '@angular/router';
@@ -15,12 +16,20 @@ describe('PageComponent', () => {
   const pageData = new Page();
   pageData.Title = "Test";
 
-  const fakeActivatedRoute = {data: of({pageData: [pageData]}) };
+  const fakeActivatedRoute = {
+    data: of({pageData: [pageData]}),
+    fragment: of(null),
+    snapshot: {
+      routeConfig: {
+        path: '',
+      },
+    },
+  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [{provide: ActivatedRoute, useValue: fakeActivatedRoute}],
-      declarations: [PageComponent],
+      declarations: [PageComponent, SafeHtmlPipe],
       imports: [CommonModule]
     })
     .compileComponents();
