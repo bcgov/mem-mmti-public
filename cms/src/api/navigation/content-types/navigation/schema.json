@@ -4,23 +4,24 @@
   "info": {
     "singularName": "navigation",
     "pluralName": "navigations",
-    "displayName": "Navigation"
+    "displayName": "Navigation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
-      "type": "string"
-    },
-    "defaultRoute": {
+    "Heading": {
       "type": "string"
     },
     "pages": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::page.page"
+    },
+    "Short_heading": {
+      "type": "string"
     }
   }
 }

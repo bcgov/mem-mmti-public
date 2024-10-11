@@ -9,15 +9,17 @@
 			</div>
 			<div class="col-md-4">
 				<section>
-					<h4>Navigate</h4>
-					<div *ngFor="let nav of footerData.Navigate">
-						<h5>{{nav.Nav_heading}}</h5>
-						<ul>
-							<li *ngFor="let link of nav.Footer_link">
-								<a [routerLink]="link.Page.data.attributes.route">{{link.Link_name}}</a>
-							</li>
-						</ul>
-					</div>
+          <h4>Navigate</h4>
+          <div *ngFor="let nav of navigation">
+            <h5>{{nav.attributes.Heading}}</h5>
+            <div *ngFor="let link of nav.attributes.pages.data">
+              <ul>
+                <li>
+                  <a [routerLink]="link.attributes.route">{{link.attributes.Title}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
 				</section>
 			</div>
 			<div class="col-md-4">

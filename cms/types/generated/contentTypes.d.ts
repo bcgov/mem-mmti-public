@@ -929,18 +929,19 @@ export interface ApiNavigationNavigation extends Schema.CollectionType {
     singularName: 'navigation';
     pluralName: 'navigations';
     displayName: 'Navigation';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    Name: Attribute.String;
-    defaultRoute: Attribute.String;
+    Heading: Attribute.String;
     pages: Attribute.Relation<
       'api::navigation.navigation',
       'oneToMany',
       'api::page.page'
     >;
+    Short_heading: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

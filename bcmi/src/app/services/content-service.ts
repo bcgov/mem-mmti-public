@@ -25,7 +25,7 @@ export class ContentService {
       }).pipe(map(response => response.data.pages?.data)).toPromise();
     }
 
-    async getFooter(): Promise<any> {
+    async getGlobalContent(): Promise<any> {
       return this.apollo.query<any>({
             query: gql`
             {
@@ -34,21 +34,30 @@ export class ContentService {
                   attributes {
                     About_title,
                     About_description,
-                    Navigate {
-                      Nav_heading,
-                      Footer_link {
-                        Link_name,
-                        Page {data {attributes {route}}}
-                      }
-                    },
                     Connect_description,
                     Connect_title,
                   }
                 }
               }
+              navigations {
+                data {
+                  attributes {
+                    Heading,
+                    pages {
+                      data {
+                        attributes {
+                          tooltip,
+                          route,
+                          Title,
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
             `
-        }).pipe(map(response => response.data.footer?.data.attributes)).toPromise();
+        }).pipe(map(response => response.data)).toPromise();
       }
 }
 

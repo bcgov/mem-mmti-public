@@ -37,13 +37,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   };
   loading: boolean;
   footer: Footer;
+  navigation: any;
 
   constructor(private cookieService: CookieService,
     private api: Api,
     private modalService: NgbModal,
     private configService: ConfigService,
     private router: Router) {
-    this.footer = configService.footer;
+    this.footer = configService.globalContent.footer?.data.attributes;
+    this.navigation = configService.globalContent.navigations?.data;
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {

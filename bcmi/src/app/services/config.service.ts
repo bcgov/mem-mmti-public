@@ -9,7 +9,7 @@ import { ContentService } from './content-service';
 export class ConfigService {
   // defaults
   private configuration = {};
-  public footer = null;
+  public globalContent = null;
 
   constructor(
     private httpClient: HttpClient,
@@ -36,9 +36,9 @@ export class ConfigService {
     const newRoutes = [...routes, ...this.router.config];
     this.router.resetConfig(newRoutes);
 
-    //fetch footer
-    this.footer = await this.contentService.getFooter();
-
+    //fetch global content
+    this.globalContent = await this.contentService.getGlobalContent();
+    console.log(this.globalContent);
     const application = 'BCMI';
     try {
       // Attempt to get application via this.httpClient. This uses the url of the application that you are running it from

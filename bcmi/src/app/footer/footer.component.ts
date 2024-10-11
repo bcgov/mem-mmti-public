@@ -11,12 +11,14 @@ import { Api } from '@app/services/api';
 export class FooterComponent implements OnInit {
 
   @Input() footerData: Footer;
+  @Input() navigation: any;
   hostname: string;
   constructor( private api: Api) { }
 
   ngOnInit() {
     this.hostname = this.api.hostnameNRPTI;
     window.scrollTo(0, 0);
+    console.log(this.navigation);
   }
 
 }

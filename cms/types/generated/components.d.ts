@@ -1,20 +1,25 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface PageFeatureBlock extends Schema.Component {
-  collectionName: 'components_page_feature_blocks';
+export interface LayoutHeader extends Schema.Component {
+  collectionName: 'components_layout_headers';
   info: {
-    displayName: 'Feature Block';
-    icon: 'grid';
+    displayName: 'NavLinks';
     description: '';
   };
   attributes: {
-    Title: Attribute.String;
-    Description: Attribute.String;
-    page: Attribute.Relation<
-      'page.feature-block',
-      'oneToOne',
-      'api::page.page'
-    >;
+    Nav_heading: Attribute.String;
+    Footer_link: Attribute.Component<'components.footer-link', true>;
+  };
+}
+
+export interface LayoutFooterBar extends Schema.Component {
+  collectionName: 'components_layout_footer_bars';
+  info: {
+    displayName: 'footer_bar';
+    description: '';
+  };
+  attributes: {
+    External_link: Attribute.Component<'components.link', true>;
   };
 }
 
@@ -73,39 +78,34 @@ export interface ComponentsFooterLink extends Schema.Component {
   };
 }
 
-export interface LayoutHeader extends Schema.Component {
-  collectionName: 'components_layout_headers';
+export interface PageFeatureBlock extends Schema.Component {
+  collectionName: 'components_page_feature_blocks';
   info: {
-    displayName: 'NavLinks';
+    displayName: 'Feature Block';
+    icon: 'grid';
     description: '';
   };
   attributes: {
-    Nav_heading: Attribute.String;
-    Footer_link: Attribute.Component<'components.footer-link', true>;
-  };
-}
-
-export interface LayoutFooterBar extends Schema.Component {
-  collectionName: 'components_layout_footer_bars';
-  info: {
-    displayName: 'footer_bar';
-    description: '';
-  };
-  attributes: {
-    External_link: Attribute.Component<'components.link', true>;
+    Title: Attribute.String;
+    Description: Attribute.String;
+    page: Attribute.Relation<
+      'page.feature-block',
+      'oneToOne',
+      'api::page.page'
+    >;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'page.feature-block': PageFeatureBlock;
+      'layout.header': LayoutHeader;
+      'layout.footer-bar': LayoutFooterBar;
       'components.social-link': ComponentsSocialLink;
       'components.link': ComponentsLink;
       'components.internal-link': ComponentsInternalLink;
       'components.footer-link': ComponentsFooterLink;
-      'layout.header': LayoutHeader;
-      'layout.footer-bar': LayoutFooterBar;
+      'page.feature-block': PageFeatureBlock;
     }
   }
 }
