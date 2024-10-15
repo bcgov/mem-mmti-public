@@ -831,8 +831,6 @@ export interface ApiFooterFooter extends Schema.SingleType {
   };
   attributes: {
     About_title: Attribute.String;
-    Navigate: Attribute.Component<'layout.header', true>;
-    Footer_bar: Attribute.Component<'layout.footer-bar'>;
     Connect_description: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',

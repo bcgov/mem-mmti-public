@@ -1,28 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface LayoutHeader extends Schema.Component {
-  collectionName: 'components_layout_headers';
-  info: {
-    displayName: 'NavLinks';
-    description: '';
-  };
-  attributes: {
-    Nav_heading: Attribute.String;
-    Footer_link: Attribute.Component<'components.footer-link', true>;
-  };
-}
-
-export interface LayoutFooterBar extends Schema.Component {
-  collectionName: 'components_layout_footer_bars';
-  info: {
-    displayName: 'footer_bar';
-    description: '';
-  };
-  attributes: {
-    External_link: Attribute.Component<'components.link', true>;
-  };
-}
-
 export interface PageScrollButton extends Schema.Component {
   collectionName: 'components_page_scroll_buttons';
   info: {
@@ -50,6 +27,29 @@ export interface PageFeatureBlock extends Schema.Component {
       'oneToOne',
       'api::page.page'
     >;
+  };
+}
+
+export interface LayoutHeader extends Schema.Component {
+  collectionName: 'components_layout_headers';
+  info: {
+    displayName: 'NavLinks';
+    description: '';
+  };
+  attributes: {
+    Nav_heading: Attribute.String;
+    Footer_link: Attribute.Component<'components.footer-link', true>;
+  };
+}
+
+export interface LayoutFooterBar extends Schema.Component {
+  collectionName: 'components_layout_footer_bars';
+  info: {
+    displayName: 'footer_bar';
+    description: '';
+  };
+  attributes: {
+    External_link: Attribute.Component<'components.link', true>;
   };
 }
 
@@ -111,10 +111,10 @@ export interface ComponentsFooterLink extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'layout.header': LayoutHeader;
-      'layout.footer-bar': LayoutFooterBar;
       'page.scroll-button': PageScrollButton;
       'page.feature-block': PageFeatureBlock;
+      'layout.header': LayoutHeader;
+      'layout.footer-bar': LayoutFooterBar;
       'components.social-link': ComponentsSocialLink;
       'components.link': ComponentsLink;
       'components.internal-link': ComponentsInternalLink;
