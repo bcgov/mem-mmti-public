@@ -14,7 +14,10 @@ The application is being developed as an open source solution.
 1. [Getting Started](#getting-started)
    - [Prerequisites](#prerequisites)
    - [Installation](#installation)
-   - [Running tests](#running-tests)
+1. [Running tests](#running-tests)
+   - [Unit tests](#unit-tests)
+   - [End-to-end functional tests](#end-to-end-functional-tests)
+   - [BrowserStack Config](#browserstack-config)
 1. [Architecture](#architecture)
 1. [How to Contribute](#how-to-contribute)
    - [Contributing](#contributing)
@@ -36,7 +39,7 @@ Git commit signing is required for commits. [How to setup git commit signing](ht
 
 ### Installation
 
-To connect to the dev database:
+**To connect to the openshift dev database:**
 - [Clone the GWELLS repository](https://help.github.com/en/articles/cloning-a-repository)
   1. Login to openshift and copy the login token (Click your name in the top right)
   2. In a terminal paste and run the login command.
@@ -46,10 +49,13 @@ To connect to the dev database:
   oc port-forward cms-postgres-1-2cn2c 5432:5432 -n f00029-dev
   ```
 
+**To connect to Strappi:**
   5. Login to strapi, login details are in openshift secrets
   6. ``` npm install ```
   1. ``` cd cms ```
-  1. Start strapi with npm run develop
+
+
+
   1. Install angular/cli
 ```
 npm i -g @angular/cli
@@ -68,9 +74,16 @@ npm install
   8. ``` Cd bcmi ```
   9. ``` Npm run start ```
 
+  **To connect to Strappi:**
+  1. ``` cd cms ```
+  1. ``` npm install ```
+  1. ``` npm run develop ```
+  1. go to the pods openshift secrets to find the strappi login details
+  1. Login to strapi admin at http://localhost:1337/admin
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Running tests:
+## Running tests:
 
 ### Unit tests
 
