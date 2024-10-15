@@ -47,3 +47,4 @@ Thumbs.db
 /sonar-runner/build
 
 functional-tests/\.java-version
+cms/.env
