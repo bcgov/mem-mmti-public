@@ -1,6 +1,7 @@
-import { map } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { ApolloError } from '@apollo/client/errors';
 
 @Injectable()
 export class ContentService {
@@ -22,7 +23,11 @@ export class ContentService {
             }
           }
           `
-      }).pipe(map(response => response.data.pages?.data)).toPromise();
+      }).pipe(map(response => response.data.pages?.data),
+      catchError( (err: ApolloError) => {
+        console.error(err.cause); 
+        return of([]);
+      })).toPromise();
     }
 
     async getGlobalContent(): Promise<any> {
@@ -43,6 +48,7 @@ export class ContentService {
                 data {
                   attributes {
                     Heading,
+                    Short_heading,
                     pages {
                       data {
                         attributes {
@@ -57,7 +63,11 @@ export class ContentService {
               }
             }
             `
-        }).pipe(map(response => response.data)).toPromise();
+        }).pipe(map(response => response.data),
+        catchError( (err: ApolloError) => {
+          console.error(err.cause); 
+          return of([]);
+        })).toPromise();
       }
 }
 

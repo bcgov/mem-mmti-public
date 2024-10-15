@@ -30,29 +30,6 @@ export interface PageFeatureBlock extends Schema.Component {
   };
 }
 
-export interface LayoutHeader extends Schema.Component {
-  collectionName: 'components_layout_headers';
-  info: {
-    displayName: 'NavLinks';
-    description: '';
-  };
-  attributes: {
-    Nav_heading: Attribute.String;
-    Footer_link: Attribute.Component<'components.footer-link', true>;
-  };
-}
-
-export interface LayoutFooterBar extends Schema.Component {
-  collectionName: 'components_layout_footer_bars';
-  info: {
-    displayName: 'footer_bar';
-    description: '';
-  };
-  attributes: {
-    External_link: Attribute.Component<'components.link', true>;
-  };
-}
-
 export interface ComponentsSocialLink extends Schema.Component {
   collectionName: 'components_components_social_links';
   info: {
@@ -108,17 +85,40 @@ export interface ComponentsFooterLink extends Schema.Component {
   };
 }
 
+export interface LayoutHeader extends Schema.Component {
+  collectionName: 'components_layout_headers';
+  info: {
+    displayName: 'NavLinks';
+    description: '';
+  };
+  attributes: {
+    Nav_heading: Attribute.String;
+    Footer_link: Attribute.Component<'components.footer-link', true>;
+  };
+}
+
+export interface LayoutFooterBar extends Schema.Component {
+  collectionName: 'components_layout_footer_bars';
+  info: {
+    displayName: 'footer_bar';
+    description: '';
+  };
+  attributes: {
+    External_link: Attribute.Component<'components.link', true>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'page.scroll-button': PageScrollButton;
       'page.feature-block': PageFeatureBlock;
-      'layout.header': LayoutHeader;
-      'layout.footer-bar': LayoutFooterBar;
       'components.social-link': ComponentsSocialLink;
       'components.link': ComponentsLink;
       'components.internal-link': ComponentsInternalLink;
       'components.footer-link': ComponentsFooterLink;
+      'layout.header': LayoutHeader;
+      'layout.footer-bar': LayoutFooterBar;
     }
   }
 }
