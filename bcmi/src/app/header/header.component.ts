@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Header } from '@app/models/content/header';
 import { Api } from '@services/api';
 
@@ -9,8 +9,7 @@ import { Api } from '@services/api';
 })
 
 export class HeaderComponent implements OnInit {
-
-  headerData: Header;
+  @Input() navigation: any;
   hostname: string;
   constructor( private api: Api) { }
 
