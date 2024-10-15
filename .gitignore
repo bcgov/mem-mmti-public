@@ -35,6 +35,9 @@ npm-debug.log
 testem.log
 /typings
 
+# Secrets
+/cms/.env
+
 # e2e
 /build
 

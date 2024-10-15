@@ -13,6 +13,7 @@ export class ContentResolver implements Resolve<Page> {
 
     private getPage = function(route){
 
+    // When adding new properties to the Page class, edit this query
     return gql`
     {
         pageByRoute(route: "${route}") {
@@ -20,10 +21,15 @@ export class ContentResolver implements Resolve<Page> {
                 attributes{
                     Title,
                     Description
+                    Header_button{
+                      Text
+                      Section_id
+                    }
                     Content
                     Ongoing_card
                     External_card
                     Related_card
+                    Enforcement_Actions_card
                     route
                     tooltip
                 }

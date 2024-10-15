@@ -57,12 +57,17 @@
     "tooltip": {
       "type": "text"
     },
-    "Enforcement_card": {
+    "Enforcement_Actions_card": {
       "type": "customField",
       "options": {
         "preset": "toolbar"
       },
       "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "Header_button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page.scroll-button"
     }
   }
 }
