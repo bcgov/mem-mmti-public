@@ -15,17 +15,6 @@
     "About_title": {
       "type": "string"
     },
-    "Navigate": {
-      "type": "component",
-      "repeatable": true,
-      "component": "layout.header"
-    },
-    "Footer_bar": {
-      "displayName": "footer_bar",
-      "type": "component",
-      "repeatable": false,
-      "component": "layout.footer-bar"
-    },
     "Connect_description": {
       "type": "customField",
       "options": {
