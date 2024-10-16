@@ -44,12 +44,12 @@ export class ContentService {
                   }
                 }
               }
-              navigations {
+              navigations(sort: "Heading") {
                 data {
                   attributes {
                     Heading,
                     Short_heading,
-                    pages {
+                    pages(sort: "Title") {
                       data {
                         attributes {
                           tooltip,
