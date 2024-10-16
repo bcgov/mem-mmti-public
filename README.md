@@ -2,7 +2,6 @@
 
 https://mines.nrs.gov.bc.ca/
 
-
 ## Introduction
 
 The Ministry of Energy, Mines, and Low Carbon Innovation (EMLI), Ministry of Environment and Climate Change Strategy (ENV), and Environmental Assessment Office (EAO) have collaborated to make information on the Province’s oversight of major mines in British Columbia accessible.
@@ -44,42 +43,25 @@ Git commit signing is required for commits. [How to setup git commit signing](ht
   1. Login to openshift and copy the login token (Click your name in the top right)
   2. In a terminal paste and run the login command.
   3. Ensure no other postgres instance is running or choose another port (brew services stop postgresql)
-  4. Run the command: (Note: If the pod restarts, the pod name may change.)
-  ``` bash
-  oc port-forward cms-postgres-1-2cn2c 5432:5432 -n f00029-dev
-  ```
-
-**To connect to Strappi:**
-  5. Login to strapi, login details are in openshift secrets
-  6. ``` npm install ```
-  1. ``` cd cms ```
+  4. Run the command: (Note: If the pod restarts, the pod name may change.) ```oc port-forward cms-postgres-1-2cn2c 5432:5432 -n f00029-dev```
 
 
+**To connect to the frontend:**
+  1. Install angular/cli ```npm i -g @angular/cli```
+  1. ``` cd bcmi ```
+  1. ``` npm install ```
+  1. ``` npm run start ```
 
-  1. Install angular/cli
-```
-npm i -g @angular/cli
-```
 
-`ng` is the CLI itself
-
-**Verify the installation**
-
-```
-npm list -g @angular/cli --depth=0
-ng -v
-```
-npm install
-
-  8. ``` Cd bcmi ```
-  9. ``` Npm run start ```
-
-  **To connect to Strappi:**
+  **To connect to Strappi and graphql:**
+  1. create an .env file in the cms folder using the .env.template, find secrets in openshift
+  1. ``` npm install ```
   1. ``` cd cms ```
   1. ``` npm install ```
   1. ``` npm run develop ```
   1. go to the pods openshift secrets to find the strappi login details
   1. Login to strapi admin at http://localhost:1337/admin
+  1. See graphql queries at http://localhost:1337/graphql (ensure the strappi content has the 'find' role enabled)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
