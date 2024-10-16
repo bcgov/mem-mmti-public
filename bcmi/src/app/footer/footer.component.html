@@ -1,6 +1,6 @@
 <footer class="app-footer">
 	<div class="container">
-		<div class="row">
+		<div class="row" *ngIf="footerData">
 			<div class="col-md-4">
 				<section>
 					<h4>{{footerData.About_title}}</h4>
@@ -9,17 +9,15 @@
 			</div>
 			<div class="col-md-4">
 				<section>
-          <h4>Navigate</h4>
-          <div *ngFor="let nav of navigation">
-            <h5>{{nav.attributes.Heading}}</h5>
-            <div *ngFor="let link of nav.attributes.pages.data">
-              <ul>
-                <li>
-                  <a [routerLink]="link.attributes.route">{{link.attributes.Title}}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+					<h4>Navigate</h4>
+					<div *ngFor="let nav of navigation">
+						<h5>{{nav.attributes.Heading}}</h5>
+						<ul>
+							<li *ngFor="let link of nav.attributes.pages.data">
+							<a [routerLink]="link.attributes.route">{{link.attributes.Title}}</a>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</div>
 			<div class="col-md-4">
