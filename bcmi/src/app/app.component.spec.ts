@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { SafeHtmlPipe } from '@pipes/safe-html.pipe';
 import { Apollo } from 'apollo-angular';
 import { ContentService } from './services/content-service';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -21,6 +23,8 @@ describe('AppComponent', () => {
         ContentService
       ],
       declarations: [
+        HeaderComponent,
+        FooterComponent,
         AppComponent,
         SafeHtmlPipe
       ],

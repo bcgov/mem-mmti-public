@@ -48,10 +48,10 @@ export function initConfig(configService: ConfigService) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
     HeaderComponent,
     FooterComponent,
+    AppComponent,
+    HomeComponent,
     LegislationComponent,
     ComplianceOversightComponent,
     ContactComponent,
