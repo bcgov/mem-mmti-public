@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Header } from '@app/models/content/header';
 import { Api } from '@services/api';
 
 @Component({
@@ -18,7 +17,7 @@ export class HeaderComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  preventDefault($event: MouseEvent) {
+  preventDefault($event: Event) {
     $event.stopPropagation();
    }
 

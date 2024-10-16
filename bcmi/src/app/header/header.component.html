@@ -17,6 +17,8 @@
 					<a class="nav-link dropdown-toggle"
 						data-bs-toggle="dropdown"
 						aria-expanded="false"
+						tabindex="0"
+						(keydown)="preventDefault($event)"
 						(click)="preventDefault($event)">
 						<span>{{nav.attributes.Short_heading}}</span>
 					</a>
