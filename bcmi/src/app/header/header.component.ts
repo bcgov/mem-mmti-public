@@ -18,5 +18,9 @@ export class HeaderComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  preventDefault($event: MouseEvent) {
+    $event.stopPropagation();
+   }
+
 }
 
