@@ -31,7 +31,9 @@ export class ConfigService {
     const results = await this.contentService.getRoutes();
     const routes: Route[] = [];
     results.forEach( (page) => {
-      routes.push({path: page.attributes.route, component: PageComponent, resolve: {pageData: ContentResolver}})
+      if(!this.router.config.some((route) => route.path === page.attributes.route)) {
+        routes.push({path: page.attributes.route, component: PageComponent, resolve: {pageData: ContentResolver}})
+      }
     })
     const newRoutes = [...routes, ...this.router.config];
     this.router.resetConfig(newRoutes);
