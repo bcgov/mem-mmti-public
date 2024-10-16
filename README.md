@@ -33,13 +33,14 @@ Git commit signing is required for commits. [How to setup git commit signing](ht
 
 **Software Requirements**
 
-- Node 10.19 or higher must be installed.
+- Node 20 or higher must be installed.
 - @angular/cli should be installed.
 
 ### Installation
 
+- [Clone the mem-mmti-public repository](https://help.github.com/en/articles/cloning-a-repository)
+
 **To connect to the openshift dev database:**
-- [Clone the GWELLS repository](https://help.github.com/en/articles/cloning-a-repository)
   1. Login to openshift and copy the login token (Click your name in the top right)
   2. In a terminal paste and run the login command.
   3. Ensure no other postgres instance is running or choose another port (brew services stop postgresql)
@@ -69,8 +70,8 @@ Git commit signing is required for commits. [How to setup git commit signing](ht
 
 ### Unit tests
 
-Set up via [Karma](https://karma-runner.github.io), [Jasmine](https://jasmine.github.io/).
-1. Run `ng test` to execute the unit tests.
+Set up via [Jest](https://github.com/jestjs/jest).
+1. Run ```npm test``` to execute the unit tests.
 
 ### End-to-end functional tests
 
