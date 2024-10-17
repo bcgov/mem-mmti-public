@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_layout_footer_bars",
+  "info": {
+    "displayName": "footer_bar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "External_link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.link"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_footer_links",
+  "info": {
+    "displayName": "FooterLink"
+  },
+  "options": {},
+  "attributes": {
+    "Link_name": {
+      "type": "string"
+    },
+    "Page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

@@ -1,5 +1,6 @@
+// Base
 @import "../../assets/styles/base.scss";
-//TO DO: Techinal Debt, fix banner resizing issues
+
 header {
     &.app-header {
         @include clearfix;
@@ -27,6 +28,7 @@ header {
 }
 
 .navbar-toggler {
+    float: right;
     margin-top: 0.65rem;
     margin-right: 1rem;
     padding: 0.5rem 0.4rem;

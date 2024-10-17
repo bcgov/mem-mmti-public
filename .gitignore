@@ -51,3 +51,5 @@ Thumbs.db
 
 functional-tests/\.java-version
 cms/.env
+cms/.strapi-updater.json
+cms/package-lock.json

@@ -1,0 +1,38 @@
+<header class="app-header" id="header">
+	<div class="brand-container">
+		<a class="brand" href="/" [routerLink]="['/']" tabindex="0"> </a>
+		<button class="navbar-toggler float-right hidden-xl-up collapsed" type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#mainNav"
+			aria-controls="mainNav"
+			aria-expanded="false"
+			aria-label="Toggle navigation"><i class="material-icons">menu</i><span>MENU</span>
+		</button>
+	</div>
+
+	<nav class="navbar navbar-expand-xl main-nav">
+		<div class="collapse navbar-collapse" id="mainNav">
+			<ul class="navbar-nav">
+				<li *ngFor="let nav of navigation" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle"
+						data-bs-toggle="dropdown"
+						aria-expanded="false"
+						tabindex="0"
+						(keydown)="preventDefault($event)"
+						(click)="preventDefault($event)">
+						<span>{{nav.attributes.Short_heading}}</span>
+					</a>
+					<div class="dropdown-menu dm-sm dropdown-menu-right">
+						<a *ngFor="let link of nav.attributes.pages.data" class="dropdown-item" [routerLink]="link.attributes.route">
+							<strong>{{link.attributes.Title}}</strong>
+							<span class="dd-item-desc">{{link.attributes.tooltip}}</span>
+						</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/contact" [routerLink]="['/contact']"><span>Connect With Us</span></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>

@@ -12,20 +12,20 @@ export class PageComponent implements OnInit {
 
   pageData: Page;
   routerLink: string;
-  initialFragment: string | null;
+  fragment: string | null;
   isTwoColumn: boolean;
   handledFragmentFlag: boolean;
 
   constructor(private activatedRoute: ActivatedRoute){
-    this.initialFragment = null;
+    this.fragment = null;
     this.routerLink = "/" + activatedRoute.snapshot.routeConfig.path;
 
     afterRender(() => {
       // Only need to do this once after our content loaded
       if (this.handledFragmentFlag) { return; }
       const contentHasLoaded = document.getElementById('page-content').hasChildNodes();
-      if (contentHasLoaded && this.initialFragment) {
-        this.jumpToSection(this.initialFragment);
+      if (contentHasLoaded && this.fragment) {
+        this.jumpToSection(this.fragment);
         this.handledFragmentFlag = true;
       }
     });
@@ -33,19 +33,23 @@ export class PageComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
+
     this.activatedRoute.data.subscribe((response: any) => {
       this.pageData = response.pageData;
     });
+
     this.activatedRoute.fragment.subscribe(fragment => {
-      this.initialFragment = fragment;
+      this.fragment = fragment;
+      this.jumpToSection(this.fragment); // nothing will happen before the content is rendered
     });
+
     // This conditional will need to be changed whenever sidecards are added to the template
     this.isTwoColumn = !!this.pageData.External_card || !!this.pageData.Ongoing_card || !!this.pageData.Related_card || !!this.pageData.Enforcement_Actions_card;
   }
 
   jumpToSection(section: string | null) {
     if (section) {
-      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(section)?.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
   }
 

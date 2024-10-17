@@ -10,6 +10,8 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent} from './footer/footer.component';
 import { LegislationComponent } from './static-pages/legislation/legislation.component';
 import { ComplianceOversightComponent } from './static-pages/compliance-oversight/compliance-oversight.component';
 import { ContactComponent } from './static-pages/contact/contact.component';
@@ -46,6 +48,8 @@ export function initConfig(configService: ConfigService) {
 
 @NgModule({
   declarations: [
+    HeaderComponent,
+    FooterComponent,
     AppComponent,
     HomeComponent,
     LegislationComponent,

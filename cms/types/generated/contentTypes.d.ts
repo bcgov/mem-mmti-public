@@ -818,6 +818,52 @@ export interface ApiFastFactFastFact extends Schema.CollectionType {
   };
 }
 
+export interface ApiFooterFooter extends Schema.SingleType {
+  collectionName: 'footers';
+  info: {
+    singularName: 'footer';
+    pluralName: 'footers';
+    displayName: 'Footer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    About_title: Attribute.String;
+    Connect_description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    Connect_title: Attribute.String;
+    About_description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHomeHome extends Schema.SingleType {
   collectionName: 'homes';
   info: {
@@ -850,18 +896,19 @@ export interface ApiNavigationNavigation extends Schema.CollectionType {
     singularName: 'navigation';
     pluralName: 'navigations';
     displayName: 'Navigation';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    Name: Attribute.String;
-    defaultRoute: Attribute.String;
+    Heading: Attribute.String;
     pages: Attribute.Relation<
       'api::navigation.navigation',
       'oneToMany',
       'api::page.page'
     >;
+    Short_heading: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -961,6 +1008,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::fast-fact.fast-fact': ApiFastFactFastFact;
+      'api::footer.footer': ApiFooterFooter;
       'api::home.home': ApiHomeHome;
       'api::navigation.navigation': ApiNavigationNavigation;
       'api::page.page': ApiPagePage;

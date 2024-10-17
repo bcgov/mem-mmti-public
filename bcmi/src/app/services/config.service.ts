@@ -9,6 +9,7 @@ import { ContentService } from './content-service';
 export class ConfigService {
   // defaults
   private configuration = {};
+  public globalContent = null;
 
   constructor(
     private httpClient: HttpClient,
@@ -30,11 +31,15 @@ export class ConfigService {
     const results = await this.contentService.getRoutes();
     const routes: Route[] = [];
     results.forEach( (page) => {
-      routes.push({path: page.attributes.route, component: PageComponent, resolve: {pageData: ContentResolver}})
+      if(!this.router.config.some((route) => route.path === page.attributes.route)) {
+        routes.push({path: page.attributes.route, component: PageComponent, resolve: {pageData: ContentResolver}})
+      }
     })
     const newRoutes = [...routes, ...this.router.config];
     this.router.resetConfig(newRoutes);
-    
+
+    //fetch global content
+    this.globalContent = await this.contentService.getGlobalContent();
     const application = 'BCMI';
     try {
       // Attempt to get application via this.httpClient. This uses the url of the application that you are running it from

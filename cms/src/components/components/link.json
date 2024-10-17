@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_components_links",
+  "info": {
+    "displayName": "externalLink",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Url_name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}
