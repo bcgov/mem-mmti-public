@@ -40,7 +40,6 @@ export class ConfigService {
 
     //fetch global content
     this.globalContent = await this.contentService.getGlobalContent();
-    console.log(this.globalContent);
     const application = 'BCMI';
     try {
       // Attempt to get application via this.httpClient. This uses the url of the application that you are running it from

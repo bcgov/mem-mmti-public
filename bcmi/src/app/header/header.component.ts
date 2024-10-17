@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Api } from '@services/api';
 
 @Component({
@@ -7,15 +7,10 @@ import { Api } from '@services/api';
   styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() navigation: any;
   hostname: string;
   constructor( private api: Api) { }
-
-  ngOnInit() {
-    this.hostname = this.api.hostnameNRPTI;
-    window.scrollTo(0, 0);
-  }
 
   preventDefault($event: Event) {
     $event.stopPropagation();

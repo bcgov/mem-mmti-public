@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Footer } from '@app/models/content/footer';
 import { Api } from '@app/services/api';
 
@@ -9,17 +9,11 @@ import { Api } from '@app/services/api';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   @Input() footerData: Footer;
   @Input() navigation: any;
   hostname: string;
   constructor( private api: Api) { }
-
-  ngOnInit() {
-    this.hostname = this.api.hostnameNRPTI;
-    window.scrollTo(0, 0);
-    console.log(this.navigation);
-  }
 
 }
