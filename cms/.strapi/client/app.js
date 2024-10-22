@@ -3,6 +3,7 @@
  * Any modifications made will be discarded.
  */
 import ckeditor5 from "@_sh/strapi-plugin-ckeditor/strapi-admin";
+import strapiPluginSso from "@chordata-insight/strapi-plugin-sso/strapi-admin";
 import strapiCloud from "@strapi/plugin-cloud/strapi-admin";
 import graphql from "@strapi/plugin-graphql/strapi-admin";
 import i18N from "@strapi/plugin-i18n/strapi-admin";
@@ -16,6 +17,7 @@ renderAdmin(document.getElementById("strapi"), {
 
   plugins: {
     ckeditor5: ckeditor5,
+    "strapi-plugin-sso": strapiPluginSso,
     "strapi-cloud": strapiCloud,
     graphql: graphql,
     i18n: i18N,
